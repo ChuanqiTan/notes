@@ -1,0 +1,97 @@
+insert a:4
+insert b:2
+insert c:7
+insert d:5
+insert e:1
+insert f:8
+maxDegree=0  count=6  roots=e:1:0:0 f:8:0:0 d:5:0:0 c:7:0:0 a:4:0:0 b:2:0:0 
+min=e:1
+removeMinimum
+maxDegree=2  count=5  roots=b:2:0:0 a:4:2:0(c:7:0:0 d:5:1:0(f:8:0:0 ) ) 
+min=b:2
+removeMinimum
+maxDegree=2  count=4  roots=a:4:2:0(c:7:0:0 d:5:1:0(f:8:0:0 ) ) 
+min=a:4
+removeMinimum
+maxDegree=1  count=3  roots=d:5:1:0(f:8:0:0 ) c:7:0:0 
+min=d:5
+removeMinimum
+maxDegree=1  count=2  roots=c:7:1:0(f:8:0:0 ) 
+min=c:7
+removeMinimum
+maxDegree=0  count=1  roots=f:8:0:0 
+min=f:8
+removeMinimum
+maxDegree=0  count=0  roots=
+
+
+insert a:400
+insert b:200
+insert c:70
+insert d:50
+insert e:10
+insert f:80
+maxDegree=0  count=6  roots=e:10:0:0 f:80:0:0 a:400:0:0 b:200:0:0 c:70:0:0 d:50:0:0 
+min=e:10
+removeMinimum
+min=d:50
+maxDegree=2  count=5  roots=d:50:0:0 c:70:2:0(b:200:0:0 f:80:1:0(a:400:0:0 ) ) 
+decrease key of a:400 to 40
+min=a:40
+maxDegree=2  count=5  roots=a:40:0:0 c:70:2:0(b:200:0:0 f:80:0:1 ) d:50:0:0 
+decrease key of b:200 to 20
+min=b:20
+maxDegree=2  count=5  roots=b:20:0:0 c:70:1:0(f:80:0:1 ) d:50:0:0 a:40:0:0 
+decrease key of c:70 to 7
+min=c:7
+maxDegree=2  count=5  roots=c:7:1:0(f:80:0:1 ) d:50:0:0 a:40:0:0 b:20:0:0 
+decrease key of d:50 to 5
+min=d:5
+maxDegree=2  count=5  roots=d:5:0:0 a:40:0:0 b:20:0:0 c:7:1:0(f:80:0:1 ) 
+decrease key of f:80 to 8
+min=d:5
+maxDegree=2  count=5  roots=d:5:0:0 a:40:0:0 b:20:0:0 c:7:1:0(f:8:0:1 ) 
+
+
+insert AA:4
+insert BB:2
+insert CC:7
+insert DD:5
+insert EE:1
+insert FF:8
+maxDegree=2  count=11  roots=EE:1:0:0 FF:8:0:0 DD:5:0:0 CC:7:0:0 a:40:0:0 b:20:0:0 c:7:1:0(f:8:0:1 ) d:5:0:0 AA:4:0:0 BB:2:0:0 
+min=EE:1
+removeMinimum
+maxDegree=3  count=10  roots=BB:2:1:0(AA:4:0:0 ) d:5:3:0(b:20:0:0 DD:5:2:0(FF:8:0:0 CC:7:1:0(a:40:0:0 ) ) c:7:1:0(f:8:0:1 ) ) 
+min=BB:2
+removeMinimum
+maxDegree=3  count=9  roots=AA:4:0:0 d:5:3:0(b:20:0:0 DD:5:2:0(FF:8:0:0 CC:7:1:0(a:40:0:0 ) ) c:7:1:0(f:8:0:1 ) ) 
+min=AA:4
+removeMinimum
+maxDegree=3  count=8  roots=d:5:3:0(b:20:0:0 DD:5:2:0(FF:8:0:0 CC:7:1:0(a:40:0:0 ) ) c:7:1:0(f:8:0:1 ) ) 
+min=d:5
+removeMinimum
+maxDegree=2  count=7  roots=DD:5:2:0(FF:8:0:0 CC:7:1:0(a:40:0:0 ) ) b:20:0:0 c:7:1:0(f:8:0:1 ) 
+min=DD:5
+removeMinimum
+maxDegree=2  count=6  roots=c:7:1:0(f:8:0:1 ) CC:7:2:0(a:40:0:0 FF:8:1:0(b:20:0:0 ) ) 
+min=c:7
+removeMinimum
+maxDegree=2  count=5  roots=CC:7:2:0(a:40:0:0 FF:8:1:0(b:20:0:0 ) ) f:8:0:1 
+min=CC:7
+removeMinimum
+maxDegree=2  count=4  roots=f:8:2:1(a:40:0:0 FF:8:1:0(b:20:0:0 ) ) 
+min=f:8
+removeMinimum
+maxDegree=1  count=3  roots=FF:8:1:0(b:20:0:0 ) a:40:0:0 
+min=FF:8
+removeMinimum
+maxDegree=1  count=2  roots=b:20:1:0(a:40:0:0 ) 
+min=b:20
+removeMinimum
+maxDegree=0  count=1  roots=a:40:0:0 
+min=a:40
+removeMinimum
+maxDegree=0  count=0  roots=
+
+

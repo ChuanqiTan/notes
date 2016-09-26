@@ -1,0 +1,10 @@
+Prim最小生成树
+& -- a
+a -- b
+b -- c
+c -- i
+c -- f
+f -- g
+g -- h
+c -- d
+d -- e
