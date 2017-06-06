@@ -5,17 +5,11 @@
 Shell 编程
 ====================================
 
-.. sidebar:: Information
-   
-   :主页:      http://www.tcqi.net    `[Blog] <http://blog.csdn.com/hannosogno/>`_
-   :E-mail:    chuanqi.tan (@) gmail.com
-   :CopyRight: 采用"CC BY 2.5"许可协议
-   :作者:      谭川奇
+.. sidebar:: Linux & Shell
 
-   .. contents:: `Contents`
-      :depth: 2
-   
+    | 所有合格的计算机从业人员都应该熟悉Linux和Shell
 
+.. include:: /head.template
 
 Ubuntu Bash Shell 必备快捷键
 ---------------------------------

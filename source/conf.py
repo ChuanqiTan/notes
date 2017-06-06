@@ -12,6 +12,7 @@
 # serve to show the default.
 
 import sys, os
+import sphinx_rtd_theme
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
@@ -42,7 +43,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'chuanqi\'s notes'
-copyright = u'2012, Tan Chuan Qi'
+copyright = u'2017, Chuanqi Tan'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -92,7 +93,12 @@ pygments_style = 'sphinx'
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-html_theme = 'sphinxdoc'
+html_theme = 'sphinx_rtd_theme'
+html_theme_options = {
+    'collapse_navigation': False,
+    'display_version': False,
+    # 'navigation_depth': 3,
+}
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
@@ -100,7 +106,7 @@ html_theme = 'sphinxdoc'
 #html_theme_options = {}
 
 # Add any paths that contain custom themes here, relative to this directory.
-#html_theme_path = []
+html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
 
 # The name for this set of Sphinx documents.  If None, it defaults to
 # "<project> v<release> documentation".
@@ -249,7 +255,7 @@ texinfo_documents = [
 epub_title = u'chuanqi\'s notes'
 epub_author = u'Tan Chuan Qi'
 epub_publisher = u'Tan Chuan Qi'
-epub_copyright = u'2012, Tan Chuan Qi'
+epub_copyright = u'2017, Tan Chuan Qi'
 
 # The language of the text. It defaults to the language option
 # or en if the language is not set.
