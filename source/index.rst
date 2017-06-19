@@ -3,17 +3,85 @@
 ===========================================
 
 
+计算机原理
+-----------------
+
+编译原理
+++++++++++++
+.. toctree::
+   :maxdepth: 1
+
+
+操作系统
+++++++++++++
+.. toctree::
+   :maxdepth: 1
+
+   software/os
+
+- `Linux 学习笔记 <https://docs.google.com/document/d/11n_K0XCCSWnh2fpblGEfAMWRUPYyArpkBeQ5cQH2xPI/edit>`_
+
+
+数据结构与算法
++++++++++++++++
+.. toctree::
+   :maxdepth: 1
+
+   software/introduction-to-algorithms-notes/introduction-to-algorithms-notes
+
+
+
 Language
 -----------------
+
+C++
+++++++++++++++++
+.. toctree::
+   :maxdepth: 1
+
+   language/cpp/cpp_micro
+   language/cpp/google_library
+   language/cpp/cpp_code_style
+
+
+Python
+++++++++++++++++
+.. toctree::
+   :maxdepth: 1
+
+   language/python/dive_into_python
+   language/python/expert_python
+
+
+其它语言
+++++++++++++++++
 .. toctree::
    :maxdepth: 1
 
    language/bash_shell
-   language/python/dive_into_python
-   language/python/expert_python
-   language/cpp/cpp_micro
-   language/cpp/google_library
-   language/cpp/cpp_code_style
+
+
+Coding
+------------------
+.. toctree::
+   :maxdepth: 1
+
+- `设计模式 读书笔记 <../../source/software/Design%20Pattern/Design%20Pattern%20Study/设计模式.docx>`_
+
+
+Tools
+------------------
+.. toctree::
+   :maxdepth: 1
+
+   tools/vim.rst
+   tools/eclipse.rst
+   tools/regex.rst
+   tools/reStructuredText
+
+
+Others
+------------------
 
 - `C++ Primer 读书笔记 <https://docs.google.com/document/d/1TV33ab9kJ6kg6Rx-7ra8eOn3vSEo4-ZczHdackTY3q8/edit#heading=h.rfavte3j40uo>`_
 - `More Effective C++ <https://docs.google.com/document/d/1tMtXJ-4EWbUtqo2Oxdl-wKLCo0Mi9NiWt5ueyye3cQ0/edit>`_
@@ -29,41 +97,6 @@ Language
 - `Javascript 权威指南 <https://docs.google.com/document/d/1qsXmdJRtyXcjygj3JErq2wq8fD9xIW_bXN24LoE6RoI/edit>`_
 - `圣殿祭祀的ASP.NET 2.0开发详解 <https://docs.google.com/document/d/10QEPibVR19yEc6dzqn1KxfSpDfZ8jiuqTDbXD8aRihQ/edit>`_
 - `ASP.NET 2.0 服务器控件与组件开发高级编程 <https://docs.google.com/document/d/1uWbOwp3FKV_431v8A3VZnqduHkaN8IHNGkZJPPoGTwk/edit>`_
-
-
-
-Tools
-------------------
-
-.. toctree::
-   :maxdepth: 1
-
-   tools/vim.rst
-   tools/eclipse.rst
-   tools/regex.rst
-   tools/reStructuredText
-
-- `Linux 学习笔记 <https://docs.google.com/document/d/11n_K0XCCSWnh2fpblGEfAMWRUPYyArpkBeQ5cQH2xPI/edit>`_
-
-
-
-Software
-------------------
-
-.. toctree::
-   :maxdepth: 1
-
-   software/introduction-to-algorithms-notes/introduction-to-algorithms-notes
-   software/os
-
-- `设计模式 读书笔记 <../../source/software/Design%20Pattern/Design%20Pattern%20Study/设计模式.docx>`_
-- `算法导论 读书笔记 <https://docs.google.com/viewer?url=http%3A%2F%2Fintroduction-to-algorithms-notes.googlecode.com%2Ffiles%2F%25E3%2580%258A%25E7%25AE%2597%25E6%25B3%2595%25E5%25AF%25BC%25E8%25AE%25BA%25E3%2580%258B%25E5%25AD%25A6%25E4%25B9%25A0%25E7%25AC%2594%25E8%25AE%25B0%2520v1.0.pdf>`_
-
-
-
-Computer Vision
-------------------
-
 - `OpenCV 学习笔记 <../../source/computer_vision/OpenCV_学习笔记.odt>`_
 - `数字图像处理 读书笔记 <../../source/computer_vision/数字图像处理_读书笔记.odt>`_
 
@@ -75,3 +108,5 @@ Computer Vision
    * :ref:`genindex`
    * :ref:`modindex`
    * :ref:`search`
+
+
