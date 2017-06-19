@@ -42,7 +42,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'chuanqi\'s notes'
+project = u'dream Notes'
 copyright = u'2017, Chuanqi Tan'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -93,6 +93,7 @@ pygments_style = 'sphinx'
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
+# html_theme = 'sphinxdoc'
 html_theme = 'sphinx_rtd_theme'
 html_theme_options = {
     'collapse_navigation': False,
@@ -177,21 +178,44 @@ htmlhelp_basename = 'chuanqisnotesdoc'
 
 # -- Options for LaTeX output --------------------------------------------------
 
+# latex_elements = {
+# # The paper size ('letterpaper' or 'a4paper').
+# #'papersize': 'letterpaper',
+
+# # The font size ('10pt', '11pt' or '12pt').
+# #'pointsize': '10pt',
+
+# # Additional stuff for the LaTeX preamble.
+# #'preamble': '',
+# }
+
 latex_elements = {
 # The paper size ('letterpaper' or 'a4paper').
-#'papersize': 'letterpaper',
+'papersize': 'a4paper',
 
 # The font size ('10pt', '11pt' or '12pt').
-#'pointsize': '10pt',
+#'pointsize': '12pt',
+
+'classoptions': ',english',
+'inputenc': '',
+'utf8extra': '',
 
 # Additional stuff for the LaTeX preamble.
-#'preamble': '',
+'preamble': '''
+\usepackage{xeCJK}
+\usepackage{indentfirst}
+\setlength{\parindent}{2em}
+\setCJKmainfont[BoldFont=SimHei, ItalicFont=STKaiti]{SimSun}
+\setCJKmonofont[Scale=0.9]{Consolas}
+\setCJKfamilyfont{song}[BoldFont=SimSun]{SimSun}
+\setCJKfamilyfont{sf}[BoldFont=SimSun]{SimSun}
+'''
 }
 
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
-  ('index', 'chuanqisnotes.tex', u'chuanqi\'s notes Documentation',
+  ('index', 'chuanqisnotes.tex', u'chuanqi\'s Dream Notes Documentation',
    u'Tan Chuan Qi', 'manual'),
 ]
 
