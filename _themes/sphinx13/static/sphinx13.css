@@ -346,6 +346,7 @@ pre {
     border: 1px solid #ccc;
     border-radius: 2px;
     background-color: #f8f8f8;
+    white-space: pre-wrap;
 }
 
 pre a {
