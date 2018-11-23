@@ -14,6 +14,9 @@
    software/os
 
 
+Coding
+-----------------
+
 数据结构与算法
 +++++++++++++++
 .. toctree::
@@ -21,6 +24,14 @@
 
    software/introduction-to-algorithms-notes/introduction-to-algorithms-notes
 - 《算法导论》 `笔记和代码@Google Code <http://code.google.com/p/introduction-to-algorithms-notes/>`_ , Google Code关闭后转移到了 `github <https://github.com/chuanqitan/introduction-to-algorithms-notes>`_ 
+
+
+设计与架构
+++++++++++++++++
+.. toctree::
+   :maxdepth: 1
+
+- `读书笔记《设计模式》 <http://www.chuanqi.name/attachment/设计模式.pdf>`_
 
 
 
@@ -42,7 +53,6 @@ C++
 - `读书笔记《深入理解C++对象模型》 <http://www.chuanqi.name/attachment/深度探索C++对象模型_读书笔记.pdf>`_
 
 
-
 Python
 ++++++++++++++++
 .. toctree::
@@ -60,13 +70,6 @@ Python
    language/bash_shell
 - `读书笔记《JavaScript 权威指南》 <http://www.chuanqi.name/attachment/Javascript%20权威指南.pdf>`_
 
-
-Coding
-------------------
-.. toctree::
-   :maxdepth: 1
-
-- `读书笔记《设计模式》 <http://www.chuanqi.name/attachment/设计模式.pdf>`_
 
 
 Tools
