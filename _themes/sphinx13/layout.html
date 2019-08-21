@@ -19,8 +19,8 @@
 {% endblock %}
 
 {% block extrahead %}
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'
-          rel='stylesheet' type='text/css' />
+    <!--<link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'-->
+          <!--rel='stylesheet' type='text/css' />-->
 {{ super() }}
 {%- if not embedded %}
     <style type="text/css">
@@ -81,3 +81,43 @@
   </div>
 </div>
 {% endblock %}
+
+
+{%- block document %}
+    <div class="documentwrapper">
+    {%- if render_sidebar %}
+      <div class="bodywrapper">
+    {%- endif %}
+        <div class="body" role="main">
+          {% block body %} {% endblock %}
+        </div>
+
+
+
+        <!-- 来必力City版安装代码 -->
+        <div id="lv-container" data-id="city" data-uid="MTAyMC80MDU4Ni8xNzExMw==">
+        <script type="text/javascript">
+           (function(d, s) {
+               var j, e = d.getElementsByTagName(s)[0];
+
+               if (typeof LivereTower === 'function') { return; }
+
+               j = d.createElement(s);
+               j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+               j.async = true;
+
+               e.parentNode.insertBefore(j, e);
+           })(document, 'script');
+        </script>
+        <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+        </div>
+        <!-- City版安装代码已完成 -->
+
+
+
+    {%- if render_sidebar %}
+      </div>
+    {%- endif %}
+    </div>
+{%- endblock %}
+
