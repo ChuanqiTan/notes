@@ -81,6 +81,7 @@ Tools
    tools/eclipse.rst
    tools/regex.rst
    tools/reStructuredText
+- `Mkdocs & Markdown 学习笔记 <https://chuanqitan.github.io/mkdocs-notes/>`_
 
 
 

@@ -353,7 +353,11 @@ Ctrl + Shift + PageDown        标签页右移动
   | **注意是作为command的最后一个参数运行的！**
   | 因为find命令里使用CMD时在不同的系统中可能会参数太长溢出或新开线程太多而产生错误，使用xargs搭配find命令更加的好用和高效。
 
-  - -i 选项告诉 xargs 用每项的名称替换{}，同时限定每次只传递一个参数， ``ls | xargs -i mv {} {}.bak`` 进行同名备份。
+  - ``-I {}`` 选项告诉 xargs 用每项的名称替换{}，同时限定每次只传递一个参数。
+
+    - 以前版本只要用 ``-i`` 参数，已被废弃（``-i for xargs was deprecated around version 4.2.9. You should use -I {}``）
+    - ``ls | xargs -I {} mv {} {}.bak`` 进行同名备份。
+
   - -t 选项指示 xargs 先打印命令，然后再执行。
   - -n 选项限制单个命令行的参数个数， ``file * | cut -d":" -f1 | xargs -t -n 2 ls -ltr`` 限定每次只传递2个参数。
 
@@ -361,7 +365,6 @@ Ctrl + Shift + PageDown        标签页右移动
 
   - -e Linux中的echo默认不解释STRING中的转义字符，除非加上此选项（解释转义字符的最常用用途就是打印彩色字吧）
   - -n 默认在输出STRING后会再输出一个换行，加了些选项将不输出换行
-
 - | read varible1 varible2 varible3...
   | 注意当输入的单词数大于变量数时，read会把所有的超长部分都赋予最后一个变量。
 
