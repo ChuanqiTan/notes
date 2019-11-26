@@ -1,0 +1,991 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh_CN">
+  <head>
+    <meta charset="utf-8" />
+    <title>正则表达式（Regular Expression） &#8212; Chuanqi 的技术文档</title>
+    <link rel="stylesheet" href="../_static/sphinx13.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="reStructuredText 学习笔记" href="reStructuredText.html" />
+    <link rel="prev" title="Eclipse" href="eclipse.html" />
+    <link rel="canonical" href="http://www.sphinx-doc.org/en/master/tools/regex.html" />
+
+    <!--<link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'-->
+          <!--rel='stylesheet' type='text/css' />-->
+ 
+    <style type="text/css">
+      table.right { float: right; margin-left: 20px; }
+      table.right td { border: 1px solid #ccc; }
+      
+      .injected { display:none; }
+    </style>
+    <script type="text/javascript">
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+
+  </head><body>
+<div class="pageheader">
+  <ul>
+    <li><a href="../index.html">笔记首页</a></li>
+    <li><a href="http://blog.tanchuanqi.com">博客首页</a></li>
+    <li><a href="https://tanchuanqi.com">个人主页</a></li>
+  </ul>
+  <div>
+    <a href="../index.html">
+      <img src="../_static/sphinxheader.png" alt="SPHINX" />
+    </a>
+  </div>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="总目录"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="reStructuredText.html" title="reStructuredText 学习笔记"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="eclipse.html" title="Eclipse"
+             accesskey="P">上一页</a> |</li>
+        <!--<li><a href="../index.html">首页</a>&#160;|</li>-->
+        <!--<li><a href="../contents.html">Documentation</a> &#187;</li>-->
+ 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">正则表达式（Regular Expression）</a><ul>
+<li><a class="reference internal" href="#id1">精通正则表达式</a><ul>
+<li><a class="reference internal" href="#id2">第一章：正则表达式入门</a></li>
+<li><a class="reference internal" href="#id4">第二章：入门示例拓展</a></li>
+<li><a class="reference internal" href="#id5">第三章：正则表达式的特性和流派概览</a></li>
+<li><a class="reference internal" href="#id6">第四章：表达式的匹配原理</a></li>
+<li><a class="reference internal" href="#id7">第五章：正则表达式实用技巧</a></li>
+<li><a class="reference internal" href="#id8">第六章：打造高效的正则表达式</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#python">Python 中的正则表达式 </a></li>
+<li><a class="reference internal" href="#c">C++ 中的正则表达式</a><ul>
+<li><a class="reference internal" href="#regex">&lt;regex&gt; </a></li>
+<li><a class="reference internal" href="#re2">re2 </a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一个主题</h4>
+  <p class="topless"><a href="eclipse.html"
+                        title="上一章">Eclipse</a></p>
+  <h4>下一个主题</h4>
+  <p class="topless"><a href="reStructuredText.html"
+                        title="下一章"><em>re</em>Structured<em>Text</em> 学习笔记</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="转向" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+    <div class="documentwrapper">
+      <div class="bodywrapper">
+        <div class="body" role="main">
+          
+  <div class="section" id="regular-expression">
+<h1>正则表达式（Regular Expression）<a class="headerlink" href="#regular-expression" title="永久链接至标题">¶</a></h1>
+<div class="section" id="id1">
+<h2>精通正则表达式<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<p>正则表达式可以说是一门艺术，经验的积累才能达到更好的境界！</p>
+<p>目前主要存在三种正则表达式的版本：Perl (PCRE), POSIX Basic Regular Expressions(BRE), POSIX Extended Regular Expressions(ERE).</p>
+<div class="section" id="id2">
+<h3>第一章：正则表达式入门<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h3>
+<ul>
+<li><p>^脱字符代表一行的开始，$美元符号代表一行的结尾。这里注意Singleline和Multiline模式的区别。</p></li>
+<li><p>在字符组内部，字符组元字符 ‘-’（连字符）表示一个范围。只有在字符组内部，连字符才是元字符–否则它就只能匹配普通的连字符号。但是如果‘-’出现在字符组的开始，它表示的也是普通的字符。同样的道理，问号和点号通常被当作元字符处理，但在字符组中则代表普通的字符。（这点其实可以被利用）</p></li>
+<li><p>下表是元字符及其在正则表达式上下文中的行为的一个完整列表：（自己来不断完善…)</p>
+<blockquote>
+<div><table class="docutils align-default">
+<colgroup>
+<col style="width: 13%" />
+<col style="width: 87%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>字符</p></th>
+<th class="head"><p>含意</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>\</p></td>
+<td><p>将下一个字符标记为一个特殊字符、或一个原义字符、或一个后向引用、或一个八进制转义符。
+例如，’n’ 匹配字符 “n”。’\n’ 匹配一个换行符。序列 ‘' 匹配 “” 而 “\(” 则匹配 “(“。</p></td>
+</tr>
+<tr class="row-odd"><td><p>^</p></td>
+<td><p>匹配输入字符串的开始位置。如果设置了 RegExp 对象的 Multiline 属性，^ 也匹配 ‘\n’ 或 ‘\r’ 之后的位置。</p></td>
+</tr>
+<tr class="row-even"><td><p>$</p></td>
+<td><p>匹配输入字符串的结束位置。如果设置了RegExp 对象的 Multiline 属性，$ 也匹配 ‘\n’ 或 ‘\r’ 之前的位置。</p></td>
+</tr>
+<tr class="row-odd"><td><p>*</p></td>
+<td><p>匹配前面的子表达式零次或多次。例如，zo* 能匹配 “z” 以及 “zoo”。 * 等价于{0,}。</p></td>
+</tr>
+<tr class="row-even"><td><p>+</p></td>
+<td><p>匹配前面的子表达式一次或多次。例如，’zo+’ 能匹配 “zo” 以及 “zoo”，但不能匹配 “z”。+ 等价于 {1,}。</p></td>
+</tr>
+<tr class="row-odd"><td><p>?</p></td>
+<td><p>匹配前面的子表达式零次或一次。例如，”do(es)?” 可以匹配 “do” 或 “does” 中的”do” 。? 等价于 {0,1}。</p></td>
+</tr>
+<tr class="row-even"><td><p>{n}</p></td>
+<td><p>n 是一个非负整数。匹配确定的 n 次。例如，’o{2}’ 不能匹配 “Bob” 中的 ‘o’，但是能匹配 “food” 中的两个 o。</p></td>
+</tr>
+<tr class="row-odd"><td><p>{n,}</p></td>
+<td><p>n 是一个非负整数。至少匹配n 次。 例如:
+‘o{2,}’ 不能匹配 “Bob” 中的 ‘o’，但能匹配 “foooood” 中的所有 o。
+‘o{1,}’ 等价于 ‘o+’。’o{0,}’ 则等价于 ‘o*’。</p></td>
+</tr>
+<tr class="row-even"><td><p>{n,m}</p></td>
+<td><p>m 和 n 均为非负整数，其中n &lt;= m。最少匹配 n 次且最多匹配 m 次。例如:
+“o{1,3}” 将匹配 “fooooood” 中的前三个 o。’o{0,1}’ 等价于 ‘o?’。请注意在逗号和两个数之间不能有空格。</p></td>
+</tr>
+<tr class="row-odd"><td><p>?</p></td>
+<td><p>当该字符紧跟在任何一个其他限制符 (*, +, ?, {n}, {n,}, {n,m}) 后面时，匹配模式是非贪婪的。
+非贪婪模式尽可能少的匹配所搜索的字符串，而默认的贪婪模式则尽可能多的匹配所搜索的字符串。
+例如，对于字符串 “oooo”，’o+?’ 将匹配单个 “o”，而 ‘o+’ 将匹配所有 ‘o’。</p></td>
+</tr>
+<tr class="row-even"><td><p>.</p></td>
+<td><p>匹配除 “\n” 之外的任何单个字符。要匹配包括 ‘\n’ 在内的任何字符，请使用象 ‘[.\n]’ 的模式。</p></td>
+</tr>
+<tr class="row-odd"><td><p>(pattern)</p></td>
+<td><p>匹配pattern 并获取这一匹配。
+所获取的匹配可以从产生的 Matches 集合得到，要匹配圆括号字符，请使用 ‘\(‘ 或 ‘\)’。</p></td>
+</tr>
+<tr class="row-even"><td><p>(?:pattern)</p></td>
+<td><p>匹配 pattern 但不获取匹配结果，也就是说这是一个非获取匹配，不进行存储供以后使用。
+这在使用 “或” 字符 (|) 来组合一个模式的各个部分是很有用。
+例如， ‘industr(?:y|ies) 就是一个比 ‘industry|industries’ 更简略的表达式。</p></td>
+</tr>
+<tr class="row-odd"><td><p>(?=pattern)</p></td>
+<td><div class="line-block">
+<div class="line"><strong>肯定</strong> <span class="target" id="id3">顺序环视</span> <strong>：子表达式能够匹配右侧的文本</strong></div>
+<div class="line">正向预查，在任何匹配 pattern 的字符串开始处匹配查找字符串。</div>
+<div class="line">这是一个非获取匹配，也就是说，该匹配不需要获取供以后使用。</div>
+<div class="line">例如， ‘Windows (?=95|98|NT|2000)’ 能匹配 “Windows 2000” 中的 “Windows” ，
+但不能匹配 “Windows 3.1” 中的 “Windows”。</div>
+<div class="line"><em>预查不消耗字符，也就是说，在一个匹配发生后，在最后一次匹配之后立即开始下一次匹配的搜索，
+而不是从包含预查的字符之后开始。</em></div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p>(?!pattern)</p></td>
+<td><div class="line-block">
+<div class="line"><strong>否定顺序环视：子表达式不能匹配右侧的文本</strong></div>
+<div class="line">负向预查，在任何不匹配的字符串开始处匹配查找字符串。</div>
+<div class="line">这是一个非获取匹配，也就是说，该匹配不需要获取供以后使用。</div>
+<div class="line">例如’Windows (?!95|98|NT|2000)’ 能匹配 “Windows 3.1” 中的 “Windows”，
+但不能匹配 “Windows 2000” 中的 “Windows”。</div>
+<div class="line"><em>预查不消耗字符，也就是说，在一个匹配发生后，在最后一次匹配之后立即开始下一次匹配的搜索，
+而不是从包含预查的字符之后开始</em></div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>(?&lt;=pattern)))))</p></td>
+<td><p><strong>肯定逆序环视：子表达式能够匹配左侧的文本</strong></p></td>
+</tr>
+<tr class="row-even"><td><p>(?&lt;!pattern)))))</p></td>
+<td><p><strong>否定逆序环视：子表达式不能匹配左侧的文本</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p>x|y</p></td>
+<td><p>匹配 x 或 y。例如，’z|food’ 能匹配 “z” 或 “food”。’(z|f)ood’ 则匹配 “zood” 或 “food”。</p></td>
+</tr>
+<tr class="row-even"><td><p>[xyz]</p></td>
+<td><p>字符集合。匹配所包含的任意一个字符。例如， ‘[abc]’ 可以匹配 “plain” 中的 ‘a’。</p></td>
+</tr>
+<tr class="row-odd"><td><p>[^xyz]</p></td>
+<td><p>负值字符集合。匹配未包含的任意字符。例如， ‘[^abc]’ 可以匹配 “plain” 中的’p’。</p></td>
+</tr>
+<tr class="row-even"><td><p>[a-z]</p></td>
+<td><p>字符范围。匹配指定范围内的任意字符。例如，’[a-z]’ 可以匹配 ‘a’ 到 ‘z’ 范围内的任意小写字母字符。</p></td>
+</tr>
+<tr class="row-odd"><td><p>[^a-z]</p></td>
+<td><p>负值字符范围。匹配任何不在指定范围内的任意字符。
+例如，’[^a-z]’ 可以匹配任何不在 ‘a’ 到 ‘z’ 范围内的任意字符。</p></td>
+</tr>
+<tr class="row-even"><td><p>\b</p></td>
+<td><p>匹配一个单词边界，也就是指单词和空格间的位置。
+例如， ‘er\b’ 可以匹配”never” 中的 ‘er’，但不能匹配 “verb” 中的 ‘er’。</p></td>
+</tr>
+<tr class="row-odd"><td><p>\B</p></td>
+<td><p>匹配非单词边界。’er\B’ 能匹配 “verb” 中的 ‘er’，但不能匹配 “never” 中的 ‘er’。</p></td>
+</tr>
+<tr class="row-even"><td><p>\cx</p></td>
+<td><p>匹配由x指明的控制字符。
+例如， \cM 匹配一个 Control-M 或回车符。 x 的值必须为 A-Z 或 a-z 之一。否则将c视为一个原义的’c’字符。</p></td>
+</tr>
+<tr class="row-odd"><td><p>\d</p></td>
+<td><p>匹配一个数字字符。等价于 [0-9]。</p></td>
+</tr>
+<tr class="row-even"><td><p>\D</p></td>
+<td><p>匹配一个非数字字符。等价于 [^0-9]。</p></td>
+</tr>
+<tr class="row-odd"><td><p>\f</p></td>
+<td><p>匹配一个换页符。等价于 \x0c 和 \cL。</p></td>
+</tr>
+<tr class="row-even"><td><p>\n</p></td>
+<td><p>匹配一个换行符。等价于 \x0a 和 \cJ。</p></td>
+</tr>
+<tr class="row-odd"><td><p>\r</p></td>
+<td><p>匹配一个回车符。等价于 \x0d 和 \cM。</p></td>
+</tr>
+<tr class="row-even"><td><p>\s</p></td>
+<td><p>匹配任何空白字符，包括空格、制表符、换页符等等。等价于 [ \f\n\r\t\v]。</p></td>
+</tr>
+<tr class="row-odd"><td><p>\S</p></td>
+<td><p>匹配任何非空白字符。等价于 [^ \f\n\r\t\v]。</p></td>
+</tr>
+<tr class="row-even"><td><p>\t</p></td>
+<td><p>匹配一个制表符。等价于 \x09 和 \cI。</p></td>
+</tr>
+<tr class="row-odd"><td><p>\v</p></td>
+<td><p>匹配一个垂直制表符。等价于 \x0b 和 \cK。</p></td>
+</tr>
+<tr class="row-even"><td><p>\w</p></td>
+<td><p>匹配包括下划线的任何单词字符。等价于’[A-Za-z0-9_]’。</p></td>
+</tr>
+<tr class="row-odd"><td><p>\W</p></td>
+<td><p>匹配任何非单词字符。等价于 ‘[^A-Za-z0-9_]’。</p></td>
+</tr>
+<tr class="row-even"><td><p>\xn</p></td>
+<td><p>匹配 n，其中 n 为十六进制转义值。十六进制转义值必须为确定的两个数字长。
+例如， ‘\x41’ 匹配 “A”。’\x041’ 则等价于 ‘\x04’ &amp; “1”。正则表达式中可以使用 ASCII 编码。</p></td>
+</tr>
+<tr class="row-odd"><td><p>\num</p></td>
+<td><p>匹配 nuuuuum，其中 num 是一个正整数。对所获取的匹配的 <strong>反向引用</strong> 。例如’(.)’ 匹配两个连续的相同字符。</p></td>
+</tr>
+<tr class="row-even"><td><p>\n</p></td>
+<td><p>标识一个八进制转义值或一个 <strong>反向引用</strong> 。
+如果 \n 之前至少 n 个获取的子表达式，则 n 为后向引用。
+否则，如果 n 为八进制数字 (0-7)，则 n 为一个八进制转义值。</p></td>
+</tr>
+<tr class="row-odd"><td><p>\nm</p></td>
+<td><p>标识一个八进制转义值或一个 <strong>反向引用</strong> 。
+如果 \nm 之前至少有is preceded by at least nm 个获取得子表达式，则 nm 为后向引用。
+如果 \nm 之前至少有 n 个获取，则 n 为一个后跟文字 m 的后向引用。
+如果前面的条件都不满足，若 n 和 m 均为八进制数字 (0-7)，则 \nm 将匹配八进制转义值 nm。</p></td>
+</tr>
+<tr class="row-even"><td><p>\nml</p></td>
+<td><p>如果 n 为八进制数字 (0-3)，且 m 和 l 均为八进制数字 (0-7)，则匹配八进制转义值 nml。</p></td>
+</tr>
+<tr class="row-odd"><td><p>\un</p></td>
+<td><p>匹配 n，其中 n 是一个用四个十六进制数字表示的 Unicode 字符。例如，\u00A9 匹配版权符号 (?)。</p></td>
+</tr>
+<tr class="row-even"><td><p>\G</p></td>
+<td><p>匹配的起始位置、或者上一次匹配的结束位置</p></td>
+</tr>
+<tr class="row-odd"><td><p>(?&gt;pattern)</p></td>
+<td><p><strong>固化分组</strong> ：固化分组中的匹配一旦匹配，就是固定下来，不会保存回溯状态。
+固化分组的实质就是抛弃备选状态！</p></td>
+</tr>
+<tr class="row-even"><td><p>(?(if)then|else)</p></td>
+<td><div class="line-block">
+<div class="line"><strong>条件判断</strong> ：(?(expression)yes|no) 可以视为 (?(?=expression)yes|no)。</div>
+<div class="line">注意:::正则表达式中作决策最重要的一点就是:
+<em>决策的模式expression的长度为0,代表了yes或no的正则表达式将从与expression相同的位置开始匹配.</em></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</li>
+<li><p>字符组的特殊性在于： <em>关于元字符的规定是完全独立于正则表达式语言”主体”</em> 的.</p></li>
+<li><div class="line-block">
+<div class="line">多选结构和字符组是截然不同的，它们的功能完全不同，只是在有限的情况下，它们的表现相同。</div>
+<div class="line">很明显，它们的作用域是不相同的，字符组只限定于一个字符，而多选结构则是一个完整的子表达式。</div>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="id4">
+<h3>第二章：入门示例拓展<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
+<ul class="simple">
+<li><p>捕获型括号的编号顺序是以开括号出现的顺序来决定的。</p></li>
+<li><p>环视最重要的特性就是不占用匹配字符，相当于只是站在那个地方看一看，但是并不走（传动）。</p></li>
+<li><p>环视结构不匹配任何字符，只匹配文本中的特定位置，这一点与单词分界符\b、锚点^和$类似。</p></li>
+</ul>
+</div>
+<div class="section" id="id5">
+<h3>第三章：正则表达式的特性和流派概览<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
+<ul>
+<li><div class="line-block">
+<div class="line">区分Unicode中的”代码点”和”字符”的概念，一个字符可能由多个代码点来构</div>
+<div class="line">例如：à是由两个代码点构成（a）和钝重音的结合。许多程序似乎把”字符”和”代码点”视为等价，也就是说，点号可以匹配单个代码点，无论是基本字符还是组合字符。所以，à能够由[^..$]来匹配，面不是[^.$]。</div>
+<div class="line">在支持Unicode的编辑器中输入正则表达式时，一定要记住组合字符的概念。</div>
+<div class="line">比如[à]会被当作[a‘]。同样，如果两个代码点的字符如à后有一个量词，量词也只会作用于第二个代码点。</div>
+</div>
+</li>
+<li><dl class="simple">
+<dt><strong>“单行模式”所谓的意义就是”点号通配模式”</strong> ：</dt><dd><p>在此模式下，点号可以匹配任何字符，包括换行符；锚点^不能匹配字符串内部的换行符，而只能匹配目标字符串的起始位置。</p>
+</dd>
+<dt><strong>“多行模式”所谓的意义就是”增强的行锚点模式”</strong> ：</dt><dd><p>在此模式下，点号不能匹配换行符。锚点^能够匹配字符串中内嵌的文件行的开头位置。
+支持这些模式的流派通常会提供\A、\Z来唯一的匹配整个字符串的开始和结束。</p>
+</dd>
+</dl>
+</li>
+<li><p>Unicode标准还定义了每个字符的性质，许多支持Unicode的程序能够通过\p{quality}来支持其中的一部分。</p>
+<blockquote>
+<div><table class="docutils align-default">
+<colgroup>
+<col style="width: 12%" />
+<col style="width: 88%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>分类</p></th>
+<th class="head"><p>等价表示法及描述</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>\p{L}</p></td>
+<td><p>字母</p></td>
+</tr>
+<tr class="row-odd"><td><p>\p{M}</p></td>
+<td><p>不能单独出现，而必须与其它基本字符一起出现（重音符号、包围框、等等）的字符</p></td>
+</tr>
+<tr class="row-even"><td><p>\p{Z}</p></td>
+<td><p>用于表示分隔，但本身不可见的字符（各种空白字符）</p></td>
+</tr>
+<tr class="row-odd"><td><p>\p{S}</p></td>
+<td><p>各种图形符号和字母符号</p></td>
+</tr>
+<tr class="row-even"><td><p>\p{N}</p></td>
+<td><p>任何数字字符</p></td>
+</tr>
+<tr class="row-odd"><td><p>\p{P}</p></td>
+<td><p>标点字符</p></td>
+</tr>
+<tr class="row-even"><td><p>\p{C}</p></td>
+<td><p>匹配其它任何字符——很少用于正常字符</p></td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</li>
+<li><div class="line-block">
+<div class="line">.NET提供：简单的字符组减法：[[a-z]-[aeiou]]</div>
+<div class="line">Java提供：完整的字符组集合运算：[[a-z]&amp;&amp;[^aeiou]]</div>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="id6">
+<h3>第四章：表达式的匹配原理<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h3>
+<ul>
+<li><p>优先选择最左端（最靠开头）的匹配结果。
+标准的匹配量词（*、+、?和{m,n}）是匹配优先的</p></li>
+<li><p>正则匹配的基本原理：匹配先从需要查找的字符串的起始位置尝试匹配。
+在这里，尝试匹配的意思是：在当前位置测试整个正则表达式（可能很复杂）能匹配的每样文本。
+如果在当前位置测试了所有的可能之后不能找到匹配结果，就需要从字符串中的第二个字符之前的位置开始重新尝试。
+在找到匹配结果以前必须在所有的位置重复此过程。
+只有在尝试过所有的起始位置（直到字符串的最后一个字符）都不能找到匹配结果的情况下，才会报告”匹配失败”。</p></li>
+<li><div class="line-block">
+<div class="line">NFA（表达式主导）：是以表达式为中心，尝试找到正则表达式能匹配的文本的一部分。</div>
+<div class="line">DFA（文本主导）：以文本为中心，尝试能不能找出与文本相匹配的正则表达式的分支。</div>
+</div>
+</li>
+<li><p>DFA不支持捕获型括号和回溯。</p></li>
+<li><dl class="simple">
+<dt><strong>NFA引擎最重要的性质是：回溯！</strong></dt><dd><p>它会依次处理各个子表达式或组成元素，遇到需要在两个可能成功的可能中进行选择的时候，它会选择其一，同时记住另一个，以备稍后可能的需要。回溯使用的原则是LIFO（后进先出、极有可能使用的是栈来保存状态的）。</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>固化分组</strong> ：</dt><dd><p>具体来说 ，使用(?&gt;…)的匹配与正常的匹配并无差别，但是如果 <strong>匹配进行到此结构之后（也就是，进行到固化分组的闭括号之后）</strong> ，那么此结构体中的所有备用状态都会被抛弃。（在固化分组的内部，该回溯的地方还是照样的回溯，只是在出固化分组后会抛弃备用状态）</p>
+</dd>
+</dl>
+</li>
+<li><p>环视结构与固化分组类似，在环视结束之后，所有的备用状态都会被抛弃，所以可以用环视来模拟固化分组。(?&gt;regex)可以用(?=(regex))1来模拟。</p></li>
+<li><p>匹配优先和忽略优先都不会影响需要检测路径的本身，而只会影响检测的顺序。如果不能匹配，无论是按照匹配优先还是忽略优先的顺序，最终每条路径都会被测试。</p></li>
+<li><p>固化分组对提高效率很有用，因为可以利用它来抛弃不必要的备选分支。</p></li>
+<li><p>多选结构的优先顺序：（所以，小心安排多选分支的顺序）</p></li>
+<li><p>传统NFA：多选结构既不是匹配优先的，也不是忽略优先的，而是按照从左到右的顺序排列的。</p></li>
+<li><p>DFA和POSIX NFA：它们总是匹配所有多选分支中能匹配最多文本的那个。</p></li>
+<li><div class="line-block">
+<div class="line"><span class="raw-html"><U></span>POSIX标准规定：如果在字符串中的某个位置存在多个可能的匹配，应当返回的是最长的匹配。 <span class="raw-html"></U></span></div>
+<div class="line"><span class="raw-html"><U></span>DFA会选择所有可能匹配中最长的匹配，称为”<strong>最左最长规则</strong>”。 <span class="raw-html"></U></span></div>
+</div>
+</li>
+<li><p>NFA与DFA的比较：</p>
+<ul class="simple">
+<li><p>DFA的速度与正则表达式无关，而NFA中两者直接相关。</p></li>
+<li><p>DFA不需要太多的优化，因为它的速度很快。DFA在预编译时所做的优化效果，也要好于大多数NFA引擎复杂的优化措施。</p></li>
+<li><p>DFA（或者POSIX NFA）返回最左边的最长的匹配的文本。传统型NFA可能返回同样的结果，也可能是别的结果，取决于文本和正则表达式。</p></li>
+<li><p>NFA引擎能够提供许多DFA不支持的功能。如捕获括号、环视、忽略（占有）优先量词、固化分组等等。</p></li>
+</ul>
+</li>
+<li><p>POSIX NFA最大的特点是它最终必须尝试正则表达式的每一种可能，多选分支的顺序其实不重要。</p></li>
+</ul>
+</div>
+<div class="section" id="id7">
+<h3>第五章：正则表达式实用技巧<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h3>
+<ul class="simple">
+<li><p>集中关注在特定时刻真正容许匹配的字符。</p></li>
+<li><p>.*经常被滥用，还是需要清楚的明白真正容许匹配和不容许匹配的字符。</p></li>
+<li><p>标准的正则表达式无法匹配任意深度的嵌套结构，但是现在许多主流的语言都提供了解决方案，如.NET、Perl、PHP。</p></li>
+<li><p>如果所有的正则部分都是可选结构，则往往是错误的，因为它会出现不期望的匹配。</p></li>
+<li><p>可以用\G来屏蔽引擎自带的驱动装置。</p></li>
+</ul>
+</div>
+<div class="section" id="id8">
+<h3>第六章：打造高效的正则表达式<a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h3>
+<ul>
+<li><div class="line-block">
+<div class="line">对于POSIX NFA，多个量词的嵌套会造成指数级的复杂度。</div>
+<div class="line">而传统NFA在无法匹配时进行的尝试次数与POSIX NFA一样多，所以绝不要用多个量词的嵌套！</div>
+</div>
+</li>
+<li><p>常见的优化措施：</p>
+<ul class="simple">
+<li><p>加速某些操作：由于引擎可能经过特别的优化，所以\d往往会比[0-9]的效率更好。其它的类似。</p></li>
+<li><p>避免冗余操作：如果以\A、^、\b、$等开头或结尾可以避免进行无效的传动，往往能提高效率。</p></li>
+</ul>
+</li>
+<li><p>正则表达式的应用原理：</p>
+<ul class="simple">
+<li><p>正则表达式编译：检查语法的正确性，如果正确，就编译为内部的形式。</p></li>
+<li><p>传动开始：将正则引擎”定位”到目标字符串的起始位置。</p></li>
+<li><p>元素检测：引擎开始测试正则表达式和文本，依次测试正则表达式的各个元素。</p></li>
+<li><p>寻找匹配结果：报告匹配成功或者继续寻找最长的匹配。</p></li>
+<li><p>传动装置的驱动：如果没有找到匹配，传动装置会驱动引擎，从文本的下一个字符开始新的一轮尝试。</p></li>
+<li><p>匹配彻底失败：如果从每一个字符开始都失败了，则报告失败。</p></li>
+</ul>
+</li>
+<li><p>许多情况下，占有优先量词、固化分组会大大的提高效率，而且它们不会改变匹配的结果。因为它会在退出分组时抛弃备用状态，从而大大的减少回溯的次数。而且聪明的引擎实现方式应该会自己做到这一点。</p></li>
+<li><p>对于不太长的确定大小的量词，分开写也许更好。
+====比={4}快上100倍。同理：XX*代替X+、====={0,2}代替={5,7}。</p></li>
+<li><p>不要滥用括号、不要滥用字符组，使用非捕获型括号。</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="python">
+<h2>Python 中的正则表达式 <a class="footnote-reference brackets" href="#id12" id="id9">1</a><a class="headerlink" href="#python" title="永久链接至标题">¶</a></h2>
+<ul>
+<li><p>Python中的正则表达式由re模块提供(原始的regex模块已被弃用)，它会使用由C语言编写的正则引擎，所以速度很快。</p></li>
+<li><p>正则表达式对象是RegexObject类型，eg: <code class="docutils literal notranslate"><span class="pre">pattern</span> <span class="pre">=</span> <span class="pre">re.compile('ab*',</span> <span class="pre">re.IGNORECASE)</span></code> 。</p></li>
+<li><p><strong>反斜杠的麻烦</strong> : 如果要匹配字符串 <code class="docutils literal notranslate"><span class="pre">&quot;\section&quot;</span></code> ，那么我们需要如下的步骤：</p>
+<ul class="simple">
+<li><p>传递给正则引擎 <code class="docutils literal notranslate"><span class="pre">&quot;\\section&quot;</span></code> 而不是 <code class="docutils literal notranslate"><span class="pre">&quot;\section&quot;</span></code> ，因为这样引擎才知道pattern中是匹配一个真实存在的 <code class="docutils literal notranslate"><span class="pre">\</span></code> 字符，而不是转义字符s；</p></li>
+<li><p>由于Python中字符串字面值的转义规则，所以写下 <code class="docutils literal notranslate"><span class="pre">&quot;\\\\section&quot;</span></code> 才能给正则引擎传递字符串 <code class="docutils literal notranslate"><span class="pre">&quot;\\section&quot;</span></code> ；</p></li>
+</ul>
+<p>大量重复的反斜杠所生成的字符串也很难懂，因此使用python raw字面值会使得pattern看起来更清晰。</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">r&quot;\\section&quot;</span></code> raw string取消字符串的转义，直接把 <code class="docutils literal notranslate"><span class="pre">&quot;\\section&quot;</span></code> 传递给了正则引擎，这样就清晰多了。</p>
+</div></blockquote>
+</li>
+<li><p>执行匹配操作的函数：</p>
+<blockquote>
+<div><table class="docutils align-default">
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 84%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>方法/属性</p></th>
+<th class="head"><p>作用</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>match()</p></td>
+<td><p>决定 RE 是否在字符串 <strong>刚开始的位置</strong> 匹配</p></td>
+</tr>
+<tr class="row-odd"><td><p>search()</p></td>
+<td><p>扫描字符串，找到这个 RE 匹配的位置</p></td>
+</tr>
+<tr class="row-even"><td><p>findall()</p></td>
+<td><p>找到 RE 匹配的所有子串，并把它们作为一个列表返回</p></td>
+</tr>
+<tr class="row-odd"><td><p>finditer()</p></td>
+<td><p>找到 RE 匹配的所有子串，并把它们作为一个迭代器返回</p></td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<p>如果没有匹配到的话，match() 和 search() 将返回 None。如果成功的话，就会返回一个 <code class="docutils literal notranslate"><span class="pre">MatchObject</span></code> 实例，其中有这次匹配的信息。</p>
+<blockquote>
+<div><table class="docutils align-default">
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 84%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>方法/属性</p></th>
+<th class="head"><p>作用</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>group()</p></td>
+<td><p>返回被 RE 匹配的字符串 <code class="docutils literal notranslate"><span class="pre">m.group()</span> <span class="pre">==</span> <span class="pre">'tempo'</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>start()</p></td>
+<td><p>返回匹配开始的位置 <code class="docutils literal notranslate"><span class="pre">m.start()</span> <span class="pre">==</span> <span class="pre">0</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>end()</p></td>
+<td><p>返回匹配结束的位置 <code class="docutils literal notranslate"><span class="pre">m.end()</span> <span class="pre">==</span> <span class="pre">5</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>span()</p></td>
+<td><p>返回一个元组包含匹配 (开始,结束) 的位置 <code class="docutils literal notranslate"><span class="pre">m.span()</span> <span class="pre">==</span> <span class="pre">(0,</span> <span class="pre">5)</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>必须注意match()的特殊性，它只会在从 <strong>刚开始的位置</strong> 就匹配时才匹配成功，也就是说match()成功时的start()一定等于0。</p>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line">对于常用的匹配和替换操作，re模块都提供了模块级的函数来方便使用， <code class="docutils literal notranslate"><span class="pre">re.search(),</span> <span class="pre">re.match(),</span> <span class="pre">re.sub()</span></code> 。</div>
+<div class="line">对于只使用一次正则表达式，使用模块级函数也许更方便；但对于重复使用的正则表达式，使用编译对象则更有效率。</div>
+</div>
+</li>
+<li><p>常用的编译标志：</p>
+<blockquote>
+<div><table class="docutils align-default">
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 83%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>标志</p></th>
+<th class="head"><p>含义</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>DOTALL, S</p></td>
+<td><p>使 . 匹配包括换行在内的所有字符</p></td>
+</tr>
+<tr class="row-odd"><td><p>IGNORECASE, I</p></td>
+<td><p>使匹配对大小写不敏感</p></td>
+</tr>
+<tr class="row-even"><td><p>LOCALE, L</p></td>
+<td><p>做本地化识别（locale-aware）匹配</p></td>
+</tr>
+<tr class="row-odd"><td><p>MULTILINE, M</p></td>
+<td><p>多行匹配，影响 ^ 和 $</p></td>
+</tr>
+<tr class="row-even"><td><p>VERBOSE, X</p></td>
+<td><p>能够使用 REs 的 verbose 状态，使之被组织得更清晰易懂</p></td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</li>
+<li><p><strong>分组</strong> :</p>
+<ul>
+<li><p>组用 “(” 和 “)” 来指定，并通过 <code class="docutils literal notranslate"><span class="pre">group()、start()、end()</span> <span class="pre">、span()</span></code> 得到它们匹配文本的开始和结尾索引；</p></li>
+<li><p>组是从 0 开始计数的(左括号对应的编号)。组 0 总是存在；它就是整个 RE 所匹配的文本。</p></li>
+<li><p>group() 可以一次输入多个组号，在这种情况下它将返回一个包含那些组所对应值的元组。</p></li>
+<li><p>groups() 方法返回一个包含所有小组字符串的元组，从 1 到 所含的小组号。</p></li>
+<li><p>模式中的逆向引用允许你指定先前捕获组的内容:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;(\b\w+)\s+\1&#39;</span><span class="p">,</span> <span class="s1">&#39;Paris in the the spring&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">group</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;the the&#39;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+<li><p><strong>无捕获组</strong> 和 <strong>命令组</strong></p>
+<ul>
+<li><p>无捕获组： <code class="docutils literal notranslate"><span class="pre">(?:...)</span></code> ，它与普通分组几乎没有区别，但在修改已有组时尤其有用，你可以不用改变所有其他组号的情况下添加一个新组。</p></li>
+<li><p>命名组：命名 <code class="docutils literal notranslate"><span class="pre">(?P&lt;name&gt;...)</span></code> 、引用 <code class="docutils literal notranslate"><span class="pre">(?P=name)</span></code></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;(?P&lt;word&gt;\b\w+)\s+(?P=word)&#39;</span><span class="p">,</span> <span class="s1">&#39;Paris in the the spring&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">group</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;the the&#39;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+<li><p><strong>前向界定符</strong> ，又叫 <strong>零宽界定符</strong> ，分为前向肯定界定符 <code class="docutils literal notranslate"><span class="pre">(?=...)</span></code> 和前向否定界定符 <code class="docutils literal notranslate"><span class="pre">(?!...)</span></code> 。</p>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>前身界定符就是前面提到过的 <a class="reference internal" href="#id3">顺序环视</a> ， <strong>零宽是它们最大的特点</strong> ，意味着他们不会消耗字符。</p>
+</div>
+</li>
+<li><p>修改字符串</p>
+<blockquote>
+<div><table class="docutils align-default">
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 83%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>方法/属性</p></th>
+<th class="head"><p>作用</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>split()</p></td>
+<td><p>将字符串在 RE 匹配的地方分片并生成一个列表，</p></td>
+</tr>
+<tr class="row-odd"><td><p>sub()</p></td>
+<td><p>找到 RE 匹配的所有子串，并将其用一个不同的字符串替换</p></td>
+</tr>
+<tr class="row-even"><td><p>subn()</p></td>
+<td><p>与 sub() 相同，但返回新的字符串和替换次数</p></td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<p>有时，你不仅对定界符之间的文本感兴趣，也需要知道定界符是什么。如果捕获括号在 RE 中使用，那么它们的值也会当作列表的一部分返回:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">p</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\W+&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p2</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;(\W+)&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;This... is a test.&#39;</span><span class="p">)</span>
+<span class="go">[&#39;This&#39;, &#39;is&#39;, &#39;a&#39;, &#39;test&#39;, &#39;&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p2</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;This... is a test.&#39;</span><span class="p">)</span>
+<span class="go">[&#39;This&#39;, &#39;... &#39;, &#39;is&#39;, &#39; &#39;, &#39;a&#39;, &#39; &#39;, &#39;test&#39;, &#39;.&#39;, &#39;&#39;]</span>
+</pre></div>
+</div>
+</li>
+<li><p>常见问题</p>
+<ul>
+<li><p>优先使用字符串的方法；</p></li>
+<li><p>注意match()只匹配开始的位置；</p></li>
+<li><p>贪婪 vs 不贪婪：不贪婪的限定符 *?、+?、?? 或 {m,n}?，尽可能匹配小的文本。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s1">&#39;&lt;.*?&gt;&#39;</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span><span class="o">.</span><span class="n">group</span><span class="p">()</span>   <span class="c1"># 结果为&lt;html&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><p>用 re.VERBOSE 忽略不在字符类中的空白符，可以使 REs 格式更加干净。</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="c">
+<h2>C++ 中的正则表达式<a class="headerlink" href="#c" title="永久链接至标题">¶</a></h2>
+<p>C++中常用的2个正则表达式库</p>
+<ul class="simple">
+<li><p>boost 的 regex （C++11引入标准库）</p></li>
+<li><p>Google 的 re2（ <strong>速度极其快，纯自动机实现</strong> ）</p></li>
+</ul>
+<div class="section" id="regex">
+<h3>&lt;regex&gt; <a class="footnote-reference brackets" href="#id14" id="id10">2</a><a class="headerlink" href="#regex" title="永久链接至标题">¶</a></h3>
+<ul>
+<li><p>regex 最重要的就是一个类 <code class="docutils literal notranslate"><span class="pre">regex</span></code> ；两个迭代器 <code class="docutils literal notranslate"><span class="pre">regex_iterator,</span> <span class="pre">regex_token_iterator</span></code> ；三个核心函数 <code class="docutils literal notranslate"><span class="pre">regex_match(),</span> <span class="pre">regex_search(),</span> <span class="pre">regex_replace()</span></code></p></li>
+<li><p><strong>regex 类</strong> ，它实际上是basic_regex&lt;char&gt;的typedef，从字符串生成正则表达式对象，同时可以设置正则匹配的属性:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">regex</span> <span class="nf">reg</span><span class="p">(</span><span class="s">&quot;Color</span><span class="se">\\</span><span class="s">d+&quot;</span><span class="p">,</span><span class="n">boost</span><span class="o">::</span><span class="n">regex</span><span class="o">::</span><span class="n">icase</span><span class="o">|</span><span class="n">boost</span><span class="o">::</span><span class="n">regex</span><span class="o">::</span><span class="n">perl</span><span class="p">);</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>regex_match() 函数</strong> ，测试 <strong>完全匹配</strong> ，注意这里要求必须完全匹配。得到的匹配结果boost::cmatch包含了所有捕获结果（即正则中括号捕获的结果）:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">str</span><span class="p">;</span>
+<span class="n">boost</span><span class="o">::</span><span class="n">cmatch</span> <span class="n">mat</span><span class="p">;</span>
+<span class="n">boost</span><span class="o">::</span><span class="n">regex</span> <span class="n">reg</span><span class="p">(</span> <span class="n">szReg</span> <span class="p">);</span>
+
+<span class="n">assert</span><span class="p">(</span><span class="n">regex_match</span><span class="p">(</span><span class="n">str</span><span class="p">,</span><span class="n">reg</span><span class="p">)</span> <span class="o">==</span> <span class="nb">true</span><span class="p">);</span>
+<span class="k">if</span><span class="p">(</span><span class="n">boost</span><span class="o">::</span><span class="n">regex_match</span><span class="p">(</span> <span class="n">szStr</span><span class="p">,</span> <span class="n">mat</span><span class="p">,</span> <span class="n">reg</span><span class="p">))</span> <span class="p">{</span>  <span class="c1">//如果匹配成功</span>
+    <span class="c1">//显示所有子串</span>
+    <span class="k">for</span><span class="p">(</span><span class="n">boost</span><span class="o">::</span><span class="n">cmatch</span><span class="o">::</span><span class="n">iterator</span> <span class="n">itr</span><span class="o">=</span><span class="n">mat</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span> <span class="n">itr</span><span class="o">!=</span><span class="n">mat</span><span class="p">.</span><span class="n">end</span><span class="p">();</span> <span class="o">++</span><span class="n">itr</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">//       指向子串对应首位置        指向子串对应尾位置          子串内容</span>
+        <span class="n">LOG</span><span class="p">(</span><span class="n">INFO</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">itr</span><span class="o">-&gt;</span><span class="n">first</span><span class="o">-</span><span class="n">szStr</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39; &#39;</span> <span class="o">&lt;&lt;</span> <span class="n">itr</span><span class="o">-&gt;</span><span class="n">second</span><span class="o">-</span><span class="n">szStr</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39; &#39;</span> <span class="o">&lt;&lt;</span> <span class="o">*</span><span class="n">itr</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>regex_search() 函数</strong> ，区别在于并不要求完全匹配，可以匹配子字符串，所以从文本中提取特定字符就很好用:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">string</span> <span class="nf">ss</span><span class="p">(</span><span class="n">szStr</span><span class="p">);</span>
+<span class="n">boost</span><span class="o">::</span><span class="n">smatch</span> <span class="n">mat</span><span class="p">;</span>
+<span class="n">boost</span><span class="o">::</span><span class="n">regex</span> <span class="n">reg</span><span class="p">(</span> <span class="s">&quot;</span><span class="se">\\</span><span class="s">d+&quot;</span> <span class="p">);</span>    <span class="c1">//查找字符串里的数字</span>
+<span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">::</span><span class="n">const_iterator</span> <span class="n">start</span> <span class="o">=</span> <span class="n">ss</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span>
+<span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">::</span><span class="n">const_iterator</span> <span class="n">end</span> <span class="o">=</span> <span class="n">ss</span><span class="p">.</span><span class="n">end</span><span class="p">();</span>
+<span class="k">while</span><span class="p">(</span><span class="n">boost</span><span class="o">::</span><span class="n">regex_search</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">mat</span><span class="p">,</span> <span class="n">reg</span><span class="p">))</span> <span class="p">{</span>   <span class="c1">// regex_search一次只提取出一个匹配结果</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span> <span class="s">&quot;SEARCHED: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">mat</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="n">start</span> <span class="o">=</span> <span class="n">mat</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">second</span><span class="p">;</span>                           <span class="c1">// 需要设置start以跳过当前已经匹配过的部分</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>regex_search()一次只匹配一个匹配项，如果要匹配所有的匹配项，当然可以用上面的循环，但是更好的选择是用regex_token_iterator</p>
+</li>
+<li><p><strong>regex_replace() 函数</strong> ，文本替换。它在输入数据中进行搜索，查找正则表达式的所有匹配，对于每个匹配，该算法调用match_results::format。
+在替换的正则表达式中，$1~$9（或1~9）表示第几个子串,$&amp;表示整个串，$`表示第一个串,$’表示最后未处理的串；(?1~?9新字串)表示把第几个子串替换成新字串:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">boost</span><span class="o">::</span><span class="n">regex</span> <span class="n">reg</span><span class="p">(</span> <span class="n">szReg</span> <span class="p">);</span>
+<span class="n">string</span> <span class="n">s</span> <span class="o">=</span> <span class="n">boost</span><span class="o">::</span><span class="n">regex_replace</span><span class="p">(</span> <span class="n">string</span><span class="p">(</span><span class="n">szStr</span><span class="p">),</span> <span class="n">reg</span><span class="p">,</span> <span class="s">&quot;ftp://$2$5&quot;</span><span class="p">);</span>
+<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;ftp site:&quot;</span><span class="o">&lt;&lt;</span> <span class="n">s</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+
+<span class="n">string</span> <span class="n">s1</span> <span class="o">=</span> <span class="s">&quot;(&lt;)|(&gt;)|(&amp;)&quot;</span><span class="p">;</span>
+<span class="n">string</span> <span class="n">s2</span> <span class="o">=</span> <span class="s">&quot;(?1&amp;lt;)(?2&amp;gt;)(?3&amp;amp;)&quot;</span><span class="p">;</span>
+<span class="n">boost</span><span class="o">::</span><span class="n">regex</span> <span class="n">reg</span><span class="p">(</span> <span class="n">s1</span> <span class="p">);</span>
+<span class="n">string</span> <span class="n">s</span> <span class="o">=</span> <span class="n">boost</span><span class="o">::</span><span class="n">regex_replace</span><span class="p">(</span> <span class="n">string</span><span class="p">(</span><span class="s">&quot;cout &lt;&lt; a&amp;b &lt;&lt; endl;&quot;</span><span class="p">),</span> <span class="n">reg</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">boost</span><span class="o">::</span><span class="n">match_default</span> <span class="o">|</span> <span class="n">boost</span><span class="o">::</span><span class="n">format_all</span><span class="p">);</span>
+<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;HTML:&quot;</span><span class="o">&lt;&lt;</span> <span class="n">s</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>   <span class="c1">// 输出：HTML: cout &amp;lt;&amp;lt; a&amp;amp;b &amp;lt;&amp;lt; endl;</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>regex_iterator 迭代器</strong> ，这个迭代器是访问所有与模式匹配的子串的最佳选择，比循环用regex_search()更好用:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">//使用迭代器找出所有数字</span>
+<span class="n">boost</span><span class="o">::</span><span class="n">regex</span> <span class="n">reg</span><span class="p">(</span> <span class="s">&quot;</span><span class="se">\\</span><span class="s">d+&quot;</span> <span class="p">);</span>    <span class="c1">//查找字符串里的数字</span>
+<span class="n">boost</span><span class="o">::</span><span class="n">cregex_iterator</span> <span class="n">itrBegin</span> <span class="o">=</span> <span class="n">make_regex_iterator</span><span class="p">(</span><span class="n">szStr</span><span class="p">,</span><span class="n">reg</span><span class="p">);</span> <span class="c1">//(szStr, szStr+strlen(szStr), reg);</span>
+<span class="n">boost</span><span class="o">::</span><span class="n">cregex_iterator</span> <span class="n">itrEnd</span><span class="p">;</span>
+<span class="k">for</span><span class="p">(</span><span class="n">boost</span><span class="o">::</span><span class="n">cregex_iterator</span> <span class="n">itr</span><span class="o">=</span><span class="n">itrBegin</span><span class="p">;</span> <span class="n">itr</span><span class="o">!=</span><span class="n">itrEnd</span><span class="p">;</span> <span class="o">++</span><span class="n">itr</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">//       指向子串对应首位置        指向子串对应尾位置          子串内容</span>
+    <span class="n">LOG</span><span class="p">(</span><span class="n">INFO</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="o">*</span><span class="n">itr</span><span class="p">)[</span><span class="mi">0</span><span class="p">].</span><span class="n">first</span><span class="o">-</span><span class="n">szStr</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39; &#39;</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="o">*</span><span class="n">itr</span><span class="p">)[</span><span class="mi">0</span><span class="p">].</span><span class="n">second</span><span class="o">-</span><span class="n">szStr</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39; &#39;</span> <span class="o">&lt;&lt;</span> <span class="o">*</span><span class="n">itr</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>regex_token_iterator 迭代器</strong> ，它和regex_iterator相似，但是它列举的是与正则表达式不匹配的字符序列，该特性对于字符串分割非常有用。
+make_regex_token_iterator函数简化regex_token_iterator的构造。
+最后的参数用-1表示以reg为分隔标志拆分字符串，如果不是-1则表示取第几个子串，并且可以使用数组来表示同时要取几个子串:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">szStr</span> <span class="o">=</span> <span class="s">&quot;http://www.cppprog.com/48.html&quot;</span><span class="p">;</span>
+<span class="c1">//使用迭代器拆分字符串</span>
+<span class="n">boost</span><span class="o">::</span><span class="n">regex</span> <span class="n">reg</span><span class="p">(</span><span class="s">&quot;/&quot;</span><span class="p">);</span>  <span class="c1">//按/符拆分字符串</span>
+<span class="n">boost</span><span class="o">::</span><span class="n">cregex_token_iterator</span> <span class="n">itrBegin</span> <span class="o">=</span> <span class="n">make_regex_token_iterator</span><span class="p">(</span><span class="n">szStr</span><span class="p">,</span><span class="n">reg</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span> <span class="c1">//使用-1参数时拆分</span>
+<span class="n">boost</span><span class="o">::</span><span class="n">cregex_token_iterator</span> <span class="n">itrEnd</span><span class="p">;</span>
+<span class="k">for</span><span class="p">(</span><span class="n">boost</span><span class="o">::</span><span class="n">cregex_token_iterator</span> <span class="n">itr</span><span class="o">=</span><span class="n">itrBegin</span><span class="p">;</span> <span class="n">itr</span><span class="o">!=</span><span class="n">itrEnd</span><span class="p">;</span> <span class="o">++</span><span class="n">itr</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">cout</span>  <span class="o">&lt;&lt;</span> <span class="o">*</span><span class="n">itr</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;,&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+<span class="n">boost</span><span class="o">::</span><span class="n">regex</span> <span class="n">reg</span><span class="p">(</span><span class="s">&quot;(.)/(.)&quot;</span><span class="p">);</span>    <span class="c1">//取/的前一字符和后一字符</span>
+<span class="kt">int</span> <span class="n">subs</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">};</span>             <span class="c1">// 第一子串和第二子串, 即模式中的2个(.)</span>
+<span class="n">boost</span><span class="o">::</span><span class="n">cregex_token_iterator</span> <span class="n">itrBegin</span> <span class="o">=</span> <span class="n">make_regex_token_iterator</span><span class="p">(</span><span class="n">szStr</span><span class="p">,</span><span class="n">reg</span><span class="p">,</span><span class="n">subs</span><span class="p">);</span> <span class="c1">//使用其它数字时表示取第几个子串，可使用数组取多个串</span>
+<span class="n">boost</span><span class="o">::</span><span class="n">cregex_token_iterator</span> <span class="n">itrEnd</span><span class="p">;</span>
+<span class="k">for</span><span class="p">(</span><span class="n">boost</span><span class="o">::</span><span class="n">cregex_token_iterator</span> <span class="n">itr</span><span class="o">=</span><span class="n">itrBegin</span><span class="p">;</span> <span class="n">itr</span><span class="o">!=</span><span class="n">itrEnd</span><span class="p">;</span> <span class="o">++</span><span class="n">itr</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="o">*</span><span class="n">itr</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;,&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>输出:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="nl">http</span><span class="p">:,,</span><span class="n">www</span><span class="p">.</span><span class="n">cppprog</span><span class="p">.</span><span class="n">com</span><span class="p">,</span><span class="mf">48.</span><span class="n">html</span><span class="p">,</span>
+<span class="o">:</span><span class="p">,</span><span class="o">/</span><span class="p">,</span><span class="n">m</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>regex_error 异常</strong> ，所有正则表达式的异常都是继承自regex_error的，所以可以通过catch它来捕获所有抛出的异常。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">regex_error</span> <span class="p">:</span> <span class="n">public</span> <span class="n">std</span><span class="p">::</span><span class="n">runtime_error</span> <span class="p">{</span><span class="o">...</span><span class="p">}</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="re2">
+<h3>re2 <a class="footnote-reference brackets" href="#id15" id="id11">3</a><a class="headerlink" href="#re2" title="永久链接至标题">¶</a></h3>
+<p>Google的re2号称最快的正则表达式引擎，纯自动机实现，性能超乎想象的高，而且只使用了0.5MB的内存作为空间换时间的开销。
+于是在关心性能的时候，re2就成了最佳选择，而且它的功能也一般都能够满足需求。</p>
+<ul>
+<li><p>re2的历史：由Go语言作者之一的Russ Cox开发，这是他发现其它的引擎都是非纯自动机实现，于是就开发了这个纯自动机实现的正则引擎。</p></li>
+<li><p>RE2主要有 <strong>两个主要匹配接口</strong> ： <code class="docutils literal notranslate"><span class="pre">FullMatch</span></code> 和 <code class="docutils literal notranslate"><span class="pre">PartialMatch</span></code> ，它们的区别在于一个要求 <strong>完全匹配</strong> 另一个不要求:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">EXPECT_EQ</span><span class="p">(</span><span class="n">RE2</span><span class="o">::</span><span class="n">FullMatch</span><span class="p">(</span><span class="s">&quot;123 hello:1234&quot;</span><span class="p">,</span> <span class="s">&quot;(</span><span class="se">\\</span><span class="s">w+):(</span><span class="se">\\</span><span class="s">d+)&quot;</span><span class="p">),</span> <span class="nb">false</span><span class="p">)</span>
+<span class="n">EXPECT_EQ</span><span class="p">(</span><span class="n">RE2</span><span class="o">::</span><span class="n">PartialMatch</span><span class="p">(</span><span class="s">&quot;123 hello:1234&quot;</span><span class="p">,</span> <span class="s">&quot;(</span><span class="se">\\</span><span class="s">w+):(</span><span class="se">\\</span><span class="s">d+)&quot;</span><span class="p">),</span> <span class="nb">true</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>预编译</strong> 正则表达式，对于经常使用的Pattern必须预编译好:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span>RE2 pattern(&quot;(\\w+):(\\d+)&quot;, RE2::Quiet);
+assert(RE2::PartialMatch(&quot;hello:1234&quot;, pattern, &amp;s, &amp;i));  // 成功匹配
+</pre></div>
+</div>
+</li>
+<li><p><strong>re2::RE2::Options</strong> 设置正则匹配时的选项，最常用的莫过于大小写敏感选项:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">string</span> <span class="n">str</span> <span class="o">=</span> <span class="s">&quot;aaaaa;bbbbb;cccccc;ddddd&quot;</span><span class="p">;</span>
+<span class="n">string</span> <span class="n">out</span><span class="p">;</span>
+<span class="n">re2</span><span class="o">::</span><span class="n">RE2</span><span class="o">::</span><span class="n">Options</span> <span class="n">o</span><span class="p">;</span>
+<span class="n">o</span><span class="p">.</span><span class="n">set_case_sensitive</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span>
+<span class="n">re2</span><span class="o">::</span><span class="n">RE2</span> <span class="n">p0</span><span class="p">(</span><span class="s">&quot;B+&quot;</span><span class="p">,</span> <span class="n">o</span><span class="p">);</span>  <span class="c1">// 由于设置了大小写不敏感，所以这里大写的B也能匹配小写的b</span>
+<span class="n">re2</span><span class="o">::</span><span class="n">RE2</span><span class="o">::</span><span class="n">Extract</span><span class="p">(</span><span class="n">str</span><span class="p">,</span> <span class="n">p0</span><span class="p">,</span> <span class="s">&quot;</span><span class="se">\\</span><span class="s">0-</span><span class="se">\\</span><span class="s">0&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">out</span><span class="p">);</span>
+<span class="n">LOG</span><span class="p">(</span><span class="n">INFO</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;OUT: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">out</span><span class="p">;</span>
+
+<span class="p">[</span><span class="mi">9637</span><span class="o">:</span><span class="mo">0523</span><span class="o">/</span><span class="mi">162211</span><span class="o">:</span><span class="nl">INFO</span><span class="p">:</span><span class="n">image</span><span class="o">/</span><span class="n">category_browsing</span><span class="o">/</span><span class="n">category</span><span class="o">/</span><span class="n">tests</span><span class="o">/</span><span class="n">tests</span><span class="p">.</span><span class="n">cpp</span><span class="p">(</span><span class="mi">32</span><span class="p">)]</span> <span class="nl">OUT</span><span class="p">:</span> <span class="n">bbbbb</span><span class="o">-</span><span class="n">bbbbb</span>
+</pre></div>
+</div>
+</li>
+<li><p>re2非常便捷的一点在于，可以在匹配时使用 <strong>非常直观的语法进行组的捕获和赋值</strong></p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">int32_t</span> <span class="n">i</span><span class="p">;</span>
+<span class="n">string</span> <span class="n">s</span><span class="p">;</span>
+
+<span class="c1">// 成功匹配</span>
+<span class="n">assert</span><span class="p">(</span><span class="n">RE2</span><span class="o">::</span><span class="n">PartialMatch</span><span class="p">(</span><span class="s">&quot;hello:1234&quot;</span><span class="p">,</span> <span class="s">&quot;(</span><span class="se">\\</span><span class="s">w+):(</span><span class="se">\\</span><span class="s">d+)&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">s</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">i</span><span class="p">));</span>
+<span class="n">assert</span><span class="p">(</span><span class="n">s</span> <span class="o">==</span> <span class="s">&quot;hello&quot;</span><span class="p">);</span>
+<span class="n">assert</span><span class="p">(</span><span class="n">i</span> <span class="o">==</span> <span class="mi">1234</span><span class="p">);</span>
+
+<span class="c1">// 失败：&quot;hello&quot;不能被解析成一个整形</span>
+<span class="n">assert</span><span class="p">(</span><span class="o">!</span><span class="n">RE2</span><span class="o">::</span><span class="n">PartialMatch</span><span class="p">(</span><span class="s">&quot;hello:1234&quot;</span><span class="p">,</span> <span class="s">&quot;(</span><span class="se">\\</span><span class="s">w+):(</span><span class="se">\\</span><span class="s">d+)&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">i</span><span class="p">));</span>
+
+<span class="c1">// 成功：跳过NULL参数</span>
+<span class="n">assert</span><span class="p">(</span><span class="n">RE2</span><span class="o">::</span><span class="n">PartialMatch</span><span class="p">(</span><span class="s">&quot;hello:1234&quot;</span><span class="p">,</span> <span class="s">&quot;(</span><span class="se">\\</span><span class="s">w+):(</span><span class="se">\\</span><span class="s">d+)&quot;</span><span class="p">,</span> <span class="p">(</span><span class="kt">void</span><span class="o">*</span><span class="p">)</span><span class="nb">NULL</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">i</span><span class="p">));</span>
+
+<span class="c1">// 失败：整形越界了</span>
+<span class="n">assert</span><span class="p">(</span><span class="o">!</span><span class="n">RE2</span><span class="o">::</span><span class="n">PartialMatch</span><span class="p">(</span><span class="s">&quot;hello:123456789123&quot;</span><span class="p">,</span> <span class="s">&quot;(</span><span class="se">\\</span><span class="s">w+):(</span><span class="se">\\</span><span class="s">d+)&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">s</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">i</span><span class="p">));</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>循环匹配</strong> ，使用 <code class="docutils literal notranslate"><span class="pre">StringPiece</span></code> + <code class="docutils literal notranslate"><span class="pre">Consume系列方法</span></code> 来进行多次匹配:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">string</span> <span class="n">str</span> <span class="o">=</span> <span class="s">&quot;aaaaa;bbbbb;cccccc;ddddd&quot;</span><span class="p">;</span>
+<span class="n">string</span> <span class="n">word</span><span class="p">;</span>
+
+<span class="n">re2</span><span class="o">::</span><span class="n">RE2</span> <span class="n">p1</span><span class="p">(</span><span class="s">&quot;(</span><span class="se">\\</span><span class="s">w+)&quot;</span><span class="p">);</span>
+<span class="n">re2</span><span class="o">::</span><span class="n">StringPiece</span> <span class="n">input1</span><span class="p">(</span><span class="n">str</span><span class="p">);</span>
+<span class="k">while</span> <span class="p">(</span><span class="n">RE2</span><span class="o">::</span><span class="n">FindAndConsume</span><span class="p">(</span><span class="o">&amp;</span><span class="n">input1</span><span class="p">,</span> <span class="n">p1</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">word</span><span class="p">))</span> <span class="p">{</span>
+  <span class="n">LOG</span><span class="p">(</span><span class="n">INFO</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">word</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; | &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">input1</span><span class="p">;</span>
+  <span class="n">word</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="n">re2</span><span class="o">::</span><span class="n">RE2</span> <span class="n">p2</span><span class="p">(</span><span class="s">&quot;(</span><span class="se">\\</span><span class="s">w+);&quot;</span><span class="p">);</span>  <span class="c1">// 注意这里p2与p1的区别，p2必须把间隔符也带上</span>
+<span class="n">re2</span><span class="o">::</span><span class="n">StringPiece</span> <span class="n">input2</span><span class="p">(</span><span class="n">str</span><span class="p">);</span>
+<span class="k">while</span> <span class="p">(</span><span class="n">RE2</span><span class="o">::</span><span class="n">Consume</span><span class="p">(</span><span class="o">&amp;</span><span class="n">input2</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">word</span><span class="p">))</span> <span class="p">{</span>
+  <span class="n">LOG</span><span class="p">(</span><span class="n">INFO</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">word</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; - &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">input2</span><span class="p">;</span>
+  <span class="n">word</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="p">[</span><span class="mi">7860</span><span class="o">:</span><span class="mo">0523</span><span class="o">/</span><span class="mi">152154</span><span class="o">:</span><span class="nl">INFO</span><span class="p">:</span><span class="n">image</span><span class="o">/</span><span class="n">category_browsing</span><span class="o">/</span><span class="n">category</span><span class="o">/</span><span class="n">tests</span><span class="o">/</span><span class="n">tests</span><span class="p">.</span><span class="n">cpp</span><span class="p">(</span><span class="mi">32</span><span class="p">)]</span> <span class="n">aaaaa</span> <span class="o">|</span> <span class="p">;</span><span class="n">bbbbb</span><span class="p">;</span><span class="n">cccccc</span><span class="p">;</span><span class="n">ddddd</span>
+<span class="p">[</span><span class="mi">7860</span><span class="o">:</span><span class="mo">0523</span><span class="o">/</span><span class="mi">152154</span><span class="o">:</span><span class="nl">INFO</span><span class="p">:</span><span class="n">image</span><span class="o">/</span><span class="n">category_browsing</span><span class="o">/</span><span class="n">category</span><span class="o">/</span><span class="n">tests</span><span class="o">/</span><span class="n">tests</span><span class="p">.</span><span class="n">cpp</span><span class="p">(</span><span class="mi">32</span><span class="p">)]</span> <span class="n">bbbbb</span> <span class="o">|</span> <span class="p">;</span><span class="n">cccccc</span><span class="p">;</span><span class="n">ddddd</span>
+<span class="p">[</span><span class="mi">7860</span><span class="o">:</span><span class="mo">0523</span><span class="o">/</span><span class="mi">152154</span><span class="o">:</span><span class="nl">INFO</span><span class="p">:</span><span class="n">image</span><span class="o">/</span><span class="n">category_browsing</span><span class="o">/</span><span class="n">category</span><span class="o">/</span><span class="n">tests</span><span class="o">/</span><span class="n">tests</span><span class="p">.</span><span class="n">cpp</span><span class="p">(</span><span class="mi">32</span><span class="p">)]</span> <span class="n">cccccc</span> <span class="o">|</span> <span class="p">;</span><span class="n">ddddd</span>
+<span class="p">[</span><span class="mi">7860</span><span class="o">:</span><span class="mo">0523</span><span class="o">/</span><span class="mi">152154</span><span class="o">:</span><span class="nl">INFO</span><span class="p">:</span><span class="n">image</span><span class="o">/</span><span class="n">category_browsing</span><span class="o">/</span><span class="n">category</span><span class="o">/</span><span class="n">tests</span><span class="o">/</span><span class="n">tests</span><span class="p">.</span><span class="n">cpp</span><span class="p">(</span><span class="mi">32</span><span class="p">)]</span> <span class="n">ddddd</span> <span class="o">|</span>
+<span class="p">[</span><span class="mi">7860</span><span class="o">:</span><span class="mo">0523</span><span class="o">/</span><span class="mi">152154</span><span class="o">:</span><span class="nl">INFO</span><span class="p">:</span><span class="n">image</span><span class="o">/</span><span class="n">category_browsing</span><span class="o">/</span><span class="n">category</span><span class="o">/</span><span class="n">tests</span><span class="o">/</span><span class="n">tests</span><span class="p">.</span><span class="n">cpp</span><span class="p">(</span><span class="mi">39</span><span class="p">)]</span> <span class="n">aaaaa</span> <span class="o">-</span> <span class="n">bbbbb</span><span class="p">;</span><span class="n">cccccc</span><span class="p">;</span><span class="n">ddddd</span>
+<span class="p">[</span><span class="mi">7860</span><span class="o">:</span><span class="mo">0523</span><span class="o">/</span><span class="mi">152154</span><span class="o">:</span><span class="nl">INFO</span><span class="p">:</span><span class="n">image</span><span class="o">/</span><span class="n">category_browsing</span><span class="o">/</span><span class="n">category</span><span class="o">/</span><span class="n">tests</span><span class="o">/</span><span class="n">tests</span><span class="p">.</span><span class="n">cpp</span><span class="p">(</span><span class="mi">39</span><span class="p">)]</span> <span class="n">bbbbb</span> <span class="o">-</span> <span class="n">cccccc</span><span class="p">;</span><span class="n">ddddd</span>
+<span class="p">[</span><span class="mi">7860</span><span class="o">:</span><span class="mo">0523</span><span class="o">/</span><span class="mi">152154</span><span class="o">:</span><span class="nl">INFO</span><span class="p">:</span><span class="n">image</span><span class="o">/</span><span class="n">category_browsing</span><span class="o">/</span><span class="n">category</span><span class="o">/</span><span class="n">tests</span><span class="o">/</span><span class="n">tests</span><span class="p">.</span><span class="n">cpp</span><span class="p">(</span><span class="mi">39</span><span class="p">)]</span> <span class="n">cccccc</span> <span class="o">-</span> <span class="n">ddddd</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Consume</span></code> 与 <code class="docutils literal notranslate"><span class="pre">FindAndConsume</span></code> 的区别在于， <code class="docutils literal notranslate"><span class="pre">Consume</span></code> 必须要求从头匹配。
+所以p2正则的后面必须加上 <code class="docutils literal notranslate"><span class="pre">;</span></code> 以使得input2每次后移之后能够从头匹配。</p>
+<p>因此，对于一般的任务来说， <code class="docutils literal notranslate"><span class="pre">FindAndConsume</span></code> 应该更实用一些，它不要求从头匹配。</p>
+</li>
+<li><p>使用 <strong>动态参数</strong> ，用于在运行时生成的正则表达式等场景:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">const</span> <span class="n">RE2</span><span class="o">::</span><span class="n">Arg</span><span class="o">*</span> <span class="n">args</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span>
+<span class="kt">int</span> <span class="n">n</span><span class="p">;</span>
+<span class="c1">// running... to generate: pattern, args, n</span>
+<span class="kt">bool</span> <span class="n">match</span> <span class="o">=</span> <span class="n">RE2</span><span class="o">::</span><span class="n">FullMatchN</span><span class="p">(</span><span class="n">input</span><span class="p">,</span> <span class="n">pattern</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">n</span><span class="p">);</span>
+<span class="kt">bool</span> <span class="n">match</span> <span class="o">=</span> <span class="n">RE2</span><span class="o">::</span><span class="n">FullMatch</span><span class="p">(</span><span class="n">input</span><span class="p">,</span> <span class="n">pattern</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">*</span><span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="p">...,</span> <span class="o">*</span><span class="n">args</span><span class="p">[</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]);</span>  <span class="c1">// equivalent to this</span>
+</pre></div>
+</div>
+</li>
+<li><p>在匹配时还可以 <strong>解析不同格式的数字</strong> ：8进制、16进制、C风格的数字:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">;</span>
+<span class="n">RE2</span><span class="o">::</span><span class="n">FullMatch</span><span class="p">(</span><span class="s">&quot;100 40 0100 0x40&quot;</span><span class="p">,</span> <span class="s">&quot;(.*) (.*) (.*) (.*)&quot;</span><span class="p">,</span> <span class="n">RE2</span><span class="o">::</span><span class="n">Octal</span><span class="p">(</span><span class="o">&amp;</span><span class="n">a</span><span class="p">),</span> <span class="n">RE2</span><span class="o">::</span><span class="n">Hex</span><span class="p">(</span><span class="o">&amp;</span><span class="n">b</span><span class="p">),</span> <span class="n">RE2</span><span class="o">::</span><span class="n">CRadix</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c</span><span class="p">),</span> <span class="n">RE2</span><span class="o">::</span><span class="n">CRadix</span><span class="p">(</span><span class="o">&amp;</span><span class="n">d</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>这段代码的结果是 <code class="docutils literal notranslate"><span class="pre">a=b=c=d=64</span></code> ，注意 <code class="docutils literal notranslate"><span class="pre">RE2::CRadix</span></code> C风格的数字表示法，即以0开头是8进制，0x开头是16进制，一般为10进制，这在计算机中很常用。</p>
+</li>
+<li><p><strong>替换操作</strong> ： new_str中可以使用 <code class="docutils literal notranslate"><span class="pre">\0,</span> <span class="pre">\1,</span> <span class="pre">...,</span> <span class="pre">\n</span></code> 来捕获p中出现的组。</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Relpace(in,</span> <span class="pre">p,</span> <span class="pre">new_str)</span></code> 只替换第一次出现的子串</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GlobalReplace(in,</span> <span class="pre">p,</span> <span class="pre">new_str)</span></code> 全局替换所有出现的子串</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Extract(in,</span> <span class="pre">p,</span> <span class="pre">new_str,</span> <span class="pre">&amp;out)</span></code> 替换第一次出现的子串，并用新模式进行替换后复制到out，这个方法的有用之处在于在new_str中使用 <code class="docutils literal notranslate"><span class="pre">\0,</span> <span class="pre">\1,</span> <span class="pre">...,</span> <span class="pre">\n</span></code> 来捕获p中出现的组。</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">QuoteMeta(str)</span></code> 对str中的 <strong>正则元字符进行转义</strong> 。</dt><dd><p>太棒了！这样的话就可以不用写一个难懂的、充满了转义符的正则表达式字符串，用这个函数优美的解决！</p>
+</dd>
+</dl>
+</li>
+</ul>
+<p class="rubric">脚注</p>
+<dl class="footnote brackets">
+<dt class="label" id="id12"><span class="brackets"><a class="fn-backref" href="#id9">1</a></span></dt>
+<dd><p>Python 中的正则表达式参考 <a class="reference external" href="http://wiki.ubuntu.org.cn/Python%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%93%8D%E4%BD%9C%E6%8C%87%E5%8D%97">此文</a></p>
+</dd>
+<dt class="label" id="id14"><span class="brackets"><a class="fn-backref" href="#id10">2</a></span></dt>
+<dd><p><a class="reference external" href="http://www.boost.org/doc/libs/1_53_0/libs/regex/doc/html/index.html">boost regex reference</a></p>
+</dd>
+<dt class="label" id="id15"><span class="brackets"><a class="fn-backref" href="#id11">3</a></span></dt>
+<dd><p>re2的 <a class="reference external" href="https://code.google.com/p/re2/">项目主页</a> ，以及它所支持的 <a class="reference external" href="https://code.google.com/p/re2/wiki/Syntax">语法</a></p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+
+
+        </div>
+
+
+
+        <!-- 来必力City版安装代码 -->
+        <div id="lv-container" data-id="city" data-uid="MTAyMC80MDU4Ni8xNzExMw==">
+        <script type="text/javascript">
+           (function(d, s) {
+               var j, e = d.getElementsByTagName(s)[0];
+
+               if (typeof LivereTower === 'function') { return; }
+
+               j = d.createElement(s);
+               j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+               j.async = true;
+
+               e.parentNode.insertBefore(j, e);
+           })(document, 'script');
+        </script>
+        <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+        </div>
+        <!-- City版安装代码已完成 -->
+      </div>
+    </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="总目录"
+             >索引</a></li>
+        <li class="right" >
+          <a href="reStructuredText.html" title="reStructuredText 学习笔记"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="eclipse.html" title="Eclipse"
+             >上一页</a> |</li>
+        <!--<li><a href="../index.html">首页</a>&#160;|</li>-->
+        <!--<li><a href="../contents.html">Documentation</a> &#187;</li>-->
+ 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; 版权所有 CC BY 2.5.
+      由 <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2 创建。
+    </div>
+  </body>
+</html>

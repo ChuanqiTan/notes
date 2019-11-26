@@ -1,0 +1,257 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh_CN">
+  <head>
+    <meta charset="utf-8" />
+    <title>操作系统概论 &#8212; Chuanqi 的技术文档</title>
+    <link rel="stylesheet" href="../_static/sphinx13.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="算法导论 读书笔记" href="introduction-to-algorithms-notes/introduction-to-algorithms-notes.html" />
+    <link rel="prev" title="一个人如果不耕作，就必须写作！" href="../index.html" />
+    <link rel="canonical" href="http://www.sphinx-doc.org/en/master/software/os.html" />
+
+    <!--<link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'-->
+          <!--rel='stylesheet' type='text/css' />-->
+ 
+    <style type="text/css">
+      table.right { float: right; margin-left: 20px; }
+      table.right td { border: 1px solid #ccc; }
+      
+      .injected { display:none; }
+    </style>
+    <script type="text/javascript">
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+
+  </head><body>
+<div class="pageheader">
+  <ul>
+    <li><a href="../index.html">笔记首页</a></li>
+    <li><a href="http://blog.tanchuanqi.com">博客首页</a></li>
+    <li><a href="https://tanchuanqi.com">个人主页</a></li>
+  </ul>
+  <div>
+    <a href="../index.html">
+      <img src="../_static/sphinxheader.png" alt="SPHINX" />
+    </a>
+  </div>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="总目录"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="introduction-to-algorithms-notes/introduction-to-algorithms-notes.html" title="算法导论 读书笔记"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="../index.html" title="一个人如果不耕作，就必须写作！"
+             accesskey="P">上一页</a> |</li>
+        <!--<li><a href="../index.html">首页</a>&#160;|</li>-->
+        <!--<li><a href="../contents.html">Documentation</a> &#187;</li>-->
+ 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>上一个主题</h4>
+  <p class="topless"><a href="../index.html"
+                        title="上一章">一个人如果不耕作，就必须写作！</a></p>
+  <h4>下一个主题</h4>
+  <p class="topless"><a href="introduction-to-algorithms-notes/introduction-to-algorithms-notes.html"
+                        title="下一章">算法导论 读书笔记</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="转向" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+    <div class="documentwrapper">
+      <div class="bodywrapper">
+        <div class="body" role="main">
+          
+  <div class="section" id="id1">
+<h1>操作系统概论<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<ul>
+<li><p>操作系统的几种结构－这也意味着大型软件系统的常见结构：</p>
+<ul class="simple">
+<li><p>简单结构：最原始的方法，把所有的功能写在一起，体系大了之后非常容易引起混乱，对于大型的软件体系这样的结构显然不合适；</p></li>
+<li><p>分层方法：一种非常好的改进，高层只调用低层提供的功能，这样大大的简洁了系统的设计，但是容易造成效率低下，但是由于结构清晰被大量的软件所选用；</p></li>
+<li><p>微内核：用一个很小的内核来完成必要的功能，以后的功能扩展都在这个内核上面进行，这样设计出来的系统可扩展性非常好，是非常可取的；</p></li>
+<li><p>分模块：微内核方法的一个改进，围绕着微内核提供一些功能模块，这些模块 <strong>当需要时由微内核动态加载进来</strong> ，辅助内核完成功能，这样的方式应当是微内核扩展的理想方式；</p></li>
+</ul>
+</li>
+<li><p>虚拟机其实更严格的说法应该叫：抽象计算机的规范！</p></li>
+<li><dl class="simple">
+<dt>进程控制块PCB：</dt><dd><p>保存了与进程相关的大部分信息，而且当OS进行 <strong>上下文切换</strong> 时，也是把所有与这个进程相关联的信息保存在该进程的PCB中的。</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>进程间通信有两种基本模式：（1）共享内存（内存文件也属于共享内存的一种）；（2）消息传递（OS消息、OS邮箱机制、Socket网络消息都是常用的方式）。</dt><dd><p>我以前总以为这几种方式的效率低下，其实进程间通信涉及安全问题，这些已经是最好的解决办法了！线程间是可以直接通信的，本来就共享资源，但是进程间就必须采取这样复杂一些的手段。</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>线程的优势在于轻巧且资源共享，有两种不同方式提供支持的线程：用户线程、内核线程</dt><dd><p>用户线程与内核线程可以是1对1、1对多、多对多的关系，搞明白用户线程与内核线程的区分对于理解OS的多线程机制提至关重要的！</p>
+</dd>
+</dl>
+</li>
+<li><p>单CPU的系统上的调度已经比较清楚了，采用一些调度算法就可以解决。在多CPU的机器上，还需要考虑处理器亲和性 和 负载平衡 的因素。</p></li>
+<li><p>线程的调度比进程的调度简单的多：因为进程是不知道其它的进程存在的，所以OS要自己衡量一个进程的优先级，对它进行调度；而线程的调度就容易的多，因为线程属于同一个程序（进程）都知道对方的存在，只需要根据它们自己定义好的自身优先级进行调度就基本可以了。</p></li>
+<li><p>进程之间的同步问题：所有的同步问题都是用锁来实现的，只不过有些锁实现的漂亮而已。
+经典的同步话题：临界区、PV、信号量等等已经蛮熟悉了，一个新的知识点是 <strong>管程</strong>
+管程听起来很玄乎，其实也很简单，跟OO的思维很像，就是封装资源，只能通过特定的接口去访问这些资源，而这些接口自己能够保证对资源进行访问时进行加锁操作。这样，使用管程进行编程的程序员就不必去关心里面的加锁的细节了，它只需要通过接口去访问资源就可以保证同步的正确性。来个简单的例子</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Monitor</span><span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="kt">void</span> <span class="n">Add1</span><span class="p">(){</span><span class="n">Lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">object</span><span class="p">);</span> <span class="k">do</span> <span class="n">add</span> <span class="mi">1</span><span class="p">;</span> <span class="n">Unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">object</span><span class="p">)}</span>
+    <span class="kt">void</span> <span class="n">Sub1</span><span class="p">(){</span><span class="n">Lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">object</span><span class="p">);</span> <span class="k">do</span> <span class="n">sub</span> <span class="mi">1</span><span class="p">;</span> <span class="n">Unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">object</span><span class="p">)}</span>
+<span class="k">private</span><span class="o">:</span>
+    <span class="n">Resource</span> <span class="o">*</span><span class="n">_inner_resource</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>通过Monitor类封装了资源，其它的程序员只需要通过接口来对资源进行操作，而不必操心同步问题。才发现原来 管程 的英文是Monitor，这样看来像.NET和JAVA早就已经提供了Monitor这个东西了。</p>
+</li>
+<li><p>事务：执行单个逻辑功能的一组指令叫作一个事务，事务必须要保证它的原子性！</p>
+<ul class="simple">
+<li><p>基于日志的恢复：为保证事务的原子性，必须对操作进行先记录再操作，而且必须在稳定的存储上进行日志的记录（如磁盘）。记录下操作的所有相关信息（相关数据项、旧值、新值等）；</p></li>
+<li><p>当系统出现错误时，参考日志对系统进行恢复；</p></li>
+</ul>
+</li>
+<li><dl class="simple">
+<dt>并发的原子操作：并发的原子操作比普通的原子操作要复杂的多，但是不管算法多么的复杂，其 <strong>核心思想都是确保操作的结果等效于串行化</strong> 。</dt><dd><p>很明显，最差的方案就是对所有并发的操作一个一个串行执行，但是这样效率太低但满足串行的要求；一个改进的思路就是同时执行不修改同一数据项的操作，这也很好理解，这样也能确保操作的结果等效于串行化，这可以通过对每一个数据项加一个锁来保证不同时并行对同一个数据的操作；还有一种基于时间戳的协议方法，基本思想也就是以时间戳的顺序来确保操作的等效串行化；所有的方案都是在确保操作结果等效于串行化的基础上最大化并行效率而已。</p>
+</dd>
+</dl>
+</li>
+<li><p>死锁的相关讨论：</p>
+<ul class="simple">
+<li><p>死锁的预防：破坏4个必要条件</p></li>
+<li><p>死锁的避免：分配资源时遵循一定的规律（银行家算法）</p></li>
+<li><p>死锁的检测：死锁检测算法</p></li>
+<li><p>死锁的恢复：进程终止或资源抢占</p></li>
+</ul>
+</li>
+<li><p>内存管理中的：逻辑地址与物理地址的区别，动态加载与静态加载的区别。动态加载其实是将链接的操作延迟到了运行时进行，在运行时的加载操作中进行函数的链接操作。</p></li>
+<li><p>连续的内存分配会造成碎片的问题，现代操作系统多采用分页和分段相结合的方式：</p>
+<ul class="simple">
+<li><p>分页：一页的大小是固定的，因此不会有外部碎片，但可能由于请求的内存过小而造成内部碎片；</p></li>
+<li><p>分段：分段更合适人类思维的逻辑，根据不同的功能块将内存需求分成几段；</p></li>
+</ul>
+</li>
+<li><p>虚拟内存的页面置换算法中，最优置换算法是”将来最晚使用“算法，但这是不现实的，因为需要分页调用未来的情况，所以经常使用的是LRU（最近最少使用）算法或近似的LRU算法（计数）。</p></li>
+<li><p>系统颠簸：来回换页的时候超过执行时间，就视为颠簸。</p></li>
+<li><dl class="simple">
+<dt>OS页面调度时还需要考虑的因素：预调页、页大小、TLB（命中率）范围、反向页表、程序结构</dt><dd><p>Windowx XP还使用了 簇 和 自动工作集（一个进程所能使用的页数的范围）修正 来改善换页的效果，簇是根据程序的局部性原理在换页时将附近的页同时也换到内存中来。</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>无环的目录结构与允许存在环的通用目录结构的区分在于：无环图的主要优点在于可以使用简单的算法遍历目录图，并确定是否存在对文件的引用，这样做主要是因为性能。而可能允许存在环的通用目录结构则在遍历算法上会更复杂，而且对于文件的删除时可能会出现困难，因为会出现循环引用的情况。</dt><dd><p>这与内存中的垃圾收集多么的相似呀~</p>
+</dd>
+</dl>
+</li>
+<li><p>UNIX的inode索引结构实现的很酷，通过直接块、一级间接块、二级间接块、三级间接块来实现了很大程度上的伸缩性。</p></li>
+<li><p>磁盘分区的目的：以控制介质的使用和允许在同一磁盘上支持多种可能不同的文件系统。</p></li>
+<li><p>RAID级别：RAID0表示无冗余的磁盘阵列、RAID1表示磁盘镜像、RAID级别越高，冗余越高容错性越好！</p></li>
+<li><p>直接内存访问（DMA）：因为内存比CPU慢太多，CPU不应该在读取内存时等待，所以将读取内存的工作下放到DMA，可以视为一个辅助的功能弱化的CPU吧，由DMA完成内存的读取工作再通过中断的方式通知CPU内存读取完成，CPU再继续下面的工作。</p></li>
+<li><p>每种操作系统都有其自己的“设备驱动接口标准”，硬件设备制造商只需要针对这些接口标准进行驱动程序的编程即可。</p></li>
+</ul>
+</div>
+
+
+        </div>
+
+
+
+        <!-- 来必力City版安装代码 -->
+        <div id="lv-container" data-id="city" data-uid="MTAyMC80MDU4Ni8xNzExMw==">
+        <script type="text/javascript">
+           (function(d, s) {
+               var j, e = d.getElementsByTagName(s)[0];
+
+               if (typeof LivereTower === 'function') { return; }
+
+               j = d.createElement(s);
+               j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+               j.async = true;
+
+               e.parentNode.insertBefore(j, e);
+           })(document, 'script');
+        </script>
+        <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+        </div>
+        <!-- City版安装代码已完成 -->
+      </div>
+    </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="总目录"
+             >索引</a></li>
+        <li class="right" >
+          <a href="introduction-to-algorithms-notes/introduction-to-algorithms-notes.html" title="算法导论 读书笔记"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="../index.html" title="一个人如果不耕作，就必须写作！"
+             >上一页</a> |</li>
+        <!--<li><a href="../index.html">首页</a>&#160;|</li>-->
+        <!--<li><a href="../contents.html">Documentation</a> &#187;</li>-->
+ 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; 版权所有 CC BY 2.5.
+      由 <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2 创建。
+    </div>
+  </body>
+</html>

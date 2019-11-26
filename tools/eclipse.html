@@ -1,0 +1,552 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh_CN">
+  <head>
+    <meta charset="utf-8" />
+    <title>Eclipse &#8212; Chuanqi 的技术文档</title>
+    <link rel="stylesheet" href="../_static/sphinx13.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="正则表达式（Regular Expression）" href="regex.html" />
+    <link rel="prev" title="Vim" href="vim.html" />
+    <link rel="canonical" href="http://www.sphinx-doc.org/en/master/tools/eclipse.html" />
+
+    <!--<link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'-->
+          <!--rel='stylesheet' type='text/css' />-->
+ 
+    <style type="text/css">
+      table.right { float: right; margin-left: 20px; }
+      table.right td { border: 1px solid #ccc; }
+      
+      .injected { display:none; }
+    </style>
+    <script type="text/javascript">
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+
+  </head><body>
+<div class="pageheader">
+  <ul>
+    <li><a href="../index.html">笔记首页</a></li>
+    <li><a href="http://blog.tanchuanqi.com">博客首页</a></li>
+    <li><a href="https://tanchuanqi.com">个人主页</a></li>
+  </ul>
+  <div>
+    <a href="../index.html">
+      <img src="../_static/sphinxheader.png" alt="SPHINX" />
+    </a>
+  </div>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="总目录"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="regex.html" title="正则表达式（Regular Expression）"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="vim.html" title="Vim"
+             accesskey="P">上一页</a> |</li>
+        <!--<li><a href="../index.html">首页</a>&#160;|</li>-->
+        <!--<li><a href="../contents.html">Documentation</a> &#187;</li>-->
+ 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>上一个主题</h4>
+  <p class="topless"><a href="vim.html"
+                        title="上一章">Vim</a></p>
+  <h4>下一个主题</h4>
+  <p class="topless"><a href="regex.html"
+                        title="下一章">正则表达式（Regular Expression）</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="转向" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+    <div class="documentwrapper">
+      <div class="bodywrapper">
+        <div class="body" role="main">
+          
+  <div class="admonition note">
+<p class="admonition-title">注解</p>
+<p><strong>工欲善其事，必先利其器。</strong></p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<div class="line-block">
+<div class="line">我的 IDE 定为Eclipse+Vim，前者用于大规模的项目，后者用于除大规模项目外的所有情况。</div>
+<div class="line">我选择IDE的标准为：”开源、跨平台、近乎标准工具、好用”，Eclipse+Vim 足以满足我的需求。</div>
+</div>
+</div>
+<div class="section" id="eclipse">
+<h1>Eclipse<a class="headerlink" href="#eclipse" title="永久链接至标题">¶</a></h1>
+<ul>
+<li><p>Eclipse CDT 常用的快捷键：</p>
+<ul class="simple">
+<li><p>基本</p>
+<dl class="field-list simple">
+<dt class="field-odd">Ctrl+Shift+L</dt>
+<dd class="field-odd"><p>显示所有的快捷键(万物之源啊，不记得的时候随手看一看)</p>
+</dd>
+<dt class="field-even">Ctrl+3</dt>
+<dd class="field-even"><p>Quick Access，右上角的文本框，快速搜索所有的命令</p>
+</dd>
+</dl>
+</li>
+<li><p>窗口导航</p>
+<dl class="field-list simple">
+<dt class="field-odd">F12</dt>
+<dd class="field-odd"><p>Active Editor（非常重要，在如Ctrl+G等弹出其它窗口之后迅速的回到编辑窗口）</p>
+</dd>
+<dt class="field-even">Ctrl+Alt+T</dt>
+<dd class="field-even"><p>排名第一的快捷键，快速打开类型，支持通配符</p>
+</dd>
+<dt class="field-odd">Ctrl+Alt+R</dt>
+<dd class="field-odd"><p>排名第二的快捷键，快速寻找整个workspace里的所有资源，支持通配符</p>
+</dd>
+<dt class="field-even">Ctrl+O</dt>
+<dd class="field-even"><p>Outline</p>
+</dd>
+<dt class="field-odd">Ctrl+E</dt>
+<dd class="field-odd"><p>快速切换已打开的文件(类似的还有Ctrl+F6直接切换,和Ctrl+Shift+E)</p>
+</dd>
+<dt class="field-even">Ctrl+M</dt>
+<dd class="field-even"><p>编辑器窗口最大最小化</p>
+</dd>
+<dt class="field-odd">Ctrl+T</dt>
+<dd class="field-odd"><p>查看类继承关系图</p>
+</dd>
+<dt class="field-even">Ctrl+Alt+H</dt>
+<dd class="field-even"><p>在Workspace范围内查找函数被调用的关系树</p>
+</dd>
+<dt class="field-odd">Ctrl+G</dt>
+<dd class="field-odd"><p>查找一个符号的声明和定义，这个类似于工具栏的Mark Occurrences，但是可以显示在其它文件中定义的符号</p>
+</dd>
+<dt class="field-even">Ctrl+Shift+G</dt>
+<dd class="field-even"><p>查找一个符号在当前workspace被引用的所有位置</p>
+</dd>
+<dt class="field-odd">Ctrl+W</dt>
+<dd class="field-odd"><p>关闭当前窗口</p>
+</dd>
+<dt class="field-even">Ctrl+Shift+W</dt>
+<dd class="field-even"><p>关闭所有窗口</p>
+</dd>
+<dt class="field-odd">Alt+Enter</dt>
+<dd class="field-odd"><p>显示当前选择资源(工程,or 文件 or文件)的属性</p>
+</dd>
+<dt class="field-even">Alt+Shift+Q</dt>
+<dd class="field-even"><p>再接一个字符选择打开一个窗口（按完Alt+Shift+Q后会弹出提示框）</p>
+</dd>
+</dl>
+</li>
+<li><p>编辑</p>
+<dl class="field-list simple">
+<dt class="field-odd">Alt+Shift+A</dt>
+<dd class="field-odd"><p>进入块选择模式</p>
+</dd>
+<dt class="field-even">Shift+Enter</dt>
+<dd class="field-even"><p>快速在下方创建一行并切换过去</p>
+</dd>
+<dt class="field-odd">Ctrl+Shift+Enter</dt>
+<dd class="field-odd"><p>快速在上方创建一行并切换过去</p>
+</dd>
+<dt class="field-even">Alt+上/下</dt>
+<dd class="field-even"><p>快速将当前行上下移一行</p>
+</dd>
+<dt class="field-odd">Alt+左/右</dt>
+<dd class="field-odd"><p>移动到上次（下）光标所在的位置</p>
+</dd>
+<dt class="field-even">Ctrl+,/.</dt>
+<dd class="field-even"><p>移动到上/下一个错误处</p>
+</dd>
+<dt class="field-odd">Ctrl+1</dt>
+<dd class="field-odd"><p>Quick Fix</p>
+</dd>
+<dt class="field-even">Ctrl+Q</dt>
+<dd class="field-even"><p>回到上一次编辑的位置(Vim: ``)</p>
+</dd>
+<dt class="field-odd">Ctrl+D</dt>
+<dd class="field-odd"><p>删除一整行</p>
+</dd>
+<dt class="field-even">Alt+/</dt>
+<dd class="field-even"><p>Code Assent!!!</p>
+</dd>
+<dt class="field-odd">Alt+?</dt>
+<dd class="field-odd"><p>参数提示</p>
+</dd>
+<dt class="field-even">Ctrl+Alt+/</dt>
+<dd class="field-even"><p>按文本补全</p>
+</dd>
+<dt class="field-odd">Ctrl+/</dt>
+<dd class="field-odd"><p>切换注释</p>
+</dd>
+<dt class="field-even">Ctrl+Shift+/</dt>
+<dd class="field-even"><p>添加块注释</p>
+</dd>
+<dt class="field-odd">Ctrl+Shift+\</dt>
+<dd class="field-odd"><p>删除块注释</p>
+</dd>
+<dt class="field-even">Ctrl+Tab</dt>
+<dd class="field-even"><p>头文件和源文件切换</p>
+</dd>
+<dt class="field-odd">Ctrl+Shift+F</dt>
+<dd class="field-odd"><p>根据Code Style格式化代码</p>
+</dd>
+<dt class="field-even">Ctrl+H</dt>
+<dd class="field-even"><p>查找字段C/C++ Search</p>
+</dd>
+<dt class="field-odd">F2</dt>
+<dd class="field-odd"><p>显示Tooltip，相当于鼠标悬停</p>
+</dd>
+<dt class="field-even">F3</dt>
+<dd class="field-even"><p>转到声明，相当于Ctrl+鼠标单击</p>
+</dd>
+<dt class="field-odd">Ctrl+F</dt>
+<dd class="field-odd"><p>查找/替换窗口</p>
+</dd>
+<dt class="field-even">Ctrl+J</dt>
+<dd class="field-even"><p>增量查找</p>
+</dd>
+<dt class="field-odd">Ctrl+K</dt>
+<dd class="field-odd"><p>查找结果的下一个</p>
+</dd>
+<dt class="field-even">Ctrl+Shift+K</dt>
+<dd class="field-even"><p>查找结果的上一个</p>
+</dd>
+<dt class="field-odd">Alt+Shift+方向</dt>
+<dd class="field-odd"><p>根据语法进行整块选择</p>
+</dd>
+<dt class="field-even">Ctrl+L</dt>
+<dd class="field-even"><p>定位在某行</p>
+</dd>
+<dt class="field-odd">Ctrl+ /</dt>
+<dd class="field-odd"><p>打开/关闭折叠功能 ( <strong>所有与折叠相关的都是小键盘上的键</strong> )</p>
+</dd>
+<dt class="field-even">Ctrl+ *</dt>
+<dd class="field-even"><p>展开所有的块</p>
+</dd>
+<dt class="field-odd">Ctrl+Shift+/</dt>
+<dd class="field-odd"><p>折叠所有的块</p>
+</dd>
+<dt class="field-even">Ctrl+ -</dt>
+<dd class="field-even"><p>折叠当前元素</p>
+</dd>
+<dt class="field-odd">Ctrl+ +</dt>
+<dd class="field-odd"><p>展开当前元素</p>
+</dd>
+<dt class="field-even">Ctrl+Shift+P</dt>
+<dd class="field-even"><p>定位到对于的匹配符(譬如{})</p>
+</dd>
+<dt class="field-odd">Ctrl+Z</dt>
+<dd class="field-odd"><p>撤销</p>
+</dd>
+<dt class="field-even">Ctrl+Shift+Z</dt>
+<dd class="field-even"><p>重做</p>
+</dd>
+<dt class="field-odd">Ctrl+上/下</dt>
+<dd class="field-odd"><p>保持光标位置不变的向上/下滚动</p>
+</dd>
+<dt class="field-even">Ctrl+左/右</dt>
+<dd class="field-even"><p>按单词的移动（一定要多用）</p>
+</dd>
+<dt class="field-odd">Ctrl+Shift+N</dt>
+<dd class="field-odd"><p>快速添加缺失的头文件</p>
+</dd>
+<dt class="field-even">Ctrl+Shift+上</dt>
+<dd class="field-even"><p>转至当前文件的上一个成员</p>
+</dd>
+<dt class="field-odd">Ctrl+Shift+下</dt>
+<dd class="field-odd"><p>转至当前文件的下一个成员</p>
+</dd>
+</dl>
+</li>
+<li><p>重构</p>
+<dl class="field-list simple">
+<dt class="field-odd">Alt+Shift+R</dt>
+<dd class="field-odd"><p>重构 - 重命名</p>
+</dd>
+<dt class="field-even">Alt+Shift+L</dt>
+<dd class="field-even"><p>重构 - 提取本地变量</p>
+</dd>
+<dt class="field-odd">Alt+Shift+M</dt>
+<dd class="field-odd"><p>重构 - 提取本地方法</p>
+</dd>
+<dt class="field-even">Alt+C</dt>
+<dd class="field-even"><p>重构 - 提取一个字面值为常量</p>
+</dd>
+<dt class="field-odd">Alt+Shift+T</dt>
+<dd class="field-odd"><p>重构 - 把函数体在头文件和头文件之间进行切换</p>
+</dd>
+</dl>
+</li>
+<li><p>构建、运行、调试：</p>
+<dl class="field-list simple">
+<dt class="field-odd">Ctrl+B</dt>
+<dd class="field-odd"><p>全部构建Build</p>
+</dd>
+<dt class="field-even">Ctrl+Shift+B</dt>
+<dd class="field-even"><p>切换断点</p>
+</dd>
+<dt class="field-odd">F5</dt>
+<dd class="field-odd"><p>单步跳入</p>
+</dd>
+<dt class="field-even">F6</dt>
+<dd class="field-even"><p>单步跳过</p>
+</dd>
+<dt class="field-odd">F7</dt>
+<dd class="field-odd"><p>单步返回</p>
+</dd>
+<dt class="field-even">F8</dt>
+<dd class="field-even"><p>继续</p>
+</dd>
+<dt class="field-odd">F9</dt>
+<dd class="field-odd"><p>Make 最近的 Target</p>
+</dd>
+<dt class="field-even">Shift+F9</dt>
+<dd class="field-even"><p>选择Make Target</p>
+</dd>
+<dt class="field-odd">F11</dt>
+<dd class="field-odd"><p>Debug</p>
+</dd>
+<dt class="field-even">Ctrl+F11</dt>
+<dd class="field-even"><p>Run</p>
+</dd>
+</dl>
+</li>
+<li><p>自定义</p>
+<dl class="field-list simple">
+<dt class="field-odd">Alt+J</dt>
+<dd class="field-odd"><p>下移一行</p>
+</dd>
+<dt class="field-even">Alt+K</dt>
+<dd class="field-even"><p>上移一行</p>
+</dd>
+<dt class="field-odd">Alt+H</dt>
+<dd class="field-odd"><p>左移一列</p>
+</dd>
+<dt class="field-even">Alt+L</dt>
+<dd class="field-even"><p>右移一列</p>
+</dd>
+</dl>
+</li>
+</ul>
+</li>
+<li><p>安装Eclipse汉化包</p>
+<ul>
+<li><p>Eclipse的语言包是由Babel项目来提供的，首先到 <a class="reference external" href="http://www.eclipse.org/babel/downloads.php">http://www.eclipse.org/babel/downloads.php</a> 找到当前Eclipse版本对应的中文包</p></li>
+<li><p>然后下载对应的组件的汉化包，一般来说我下载eclipse-zh和cdt-zh两个包就可以了</p></li>
+<li><p>Eclipse的语言包也是用插件的形式安装，所以这2个语言包也使用links安装插件的方式安装</p>
+<ul>
+<li><p>在eclipse目录下创建languages目录，再把下载的2个语言包分别解压到language/eclipse-platform, language/cdt目录下</p></li>
+<li><p>再在eclipse目录下创建links目录，在其中创建任何名称的文本文件如languages.link，写入如下内容:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">path</span><span class="o">=</span><span class="n">languages</span><span class="o">/</span><span class="n">eclipse</span><span class="o">-</span><span class="n">platform</span>
+<span class="n">path</span><span class="o">=</span><span class="n">languages</span><span class="o">/</span><span class="n">cdt</span>
+</pre></div>
+</div>
+</li>
+<li><p>如果还有部分内容没有更新成中文，那是因为以前的缓存，解决办法如下：</p>
+<ul class="simple">
+<li><p>把 configuration 目录中除了 config.ini 之外的目录全部删除，运行eclipse会重新建立</p></li>
+<li><p>以 -clean 参数启动eclipse</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>比较值得安装的插件:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="http://code.google.com/p/elt/">elt</a> (Terminal plug-in for Eclipse) 给Eclipse添加一个命令行功能，这样就可以完全不用离开eclipse做所有的事情了.</p></li>
+<li><p><a class="reference external" href="http://vrapper.sourceforge.net/home/">vrapper</a> 模仿VIM编辑器的插件</p></li>
+</ul>
+</li>
+<li><p>Eclipse CDT 常用设置</p>
+<ul>
+<li><dl class="simple">
+<dt>编辑器选项：General &gt; Editors &gt; Text Editors</dt><dd><p>选中Insert spaces for tabs, tab 宽度设置为2；
+选中Show print margin，并设置Print margin column = 100；
+选中Show line numbers</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>工作空间设置 General &gt; Workspace</dt><dd><p>选中Save automatically before build、Always close unrelated projects without prompt、设置Workspace Name。</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>重构前自动保存 C/C++</dt><dd><p>选中Save all modified resources automatically prior to refactoring</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>群组归类显示 C/C++ &gt; Appearance</dt><dd><p>选中所有Group选项</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>只构建有修改的项目 C/C++ &gt; Build</dt><dd><p>选中Build configurations only when there are Eclipse resource changes within the project and its references</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>加快提示速度 C/C++ &gt; Editor &gt; Content Assist</dt><dd><p>选中所有的自动激活，并把延时设置为1ms</p>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>自动代码折叠：C/C++ &gt; Editor &gt; Folding</dt><dd><div class="line-block">
+<div class="line">选中Enable folding when opening a new editor</div>
+<div class="line">选中Enable folding of preprocessor branches</div>
+<div class="line">选中Enable folding of control flow statements</div>
+<div class="line">只保留Initially fold these region types中的下列两项： Header Comments、Inactive Preprocessor Branches</div>
+</div>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>保存时删除所有行的末尾空格：C/C++ &gt; Editor &gt; Save Actions</dt><dd><p>Remove trailing whitespace &gt; 选中In all lines</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>单文件最大解析数目：</dt><dd><p>C/C++ &gt; Editor &gt; Scalability，从5000改成50000</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>模板应用自定义代码风格：C/C++ &gt; Editor &gt; Templates</dt><dd><p>选中Use code formatter</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>解析器：C/C++ &gt; Indexer</dt><dd><p>选中Index unused headers；
+选中Index source and header files opened in editor；
+尽量加大Cache limits的值，例如：50%, 512MB, 256MB</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>代码格式化</dt><dd><p>C/C++ &gt; Code Style &gt; Formater 导入google-cpp-style-for-eclipse.xml</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>设置豆沙色背景以保护眼睛</dt><dd><p>常规 &gt; 编辑器 &gt; 文本编辑器 &gt; 外观颜色选项 &gt; 背景色 设置RGB为 <code class="docutils literal notranslate"><span class="pre">R:204</span>&#160; <span class="pre">G:232</span>&#160; <span class="pre">B:207</span></code> 就OK了。</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>过滤不想要的文件：</dt><dd><p>右键想要隐藏文件的project or folder-&gt;Properties-&gt;Resource-&gt;Resource Filters-&gt;Add “Exclude all”</p>
+</dd>
+</dl>
+</li>
+</ul>
+</li>
+<li><p>Windows下常见问题</p>
+<ul class="simple">
+<li><p>windows下中文字体太小：因为默认使用的Consolas字体的原因，切换为Courier New字体，在Windows-&gt;Preferences-&gt;General-&gt;Appearance-&gt;Color and Font-&gt;Basic-&gt;Text Font-&gt;显示更多字体-&gt;右键显示激活</p></li>
+</ul>
+</li>
+</ul>
+</div>
+
+
+        </div>
+
+
+
+        <!-- 来必力City版安装代码 -->
+        <div id="lv-container" data-id="city" data-uid="MTAyMC80MDU4Ni8xNzExMw==">
+        <script type="text/javascript">
+           (function(d, s) {
+               var j, e = d.getElementsByTagName(s)[0];
+
+               if (typeof LivereTower === 'function') { return; }
+
+               j = d.createElement(s);
+               j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+               j.async = true;
+
+               e.parentNode.insertBefore(j, e);
+           })(document, 'script');
+        </script>
+        <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+        </div>
+        <!-- City版安装代码已完成 -->
+      </div>
+    </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="总目录"
+             >索引</a></li>
+        <li class="right" >
+          <a href="regex.html" title="正则表达式（Regular Expression）"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="vim.html" title="Vim"
+             >上一页</a> |</li>
+        <!--<li><a href="../index.html">首页</a>&#160;|</li>-->
+        <!--<li><a href="../contents.html">Documentation</a> &#187;</li>-->
+ 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; 版权所有 CC BY 2.5.
+      由 <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2 创建。
+    </div>
+  </body>
+</html>

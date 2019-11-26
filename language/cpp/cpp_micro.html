@@ -1,0 +1,572 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh_CN">
+  <head>
+    <meta charset="utf-8" />
+    <title>C++ 宏编程 学习笔记 &#8212; Chuanqi 的技术文档</title>
+    <link rel="stylesheet" href="../../_static/sphinx13.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <script type="text/javascript" src="../../_static/translations.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="Google C++ 库" href="google_library.html" />
+    <link rel="prev" title="算法导论 读书笔记" href="../../software/introduction-to-algorithms-notes/introduction-to-algorithms-notes.html" />
+    <link rel="canonical" href="http://www.sphinx-doc.org/en/master/language/cpp/cpp_micro.html" />
+
+    <!--<link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'-->
+          <!--rel='stylesheet' type='text/css' />-->
+ 
+    <style type="text/css">
+      table.right { float: right; margin-left: 20px; }
+      table.right td { border: 1px solid #ccc; }
+      
+      .injected { display:none; }
+    </style>
+    <script type="text/javascript">
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+
+  </head><body>
+<div class="pageheader">
+  <ul>
+    <li><a href="../../index.html">笔记首页</a></li>
+    <li><a href="http://blog.tanchuanqi.com">博客首页</a></li>
+    <li><a href="https://tanchuanqi.com">个人主页</a></li>
+  </ul>
+  <div>
+    <a href="../../index.html">
+      <img src="../../_static/sphinxheader.png" alt="SPHINX" />
+    </a>
+  </div>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="google_library.html" title="Google C++ 库"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="../../software/introduction-to-algorithms-notes/introduction-to-algorithms-notes.html" title="算法导论 读书笔记"
+             accesskey="P">上一页</a> |</li>
+        <!--<li><a href="../../index.html">首页</a>&#160;|</li>-->
+        <!--<li><a href="../../contents.html">Documentation</a> &#187;</li>-->
+ 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">目录</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">C++ 宏编程 学习笔记</a><ul>
+<li><a class="reference internal" href="#id1">心得总结</a></li>
+<li><a class="reference internal" href="#id2">详细手册</a><ul>
+<li><a class="reference internal" href="#id3">宏是什么？</a></li>
+<li><a class="reference internal" href="#id4">使用宏做函数</a></li>
+<li><a class="reference internal" href="#id5">为什么要用宏来做函数？</a></li>
+<li><a class="reference internal" href="#id6">2个宏编程易犯的错误</a></li>
+<li><a class="reference internal" href="#id7">后面加不加分号：</a></li>
+<li><a class="reference internal" href="#id8">特殊符号：#、##</a></li>
+<li><a class="reference internal" href="#va-args">__VA_ARGS__ 变参宏</a></li>
+<li><a class="reference internal" href="#id9">宏不支持递归</a></li>
+<li><a class="reference internal" href="#id10">宏从内向外展开</a></li>
+<li><a class="reference internal" href="#id11">宏展开时的限制</a></li>
+<li><a class="reference internal" href="#id12">常用的预定义宏</a></li>
+<li><a class="reference internal" href="#id13">注意事项</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id14">高级技巧</a><ul>
+<li><a class="reference internal" href="#do-while-0">do{…}while(0)技巧</a></li>
+<li><a class="reference internal" href="#id15">使用宏完成注册操作</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id16">常见用途</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>上一个主题</h4>
+  <p class="topless"><a href="../../software/introduction-to-algorithms-notes/introduction-to-algorithms-notes.html"
+                        title="上一章">算法导论 读书笔记</a></p>
+  <h4>下一个主题</h4>
+  <p class="topless"><a href="google_library.html"
+                        title="下一章">Google C++ 库</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="转向" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+    <div class="documentwrapper">
+      <div class="bodywrapper">
+        <div class="body" role="main">
+          
+  <div class="section" id="c">
+<h1>C++ 宏编程 学习笔记<a class="headerlink" href="#c" title="永久链接至标题">¶</a></h1>
+<div class="sidebar">
+<p class="sidebar-title">C++ 宏</p>
+<div class="line-block">
+<div class="line">虽然很多人提出不要在C++中使用宏，但是宏对C/C++的作用却是至关重要的！</div>
+<div class="line">对C++语言进行改造，肯定是要用到宏的，不精通宏，怎么好意思说自己精通C++？</div>
+<div class="line">看看任何一个高级C++库，全部都遍地是宏！</div>
+</div>
+</div>
+<div class="section" id="id1">
+<h2>心得总结<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>C++宏最重要是明确：”宏仅仅是文本替换！而且它是预编译时发生，在正常编译开始之前”。</p>
+</div>
+</div>
+<div class="section" id="id2">
+<h2>详细手册<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id3">
+<h3>宏是什么？<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h3>
+<p>宏就是编译器在预处理阶段进行的 <strong>文本替换</strong> 。
+习惯上用大写字母表示&lt;宏名&gt;，目的是为了与变量名区分。常量用大写字母；变量用小写字母。 <code class="docutils literal notranslate"><span class="pre">#define</span> <span class="pre">PI</span> <span class="pre">3.1415926</span></code></p>
+<p>如果某一个标识符被定义为宏名后，在取消该宏定义之前，不允许重新对它进行宏定义。
+所以应记得及时的尽量取消宏定义： <code class="docutils literal notranslate"><span class="pre">#undef</span> <span class="pre">&lt;标识符&gt;</span></code> 。
+<code class="docutils literal notranslate"><span class="pre">#undef</span></code> 比较多的用途是在使用宏之前先进行 <code class="docutils literal notranslate"><span class="pre">#undef</span></code> 以保证这个宏不会与先前的定义冲突。</p>
+</div>
+<div class="section" id="id4">
+<h3>使用宏做函数<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
+<p>宏可以像函数一样被定义，例如:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#define MIN(x,y) ((x)&lt;(y)?(x):(y))</span>
+</pre></div>
+</div>
+<p>但是在实际使用时，只有当写上MIN()，必须加括号，MIN才会被作为宏展开，否则不做任何处理。
+编译器(预处理器)对宏只进行简单的文本替换，而 <strong>不会进行语法检查</strong> ，所以更多的检查性工作得你自己来做。</p>
+</div>
+<div class="section" id="id5">
+<h3>为什么要用宏来做函数？<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
+<ol class="arabic simple">
+<li><p><strong>鸭子原则</strong>：比如MIN宏适用于任何实现了operator&lt;的类型，包括自定义类型（这点与template类似）；</p></li>
+<li><p>效率最高：虽然使用inline提示符也将函数或模板定义为内联的，但这只是一种提示而已，到底编译器有没有优化还依赖于编译器的实现，而使用宏函数则是完全由代码本身控制。</p></li>
+</ol>
+</div>
+<div class="section" id="id6">
+<h3>2个宏编程易犯的错误<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h3>
+<p>程序员对宏定义的使用要非常小心，特别要注意两个问题：</p>
+<blockquote>
+<div><ul>
+<li><dl>
+<dt>谨慎地将宏定义中的 <strong>“参数”</strong> 和 <strong>整个宏</strong> 都用括弧括起来。</dt><dd><p>所以，严格地讲，下述解答:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#define MIN(A,B) (A) &lt;= (B) ? (A) : (B)</span>
+<span class="cp">#define MIN(A,B) (A &lt;= B ? A : B )</span>
+</pre></div>
+</div>
+<p>都应判0分；
+正确的解答应该是： <code class="docutils literal notranslate"><span class="pre">#define</span> <span class="pre">MIN(A,</span> <span class="pre">B)</span> <span class="pre">((A)</span> <span class="pre">&lt;=</span> <span class="pre">(B)</span> <span class="pre">?</span> <span class="pre">(A)</span> <span class="pre">:</span> <span class="pre">(B))</span></code></p>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt><strong>防止宏的副作用</strong> :</dt><dd><div class="line-block">
+<div class="line">宏定义 <code class="docutils literal notranslate"><span class="pre">#define</span> <span class="pre">MIN(A,B)</span> <span class="pre">((A)</span> <span class="pre">&lt;=</span> <span class="pre">(B)</span> <span class="pre">?</span> <span class="pre">(A)</span> <span class="pre">:</span> <span class="pre">(B))</span></code> 对 <code class="docutils literal notranslate"><span class="pre">MIN(*p++,</span> <span class="pre">b)</span></code> 的作用结果是：
+<code class="docutils literal notranslate"><span class="pre">((*p++)</span> <span class="pre">&lt;=</span> <span class="pre">(b)</span> <span class="pre">?</span> <span class="pre">(*p++)</span> <span class="pre">:</span> <span class="pre">(*p++))</span></code></div>
+<div class="line">这个表达式会产生副作用，指针p会作三次++自增操作。 （因为， <strong>宏的本质是文本替换</strong> ）</div>
+</div>
+<p>除此之外，另一个应该判0分的解答是： <code class="docutils literal notranslate"><span class="pre">#define</span> <span class="pre">MIN(A,B)</span> <span class="pre">((A)</span> <span class="pre">&lt;=</span> <span class="pre">(B)</span> <span class="pre">?</span> <span class="pre">(A)</span> <span class="pre">:</span> <span class="pre">(B));</span></code>
+这个解答在宏定义的后面加”;”，显示编写者对宏的概念模糊不清，只能被无情地判0分并被面试官淘汰。</p>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="id7">
+<h3>后面加不加分号：<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h3>
+<p>宏定义一般都不在最后加分号，调用的时候才加分号。
+这样处理之后就要求使用者将宏视为一条普通语句而不是一个宏，从而需要在后面加上;号。</p>
+</div>
+<div class="section" id="id8">
+<h3>特殊符号：#、##<a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h3>
+<ol class="arabic">
+<li><p># 符号把一个符号直接转换为字符串，例如:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#define STRING(x) #x;</span>
+<span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">str</span> <span class="o">=</span> <span class="n">STRING</span><span class="p">(</span> <span class="n">test_string</span> <span class="p">);</span>
+</pre></div>
+</div>
+<p>str的内容就是”test_string”，也就是说 <strong>#会把其后的符号直接加上双引号</strong> , 即STRING( test_string )被扩展为 “test_string” 。</p>
+</li>
+<li><p>##符号会连接两个符号，从而产生新的符号(词法层次)，例如:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#define SIGN( x ) INT_##x</span>
+<span class="kt">int</span> <span class="nf">SIGN</span><span class="p">(</span> <span class="mi">1</span> <span class="p">);</span>
+</pre></div>
+</div>
+<p>宏被展开后将成为：int INT_1;</p>
+</li>
+</ol>
+<p>有资料说可以用#&#64;把一个宏参数变成字符（也就是给参数加上单引号，相对应于#的双引号） <code class="docutils literal notranslate"><span class="pre">#&#64;a</span> <span class="pre">=</span> <span class="pre">'a'</span></code>
+但是，在gcc上的测试显示不支持#&#64;，测试的结果是”“&#64;，相当于对空添加双引号再加上&#64;的结果。</p>
+</div>
+<div class="section" id="va-args">
+<h3>__VA_ARGS__ 变参宏<a class="headerlink" href="#va-args" title="永久链接至标题">¶</a></h3>
+<p>这个比较酷，它使得你可以定义类似的宏:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#define myprintf(templt,...) fprintf(stderr,templt,__VA_ARGS__)</span>
+<span class="cp">#define myprintf(templt,args...) fprintf(stderr,templt,args)</span>
+</pre></div>
+</div>
+<p>第一个宏中由于没有对变参起名，我们用默认的宏__VA_ARGS__来替代它。
+第二个宏中，我们显式地命名变参为args，那么我们在宏定义中就可以用args来代指变参了。</p>
+<p>由于可变参数应该可以为空，所以在只能提供一个参数时，普通的调用方式会引起编译错误。
+<code class="docutils literal notranslate"><span class="pre">myprintf(&quot;abc&quot;);</span></code> 会被替换为 <code class="docutils literal notranslate"><span class="pre">fprintf(stderr,</span> <span class="pre">&quot;abc&quot;,</span> <span class="pre">);</span></code> 这是语法错误，解决方法小变通一下:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#define myprintf(templt, ...) fprintf(stderr,templt, ##__VAR_ARGS__)</span>
+</pre></div>
+</div>
+<p>于是 <code class="docutils literal notranslate"><span class="pre">myprintf(&quot;abc&quot;);</span></code> 会被替换为 <code class="docutils literal notranslate"><span class="pre">fprintf(stderr,</span> <span class="pre">templt,</span> <span class="pre">&quot;&quot;);</span></code> 就没有问题了。
+<strong>__VA_ARGS__是系统预定义宏，被自动替换为参数列表</strong> 。</p>
+<dl>
+<dt><strong>得到__VA_ARGS__具体有多少个参数</strong></dt><dd><p>得到__VA_ARGS__里具体有多少个参数有时候很有用，这个解决方案在gcc下可以这样做到:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#define PP_NARG(...) PP_NARG_(__VA_ARGS__, PP_RSEQ_N())</span>
+<span class="cp">#define PP_NARG_(...) PP_ARG_N(__VA_ARGS__)</span>
+<span class="cp">#define PP_ARG_N( \</span>
+<span class="cp">        _1, _2, _3, _4, _5, _6, _7, _8, _9,_10, \</span>
+<span class="cp">        _11,_12,_13,_14,_15,_16, N, ...) N</span>
+<span class="cp">#define PP_RSEQ_N() \</span>
+<span class="cp">        16,15,14,13,12,11,10, \</span>
+<span class="cp">        9,8,7,6,5,4,3,2,1,0</span>
+</pre></div>
+</div>
+<p>然后 <code class="docutils literal notranslate"><span class="pre">cout</span> <span class="pre">&lt;&lt;</span> <span class="pre">(PP_NARG(1,2,3,4,1,1))</span> <span class="pre">&lt;&lt;</span> <span class="pre">endl;</span></code> 就可以得到具体的参数数目6。</p>
+<p>这里实现的非常漂亮，原理也很直观，就是把__VA_ARGS__与倒序的PP_RSEQ_N组合在一起，这个组合的结果相当于把__VA_ARGS__向后推了x位，这个x就是变参的个数，于是再获取第17位就可以得到这个x了，具体的宏展开如下:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">PP_NARG</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">PP_NARG_</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">PP_RSEQ_N</span><span class="p">())</span>
+<span class="n">PP_NARG_</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">PP_RSEQ_N</span><span class="p">())</span> <span class="o">=&gt;</span> <span class="n">PP_NARG_</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">16</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">14</span><span class="p">,...,</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">PP_NARG_</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">16</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">14</span><span class="p">,...,</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">PP_ARG_N</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">16</span><span class="p">,...,</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">PP_ARG_N</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">16</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">14</span><span class="p">,</span><span class="mi">13</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="mi">11</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="mi">6</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</div>
+<div class="section" id="id9">
+<h3>宏不支持递归<a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h3>
+<p>当一个宏自己调用自己时，会发生什么？例如： <code class="docutils literal notranslate"><span class="pre">#define</span> <span class="pre">TEST(</span> <span class="pre">x</span> <span class="pre">)</span> <span class="pre">(</span> <span class="pre">x</span> <span class="pre">+</span> <span class="pre">TEST(</span> <span class="pre">x</span> <span class="pre">)</span> <span class="pre">)</span></code></p>
+<p>再调用 <code class="docutils literal notranslate"><span class="pre">TEST(</span> <span class="pre">1</span> <span class="pre">);</span></code> 会发生什么？</p>
+<p>为了防止无限制递归展开，语法规定， <strong>当一个宏遇到自己时，就停止展开</strong> 。也就是说，当对TEST( 1 )进行展开时，展开过程中又发现了一个TEST，那么就将这个TEST当作一般的符号。TEST(1)最终被展开为： <code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">+</span> <span class="pre">TEST(</span> <span class="pre">1)</span></code> 。</p>
+</div>
+<div class="section" id="id10">
+<h3>宏从内向外展开<a class="headerlink" href="#id10" title="永久链接至标题">¶</a></h3>
+<p>宏参数的prescan，当一个宏参数被放进宏体时，这个宏参数会首先被全部展开(有例外，见下文)。当展开后的宏参数被放进宏体时，预处理器对新展开的宏体进行第二次扫描，并继续展开。例如:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#define PARAM( x ) x</span>
+<span class="cp">#define ADDPARAM( x ) INT_##x</span>
+<span class="n">PARAM</span><span class="p">(</span> <span class="n">ADDPARAM</span><span class="p">(</span> <span class="mi">1</span> <span class="p">)</span> <span class="p">);</span>
+</pre></div>
+</div>
+<p>因为ADDPARAM( 1 ) 是作为PARAM的宏参数，所以先将ADDPARAM( 1 )展开为INT_1，然后再将INT_1放进PARAM。</p>
+<p><strong>当一个宏对它的某个参数进行#或者##时, 这个参数使用点并不被替换为展开后的文本</strong> ，然而解决这个问题的方法很简单，一般就是加多一层 <strong>中间转换宏</strong> 。</p>
+<p>例外情况是，如果PARAM宏里对宏参数使用了#或##，那么宏参数不会被展开:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#define PARAM( x ) #x</span>
+<span class="cp">#define ADDPARAM( x ) INT_##x</span>
+<span class="n">PARAM</span><span class="p">(</span> <span class="n">ADDPARAM</span><span class="p">(</span> <span class="mi">1</span> <span class="p">)</span> <span class="p">);</span>   <span class="c1">// 将被展开为&quot;ADDPARAM( 1 )&quot;。</span>
+</pre></div>
+</div>
+<p>使用这么一个规则，可以创建一个很有趣的技术：打印出一个宏被展开后的样子，这样可以方便你分析代码:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#define TO_STRING( x ) TO_STRING1( x )</span>
+<span class="cp">#define TO_STRING1( x ) #x</span>
+</pre></div>
+</div>
+<p>TO_STRING首先会将x全部展开(如果x也是一个宏的话)，然后再传给TO_STRING1转换为字符串，现在你可以这样：
+<code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">char</span> <span class="pre">*str</span> <span class="pre">=</span> <span class="pre">TO_STRING(</span> <span class="pre">PARAM(</span> <span class="pre">ADDPARAM(</span> <span class="pre">1</span> <span class="pre">)</span> <span class="pre">)</span> <span class="pre">);</span></code> 去一探PARAM展开后的样子。</p>
+<p>这种中间层展开的技巧在宏编程中会经常经常地用到！不过有了Eclipse的”Ctrl + =”进行宏展开的功能，这样打印一个宏就显得落后了。</p>
+<p>注意：</p>
+<ol class="arabic simple">
+<li><p><strong>在#后面的宏形参和在##两旁的宏形参都不会再被展开了！</strong></p></li>
+<li><p><strong>只展开参数中的宏，而宏体中的宏会当作普通字符串来处理的</strong></p></li>
+</ol>
+</div>
+<div class="section" id="id11">
+<h3>宏展开时的限制<a class="headerlink" href="#id11" title="永久链接至标题">¶</a></h3>
+<div class="admonition warning">
+<p class="admonition-title">警告</p>
+<p>有下面的限制的根本原因就是上一条中的2点：</p>
+<ul class="simple">
+<li><p><strong>在#、##旁边不会展开</strong></p></li>
+<li><p><strong>只会展开参数中的嵌套宏</strong></p></li>
+</ul>
+</div>
+<p>从以下这个定义匿名变量的宏 <strong>必须拥有三层</strong> 的原因开始讲起:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#define ANONYMOUS1(type, line)  type _anonymous##line</span>
+<span class="cp">#define ANONYMOUS0(type, line)  ANONYMOUS1(type, line)</span>
+<span class="cp">#define ANONYMOUS(type)  ANONYMOUS0(type, __LINE__)</span>
+</pre></div>
+</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span>例：ANONYMOUS(static int);  即: static int _anonymous70;  70表示该行行号；
+第一层：ANONYMOUS(static int);  --&gt; ANONYMOUS0(static int, __LINE__)；
+第二层：                        --&gt; ANONYMOUS1(static int, 168)；
+第三层：                        --&gt; static int  _anonymous168;
+</pre></div>
+</div>
+<p>原理： <strong>嵌套的宏只有在它处于参数的位置时，且不在##的旁边，才会去解开！</strong> ：</p>
+<ol class="arabic simple">
+<li><p>在第一层时，__LINE__根本不处于宏参数的位置，所以它不会解开，而是作为一个字符串传递给了第二层；</p></li>
+<li><p>在第二层时，line参数被替换为__LINE__，而且这个__LINE__处于宏参数中，且不在##的旁白，所以会被解开变成相应的行编号，如168；</p></li>
+<li><p>在第三层时，才可以真正的生成static int __anonymous168</p></li>
+</ol>
+<p>这里 <strong>必须要有三层才能做到，为什么二层做不到呢？</strong>
+因为，如果试图在第二层就展开成最后的变量声明式，那么就是试图这样:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#define ANONYMOUS(type) ANONYMOUS1(type, __LINE__)</span>
+<span class="cp">#define ANONYMOUS1(type, line) type _anonymouse##line。</span>
+</pre></div>
+</div>
+<p>因为第一层不可能展开__LINE__，所以在第二层时的line还仅仅是__LINE__宏，但是不幸的是它在##的后面，因此又得不到展开，所以最后会变成static int _anonymouse__LINE__，当然错了！</p>
+</div>
+<div class="section" id="id12">
+<h3>常用的预定义宏<a class="headerlink" href="#id12" title="永久链接至标题">¶</a></h3>
+<p>ANSI标准说明了五个预定义的宏名。它们是：
+<strong>__LINE__、__FILE__、__DATE__、__TIME__、__TIMESTAMP__、__STDC__、__cplusplus</strong></p>
+<p>gcc中还定义了 <code class="docutils literal notranslate"><span class="pre">__func__</span></code> 可以标识当前的函数名，debug编译时还定义了 <code class="docutils literal notranslate"><span class="pre">_DEBUG</span></code> 宏。</p>
+<p>如果编译器不标准的,则可能仅支持以上宏名中的几个,或根本不支持，也可能提供其它预定义的宏。</p>
+<ul class="simple">
+<li><p>__LINE__ 及 __FILE__ 宏指示，#line指令可以改变它的值，简单的讲，编译时，它们包含程序的当前行数和文件名（#line一般很少用）。</p></li>
+<li><p>__DATE__ 宏指令含有形式为月/日/年的串,表示源文件被翻译到代码时的日期。</p></li>
+<li><p>__TIME__ 宏指令包含程序编译的时间。时间用字符串表示，其形式为： 分：秒</p></li>
+<li><p>__TIMESTAMP__ 包含当前源文件的最后修改时间，在自动化编译时肯定常用。</p></li>
+<li><p>__STDC__ 宏指令的意义是编译时定义的。一般来讲，如果__STDC__已经定义，编译器将仅接受不包含任何非标准扩展的标准C/C++代码。如果实现是标准的,则宏__STDC__含有十进制常量1。如果它含有任何其它数,则实现是非标准的。</p></li>
+<li><p>__cplusplus 与标准c++一致的编译器把它定义为一个包含至少6为的数值。与标准c++不一致的编译器将使用具有5位或更少的数值。</p></li>
+</ul>
+</div>
+<div class="section" id="id13">
+<h3>注意事项<a class="headerlink" href="#id13" title="永久链接至标题">¶</a></h3>
+<ul class="simple">
+<li><p>普通宏定义</p>
+<ol class="arabic simple">
+<li><p>宏名一般用大写</p></li>
+<li><p>使用宏可提高程序的通用性和易读性，减少不一致性，减少输入错误和便于修改。</p></li>
+<li><p>预处理是在编译之前的处理，而编译工作的任务之一就是语法检查，预处理不做语法检查。</p></li>
+<li><p>宏定义末尾不加分号；</p></li>
+<li><p>宏定义写在函数的花括号外边，作用域为其后的程序，通常在文件的最开头。</p></li>
+<li><p>可以用#undef命令终止宏定义的作用域</p></li>
+<li><p>宏定义可以嵌套</p></li>
+<li><p>字符串”“中永远不包含宏</p></li>
+<li><p>宏定义不分配内存，变量定义分配内存。</p></li>
+</ol>
+</li>
+<li><p>带参宏定义</p>
+<ol class="arabic simple">
+<li><p>实参如果是表达式容易出问题</p></li>
+<li><p>宏名和参数的括号间不能有空格</p></li>
+<li><p>宏替换只作替换，不做计算，不做表达式求解</p></li>
+<li><p>函数调用在编译后程序运行时进行，并且分配内存。宏替换在编译前进行，不分配内存</p></li>
+<li><p>宏的哑实结合不存在类型，也没有类型转换。</p></li>
+<li><p>函数只有一个返回值，利用宏则可以设法得到多个值</p></li>
+<li><p>宏展开使源程序变长，函数调用不会</p></li>
+<li><p>宏展开不占运行时间，只占编译时间，函数调用占运行时间（分配内存、保留现场、值传递、返回值）</p></li>
+</ol>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id14">
+<h2>高级技巧<a class="headerlink" href="#id14" title="永久链接至标题">¶</a></h2>
+<div class="section" id="do-while-0">
+<h3>do{…}while(0)技巧<a class="headerlink" href="#do-while-0" title="永久链接至标题">¶</a></h3>
+<p><strong>这个技巧非常漂亮！</strong></p>
+<p><em>使用do-while(0)的宏定义是为了防止if-else( if)的语法错误,这一般是库作者来保证代码的健壮性所使用的技巧。</em>
+而且，还 <strong>可以使得宏中使用到的变量都成为 局部变量</strong> ，不造成任何副作用！</p>
+<p>这里用一个简单点的宏来演示： <code class="docutils literal notranslate"><span class="pre">#define</span> <span class="pre">SAFE_DELETE(p)</span> <span class="pre">do{</span> <span class="pre">delete</span> <span class="pre">p;</span> <span class="pre">p</span> <span class="pre">=</span> <span class="pre">NULL}</span> <span class="pre">while(0)</span></code>
+假设这里去掉 <code class="docutils literal notranslate"><span class="pre">do...while(0)</span></code>, 于是这样定义： <code class="docutils literal notranslate"><span class="pre">#define</span> <span class="pre">SAFE_DELETE(p)</span> <span class="pre">delete</span> <span class="pre">p;</span> <span class="pre">p</span> <span class="pre">=</span> <span class="pre">NULL;</span></code> 。
+那么以下代码:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">if</span><span class="p">(</span><span class="nb">NULL</span> <span class="o">!=</span> <span class="n">p</span><span class="p">)</span> <span class="n">SAFE_DELETE</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+<span class="k">else</span>   <span class="p">...</span><span class="k">do</span> <span class="n">sth</span><span class="p">...</span>
+</pre></div>
+</div>
+<p>就有两个问题，</p>
+<ol class="arabic simple">
+<li><p>因为if分支后有两个语句，else分支没有对应的if，编译失败</p></li>
+<li><p>假设没有else, SAFE_DELETE中的第二个语句无论if测试是否通过，会永远执行。</p></li>
+</ol>
+<p>你可能发现，为了避免这两个问题，我不一定要用这个令人费解的do…while,  我直接用{}括起来就可以了
+<code class="docutils literal notranslate"><span class="pre">#define</span> <span class="pre">SAFE_DELETE(p)</span> <span class="pre">{</span> <span class="pre">delete</span> <span class="pre">p;</span> <span class="pre">p</span> <span class="pre">=</span> <span class="pre">NULL;}</span></code></p>
+<p>的确，这样的话上面的问题是不存在了，但是我想对于C++程序员来讲，在每个语句后面加分号是一种约定俗成的习惯，这样的话，以下代码:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">if</span><span class="p">(</span><span class="nb">NULL</span> <span class="o">!=</span> <span class="n">p</span><span class="p">)</span> <span class="n">SAFE_DELETE</span><span class="p">(</span><span class="n">p</span><span class="p">);</span>
+<span class="k">else</span>   <span class="p">...</span><span class="k">do</span> <span class="n">sth</span><span class="p">...</span>
+</pre></div>
+</div>
+<p>其else分支就无法通过编译了（原因同上），所以采用do…while(0)是做好的选择了。</p>
+<p>也许你会说，我们代码的习惯是在每个判断后面加上{}, 就不会有这种问题了，也就不需要do…while了，如：
+<code class="docutils literal notranslate"><span class="pre">if(...)</span> <span class="pre">{...}else{...}</span></code></p>
+<p>诚然，这是一个好的，应该提倡的编程习惯，但一般这样的宏都是作为library的一部分出现的，而 <strong>对于一个library的作者，他所要做的就是让其库具有通用性，强壮性，因此他不能有任何对库的使用者的假设，如其编码规范，技术水平等</strong> 。</p>
+<p>总结的说，这种do{…}while(0)技巧有以下优点：</p>
+<ol class="arabic simple">
+<li><p>在宏定义中可以使用局部变量；</p></li>
+<li><p>在宏定义中可以包含多个语句，但可以当作一条语句使用。如上述if结构中的代码，如果没有do-while把多条语句组织成一个代码块，则程序的运行结果就不正确，甚至不能编译。</p></li>
+</ol>
+</div>
+<div class="section" id="id15">
+<h3>使用宏完成注册操作<a class="headerlink" href="#id15" title="永久链接至标题">¶</a></h3>
+<p>经常需要对对新建的或派生的类进行注册操作，比如MAPREDUCE_REG、TEST(gtest)等。</p>
+<p>这类操作需要通知库代码来调用自己的类执行某些操作，而且这种注册操作一般是在非函数区域中声明，即函数外进行声明。如何做到在函数区域外声明时还能保证执行某段代码？</p>
+<p>这就需要利用 <strong>C++标准保证全局变量一定会在main开始之前准备好，因此可以利用全局变量的构造函数来执行代码</strong>:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#define REG(classname)                                          \</span>
+<span class="cp">struct __TempClassName_##classname {                            \</span>
+<span class="cp">    __TempClassName_##classname(){                              \</span>
+<span class="cp">        RegisterManager::RegisterMap.insert(new classname());   \</span>
+<span class="cp">    }                                                           \</span>
+<span class="cp">};                                                              \</span>
+<span class="cp">__TempClassName_##classname classname##_reg_obj</span>
+</pre></div>
+</div>
+<p>使用的时候就是这样： <code class="docutils literal notranslate"><span class="pre">REG(MyClass);</span></code> 就会在RegisterManager的RegisterMap里插入一个MyClass对象的指针，这样就完成了注册操作。</p>
+<p>gtest中的TEST宏做的更漂亮，它使用了静态成员变量来替代那个全局变量完成了注册操作，并把用户的代码扩展为虚函数的代码</p>
+<div class="highlight-cpp notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cp">#define TEST(type)                                             \</span>
+<span class="cp">class _TempClass##type : public TestBase {                     \</span>
+<span class="cp">public:                                                        \</span>
+<span class="cp">    virtual void Fun();                                        \</span>
+<span class="cp">private:                                                       \</span>
+<span class="cp">    static RegHelper reg_obj_;                                 \</span>
+<span class="cp">};                                                             \</span>
+<span class="hll"><span class="cp">RegHelper _TempClass##type::reg_obj_(new type());              \</span>
+</span><span class="hll"><span class="cp">virtual void _TempClass##type::Fun()</span>
+</span></pre></div>
+</td></tr></table></div>
+<div class="line-block">
+<div class="line">第8行：这里完成注册操作</div>
+<div class="line">第9行：非常酷，用户的代码就变成了虚函数Fun的代码</div>
+</div>
+<p>使用方式如下:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">TEST</span><span class="p">(</span><span class="n">abc</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">//at here, customer’s code will be virtual function code as TestBase::Fun()</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id16">
+<h2>常见用途<a class="headerlink" href="#id16" title="永久链接至标题">¶</a></h2>
+<ul>
+<li><p>宏常量：但是如果仅仅是定义常量，那么应该果断的使用const而不是使用宏。</p></li>
+<li><p>头文件的重复包含：这个用途几乎不用说了，头文件都需要用宏包含起来以免重复包含。</p></li>
+<li><p>条件编译：生成一个程序的不同版本、或者对debug和release使用不同的代码时非常常见:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#if defined(OS_HPUX) &amp;&amp; (defined(HPUX_11_11) || defined(HPUX_11_23)</span>
+<span class="c1">// for HP-UX 11.11 and 11.23</span>
+<span class="cp">#elif defined(OS_HPUX) &amp;&amp; defined(HPUX_11_31</span>
+<span class="c1">// for HP-UX 11.31</span>
+<span class="cp">#elif defined(OS_AIX)</span>
+<span class="c1">// for AIX</span>
+<span class="cp">#else</span>
+<span class="p">...</span>
+<span class="cp">#endif</span>
+</pre></div>
+</div>
+</li>
+<li><p>使用_DEBUG进行一个调试工作:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#ifdef DEBUG</span>
+<span class="n">printf</span><span class="p">(</span><span class="s">&quot;Debug information</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="cp">#endif</span>
+</pre></div>
+</div>
+</li>
+<li><p>宏函数：避免函数调用，提高程序效率。宏函数基本上可以被模板和内联函数所取代，但是还是有一些简单的函数会使用宏，而且宏函数可以确保一定是内联的。</p></li>
+<li><p>引用编译期数据：这种情况只能使用宏来解决了:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#define SHOW_CODE_LOCATION() cout&lt;&lt;__FILE__&lt;&lt;&#39;:&#39;&lt;&lt;__LINE__&lt;&lt;&#39;\n&#39;</span>
+</pre></div>
+</div>
+</li>
+<li><p>当然，最NB的功能肯定是自动生成代码了！</p></li>
+</ul>
+</div>
+</div>
+
+
+        </div>
+
+
+
+        <!-- 来必力City版安装代码 -->
+        <div id="lv-container" data-id="city" data-uid="MTAyMC80MDU4Ni8xNzExMw==">
+        <script type="text/javascript">
+           (function(d, s) {
+               var j, e = d.getElementsByTagName(s)[0];
+
+               if (typeof LivereTower === 'function') { return; }
+
+               j = d.createElement(s);
+               j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+               j.async = true;
+
+               e.parentNode.insertBefore(j, e);
+           })(document, 'script');
+        </script>
+        <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+        </div>
+        <!-- City版安装代码已完成 -->
+      </div>
+    </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             >索引</a></li>
+        <li class="right" >
+          <a href="google_library.html" title="Google C++ 库"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="../../software/introduction-to-algorithms-notes/introduction-to-algorithms-notes.html" title="算法导论 读书笔记"
+             >上一页</a> |</li>
+        <!--<li><a href="../../index.html">首页</a>&#160;|</li>-->
+        <!--<li><a href="../../contents.html">Documentation</a> &#187;</li>-->
+ 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; 版权所有 CC BY 2.5.
+      由 <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2 创建。
+    </div>
+  </body>
+</html>
