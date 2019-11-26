@@ -31,7 +31,7 @@ Coding
 .. toctree::
    :maxdepth: 1
 
-- `读书笔记《设计模式》 <http://tanchuanqi.com/attachment/设计模式.pdf>`_
+- `读书笔记《设计模式》 <_static/attachment/设计模式.pdf>`_
 
 
 
@@ -46,11 +46,11 @@ C++
    language/cpp/cpp_micro
    language/cpp/google_library
    language/cpp/cpp_code_style
-- `读书笔记《C++ Primer》 <http://tanchuanqi.com/attachment/%E3%80%8AC++%20Primer%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0.pdf>`_
-- `读书笔记《More Effective C++》 <http://tanchuanqi.com/attachment/%E3%80%8AMore%20Effective%20C++%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0.pdf>`_
-- `读书笔记《C++编程规范》 <http://tanchuanqi.com/attachment/C++_code_standard_notes.pdf>`_
-- `读书笔记《C++ Templates》 <http://tanchuanqi.com/attachment/C++Templates_%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0.pdf>`_
-- `读书笔记《深入理解C++对象模型》 <http://tanchuanqi.com/attachment/深度探索C++对象模型_读书笔记.pdf>`_
+- `读书笔记《C++ Primer》 <_static/attachment/%E3%80%8AC++%20Primer%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0.pdf>`_
+- `读书笔记《More Effective C++》 <_static/attachment/%E3%80%8AMore%20Effective%20C++%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0.pdf>`_
+- `读书笔记《C++编程规范》 <_static/attachment/C++_code_standard_notes.pdf>`_
+- `读书笔记《C++ Templates》 <_static/attachment/C++Templates_%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0.pdf>`_
+- `读书笔记《深入理解C++对象模型》 <_static/attachment/深度探索C++对象模型_读书笔记.pdf>`_
 
 
 Python
@@ -68,7 +68,7 @@ Python
    :maxdepth: 1
 
    language/bash_shell
-- `读书笔记《JavaScript 权威指南》 <http://tanchuanqi.com/attachment/Javascript%20权威指南.pdf>`_
+- `读书笔记《JavaScript 权威指南》 <_static/attachment/Javascript%20权威指南.pdf>`_
 
 
 
