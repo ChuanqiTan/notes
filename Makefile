@@ -50,6 +50,10 @@ livehtml:
 	sphinx-autobuild -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
 	@echo
 
+github:
+	# git clone https://github.com/davisp/ghp-import.git && python setup.py install
+	make html && ghp-import -n -m 'commit from ghp-import' -c notes.tanchuanqi.com -p build/html
+
 dirhtml:
 	$(SPHINXBUILD) -b dirhtml $(ALLSPHINXOPTS) $(BUILDDIR)/dirhtml
 	@echo
