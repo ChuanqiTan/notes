@@ -1,9 +1,11 @@
 
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml" lang="zh_CN">
   <head>
-    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>算法导论 读书笔记 &#8212; Chuanqi 的技术文档</title>
     <link rel="stylesheet" href="../../_static/sphinx13.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -11,9 +13,8 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <script type="text/javascript" src="../../_static/language_data.js"></script>
     <script type="text/javascript" src="../../_static/translations.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
     <link rel="index" title="索引" href="../../genindex.html" />
     <link rel="search" title="搜索" href="../../search.html" />
@@ -92,7 +93,7 @@
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="../../index.html">目录</a></h3>
+  <h3><a href="../../index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">算法导论 读书笔记</a><ul>
 <li><a class="reference internal" href="#id2">第一部分：基础知识</a><ul>
@@ -151,11 +152,13 @@
   <p class="topless"><a href="../../language/cpp/cpp_micro.html"
                         title="下一章">C++ 宏编程 学习笔记</a></p>
 <div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">快速搜索</h3>
+  <h3>快速搜索</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" />
       <input type="submit" value="转向" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
@@ -171,8 +174,8 @@
   <div class="section" id="id1">
 <h1>算法导论 读书笔记<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
 <div class="sidebar">
-<p class="sidebar-title">笔记代码开源</p>
-<div class="line-block">
+<p class="first sidebar-title">笔记代码开源</p>
+<div class="last line-block">
 <div class="line">项目地址：<a class="reference external" href="http://code.google.com/p/introduction-to-algorithms-notes/">http://code.google.com/p/introduction-to-algorithms-notes/</a></div>
 </div>
 </div>
@@ -181,54 +184,50 @@
 <div class="section" id="id3">
 <h3>第1章：算法在计算中的作用<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h3>
 <ul class="simple">
-<li><p><strong>算法</strong> 即是一系列的计算步骤，用来将一个有效的输入转换成一个有效的输出。</p></li>
-<li><p>计算机的有限的资源必须被有效的利用，算法就是来解决这些问题的方法。</p></li>
+<li><strong>算法</strong> 即是一系列的计算步骤，用来将一个有效的输入转换成一个有效的输出。</li>
+<li>计算机的有限的资源必须被有效的利用，算法就是来解决这些问题的方法。</li>
 </ul>
 </div>
 <div class="section" id="id4">
 <h3>第2章：算法入门<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
 <ul class="simple">
-<li><p><strong>循环不变式</strong> 的三个性质：（循环不变式通常用来证明递归的正确性）</p>
-<ul>
-<li><p>初始化：它在循环的第一轮迭代开始之前，应该是正确的。</p></li>
-<li><p>保持：如果在循环的某一次迭代开始之前它是正确的，那么，在下一次迭代开始之前，它也应该保持正确。</p></li>
-<li><p>终止：当循环结束时，不变式给了我们一个有用的性质，它有助于表明算法是正确的。</p></li>
+<li><strong>循环不变式</strong> 的三个性质：（循环不变式通常用来证明递归的正确性）<ul>
+<li>初始化：它在循环的第一轮迭代开始之前，应该是正确的。</li>
+<li>保持：如果在循环的某一次迭代开始之前它是正确的，那么，在下一次迭代开始之前，它也应该保持正确。</li>
+<li>终止：当循环结束时，不变式给了我们一个有用的性质，它有助于表明算法是正确的。</li>
 </ul>
 </li>
-<li><p>伪代码中的约定：</p>
-<ul>
-<li><p>书写上的”缩进”表示程序中的分程序（程序块）结构。</p></li>
-<li><p>while,for,repeat等循环结构和if,then,else条件结构与Pascal中相同。</p></li>
-<li><p>符号 “▷”表示后面部分是个注释。</p></li>
-<li><p>多重赋值i←j←e是将表达式e的值赋给变量i和j；等价于j←e，再进行赋值i←j。</p></li>
-<li><p>变量（如i,j和key等）是局部给定过程的。</p></li>
-<li><p>数组元素是通过”数组名[下标]”这样的形式来访问的。</p></li>
-<li><p>复合数据一般组织成对象，它们是由属性(attribute)和域(field)所组成的。</p></li>
-<li><p>参数采用按值传递方式：被调用的过程会收到参数的一份副本。</p></li>
-<li><p>布尔运算符”and”和”or”都是具有短路能力。</p></li>
+<li>伪代码中的约定：<ul>
+<li>书写上的”缩进”表示程序中的分程序（程序块）结构。</li>
+<li>while,for,repeat等循环结构和if,then,else条件结构与Pascal中相同。</li>
+<li>符号 “▷”表示后面部分是个注释。</li>
+<li>多重赋值i←j←e是将表达式e的值赋给变量i和j；等价于j←e，再进行赋值i←j。</li>
+<li>变量（如i,j和key等）是局部给定过程的。</li>
+<li>数组元素是通过”数组名[下标]”这样的形式来访问的。</li>
+<li>复合数据一般组织成对象，它们是由属性(attribute)和域(field)所组成的。</li>
+<li>参数采用按值传递方式：被调用的过程会收到参数的一份副本。</li>
+<li>布尔运算符”and”和”or”都是具有短路能力。</li>
 </ul>
 </li>
-<li><p>算法分析即指对一个算法所需要的资源进行预测。</p></li>
-<li><p>对于一个算法，一般只考察其最坏情况的运行时间，理由有三：</p>
-<ul>
-<li><p>一个算法的最坏情况运行时间是在任何输入下运行时间的一个上界。</p></li>
-<li><p>对于某些算法来说，最坏情况出现得还是相当频繁的。</p></li>
-<li><p>大致上看来，”平均情况”通常和最坏情况一样差。</p></li>
+<li>算法分析即指对一个算法所需要的资源进行预测。</li>
+<li>对于一个算法，一般只考察其最坏情况的运行时间，理由有三：<ul>
+<li>一个算法的最坏情况运行时间是在任何输入下运行时间的一个上界。</li>
+<li>对于某些算法来说，最坏情况出现得还是相当频繁的。</li>
+<li>大致上看来，”平均情况”通常和最坏情况一样差。</li>
 </ul>
 </li>
-<li><p><strong>分治策略</strong> ：将原问题划分成ｎ个规模较小而结构与原问题相似的子问题；递归地解决这些小问题，然后再合并其结果，就得到原问题的解。</p></li>
-<li><p>分治模式在每一层递归上都有三个步骤：</p>
-<ul>
-<li><p>分解(Divde)：将原问题分解成一系列子问题；</p></li>
-<li><p>解决(Conquer)：递归地解答各子问题。若子问题足够小，则直接求解；</p></li>
-<li><p>合并(Combine)：将子问题的结果合并成原问题的解。</p></li>
+<li><strong>分治策略</strong> ：将原问题划分成ｎ个规模较小而结构与原问题相似的子问题；递归地解决这些小问题，然后再合并其结果，就得到原问题的解。</li>
+<li>分治模式在每一层递归上都有三个步骤：<ul>
+<li>分解(Divde)：将原问题分解成一系列子问题；</li>
+<li>解决(Conquer)：递归地解答各子问题。若子问题足够小，则直接求解；</li>
+<li>合并(Combine)：将子问题的结果合并成原问题的解。</li>
 </ul>
 </li>
 </ul>
 </div>
 <div class="section" id="id5">
 <h3>第3章：函数的增长<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
-<p>对几个记号的大意：o（非渐近紧确上界） ≈ &lt;； O（渐近上界） ≈ ≤； Θ（渐近紧界）≈ =； Ω（渐近下界）≈ ≥； ω（非渐近紧确下界）≈  &gt;; 这里的&lt;,≤,=,≥,&gt;指的是规模上的比较，即o(g(n))的规模比g(n)小。</p>
+<p>对几个记号的大意：o（非渐近紧确上界） ≈ &lt;； O（渐近上界） ≈ ≤； Θ（渐近紧界）≈ =； Ω（渐近下界）≈ ≥； ω（非渐近紧确下界）≈ &nbsp;&gt;; 这里的&lt;,≤,=,≥,&gt;指的是规模上的比较，即o(g(n))的规模比g(n)小。</p>
 <blockquote>
 <div><div class="line-block">
 <div class="line">o(g(n))={ f(n): 对任意正常数c，存在常数n0&gt;0，使对所有的n≧n0，有0≦f(n)&lt;cg(n) }</div>
@@ -242,15 +241,17 @@
 <div class="section" id="id6">
 <h3>第4章：递归式<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h3>
 <ul>
-<li><p><strong>递归式</strong> 是一组等式或不等式，它所描述的函数是用在更小的输入下该函数的值来定义的。
+<li><p class="first"><strong>递归式</strong> 是一组等式或不等式，它所描述的函数是用在更小的输入下该函数的值来定义的。
 例如Merge-Sort的最坏情况运行时间T(n)可以用以下递归式来表示：</p>
 <blockquote>
 <div><p>T(n) =2T(n/2) + n,   if n &gt; 11,   if n=1</p>
 </div></blockquote>
 </li>
-<li><p>解递归式的方法主要有三种：代换法、递归树方法、主方法。</p></li>
-<li><dl>
-<dt>代换法(Substitution method)(P38~P40)</dt><dd><div class="line-block">
+<li><p class="first">解递归式的方法主要有三种：代换法、递归树方法、主方法。</p>
+</li>
+<li><dl class="first docutils">
+<dt>代换法(Substitution method)(P38~P40)</dt>
+<dd><div class="first last line-block">
 <div class="line">定义：先猜测某个界的存在，再用数学归纳法去证明该猜测的正确性。</div>
 <div class="line">缺点：只能用于解的形式很容易猜的情形。</div>
 <div class="line">总结：这种方法需要经验的积累，可以通过转换为先前见过的类似递归式来求解。</div>
@@ -258,8 +259,9 @@
 </dd>
 </dl>
 </li>
-<li><dl>
-<dt>递归树方法(Recursion-tree method)</dt><dd><div class="line-block">
+<li><dl class="first docutils">
+<dt>递归树方法(Recursion-tree method)</dt>
+<dd><div class="first last line-block">
 <div class="line">起因：代换法有时很难得到一个正确的好的猜测值。</div>
 <div class="line">用途：画出一个递归树是一种得到好猜测的直接方法。</div>
 <div class="line">分析(重点)：在递归树中，每一个结点都代表递归函数调用集合中一个子问题的代价。将递归树中每一层内的代价相加得到一个每层代价的集合，再将每层的代价相加得到递归式所有层次的总代价。</div>
@@ -269,8 +271,9 @@
 </dl>
 <p><strong>递归树的方法非常直观，总的代价就是把所有层次的代价相加起来得到。但是分析这个总代价的规模却不是件很容易的事情，有时需要用到很多数学的知识。</strong></p>
 </li>
-<li><dl class="simple">
-<dt>主方法(Master method)</dt><dd><p><strong>主方法是最好用的Cookbook方法，太神奇了，可以瞬间估计出递归算法的时间复杂度</strong> ，主方法总结了常见的情况并给出了一个公式。</p>
+<li><dl class="first docutils">
+<dt>主方法(Master method)</dt>
+<dd><p class="first last"><strong>主方法是最好用的Cookbook方法，太神奇了，可以瞬间估计出递归算法的时间复杂度</strong> ，主方法总结了常见的情况并给出了一个公式。</p>
 </dd>
 </dl>
 <div class="line-block">
@@ -281,9 +284,9 @@
 <p>主方法：设a&gt;=1和b&gt;=1是常数f(n)是定义在非负整数上的一个确定的非负函数。又设T(n)也是定义在非负整数上的一个非负函数，且满足递归方程Tn=aTnb+f(n)
 方程Tn=aTnb+f(n)中的n/b可以是[n/b]，也可以是n/b。那么，在f(n)的三类情况下，我们有T(n)的渐近估计式：</p>
 <ul class="simple">
-<li><p>若对于某常数ε&gt;0，有 <span class="math notranslate nohighlight">\(f(n)=O(n^{log_b{a-ε}})\)</span>  ，则 <span class="math notranslate nohighlight">\(T(n)=Θ(n^{log_b{a}})\)</span> ；</p></li>
-<li><p>若 <span class="math notranslate nohighlight">\(f(n)=Θ(n^{log_b{a}})\)</span>  ，则 <span class="math notranslate nohighlight">\(T(n)=Θ(n^{log_b{a}} * logn)\)</span> ；</p></li>
-<li><p>若对其常数ε&gt;0，有 <span class="math notranslate nohighlight">\(f(n)=Ω(n^{log_b{a+ε}})\)</span>  且对于某常数c&gt;1和所有充分大的正整数n有af(n/b)≤cf(n)，则 <span class="math notranslate nohighlight">\(T(n)=θ(f(n))\)</span> 。</p></li>
+<li>若对于某常数ε&gt;0，有 <span class="math notranslate nohighlight">\(f(n)=O(n^{log_b{a-ε}})\)</span>  ，则 <span class="math notranslate nohighlight">\(T(n)=Θ(n^{log_b{a}})\)</span> ；</li>
+<li>若 <span class="math notranslate nohighlight">\(f(n)=Θ(n^{log_b{a}})\)</span>  ，则 <span class="math notranslate nohighlight">\(T(n)=Θ(n^{log_b{a}} * logn)\)</span> ；</li>
+<li>若对其常数ε&gt;0，有 <span class="math notranslate nohighlight">\(f(n)=Ω(n^{log_b{a+ε}})\)</span>  且对于某常数c&gt;1和所有充分大的正整数n有af(n/b)≤cf(n)，则 <span class="math notranslate nohighlight">\(T(n)=θ(f(n))\)</span> 。</li>
 </ul>
 </li>
 </ul>
@@ -291,8 +294,9 @@
 <div class="section" id="id7">
 <h3>第5章：概率分析与随机算法<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h3>
 <ul>
-<li><p>随机算法：如果一个算法的行为不只是由输入决定，同时也由随机数生成器所产生的数值决定，则称这个算法是随机的。</p></li>
-<li><p>指示器随机变量I(A)的定义很简单</p>
+<li><p class="first">随机算法：如果一个算法的行为不只是由输入决定，同时也由随机数生成器所产生的数值决定，则称这个算法是随机的。</p>
+</li>
+<li><p class="first">指示器随机变量I(A)的定义很简单</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}I(A) =
 \begin{cases}
@@ -301,12 +305,13 @@
 \end{cases}\end{split}\]</div>
 </li>
 </ul>
-<p>  事件A对应的指示器随机变量的期望期等于事件A发生的概率。</p>
+<p>&nbsp;&nbsp;事件A对应的指示器随机变量的期望期等于事件A发生的概率。</p>
 <ul>
-<li><p>介绍了两种 <strong>随机排列数组</strong> 的生成方法：</p>
+<li><p class="first">介绍了两种 <strong>随机排列数组</strong> 的生成方法：</p>
 <ul>
-<li><p>随机优先级法：为数组的每个元素赋一个随机的优先级，再根据这个优先级对数组中的元素进行排序。可证这样得到的数字满足随机的性质。</p></li>
-<li><p>原地交换法：依次把A[i]与A[Random(i+1, Length(A))]进行swap，得到的新数组也满足随机性:</p>
+<li><p class="first">随机优先级法：为数组的每个元素赋一个随机的优先级，再根据这个优先级对数组中的元素进行排序。可证这样得到的数字满足随机的性质。</p>
+</li>
+<li><p class="first">原地交换法：依次把A[i]与A[Random(i+1, Length(A))]进行swap，得到的新数组也满足随机性:</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span>for i ← 1 to n
     do swap A[i] ↔ A[Random(i, Length(A))]
 </pre></div>
@@ -314,21 +319,26 @@
 </li>
 </ul>
 </li>
-<li><p>在真正的环境中的输入可能并不是随机的，所以我们可以采用先将输入进行随机打乱的方法来保证输入数据的随机性，这点在很多算法中得以体现，比如快排有其随机选取种子数来向输入中加入随机化的成分。</p></li>
-<li><p>生日悖论似乎是很不符合逻辑，但是经过概率分析之后的确如此。</p>
+<li><p class="first">在真正的环境中的输入可能并不是随机的，所以我们可以采用先将输入进行随机打乱的方法来保证输入数据的随机性，这点在很多算法中得以体现，比如快排有其随机选取种子数来向输入中加入随机化的成分。</p>
+</li>
+<li><p class="first">生日悖论似乎是很不符合逻辑，但是经过概率分析之后的确如此。</p>
 <p>生日悖论非常有意思，理解它的关键在于明白， <strong>在一个23个人的房间内，某2个人生日相同的组合其实有非常多种</strong> 的（23*222＝253种），所以有2人生日相同的概率接近50%；</p>
-<dl class="simple">
-<dt>如果问题变成：你进入一个22个人的房间，发现里面有人和你生日相同的概率是多少时？，这个概率就非常的低了：</dt><dd><p>f=1-(364/365)^22=0.0585713252643433458470990293331</p>
+<dl class="docutils">
+<dt>如果问题变成：你进入一个22个人的房间，发现里面有人和你生日相同的概率是多少时？，这个概率就非常的低了：</dt>
+<dd><p class="first last">f=1-(364/365)^22=0.0585713252643433458470990293331</p>
 </dd>
-<dt>正确的解法应该是考虑k个人的房间中所有人生日都不相同的概率为：</dt><dd><p>f = 1 - (365/365 * 364/365 * … * (365-n+1)/365) = 0.4756953076625503</p>
+<dt>正确的解法应该是考虑k个人的房间中所有人生日都不相同的概率为：</dt>
+<dd><p class="first last">f = 1 - (365/365 * 364/365 * … * (365-n+1)/365) = 0.4756953076625503</p>
 </dd>
-<dt>生日悖论也可以这样进行分解：</dt><dd><p>1号进入22人房间里有人和他生日相同的概率+2号进入21人房间里有人和他生日相同的概率+3号进入20人房间里有人和他生日相同的概率+…+22号进入1人房间里有人和他生日相同的概率+23号进入0人房间里有人和他生日相同的概率。</p>
+<dt>生日悖论也可以这样进行分解：</dt>
+<dd><p class="first last">1号进入22人房间里有人和他生日相同的概率+2号进入21人房间里有人和他生日相同的概率+3号进入20人房间里有人和他生日相同的概率+…+22号进入1人房间里有人和他生日相同的概率+23号进入0人房间里有人和他生日相同的概率。</p>
 </dd>
 </dl>
 <p>对生日悖论正确理解的关键就是在于明白23个人房间里相同生日的组合非常多，明白了这个组合之后就可以进行正确的分解而不是依赖于直觉进行错误的分解。</p>
 </li>
-<li><dl class="simple">
-<dt>还值得提一下的是”在线雇佣问题”与”苏格拉底的择偶观”很相似。</dt><dd><p>先用三分之一的时间，即分出大、中、小三类，再用三分之一的时间验证自己的观点是否正确，等到最后三分之一时，选择了属于大类中的一支美丽的麦穗。</p>
+<li><dl class="first docutils">
+<dt>还值得提一下的是”在线雇佣问题”与”苏格拉底的择偶观”很相似。</dt>
+<dd><p class="first last">先用三分之一的时间，即分出大、中、小三类，再用三分之一的时间验证自己的观点是否正确，等到最后三分之一时，选择了属于大类中的一支美丽的麦穗。</p>
 </dd>
 </dl>
 </li>
@@ -338,20 +348,18 @@
 <div class="section" id="id8">
 <h2>第二部分：排序和顺序统计学<a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h2>
 <ul class="simple">
-<li><p>这一部分将要给出几个解决以下排序问题的算法：</p>
-<ul>
-<li><p>输入：n个数的序列&lt;a1,a2, … an&gt;</p></li>
-<li><p>输出：输入序列的一个重排&lt;a1’,a2’,…,an’&gt;，使a1’≦a2’≦…≦an’</p></li>
+<li>这一部分将要给出几个解决以下排序问题的算法：<ul>
+<li>输入：n个数的序列&lt;a1,a2, … an&gt;</li>
+<li>输出：输入序列的一个重排&lt;a1’,a2’,…,an’&gt;，使a1’≦a2’≦…≦an’</li>
 </ul>
 </li>
-<li><p>原地排序算法：只有线性个数的元素会被移动到集合之外的排序算法。</p></li>
-<li><p>第6章介绍堆排序</p></li>
-<li><p>第7章介绍快速排序</p></li>
-<li><p>第8章介绍了 <strong>基于”比较”排序的算法的下界为Ω(nlgn)</strong> 。并介绍了几种不基于比较的排序方法，它们能突破Ω(nlgn)的下界。计数排序、基数排序、桶排序。</p></li>
-<li><p>第9章介绍了顺序统计的概念：第i个顺序统计是集合中第i小的数。并介绍了两个算法：</p>
-<ul>
-<li><p>最坏情况为O(n^2)，但平均情况下为线性O(n)的算法</p></li>
-<li><p>最坏情况下为线性O(n)的算法</p></li>
+<li>原地排序算法：只有线性个数的元素会被移动到集合之外的排序算法。</li>
+<li>第6章介绍堆排序</li>
+<li>第7章介绍快速排序</li>
+<li>第8章介绍了 <strong>基于”比较”排序的算法的下界为Ω(nlgn)</strong> 。并介绍了几种不基于比较的排序方法，它们能突破Ω(nlgn)的下界。计数排序、基数排序、桶排序。</li>
+<li>第9章介绍了顺序统计的概念：第i个顺序统计是集合中第i小的数。并介绍了两个算法：<ul>
+<li>最坏情况为O(n^2)，但平均情况下为线性O(n)的算法</li>
+<li>最坏情况下为线性O(n)的算法</li>
 </ul>
 </li>
 </ul>
@@ -613,16 +621,15 @@
 <div class="section" id="id9">
 <h3>第6章：堆排序<a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h3>
 <ul class="simple">
-<li><p>堆排序是一个时间复杂度为O(nlgn)、原地排序算法。</p></li>
-<li><p>“堆”数据结构不只在推排序时有用，还可以构成一个有效 <strong>的优先队列</strong> 。</p></li>
-<li><p>堆的定义是这样的：</p>
-<ul>
-<li><p>一个堆是一颗完全二叉树</p></li>
-<li><p>对于大（小）根堆，每个节点的值都比它的子节点要大（小）</p></li>
+<li>堆排序是一个时间复杂度为O(nlgn)、原地排序算法。</li>
+<li>“堆”数据结构不只在推排序时有用，还可以构成一个有效 <strong>的优先队列</strong> 。</li>
+<li>堆的定义是这样的：<ul>
+<li>一个堆是一颗完全二叉树</li>
+<li>对于大（小）根堆，每个节点的值都比它的子节点要大（小）</li>
 </ul>
 </li>
-<li><p>虽然堆排的理论效率好，但是往往一个好的快排的实现要优于堆排。</p></li>
-<li><p>所以堆更常见于作为高效的优先级队列（因为它是部分排序的，对于一个优先级队列来说，部分排序已经足够了）：一个堆可以在O(lgn)的时间内，支持大小为n的集合上的任意优先队列的操作。</p></li>
+<li>虽然堆排的理论效率好，但是往往一个好的快排的实现要优于堆排。</li>
+<li>所以堆更常见于作为高效的优先级队列（因为它是部分排序的，对于一个优先级队列来说，部分排序已经足够了）：一个堆可以在O(lgn)的时间内，支持大小为n的集合上的任意优先队列的操作。</li>
 </ul>
 <div class="highlight-cpp notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>  1
   2
@@ -1084,17 +1091,17 @@
 <div class="section" id="id10">
 <h3>第7章：快速排序<a class="headerlink" href="#id10" title="永久链接至标题">¶</a></h3>
 <ul class="simple">
-<li><p><strong>快速排序的最坏运行时间为O(n2)，期望运行时间为O(nlgn)</strong> ，且由于O(nlgn)中 <strong>隐含的常数因子很小</strong> ，所以快排通常是用于排序的最佳的实用选择（因为其平均性能非常好）。</p></li>
-<li><p>快排真的太棒了：算法实现简单易懂、平均性能非常好、原地排序不需要额外的空间、算法简单只需要寥寥几行就搞定（比冒泡还少）。</p></li>
-<li><p>对10W个随机数进行排序比较，快排平均在600MS，而堆排平均在900MS，性能差距可见一斑啊。</p></li>
-<li><p>快排的平均情况运行时间与其最佳情况运行时间很接近，而不是非常接近于其最坏情况运行时间，所以一般来说快排效率是最高的，这是快排在现代得以大规模的使用的根本原因。</p></li>
-<li><p><strong>快排很需要随机化技术</strong> ：因为在真正的应用时很容易出现待排序的数组其实已经是有序的情况，而这种已经有序的情况却正好又是快排算法的软肋，它在待排数组有序时的效率是最差的O(n^2)，所以很需要随机化技术！</p></li>
+<li><strong>快速排序的最坏运行时间为O(n2)，期望运行时间为O(nlgn)</strong> ，且由于O(nlgn)中 <strong>隐含的常数因子很小</strong> ，所以快排通常是用于排序的最佳的实用选择（因为其平均性能非常好）。</li>
+<li>快排真的太棒了：算法实现简单易懂、平均性能非常好、原地排序不需要额外的空间、算法简单只需要寥寥几行就搞定（比冒泡还少）。</li>
+<li>对10W个随机数进行排序比较，快排平均在600MS，而堆排平均在900MS，性能差距可见一斑啊。</li>
+<li>快排的平均情况运行时间与其最佳情况运行时间很接近，而不是非常接近于其最坏情况运行时间，所以一般来说快排效率是最高的，这是快排在现代得以大规模的使用的根本原因。</li>
+<li><strong>快排很需要随机化技术</strong> ：因为在真正的应用时很容易出现待排序的数组其实已经是有序的情况，而这种已经有序的情况却正好又是快排算法的软肋，它在待排数组有序时的效率是最差的O(n^2)，所以很需要随机化技术！</li>
 </ul>
 <p><strong>快速排序的预随机化</strong> ：正如第5章所说的，由于工程中的输入可能不随机的，所以我们要将其随机化。有两种可选方案</p>
 <blockquote>
 <div><ul class="simple">
-<li><p>直接对输入数据进行随机化排列</p></li>
-<li><p>采用随机取样的随机化技术。随机取样的效率更高一些，所以在快速排序的随机化版本中采用随机取样的技术。</p></li>
+<li>直接对输入数据进行随机化排列</li>
+<li>采用随机取样的随机化技术。随机取样的效率更高一些，所以在快速排序的随机化版本中采用随机取样的技术。</li>
 </ul>
 <p>方法很简单，就是在每趟sort之前随机选取一个数与最未尾的元素进行交换操作，这样简单高效的实现了随机化:</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">//加入随机取样的随机化技术</span>
@@ -1400,46 +1407,42 @@
 <div class="section" id="id11">
 <h3>第8章：线性时间排序<a class="headerlink" href="#id11" title="永久链接至标题">¶</a></h3>
 <ul class="simple">
-<li><dl class="simple">
-<dt>任何 <strong>比较的排序在最坏的情况下都要用Ω(nlgn)次</strong> 比较来进行排序，所以合并排序和堆排序是渐近最优的。</dt><dd><p>注意的是： <em>快排不是渐近最优的，因为它在最坏的情况下是O(n2)</em> 。</p>
-</dd>
+<li><dl class="first docutils">
+<dt>任何 <strong>比较的排序在最坏的情况下都要用Ω(nlgn)次</strong> 比较来进行排序，所以合并排序和堆排序是渐近最优的。</dt>
+<dd>注意的是： <em>快排不是渐近最优的，因为它在最坏的情况下是O(n2)</em> 。</dd>
 </dl>
 </li>
-<li><p>三种以线性时间运行的排序算法：计数排序、基数排序和桶排序。 <strong>它们都是非比较的</strong></p></li>
-<li><p>计数排序</p>
-<ul>
-<li><p>步骤：统计每一种元素的出现次数，然后再从有序的按出现次数输出，所得的结果就的原数列的有序排列。</p></li>
-<li><p>计数排序的一个重要性就是它是稳定的排序算法，这个稳定性是基数排序的基石。</p></li>
-<li><p>计数排序的想法真的很简单、高效、可靠</p></li>
-<li><p>缺点在于：</p>
-<ul>
-<li><p>需要很多额外的空间（当前类型的值的范围）</p></li>
-<li><p>只能对离散的类型有效比如int（double就不行了）</p></li>
-<li><p>基于假设：输入是小范围内的整数构成的。</p></li>
+<li>三种以线性时间运行的排序算法：计数排序、基数排序和桶排序。 <strong>它们都是非比较的</strong></li>
+<li>计数排序<ul>
+<li>步骤：统计每一种元素的出现次数，然后再从有序的按出现次数输出，所得的结果就的原数列的有序排列。</li>
+<li>计数排序的一个重要性就是它是稳定的排序算法，这个稳定性是基数排序的基石。</li>
+<li>计数排序的想法真的很简单、高效、可靠</li>
+<li>缺点在于：<ul>
+<li>需要很多额外的空间（当前类型的值的范围）</li>
+<li>只能对离散的类型有效比如int（double就不行了）</li>
+<li>基于假设：输入是小范围内的整数构成的。</li>
 </ul>
 </li>
 </ul>
 </li>
-<li><p>基数排序</p>
-<ul>
-<li><p>步骤：按低纬度到高纬度的把元素放到桶中，再收集起来，完成最高纬度之后，收集的结果就已经是有序的了。</p></li>
-<li><p>基数排序时对每一维进行调用子排序算法时要求这个子排序算法必须是稳定的。</p></li>
-<li><dl class="simple">
-<dt>基数排序与直觉相反：它是按照从底位到高位的顺序排序的。</dt><dd><p>我觉得原因在于：高有效位对底有效位有着决定性的作用；后面的排序对前面的排序起决定性的作用。</p>
-</dd>
+<li>基数排序<ul>
+<li>步骤：按低纬度到高纬度的把元素放到桶中，再收集起来，完成最高纬度之后，收集的结果就已经是有序的了。</li>
+<li>基数排序时对每一维进行调用子排序算法时要求这个子排序算法必须是稳定的。</li>
+<li><dl class="first docutils">
+<dt>基数排序与直觉相反：它是按照从底位到高位的顺序排序的。</dt>
+<dd>我觉得原因在于：高有效位对底有效位有着决定性的作用；后面的排序对前面的排序起决定性的作用。</dd>
 </dl>
 </li>
-<li><p>基于假设：位数有限，并且也是离散的值分布。</p></li>
+<li>基于假设：位数有限，并且也是离散的值分布。</li>
 </ul>
 </li>
-<li><p>桶排序</p>
-<ul>
-<li><p>桶排序也 <strong>只是期望运行时间能达到线性</strong> ，对于最坏的情况，它的运行时间取决于它内部使用的子排序算法的运行时间，一般为O(nlgn)。</p></li>
-<li><p>桶排序基于假设：输入的的元素均匀的分布在区间[0, 1]上。</p></li>
-<li><p>感觉桶排没有什么大的实现价值，因为它限定了输入的区间，还要求最好是均匀分布，它的最坏情况并不好。</p></li>
+<li>桶排序<ul>
+<li>桶排序也 <strong>只是期望运行时间能达到线性</strong> ，对于最坏的情况，它的运行时间取决于它内部使用的子排序算法的运行时间，一般为O(nlgn)。</li>
+<li>桶排序基于假设：输入的的元素均匀的分布在区间[0, 1]上。</li>
+<li>感觉桶排没有什么大的实现价值，因为它限定了输入的区间，还要求最好是均匀分布，它的最坏情况并不好。</li>
 </ul>
 </li>
-<li><p>所有的 <strong>线性时间内的排序算法，都作出了一定的假设，是建立在一定的假设基础上</strong> 的。</p></li>
+<li>所有的 <strong>线性时间内的排序算法，都作出了一定的假设，是建立在一定的假设基础上</strong> 的。</li>
 </ul>
 <div class="highlight-cpp notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>  1
   2
@@ -1808,24 +1811,28 @@ max dim = 2
 <div class="section" id="id12">
 <h3>第9章：中位数和顺序统计学<a class="headerlink" href="#id12" title="永久链接至标题">¶</a></h3>
 <ul>
-<li><dl class="simple">
-<dt>第i个顺序统计量是该集合中第i小的元素。</dt><dd><p>最小值是第1个顺序统计量(i=1)最大值是第n个顺序统计量(i=n)</p>
+<li><dl class="first docutils">
+<dt>第i个顺序统计量是该集合中第i小的元素。</dt>
+<dd><p class="first last">最小值是第1个顺序统计量(i=1)最大值是第n个顺序统计量(i=n)</p>
 </dd>
 </dl>
 </li>
-<li><p>中位数是它所在集合的”中点元素”</p></li>
-<li><dl class="simple">
-<dt><strong>同时找出最大最小值的算法</strong> ，一般人可能以为需要2n次比较， <strong>实际上只需要至多3n/2次比较</strong> ，使用的技巧是：</dt><dd><p>将一对元素比较，然后把较大者于max比较，较小者与min比较，这样就只需要3n/2次比较就能得到最后的结果。</p>
+<li><p class="first">中位数是它所在集合的”中点元素”</p>
+</li>
+<li><dl class="first docutils">
+<dt><strong>同时找出最大最小值的算法</strong> ，一般人可能以为需要2n次比较， <strong>实际上只需要至多3n/2次比较</strong> ，使用的技巧是：</dt>
+<dd><p class="first last">将一对元素比较，然后把较大者于max比较，较小者与min比较，这样就只需要3n/2次比较就能得到最后的结果。</p>
 </dd>
 </dl>
 </li>
-<li><p><strong>以期望线性时间选择顺序统计量的方法是以快速排序为模型</strong></p>
+<li><p class="first"><strong>以期望线性时间选择顺序统计量的方法是以快速排序为模型</strong></p>
 <p>如同在快速排序中一样，此算法的思想也是对输入数组进行递归划分。 <em>但和快速排序不同的是，快速排序会递归处理划分的两边，而randomized-select只处理划分的一边</em> （因为完全没有必要处理另外一边嘛）。
 并由此将期望的运行时间由O(nlgn)下降到了O(n)，但是最坏情况依然是O(n<sup>2</sup> )，虽然这样的最坏情况几乎不会发生，特别是加上随机取样技术之后。</p>
 <p><strong>这就是顺序统计量算法能够如此高效的核心原因所在！</strong> 我觉得 <code class="docutils literal notranslate"><span class="pre">C++</span> <span class="pre">STL中的nth_element</span></code> 用的可能就是这个算法，所以它的效率应该很高。</p>
 </li>
-<li><dl class="simple">
-<dt>最坏线性时间选择顺序统计量的方法的核心在于：要保证对数组的划分是一个好的划分。</dt><dd><p>于是方法使用了一个很奇怪的取主元的方法（而不是直接取最后一个或者随机），虽然看起来很奇怪，但是该方法被这样的提出就肯定有它的理论基础的。
+<li><dl class="first docutils">
+<dt>最坏线性时间选择顺序统计量的方法的核心在于：要保证对数组的划分是一个好的划分。</dt>
+<dd><p class="first last">于是方法使用了一个很奇怪的取主元的方法（而不是直接取最后一个或者随机），虽然看起来很奇怪，但是该方法被这样的提出就肯定有它的理论基础的。
 不过这种取巧的方法不太值得去写一遍，而且明显写出来也很容易的（仅仅相差一个奇怪的取主元方法，这一节的关键内容都在于证明这个方法的最坏线性时间上了），没有什么新技术和新想法。</p>
 </dd>
 </dl>
@@ -2033,70 +2040,74 @@ max dim = 2
 <h3>第10章：基本数据结构<a class="headerlink" href="#id14" title="永久链接至标题">¶</a></h3>
 <p>没发现有什么值得看的，貌似就是下面这些基本的知识，这些知识都不知道就没法混啦。</p>
 <ul class="simple">
-<li><p>栈</p></li>
-<li><p>队列</p></li>
-<li><p>链表</p></li>
-<li><p>树的”左孩子、右兄弟”表示法</p></li>
+<li>栈</li>
+<li>队列</li>
+<li>链表</li>
+<li>树的”左孩子、右兄弟”表示法</li>
 </ul>
 </div>
 <div class="section" id="id15">
 <h3>第11章：散列表<a class="headerlink" href="#id15" title="永久链接至标题">¶</a></h3>
 <ul>
-<li><dl class="simple">
-<dt>在散列表中查找一个元素的时间与在链表中查找一个元素的时候相同，在 <strong>最坏情况为O(n)，但期望时间为O(1)</strong></dt><dd><p>在实践中，散列表的效率是很高的，一般可认为是O(1)</p>
+<li><dl class="first docutils">
+<dt>在散列表中查找一个元素的时间与在链表中查找一个元素的时候相同，在 <strong>最坏情况为O(n)，但期望时间为O(1)</strong></dt>
+<dd><p class="first last">在实践中，散列表的效率是很高的，一般可认为是O(1)</p>
 </dd>
 </dl>
 </li>
-<li><p>散列是一种极其有效和实用的技术：基本的字典操作只需要O(1)的平均时间。
-而且当待排序的关键字的集合是静态的（即当关键字集合一旦存入后不需要再改变），”完全散列”能够在O(1)的最坏时间内支持查找操作</p></li>
-<li><p>在众多的简单的解决碰撞的方法中，我觉得比较好的是通过链表法解决碰撞，虽然这个方法的理论最坏效率为O(n)，但是在平均情况下，它的性能也是非常好的，实现简单又高效。</p></li>
-<li><p><strong>装载因子</strong> ：给定一个能存放n个元素的、具有m个槽位的散列表T，定义T的装载因子α=n/m，即一个链中平均存储的元素数。</p></li>
-<li><p>多数的散列函数都假定关键字域为自然数集N，如果所给关键字不是自然数，则必须有一种方法来将它们解释为自然数。</p>
+<li><p class="first">散列是一种极其有效和实用的技术：基本的字典操作只需要O(1)的平均时间。
+而且当待排序的关键字的集合是静态的（即当关键字集合一旦存入后不需要再改变），”完全散列”能够在O(1)的最坏时间内支持查找操作</p>
+</li>
+<li><p class="first">在众多的简单的解决碰撞的方法中，我觉得比较好的是通过链表法解决碰撞，虽然这个方法的理论最坏效率为O(n)，但是在平均情况下，它的性能也是非常好的，实现简单又高效。</p>
+</li>
+<li><p class="first"><strong>装载因子</strong> ：给定一个能存放n个元素的、具有m个槽位的散列表T，定义T的装载因子α=n/m，即一个链中平均存储的元素数。</p>
+</li>
+<li><p class="first">多数的散列函数都假定关键字域为自然数集N，如果所给关键字不是自然数，则必须有一种方法来将它们解释为自然数。</p>
 <ul class="simple">
-<li><dl class="simple">
-<dt>除法散列法：h(k)= k mod m</dt><dd><p>一般选取m的值为与2的整数幂不大接近的质数</p>
-</dd>
+<li><dl class="first docutils">
+<dt>除法散列法：h(k)= k mod m</dt>
+<dd>一般选取m的值为与2的整数幂不大接近的质数</dd>
 </dl>
 </li>
-<li><dl class="simple">
-<dt>乘法散列法：h(k)= m(kA mod 1)</dt><dd><p>构造散列函数的乘法方法包含两个步骤：首先用关键字剩上常数A(0&lt;A&lt;1)，并抽取kA的小数部分；然后用m剩以这个值，再取结果的底。
-Knuth认为A≈5-12是一个比较理想的值。</p>
-</dd>
+<li><dl class="first docutils">
+<dt>乘法散列法：h(k)= m(kA mod 1)</dt>
+<dd>构造散列函数的乘法方法包含两个步骤：首先用关键字剩上常数A(0&lt;A&lt;1)，并抽取kA的小数部分；然后用m剩以这个值，再取结果的底。
+Knuth认为A≈5-12是一个比较理想的值。</dd>
 </dl>
 </li>
-<li><p>全域散列：全域散列的基本思想是 <strong>在执行开始时，就从一族仔细设计的函数中，随机地选择一个作为散列函数</strong></p>
-<ul>
-<li><p>首先：全域散列表是一种使用”键接法”来解决碰撞问题的散列表方法。</p></li>
-<li><p>随机化保证了对于任何输入，算法都具有较好的平均性能。</p></li>
-<li><p>全域的散列函数组：设H为一组散列函数，它将给定的关键字域U映射到{0,1,…,m-1}中，这样的一个函数组称为是全域的。如果从H中随机地选择一个散列函数，当关键字K≠J时，两者发生碰撞的概率不大于1/m。</p></li>
-<li><dl class="simple">
-<dt>常用的一个全域散列函数类：（ <strong>数论的知识可以证明这个函数类满足全域散列函数的性质，我只要相信这个常用的函数可以被证明就可以了！</strong> ）</dt><dd><p>首先选择一个足够大的质数p ，使得每一个可能的关键字k 都落到0 到p-1 的范围内，包括首尾的0 和p-1。
+<li>全域散列：全域散列的基本思想是 <strong>在执行开始时，就从一族仔细设计的函数中，随机地选择一个作为散列函数</strong><ul>
+<li>首先：全域散列表是一种使用”键接法”来解决碰撞问题的散列表方法。</li>
+<li>随机化保证了对于任何输入，算法都具有较好的平均性能。</li>
+<li>全域的散列函数组：设H为一组散列函数，它将给定的关键字域U映射到{0,1,…,m-1}中，这样的一个函数组称为是全域的。如果从H中随机地选择一个散列函数，当关键字K≠J时，两者发生碰撞的概率不大于1/m。</li>
+<li><dl class="first docutils">
+<dt>常用的一个全域散列函数类：（ <strong>数论的知识可以证明这个函数类满足全域散列函数的性质，我只要相信这个常用的函数可以被证明就可以了！</strong> ）</dt>
+<dd>首先选择一个足够大的质数p ，使得每一个可能的关键字k 都落到0 到p-1 的范围内，包括首尾的0 和p-1。
 这里我们假设全域是0 – 15，p 为17。设集合Zp 为{0, 1, 2, …, p-1}，集合Zp* 为{1, 2, 3, …, p}。
 由于p 是质数，我们可以定义散列函数h(a, b, k) = ((a*k + b) mod p) mod m。其中a 属于Zp，b 属于Zp*。
-由所有这样的a 和b 构成的散列函数，组成了函数簇。即全域散列。</p>
-</dd>
+由所有这样的a 和b 构成的散列函数，组成了函数簇。即全域散列。</dd>
 </dl>
 </li>
-<li><p>明白这个散列函数的选取是在 <strong>执行开始</strong> 随机的选取一个是很重要的，要不然就会不明白到时候怎么进行查找
-这里所谓的随机性应该这样理解：对于某一个散列表来说，它在初始化时已经把a,b固定了，但是对于一个还未初始化的全域散列表来说，a,b是随机选取的。</p></li>
+<li>明白这个散列函数的选取是在 <strong>执行开始</strong> 随机的选取一个是很重要的，要不然就会不明白到时候怎么进行查找
+这里所谓的随机性应该这样理解：对于某一个散列表来说，它在初始化时已经把a,b固定了，但是对于一个还未初始化的全域散列表来说，a,b是随机选取的。</li>
 </ul>
 </li>
 </ul>
 </li>
-<li><p>开放寻址法：所有的元素都放在散列表里</p>
+<li><p class="first">开放寻址法：所有的元素都放在散列表里</p>
 <blockquote>
 <div><ol class="arabic simple">
-<li><p>开放寻址法的好处就在于它根本不用指针，而是计算出要存取的各个槽。这样一来，由于不用存储指针就节省了空间，从而可以用同样的空间来提供更多的槽，其潜在的效果就是可以减少碰撞，提高查找速度。</p></li>
-<li><p><strong>感觉上开放寻址法很像一个启发式的搜索</strong> ，它的最坏性能也是O(n)，只不过散列函数为它提供了启发信息从而使得一般的平均性能会很好。</p></li>
-<li><p>在开放寻址法中，对散列元素的删除操作执行起来比较困难，因为删除操作会影响查找操作。解决办法是在槽里的值被删除后置一个特定的值DELETED，而不是删除后不管，查找的时候处理一下就可以了</p></li>
-<li><p>线性探查、二次探查和双重散列都是对最基本的数组法的改进，虽然它们很漂亮，但是思想上并没有太大的革新，看起来很容易懂的。</p></li>
-<li><p>双重散钱是用于开放寻址的最好方法之一，因为它所产生的排列具有随机选择的排列的许多特性。</p></li>
-<li><p>所有的改进的散列方法目的只有一个： <strong>都是在尽力地增加散列结果的随机性</strong> ！</p></li>
+<li>开放寻址法的好处就在于它根本不用指针，而是计算出要存取的各个槽。这样一来，由于不用存储指针就节省了空间，从而可以用同样的空间来提供更多的槽，其潜在的效果就是可以减少碰撞，提高查找速度。</li>
+<li><strong>感觉上开放寻址法很像一个启发式的搜索</strong> ，它的最坏性能也是O(n)，只不过散列函数为它提供了启发信息从而使得一般的平均性能会很好。</li>
+<li>在开放寻址法中，对散列元素的删除操作执行起来比较困难，因为删除操作会影响查找操作。解决办法是在槽里的值被删除后置一个特定的值DELETED，而不是删除后不管，查找的时候处理一下就可以了</li>
+<li>线性探查、二次探查和双重散列都是对最基本的数组法的改进，虽然它们很漂亮，但是思想上并没有太大的革新，看起来很容易懂的。</li>
+<li>双重散钱是用于开放寻址的最好方法之一，因为它所产生的排列具有随机选择的排列的许多特性。</li>
+<li>所有的改进的散列方法目的只有一个： <strong>都是在尽力地增加散列结果的随机性</strong> ！</li>
 </ol>
 </div></blockquote>
 </li>
-<li><dl>
-<dt><strong>完全散列</strong> ：如果某一种散列技术在进行查找时，其最坏情况内存访问次数为O(1)的话，则称其为完全散列。</dt><dd><div class="line-block">
+<li><dl class="first docutils">
+<dt><strong>完全散列</strong> ：如果某一种散列技术在进行查找时，其最坏情况内存访问次数为O(1)的话，则称其为完全散列。</dt>
+<dd><div class="first last line-block">
 <div class="line">书上利用了一种 <strong>两级的散列方案，每一级都采用全域散列</strong> 。</div>
 <div class="line">通常利用一种两级的散列方案，每一级上都采用全域散列。为了 <strong>确保在第二级上不出现碰撞</strong> ，需要让第二级散列表Sj的大小mj为散列到槽j中的关键字数nj的平方。</div>
 <div class="line">如果利用从某一全域散列函数类中随机选出的散列函数h，来将n个关键字存储到一个大小为m=n的散列表中，并将每个二次散列表的大小置为mj=nj<sup>2</sup> (j=0, 1, …, m-1)，则在一个完全散列方案中，存储所有二次散列表所需的存储总量的期望值小于2n。</div>
@@ -2107,7 +2118,8 @@ Knuth认为A≈5-12是一个比较理想的值。</p>
 </dd>
 </dl>
 </li>
-<li><p>完全散列的核心在于： <strong>将N个关键值散列到</strong> N<sup>2</sup><strong>个的槽中，就一定可以找到一个无碰撞的散列函数来提供常量级别的查找时间 （空间换时间嘛）</strong> 。</p></li>
+<li><p class="first">完全散列的核心在于： <strong>将N个关键值散列到</strong> N<sup>2</sup><strong>个的槽中，就一定可以找到一个无碰撞的散列函数来提供常量级别的查找时间 （空间换时间嘛）</strong> 。</p>
+</li>
 </ul>
 <div class="highlight-cpp notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>  1
   2
@@ -2792,9 +2804,11 @@ Knuth认为A≈5-12是一个比较理想的值。</p>
 <div class="section" id="id16">
 <h3>第12章：二叉查找树<a class="headerlink" href="#id16" title="永久链接至标题">¶</a></h3>
 <ul>
-<li><p><strong>二叉查找树</strong> 的定义：对任何结点X，其左子树中的关键字最大不超过key[X]；其右子树中的关键字最小不小于key[x]。</p></li>
-<li><p>首先先明显：二叉查找树上的基本操作的时间都与树的高度成正比的，所以高度越小的树性能越高。</p></li>
-<li><p>查询二叉查找树可以考虑使用非递归的版本，它运行要快得多而且也很容易理解:</p>
+<li><p class="first"><strong>二叉查找树</strong> 的定义：对任何结点X，其左子树中的关键字最大不超过key[X]；其右子树中的关键字最小不小于key[x]。</p>
+</li>
+<li><p class="first">首先先明显：二叉查找树上的基本操作的时间都与树的高度成正比的，所以高度越小的树性能越高。</p>
+</li>
+<li><p class="first">查询二叉查找树可以考虑使用非递归的版本，它运行要快得多而且也很容易理解:</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">SEARCH</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span><span class="o">:</span>
 <span class="k">while</span> <span class="p">(</span><span class="n">x</span> <span class="o">!=</span> <span class="nb">NULL</span> <span class="o">&amp;&amp;</span> <span class="n">x</span><span class="p">.</span><span class="n">Key</span> <span class="o">!=</span> <span class="n">k</span><span class="p">){</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">k</span> <span class="o">&lt;</span> <span class="n">x</span><span class="p">.</span><span class="n">Key</span><span class="p">)</span> <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">.</span><span class="n">Left</span><span class="p">;</span>
@@ -2804,8 +2818,9 @@ Knuth认为A≈5-12是一个比较理想的值。</p>
 </pre></div>
 </div>
 </li>
-<li><dl>
-<dt>前趋和后继：</dt><dd><div class="line-block">
+<li><dl class="first docutils">
+<dt>前趋和后继：</dt>
+<dd><div class="first last line-block">
 <div class="line"><span class="raw-html"><S></span> 前趋：左一次，然后右到头； <span class="raw-html"></S></span></div>
 <div class="line"><span class="raw-html"><S></span> 后继：右一次，然后左到头。 <span class="raw-html"></S></span></div>
 <div class="line"><strong>错！不止这么简单，以后继为例：当结点的右子树不存在时，应该一路向上传递，直到找到根结点（没有后继）或者是找到一次非右子树传递（后继找到）为止。我的代码就在这里犯一次错误了，本以为很简单的！</strong></div>
@@ -2814,12 +2829,14 @@ Knuth认为A≈5-12是一个比较理想的值。</p>
 </dd>
 </dl>
 </li>
-<li><dl class="simple">
-<dt>对二叉查找树的插入和删除操作也不复杂，唯一有点难度的地方就是在删除同时存在左右子树的结点时需要进行一些处理。</dt><dd><p>书上叙述的有点过度的复杂，其实可以很简单地说明白：对于这样的结点x，找到x结点的前趋（或后继）y，将x的值替换为y的值，然后递归删除y结点就可以了。因为y一定没有右子树（后继对应没有左子树），所以递归删除的时候就是很简单的情况了。</p>
+<li><dl class="first docutils">
+<dt>对二叉查找树的插入和删除操作也不复杂，唯一有点难度的地方就是在删除同时存在左右子树的结点时需要进行一些处理。</dt>
+<dd><p class="first last">书上叙述的有点过度的复杂，其实可以很简单地说明白：对于这样的结点x，找到x结点的前趋（或后继）y，将x的值替换为y的值，然后递归删除y结点就可以了。因为y一定没有右子树（后继对应没有左子树），所以递归删除的时候就是很简单的情况了。</p>
 </dd>
 </dl>
 </li>
-<li><p>可以证明：随机构造的二叉村在平均情况下的行为更接近于最佳情况下的行为，而不是接近最坏情况下的行为。所以一棵在n个关键字上随机构造的二叉查找树的期望高度为O(lgn)。</p></li>
+<li><p class="first">可以证明：随机构造的二叉村在平均情况下的行为更接近于最佳情况下的行为，而不是接近最坏情况下的行为。所以一棵在n个关键字上随机构造的二叉查找树的期望高度为O(lgn)。</p>
+</li>
 </ul>
 <div class="highlight-cpp notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>  1
   2
@@ -3359,29 +3376,35 @@ Knuth认为A≈5-12是一个比较理想的值。</p>
 <p>满足下面5个条件(红黑性质)的二叉搜索树，称为红黑树：</p>
 <blockquote>
 <div><ol class="arabic simple">
-<li><p>每个结点或是红色，或是是黑色。</p></li>
-<li><p>根结点是黑的。</p></li>
-<li><p>所有的叶结点(NULL)是黑色的。（NULL被视为一个哨兵结点，所有应该指向NULL的指针，都看成指向了NULL结点。）</p></li>
-<li><p>如果一个结点是红色的，则它的两个儿子节点都是黑色的。</p></li>
-<li><p>对每个结点，从该结点到其子孙结点的所有路径上包含相同数目的黑结点（黑高度相同）。</p></li>
+<li>每个结点或是红色，或是是黑色。</li>
+<li>根结点是黑的。</li>
+<li>所有的叶结点(NULL)是黑色的。（NULL被视为一个哨兵结点，所有应该指向NULL的指针，都看成指向了NULL结点。）</li>
+<li>如果一个结点是红色的，则它的两个儿子节点都是黑色的。</li>
+<li>对每个结点，从该结点到其子孙结点的所有路径上包含相同数目的黑结点（黑高度相同）。</li>
 </ol>
 </div></blockquote>
 <ul>
-<li><p>黑高度的定义：从某个结点出发(不包括该结点)到达一个叶结点的任意一条路径上，黑色结点的个数成为该结点x的黑高度。红黑树的黑高度定义为其根结点的黑高度。</p></li>
-<li><p>红黑树是真正的在实际中得到大量应用的复杂数据结构： <strong>C++STL中的关联容器map,set都是红黑树的应用</strong> （所以标准库容器的效率太好了，能用标准库容器尽量使用标准库容器）；Linux内核中的用户态地址空间管理也使用了红黑树。</p></li>
-<li><dl class="simple">
-<dt>红黑树是许多”平衡的”查找树中的一种（首先：红黑树是一种近似平衡的二叉树），它能保证在最坏的情况下，基本的动态集合操作的时间为O(lgn)。</dt><dd><p>红黑树NB的地方就在于它是 <strong>近似平衡，这种近似平衡提高了操作的效率，又不是绝对的平衡，没有带来太多的负作用</strong> 。</p>
+<li><p class="first">黑高度的定义：从某个结点出发(不包括该结点)到达一个叶结点的任意一条路径上，黑色结点的个数成为该结点x的黑高度。红黑树的黑高度定义为其根结点的黑高度。</p>
+</li>
+<li><p class="first">红黑树是真正的在实际中得到大量应用的复杂数据结构： <strong>C++STL中的关联容器map,set都是红黑树的应用</strong> （所以标准库容器的效率太好了，能用标准库容器尽量使用标准库容器）；Linux内核中的用户态地址空间管理也使用了红黑树。</p>
+</li>
+<li><dl class="first docutils">
+<dt>红黑树是许多”平衡的”查找树中的一种（首先：红黑树是一种近似平衡的二叉树），它能保证在最坏的情况下，基本的动态集合操作的时间为O(lgn)。</dt>
+<dd><p class="first last">红黑树NB的地方就在于它是 <strong>近似平衡，这种近似平衡提高了操作的效率，又不是绝对的平衡，没有带来太多的负作用</strong> 。</p>
 </dd>
 </dl>
 </li>
-<li><p>通过对任何一条从根到叶子的路径上各个结点着色方式的限制，红黑树确保没有一条路径会比其它路径长出两倍，因而是接近平衡的。</p></li>
-<li><p>全是黑结点的满二叉树也满足红黑树的定义。满二叉树的效率本身就非常高啊，它是效率最好的二叉树了，所以说它是红黑树的一个特例；普通的红黑树要求并没有满二叉树这么严格。</p></li>
-<li><dl class="simple">
-<dt>旋转操作（左旋和右旋）： <strong>旋转操作是一种能保持二叉查找树性质的查找树局部操作</strong> 。</dt><dd><p>所有对红黑树结构的修改都只能通过左右旋来完成，这样才能保证修改后的红黑树首先是一棵二叉查找树。</p>
+<li><p class="first">通过对任何一条从根到叶子的路径上各个结点着色方式的限制，红黑树确保没有一条路径会比其它路径长出两倍，因而是接近平衡的。</p>
+</li>
+<li><p class="first">全是黑结点的满二叉树也满足红黑树的定义。满二叉树的效率本身就非常高啊，它是效率最好的二叉树了，所以说它是红黑树的一个特例；普通的红黑树要求并没有满二叉树这么严格。</p>
+</li>
+<li><dl class="first docutils">
+<dt>旋转操作（左旋和右旋）： <strong>旋转操作是一种能保持二叉查找树性质的查找树局部操作</strong> 。</dt>
+<dd><p class="first last">所有对红黑树结构的修改都只能通过左右旋来完成，这样才能保证修改后的红黑树首先是一棵二叉查找树。</p>
 </dd>
 </dl>
 </li>
-<li><p><strong>红黑树的插入操作</strong> ：将结点Z插入树T中，就好像T是一棵普通的二叉查找树一样，然后将Z着为红色。为保证红黑性质能继续保持，我们调用一个辅助程序来对结点重新着色并旋转。</p>
+<li><p class="first"><strong>红黑树的插入操作</strong> ：将结点Z插入树T中，就好像T是一棵普通的二叉查找树一样，然后将Z着为红色。为保证红黑性质能继续保持，我们调用一个辅助程序来对结点重新着色并旋转。</p>
 <p>这么做是有它的智慧的：首先，插入结点Z的位置的确应该和普通二叉查找树一样，因为红黑树本身就首先是一棵二叉查找树；
 然后将Z着为红色，是为了保证性质5的正确性，因为性质5如果被破坏了是最难以恢复的；
 到这里，有可能被破坏的性质就只剩下性质2和性质4了，这都可以通过后来的辅助程序进行修复的。</p>
@@ -3391,14 +3414,14 @@ Knuth认为A≈5-12是一个比较理想的值。</p>
 <div class="line">性质4：当新结点被插入到红色结点之后时发生；</div>
 </div>
 </li>
-<li><p><strong>红黑树的删除操作</strong> ：和插入操作一样，先用BST的删除结点操作，然后调用相应的辅助函数做相应的调整。首先只有被删除的结点为黑结点时才需要进行修补，理由如下：</p>
+<li><p class="first"><strong>红黑树的删除操作</strong> ：和插入操作一样，先用BST的删除结点操作，然后调用相应的辅助函数做相应的调整。首先只有被删除的结点为黑结点时才需要进行修补，理由如下：</p>
 <ul class="simple">
-<li><p>树中各结点的黑高度都没有变化</p></li>
-<li><p>不存在两个相邻的红色结点</p></li>
-<li><p>因为如果被删除的点是红色，就不可能是根，所以根仍然是黑色的</p></li>
+<li>树中各结点的黑高度都没有变化</li>
+<li>不存在两个相邻的红色结点</li>
+<li>因为如果被删除的点是红色，就不可能是根，所以根仍然是黑色的</li>
 </ul>
 </li>
-<li><p>当被删除了黑结点之后，红黑树的性质5被破坏，上面说过了性质5被破坏后的修复难度是最大的。
+<li><p class="first">当被删除了黑结点之后，红黑树的性质5被破坏，上面说过了性质5被破坏后的修复难度是最大的。
 <strong>这里的修复过程使用了一个很新的思想</strong> ，即视为被删除的结点的子结点有额外的一种黑色，当这一重额外的黑色存在之后，性质5就得到了继续。
 然后再通过转移的方法逐步把这一重额外的黑色逐渐向上转移直到根或者红色的结点，最后消除这一重额外的黑色。</p>
 <div class="line-block">
@@ -3408,7 +3431,8 @@ Knuth认为A≈5-12是一个比较理想的值。</p>
 <div class="line">性质5：包含y的路径中，黑高度都减少了；</div>
 </div>
 </li>
-<li><p>红黑树是平衡查找树，还有B树也是另一类平衡查找树。</p></li>
+<li><p class="first">红黑树是平衡查找树，还有B树也是另一类平衡查找树。</p>
+</li>
 </ul>
 <div class="highlight-cpp notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>  1
   2
@@ -4458,111 +4482,123 @@ Knuth认为A≈5-12是一个比较理想的值。</p>
 <div class="section" id="id18">
 <h3>第14章：数据结构的扩张<a class="headerlink" href="#id18" title="永久链接至标题">¶</a></h3>
 <ul class="simple">
-<li><p>实际的工程中，极少会去创造新的数据结构，通常是对标准的数据结构附加一些信息，并添加一些新的操作以支持应用的要求。</p></li>
-<li><p>数据结构的扩张：指在实际应用数据结构时对标准的数据结构中增加一些信息、编入一些新的操作等等。附加的信息必须能够为该数据结构上的常规操作所更新和维护。</p></li>
-<li><p>对一种数据结构的扩张过程可以分为四个步骤：</p>
-<ol class="arabic simple">
-<li><p>选择基础的数据结构</p></li>
-<li><p>确定要在基础数据结构中添加哪些信息</p></li>
-<li><p>验证可用基础数据结构上的基本修改操作来维护这些新添加的信息</p></li>
-<li><p>设计新的操作</p></li>
+<li>实际的工程中，极少会去创造新的数据结构，通常是对标准的数据结构附加一些信息，并添加一些新的操作以支持应用的要求。</li>
+<li>数据结构的扩张：指在实际应用数据结构时对标准的数据结构中增加一些信息、编入一些新的操作等等。附加的信息必须能够为该数据结构上的常规操作所更新和维护。</li>
+<li>对一种数据结构的扩张过程可以分为四个步骤：<ol class="arabic">
+<li>选择基础的数据结构</li>
+<li>确定要在基础数据结构中添加哪些信息</li>
+<li>验证可用基础数据结构上的基本修改操作来维护这些新添加的信息</li>
+<li>设计新的操作</li>
 </ol>
 </li>
-<li><p>红黑树的扩张定理：当结点中新添加的信息可以由该结点和它的左右子树来决定，那么就可以在不影响时间复杂度的前提下在插入和删除等操作中对红黑树的这些附加信息进行维护。</p></li>
+<li>红黑树的扩张定理：当结点中新添加的信息可以由该结点和它的左右子树来决定，那么就可以在不影响时间复杂度的前提下在插入和删除等操作中对红黑树的这些附加信息进行维护。</li>
 </ul>
 </div>
 </div>
 <div class="section" id="id19">
 <h2>第四部分：高级设计和分析技术<a class="headerlink" href="#id19" title="永久链接至标题">¶</a></h2>
 <ul class="simple">
-<li><p>设计和分析高效算法的 <strong>三种重要技术：动态规划、贪心算法和平摊分析</strong></p></li>
-<li><p>动态规划通常应用于最优化问题，即要做出一组选择以达到一个最优解时。在做选择的同时，经常出现同样形式的子问题。 <strong>关键技术是存储这些子问题每一个的解，以备它重复出现。</strong></p></li>
-<li><dl class="simple">
-<dt>贪心算法通常也是应用于最优化问题，该算法的思想是以局部最优的方式来做每一个选择。采用贪心算法可以比动态规划更快的得出一个最优解，但是关键是不容易判断贪心算法所得到的是否真的是最优解，这是需要证明的，所以说每一个贪心算法后面都有一个漂亮的动态规划算法作为理论支撑。</dt><dd><p>贪心算法可以在一定的理论之下，通过只考虑局部最优解就可以保证得到的一定是全局最优解。如赫夫曼编码。</p>
-</dd>
+<li>设计和分析高效算法的 <strong>三种重要技术：动态规划、贪心算法和平摊分析</strong></li>
+<li>动态规划通常应用于最优化问题，即要做出一组选择以达到一个最优解时。在做选择的同时，经常出现同样形式的子问题。 <strong>关键技术是存储这些子问题每一个的解，以备它重复出现。</strong></li>
+<li><dl class="first docutils">
+<dt>贪心算法通常也是应用于最优化问题，该算法的思想是以局部最优的方式来做每一个选择。采用贪心算法可以比动态规划更快的得出一个最优解，但是关键是不容易判断贪心算法所得到的是否真的是最优解，这是需要证明的，所以说每一个贪心算法后面都有一个漂亮的动态规划算法作为理论支撑。</dt>
+<dd>贪心算法可以在一定的理论之下，通过只考虑局部最优解就可以保证得到的一定是全局最优解。如赫夫曼编码。</dd>
 </dl>
 </li>
-<li><p>平摊分析是一种用来分析执行一系列类似操作的算法的工具。在一个操作序列中，不可能每一个都以其已知的最坏情况运行，某些操作的代价高些，而其它的低一些。</p></li>
+<li>平摊分析是一种用来分析执行一系列类似操作的算法的工具。在一个操作序列中，不可能每一个都以其已知的最坏情况运行，某些操作的代价高些，而其它的低一些。</li>
 </ul>
 <p>所有的最优化问题都可以通过穷举法来解决，但是这在时间上是不可接受的。所有的高效算法都是为了加快速度：</p>
 <blockquote>
 <div><ul class="simple">
-<li><p>动态规划：保存子问题的解，以备重复使用</p></li>
-<li><p>贪心算法：用局部最优解来求全局最优解</p></li>
+<li>动态规划：保存子问题的解，以备重复使用</li>
+<li>贪心算法：用局部最优解来求全局最优解</li>
 </ul>
 </div></blockquote>
 <p>平摊分析是用来分析算法的工具，它本身并不是一种算法。</p>
 <div class="section" id="id20">
 <h3>第15章：动态规划<a class="headerlink" href="#id20" title="永久链接至标题">¶</a></h3>
 <ul>
-<li><p>动态规划与分治法之间的区别：</p>
+<li><p class="first">动态规划与分治法之间的区别：</p>
 <ul class="simple">
-<li><p>分治法是指将问题分成一些 <strong>独立</strong> 的子问题，递归的求解各子问题</p></li>
-<li><p>动态规划适用于这些子问题 <strong>独立且重叠</strong> 的情况，也就是各子问题包含公共子问题</p></li>
+<li>分治法是指将问题分成一些 <strong>独立</strong> 的子问题，递归的求解各子问题</li>
+<li>动态规划适用于这些子问题 <strong>独立且重叠</strong> 的情况，也就是各子问题包含公共子问题</li>
 </ul>
 </li>
-<li><p>动态规划算法的设计可以分为4个步骤：</p>
+<li><p class="first">动态规划算法的设计可以分为4个步骤：</p>
 <ol class="arabic simple">
-<li><p>描述最优解的子结构</p></li>
-<li><p>递归定义最优解的值</p></li>
-<li><p>按自底向上的方法计算最优解的值</p></li>
-<li><p>由计算出的结果反向构造出一个最优解</p></li>
+<li>描述最优解的子结构</li>
+<li>递归定义最优解的值</li>
+<li>按自底向上的方法计算最优解的值</li>
+<li>由计算出的结果反向构造出一个最优解</li>
 </ol>
 </li>
-<li><p><strong>动态规划最最最重要的就是要找出最优解的子结构</strong> ！</p></li>
-<li><p>最优子结构在问题域中以两种方式变化（在找出这两个问题的解之后，构造出原问题的最优子结构往往就不是难事了）：</p>
+<li><p class="first"><strong>动态规划最最最重要的就是要找出最优解的子结构</strong> ！</p>
+</li>
+<li><p class="first">最优子结构在问题域中以两种方式变化（在找出这两个问题的解之后，构造出原问题的最优子结构往往就不是难事了）：</p>
 <ul class="simple">
-<li><p>有多少个子问题被用在原问题的一个最优解中</p></li>
-<li><p>在决定一个最优解中使用哪些子问题有多少个选择</p></li>
+<li>有多少个子问题被用在原问题的一个最优解中</li>
+<li>在决定一个最优解中使用哪些子问题有多少个选择</li>
 </ul>
 </li>
-<li><p>动态规划说白了就是一个递归的反向展开的过程：在满足①最优子结构②重叠子问题这2个条件下，通过把递归从下至上的进行展开以避免重复计算子问题从而加速了最终问题的求解的过程。</p></li>
-<li><p><strong>再次强调”动态规划最关键的一步就是：寻找最优子结构”</strong></p></li>
-<li><p>动态规划能够消除重复计算子问题是因为它与普通递归相反，它是通过自下而上的方式来进行求解的。</p></li>
-<li><p>正确使用 <strong>动态规划方法的2个关键要素：最优子结构 和 重叠子问题</strong> 。</p>
+<li><p class="first">动态规划说白了就是一个递归的反向展开的过程：在满足①最优子结构②重叠子问题这2个条件下，通过把递归从下至上的进行展开以避免重复计算子问题从而加速了最终问题的求解的过程。</p>
+</li>
+<li><p class="first"><strong>再次强调”动态规划最关键的一步就是：寻找最优子结构”</strong></p>
+</li>
+<li><p class="first">动态规划能够消除重复计算子问题是因为它与普通递归相反，它是通过自下而上的方式来进行求解的。</p>
+</li>
+<li><p class="first">正确使用 <strong>动态规划方法的2个关键要素：最优子结构 和 重叠子问题</strong> 。</p>
 <ul class="simple">
-<li><p>如果问题的一个最优解中包含了子问题的最优解，则该问题具有最优子结构；而当一个问题具有最优子结构时，提示我们动态规划可能会适用。</p></li>
-<li><p>如果问题可以由递归来解决，并且在递归的过程中会不断的出现重复的子问题需要解决，那毫不犹豫的采用动态规划吧！</p></li>
+<li>如果问题的一个最优解中包含了子问题的最优解，则该问题具有最优子结构；而当一个问题具有最优子结构时，提示我们动态规划可能会适用。</li>
+<li>如果问题可以由递归来解决，并且在递归的过程中会不断的出现重复的子问题需要解决，那毫不犹豫的采用动态规划吧！</li>
 </ul>
 </li>
-<li><p>剪贴技术：用来证明在问题的一个最优解中，使用的子问题的解本身也必须是最优的</p></li>
-<li><p>为了描述子问题空间，可以遵循这样一条有效的经验规则，就是尽量保持这个空间简单，然后在需要时再扩充它</p></li>
-<li><dl class="simple">
-<dt>非正式地：一个动态规划算法的运行时间依赖于两个因素的乘积：子问题的总个数和每个子问题中有多少种选择。</dt><dd><p>问题解的代价通常是子问题的代价加上选择本身带来的开销。</p>
+<li><p class="first">剪贴技术：用来证明在问题的一个最优解中，使用的子问题的解本身也必须是最优的</p>
+</li>
+<li><p class="first">为了描述子问题空间，可以遵循这样一条有效的经验规则，就是尽量保持这个空间简单，然后在需要时再扩充它</p>
+</li>
+<li><dl class="first docutils">
+<dt>非正式地：一个动态规划算法的运行时间依赖于两个因素的乘积：子问题的总个数和每个子问题中有多少种选择。</dt>
+<dd><p class="first last">问题解的代价通常是子问题的代价加上选择本身带来的开销。</p>
 </dd>
 </dl>
 </li>
-<li><p>贪心算法与动态规划有一个显著的区别：就是在贪心算法中，是以自顶向下的方式使用最优子结构的。贪心算法会先做选择，在当时看起来是最优的选择，然后再求解一个结果子问题，而不是先寻找子问题的最优解，然后再选择。</p></li>
-<li><dl class="simple">
-<dt>要注意：在不能应用最优子结构的时间，就一定不能假设它能够应用。</dt><dd><p><strong>坚决警惕使用动态规划去解决缺乏最优子结构的问题！</strong></p>
+<li><p class="first">贪心算法与动态规划有一个显著的区别：就是在贪心算法中，是以自顶向下的方式使用最优子结构的。贪心算法会先做选择，在当时看起来是最优的选择，然后再求解一个结果子问题，而不是先寻找子问题的最优解，然后再选择。</p>
+</li>
+<li><dl class="first docutils">
+<dt>要注意：在不能应用最优子结构的时间，就一定不能假设它能够应用。</dt>
+<dd><p class="first last"><strong>坚决警惕使用动态规划去解决缺乏最优子结构的问题！</strong></p>
 </dd>
 </dl>
 </li>
-<li><p>使用动态规划时： <strong>子问题必须是相互独立的！</strong> 可以这样理解，N个子问题域互不相干，属于完全不同的空间。</p></li>
-<li><p>重叠子问题：不同的子问题的数目是输入规模的一个多项式。这样，动态规划算法才能充分利用重叠的子问题，减少计算量。即通过每个子问题只解一次，把解保存在一个需要时就可以查看的表中，而每次查表只需要常数时间。</p>
+<li><p class="first">使用动态规划时： <strong>子问题必须是相互独立的！</strong> 可以这样理解，N个子问题域互不相干，属于完全不同的空间。</p>
+</li>
+<li><p class="first">重叠子问题：不同的子问题的数目是输入规模的一个多项式。这样，动态规划算法才能充分利用重叠的子问题，减少计算量。即通过每个子问题只解一次，把解保存在一个需要时就可以查看的表中，而每次查表只需要常数时间。</p>
 <p>从这段描述可以看出： <strong>动态规划与递归时做备忘录的本质是完全相同的，所以说备忘录方法与普通的动态递归本质完全相同，没有孰优孰劣之分，哪个方便用哪个。</strong></p>
 </li>
-<li><p>由计算出的结果反向构造一个最优解：把动态规划或者是递归过程中作出的每一次选择（记住：保存的是每次作出的选择）都保存下来，在最后就一定可以通过这些保存的选择来反向构造出最优解。</p></li>
-<li><p><strong>做备忘录的递归方法</strong> ：这种方法是动态规划的一个变形，它本质上与动态规划是一样的，但是比动态规划更好理解！</p>
+<li><p class="first">由计算出的结果反向构造一个最优解：把动态规划或者是递归过程中作出的每一次选择（记住：保存的是每次作出的选择）都保存下来，在最后就一定可以通过这些保存的选择来反向构造出最优解。</p>
+</li>
+<li><p class="first"><strong>做备忘录的递归方法</strong> ：这种方法是动态规划的一个变形，它本质上与动态规划是一样的，但是比动态规划更好理解！</p>
 <ul class="simple">
-<li><p>使用普通的递归结构，自上而下的解决问题。</p></li>
-<li><p>当在递归算法的执行中每一次遇到一个子问题时，就计算它的解并填入一个表中。以后每次遇到该子问题时，只要查看并返回表中先前填入的值即可。</p></li>
-<li><p>备忘录方法有一个好处就是：它不会去计算那些对最优解无用的子问题，即只计算必须计算的子问题；但是普通的动态规划会计算所有的子问题，不管它是不是必须的。</p></li>
+<li>使用普通的递归结构，自上而下的解决问题。</li>
+<li>当在递归算法的执行中每一次遇到一个子问题时，就计算它的解并填入一个表中。以后每次遇到该子问题时，只要查看并返回表中先前填入的值即可。</li>
+<li>备忘录方法有一个好处就是：它不会去计算那些对最优解无用的子问题，即只计算必须计算的子问题；但是普通的动态规划会计算所有的子问题，不管它是不是必须的。</li>
 </ul>
 </li>
-<li><p>备忘录方法与动态递归方法的比较：</p>
+<li><p class="first">备忘录方法与动态递归方法的比较：</p>
 <ul class="simple">
-<li><p>如果所有的子问题都至少要被计算一次，则一个自底向上的动态规划算法通常比一个自顶向下的做备忘录算法好出一个常数因子。因为动态规划没有使用递归的代价，只用到了循环，所以常数因子肯定比递归要好一些。</p></li>
-<li><p>此外，在有些问题中，还可以用动态规划算法中的表存取模式来进一步的减少时间和空间上的需求；</p></li>
-<li><p>或者，如果子问题中的某些子问题根本没有必须求解，做备忘录的方法有着只解那些肯定要求解的子问题的优点。（而且这点是自动获得的，那些不必要计算的子问题在备忘录方法中会被自动的抛弃）</p></li>
+<li>如果所有的子问题都至少要被计算一次，则一个自底向上的动态规划算法通常比一个自顶向下的做备忘录算法好出一个常数因子。因为动态规划没有使用递归的代价，只用到了循环，所以常数因子肯定比递归要好一些。</li>
+<li>此外，在有些问题中，还可以用动态规划算法中的表存取模式来进一步的减少时间和空间上的需求；</li>
+<li>或者，如果子问题中的某些子问题根本没有必须求解，做备忘录的方法有着只解那些肯定要求解的子问题的优点。（而且这点是自动获得的，那些不必要计算的子问题在备忘录方法中会被自动的抛弃）</li>
 </ul>
 </li>
-<li><dl class="simple">
-<dt>备忘录方法总结： <strong>由”是否所有的子问题都至少需要被计算一次”来决定使用动态规划还是备忘录</strong></dt><dd><p>再次下定义：这两种方法没孰优孰劣之分，因为它们的本质思想是完全一样的；消除重复子问题。</p>
+<li><dl class="first docutils">
+<dt>备忘录方法总结： <strong>由”是否所有的子问题都至少需要被计算一次”来决定使用动态规划还是备忘录</strong></dt>
+<dd><p class="first last">再次下定义：这两种方法没孰优孰劣之分，因为它们的本质思想是完全一样的；消除重复子问题。</p>
 </dd>
 </dl>
 </li>
-<li><p>动态规划： <strong>最重要最重要的就是找到最优子结构。在找到最优子结构之后的消除重复子问题，这点我太容易处理了，无论是动态规划的自底向上的递推，还是备忘录，或者是备忘录的变型，都可以轻松的应付。关键就是最优子结构。</strong></p></li>
+<li><p class="first">动态规划： <strong>最重要最重要的就是找到最优子结构。在找到最优子结构之后的消除重复子问题，这点我太容易处理了，无论是动态规划的自底向上的递推，还是备忘录，或者是备忘录的变型，都可以轻松的应付。关键就是最优子结构。</strong></p>
+</li>
 </ul>
 <div class="highlight-cpp notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>  1
   2
@@ -5813,49 +5849,56 @@ Knuth认为A≈5-12是一个比较理想的值。</p>
 <div class="section" id="id21">
 <h3>第16章：贪心算法<a class="headerlink" href="#id21" title="永久链接至标题">¶</a></h3>
 <ul>
-<li><dl class="simple">
-<dt>贪心算法使所作的选择看起来都是当前最佳的，期望通所做的局部最优选择来产生一个全局最优解。</dt><dd><p>对算法中的每一个决策点，做一个当时看起来是最佳的选择，这种启发式策略并不是总能产生最优解的。</p>
+<li><dl class="first docutils">
+<dt>贪心算法使所作的选择看起来都是当前最佳的，期望通所做的局部最优选择来产生一个全局最优解。</dt>
+<dd><p class="first last">对算法中的每一个决策点，做一个当时看起来是最佳的选择，这种启发式策略并不是总能产生最优解的。</p>
 </dd>
 </dl>
 </li>
-<li><p>贪心算法对大多数优化问题能产生较优解，但很多问题也不能通过这样的局部最优解得到全局最优解（0-1背包）。实际上， <strong>使用贪心算法最关键的就是在于如何证明贪心选择性质以证明当前的问题可以由贪心算法得到最优解</strong></p></li>
-<li><dl class="simple">
-<dt>在活动选择问题中，非常关键的一点先决条件就是：活动要先按照结束时间的单调递增顺序排序，这样才能贪心的选择第一个。</dt><dd><p>从直觉上来看，这种活动选择方法是一种”贪婪的”选择方法，它给后面剩下的待调度任务留下了尽可能多的机会。也就是说，此处的贪心选择使得剩下的、未调度的时间最大化</p>
+<li><p class="first">贪心算法对大多数优化问题能产生较优解，但很多问题也不能通过这样的局部最优解得到全局最优解（0-1背包）。实际上， <strong>使用贪心算法最关键的就是在于如何证明贪心选择性质以证明当前的问题可以由贪心算法得到最优解</strong></p>
+</li>
+<li><dl class="first docutils">
+<dt>在活动选择问题中，非常关键的一点先决条件就是：活动要先按照结束时间的单调递增顺序排序，这样才能贪心的选择第一个。</dt>
+<dd><p class="first last">从直觉上来看，这种活动选择方法是一种”贪婪的”选择方法，它给后面剩下的待调度任务留下了尽可能多的机会。也就是说，此处的贪心选择使得剩下的、未调度的时间最大化</p>
 </dd>
 </dl>
 </li>
-<li><p>可以说：动态规划其实是”安全的贪心算法”的基础。无论如何，在 <strong>每一个贪心算法的下面，几乎总是会有一个更加复杂的动态规划解</strong></p>
-<dl class="simple">
-<dt>贪心算法实现简单速度快，但是 <strong>证明贪心的正确性往往是很困难的，所以说安全的（能够取得最优解的）贪心算法下面总有一个动态规划算法来证明其正确性</strong></dt><dd><p>所谓安全的贪心算法就是指一定能产生出全局最优解的贪心算法</p>
+<li><p class="first">可以说：动态规划其实是”安全的贪心算法”的基础。无论如何，在 <strong>每一个贪心算法的下面，几乎总是会有一个更加复杂的动态规划解</strong></p>
+<dl class="docutils">
+<dt>贪心算法实现简单速度快，但是 <strong>证明贪心的正确性往往是很困难的，所以说安全的（能够取得最优解的）贪心算法下面总有一个动态规划算法来证明其正确性</strong></dt>
+<dd><p class="first last">所谓安全的贪心算法就是指一定能产生出全局最优解的贪心算法</p>
 </dd>
 </dl>
 </li>
-<li><p>贪心算法的一般步骤（定义）</p>
+<li><p class="first">贪心算法的一般步骤（定义）</p>
 <ul class="simple">
-<li><p>将优化问题转化成这样的一个问题，即 <strong>先做出选择（对应于动态规划的先解决子问题再选择）</strong> ，再解决剩下的一个子问题。</p></li>
-<li><p>证明原问题总是有一个最优解是做贪心选择得到的，从而说明贪心选择的安全。</p></li>
-<li><p>说明在做出贪心选择后，剩余的子问题具有这样的一个性质。即如果将子问题的最优解和我们所做的贪心选择联合起来，就可以得出原问题的一个最优解。</p></li>
+<li>将优化问题转化成这样的一个问题，即 <strong>先做出选择（对应于动态规划的先解决子问题再选择）</strong> ，再解决剩下的一个子问题。</li>
+<li>证明原问题总是有一个最优解是做贪心选择得到的，从而说明贪心选择的安全。</li>
+<li>说明在做出贪心选择后，剩余的子问题具有这样的一个性质。即如果将子问题的最优解和我们所做的贪心选择联合起来，就可以得出原问题的一个最优解。</li>
 </ul>
 </li>
-<li><p>正确使用贪心算法的2个关键要素： <strong>贪心选择性质和最优子结构:</strong></p>
+<li><p class="first">正确使用贪心算法的2个关键要素： <strong>贪心选择性质和最优子结构:</strong></p>
 <ul class="simple">
-<li><p>贪心选择性质：一个全局最优解可以通过局部最优（贪心）选择来达到；这也是使用贪心算法中最难的一点，即证明贪心策略得能出最优解。</p></li>
-<li><p>最优子结构：一个问题的最优解包含了其子问题的最优解。</p></li>
+<li>贪心选择性质：一个全局最优解可以通过局部最优（贪心）选择来达到；这也是使用贪心算法中最难的一点，即证明贪心策略得能出最优解。</li>
+<li>最优子结构：一个问题的最优解包含了其子问题的最优解。</li>
 </ul>
 </li>
-<li><p>要使用贪心算法就必须先证明以下两个性质：</p>
+<li><p class="first">要使用贪心算法就必须先证明以下两个性质：</p>
 <ul class="simple">
-<li><dl class="simple">
-<dt>每一步所做的贪心选择最终能产生一个全局最优解。</dt><dd><p>在证明中先考察一个全局最优解，然后证明对该解加以修改，使其采用贪心选择，这个选择将原问题变为一个相似的、但更小的问题。</p>
-</dd>
+<li><dl class="first docutils">
+<dt>每一步所做的贪心选择最终能产生一个全局最优解。</dt>
+<dd>在证明中先考察一个全局最优解，然后证明对该解加以修改，使其采用贪心选择，这个选择将原问题变为一个相似的、但更小的问题。</dd>
 </dl>
 </li>
-<li><p>子问题的最优解与所做的贪心选择合并后，的确可以得到原问题的一个最优解。</p></li>
+<li>子问题的最优解与所做的贪心选择合并后，的确可以得到原问题的一个最优解。</li>
 </ul>
 </li>
-<li><p>贪心算法所做的当前选择可能要依赖于已经做出的所有选择，但不依赖于有待于做出的选择或子问题的解。</p></li>
-<li><p>前缀编码：在所有的编码方案中，没有一个编码是另一个编码的前缀。</p></li>
-<li><p><strong>一般地，就算证明不出来贪心算法能给出最优解，但是它一般都至少能给出次优解。所以贪心算法在实际的应用中是非常的普及的。</strong></p></li>
+<li><p class="first">贪心算法所做的当前选择可能要依赖于已经做出的所有选择，但不依赖于有待于做出的选择或子问题的解。</p>
+</li>
+<li><p class="first">前缀编码：在所有的编码方案中，没有一个编码是另一个编码的前缀。</p>
+</li>
+<li><p class="first"><strong>一般地，就算证明不出来贪心算法能给出最优解，但是它一般都至少能给出次优解。所以贪心算法在实际的应用中是非常的普及的。</strong></p>
+</li>
 </ul>
 <div class="highlight-cpp notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
@@ -6540,103 +6583,115 @@ kyhsenbppk t ddbuotbb cwi rf ju jd nt e q
 <div class="section" id="id22">
 <h3>第17章：平摊分析<a class="headerlink" href="#id22" title="永久链接至标题">¶</a></h3>
 <ul>
-<li><p>平摊代价： <strong>N个操作的总平摊代价即为这N个操作的总实际代价的上界</strong></p></li>
-<li><dl class="simple">
-<dt>在平摊分析中，执行一系列数据结构操作所需要的时间是通过对执行所有操作所花费的时间求平均而得到的。</dt><dd><p>平摊分析与平均情况分析的不同之处在于它不牵涉到概率；平摊分析保证在最坏情况下，每个操作具有平均性能。</p>
+<li><p class="first">平摊代价： <strong>N个操作的总平摊代价即为这N个操作的总实际代价的上界</strong></p>
+</li>
+<li><dl class="first docutils">
+<dt>在平摊分析中，执行一系列数据结构操作所需要的时间是通过对执行所有操作所花费的时间求平均而得到的。</dt>
+<dd><p class="first last">平摊分析与平均情况分析的不同之处在于它不牵涉到概率；平摊分析保证在最坏情况下，每个操作具有平均性能。</p>
 </dd>
 </dl>
 </li>
-<li><dl class="simple">
-<dt>平摊分析表明： <strong>并不能总以最坏情况来衡量算法，因为最坏的情况并不总会发生，而且在绝大多数应用中最坏情况出现的次数一定是很少很少的。</strong></dt><dd><p>最明显的例子就是 <code class="docutils literal notranslate"><span class="pre">C++</span> <span class="pre">STL中vector.push_back</span></code> 操作。</p>
+<li><dl class="first docutils">
+<dt>平摊分析表明： <strong>并不能总以最坏情况来衡量算法，因为最坏的情况并不总会发生，而且在绝大多数应用中最坏情况出现的次数一定是很少很少的。</strong></dt>
+<dd><p class="first last">最明显的例子就是 <code class="docutils literal notranslate"><span class="pre">C++</span> <span class="pre">STL中vector.push_back</span></code> 操作。</p>
 </dd>
 </dl>
 </li>
-<li><p>通过平摊分析，可以获得对某种特定数据结构的认识，这种认识有助于优化设计。</p></li>
-<li><p>三种方法进行平摊分析：</p>
+<li><p class="first">通过平摊分析，可以获得对某种特定数据结构的认识，这种认识有助于优化设计。</p>
+</li>
+<li><p class="first">三种方法进行平摊分析：</p>
 <ul class="simple">
-<li><p>聚集分析：就是指分析一系列操作的总时间</p></li>
-<li><p>记账法：对每次操作的对象进行预先记账</p></li>
-<li><p>势能方法：与记账法类似，但是将每次预留的势能视为是整个数据结构共享的</p></li>
+<li>聚集分析：就是指分析一系列操作的总时间</li>
+<li>记账法：对每次操作的对象进行预先记账</li>
+<li>势能方法：与记账法类似，但是将每次预留的势能视为是整个数据结构共享的</li>
 </ul>
 </li>
-<li><dl class="simple">
-<dt>聚集分析：由N个操作所构成的序列的总时间在最坏的情况下为T(n)，则每个操作的平均代价（平摊代价）为T(n)/n。</dt><dd><p>以前的时间复杂度分析都是以单次操作为对象的分析它的最坏时间复杂度，而聚集分析所分析的是N次操作的总时间的最坏情况。应注意其与平均情况分析的不同之处！</p>
+<li><dl class="first docutils">
+<dt>聚集分析：由N个操作所构成的序列的总时间在最坏的情况下为T(n)，则每个操作的平均代价（平摊代价）为T(n)/n。</dt>
+<dd><p class="first last">以前的时间复杂度分析都是以单次操作为对象的分析它的最坏时间复杂度，而聚集分析所分析的是N次操作的总时间的最坏情况。应注意其与平均情况分析的不同之处！</p>
 </dd>
 </dl>
 <p>聚集分析：由序列的总最坏时间推导单次的平摊时间</p>
 </li>
-<li><p>记账法：对序列操作中的每一个操作收取一定的费用，当所收取的费用比它实际应支付的费用多时就把多余的部分当作存款存起来，一个操作的平摊代价可以看作两部分：实际代价和存款（或被储蓄或被用完）。</p>
+<li><p class="first">记账法：对序列操作中的每一个操作收取一定的费用，当所收取的费用比它实际应支付的费用多时就把多余的部分当作存款存起来，一个操作的平摊代价可以看作两部分：实际代价和存款（或被储蓄或被用完）。</p>
 <ul class="simple">
-<li><p>存款可以用来在以后补偿那些其平摊代价低于其实际代价的操作。</p></li>
-<li><p>如果希望通过对平摊代价的分析来说明每次操作的最坏情况平均代价较小，则操作序列的总平摊代价就必须是该序列的总的实际代价的一个上界。因为平摊代价是最坏时的平均代价，这意味着：只能有存款而不能有欠账！</p></li>
-<li><p>明白这个存款不能为负很重要，因为这种分析方法是不允许欠账的，否则就不能满足平摊代价是操作总时间的最坏情况的平均这个定义。</p></li>
-<li><p>Eg: 对于栈的操作，当每次入栈时记账支付2元，1元支付该PUSH操作的实际代价，还有1元用于支付该元素被POP出来时的代价。则可以保证在任何时间内都不会有欠账，POP操作可以不收取任何费用。</p></li>
+<li>存款可以用来在以后补偿那些其平摊代价低于其实际代价的操作。</li>
+<li>如果希望通过对平摊代价的分析来说明每次操作的最坏情况平均代价较小，则操作序列的总平摊代价就必须是该序列的总的实际代价的一个上界。因为平摊代价是最坏时的平均代价，这意味着：只能有存款而不能有欠账！</li>
+<li>明白这个存款不能为负很重要，因为这种分析方法是不允许欠账的，否则就不能满足平摊代价是操作总时间的最坏情况的平均这个定义。</li>
+<li>Eg: 对于栈的操作，当每次入栈时记账支付2元，1元支付该PUSH操作的实际代价，还有1元用于支付该元素被POP出来时的代价。则可以保证在任何时间内都不会有欠账，POP操作可以不收取任何费用。</li>
 </ul>
 </li>
-<li><dl class="simple">
-<dt>势能方法：将已预付的工作作为一种”势能”保存，它在需要时可以释放出来，以支付后面的操作。势能是与整个数据结构而不是其中的个别对象发生联系的。</dt><dd><p>（记账法中的账与个别对象发生联系，比如栈操作时支付的2元就记在入栈的那个元素上）</p>
+<li><dl class="first docutils">
+<dt>势能方法：将已预付的工作作为一种”势能”保存，它在需要时可以释放出来，以支付后面的操作。势能是与整个数据结构而不是其中的个别对象发生联系的。</dt>
+<dd><p class="first last">（记账法中的账与个别对象发生联系，比如栈操作时支付的2元就记在入栈的那个元素上）</p>
 </dd>
 </dl>
 </li>
-<li><p><code class="docutils literal notranslate"><span class="pre">动态表：比如C++</span> <span class="pre">STL中的vector</span></code></p>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">动态表：比如C++</span> <span class="pre">STL中的vector</span></code></p>
 <ul>
-<li><p>可以通过平摊分析证明：插入和删除操作的平摊代价都仅为O(1)</p></li>
-<li><p>表扩张时：常用的启发式（启发信息就是容器原来的大小）方法是分配一个原表两倍大小的新表。</p></li>
-<li><dl class="simple">
-<dt>可以通过聚集分析来证明插入操作的平摊代价：</dt><dd><p><span class="math notranslate nohighlight">\(\sum_{i=1}^N C_i \le N + \sum_{j=0}^{\llcorner lgN \lrcorner} 2^j &lt; n + 2n =3n\)</span></p>
+<li><p class="first">可以通过平摊分析证明：插入和删除操作的平摊代价都仅为O(1)</p>
+</li>
+<li><p class="first">表扩张时：常用的启发式（启发信息就是容器原来的大小）方法是分配一个原表两倍大小的新表。</p>
+</li>
+<li><dl class="first docutils">
+<dt>可以通过聚集分析来证明插入操作的平摊代价：</dt>
+<dd><p class="first last"><span class="math notranslate nohighlight">\(\sum_{i=1}^N C_i \le N + \sum_{j=0}^{\llcorner lgN \lrcorner} 2^j &lt; n + 2n =3n\)</span></p>
 </dd>
 </dl>
 <p>所以每次操作的平摊代价为O(1)=3</p>
 </li>
-<li><p>通过记账法来证明插入、删除操作的平摊代价：</p>
+<li><p class="first">通过记账法来证明插入、删除操作的平摊代价：</p>
 <ul>
-<li><p>插入操作：每次插入操作需要支付3元的代价，分别是：将其自身插入到当前表中、当表扩张时其自身的移动、以及对另一个在扩张表时已经移动过的另一项的移动。于1+1+1=3元的代价</p>
+<li><p class="first">插入操作：每次插入操作需要支付3元的代价，分别是：将其自身插入到当前表中、当表扩张时其自身的移动、以及对另一个在扩张表时已经移动过的另一项的移动。于1+1+1=3元的代价</p>
 <blockquote>
-<div><table class="docutils align-default">
+<div><table border="1" class="docutils">
 <colgroup>
-<col style="width: 54%" />
-<col style="width: 46%" />
+<col width="54%" />
+<col width="46%" />
 </colgroup>
-<tbody>
-<tr class="row-odd"><td><p>原有的元素……</p></td>
-<td><p>NewItem</p></td>
+<tbody valign="top">
+<tr class="row-odd"><td>原有的元素……</td>
+<td>NewItem</td>
 </tr>
-<tr class="row-even"><td><p>在原有的元素里还要再支付一个可能移动的代价</p></td>
-<td><p>支付自身以后可能的移动操作的代价</p></td>
+<tr class="row-even"><td>在原有的元素里还要再支付一个可能移动的代价</td>
+<td>支付自身以后可能的移动操作的代价</td>
 </tr>
 </tbody>
 </table>
 </div></blockquote>
 </li>
-<li><p>并且可以证明：无论扩张时分配多少倍的新空间，每次插入操作的平摊代价都大于2。所以标准库中取每次扩张时进行翻倍，这是一个均衡的很好的选择。</p></li>
-<li><p>删除操作：</p>
+<li><p class="first">并且可以证明：无论扩张时分配多少倍的新空间，每次插入操作的平摊代价都大于2。所以标准库中取每次扩张时进行翻倍，这是一个均衡的很好的选择。</p>
+</li>
+<li><p class="first">删除操作：</p>
 <ul>
-<li><dl class="simple">
-<dt>C++STL的vector不会在删除元素时进行自动收缩。假设如果在元素不足1/2时进行收缩，最坏时会产生在这种情况（来回收缩和扩张）：</dt><dd><p>在一次扩张之后，还没有做足够的删除来支付一次收缩的代价。类似地，在一次收缩之后，也有可能没有做足够的插入来支付一次扩张的代价。
+<li><dl class="first docutils">
+<dt>C++STL的vector不会在删除元素时进行自动收缩。假设如果在元素不足1/2时进行收缩，最坏时会产生在这种情况（来回收缩和扩张）：</dt>
+<dd><p class="first last">在一次扩张之后，还没有做足够的删除来支付一次收缩的代价。类似地，在一次收缩之后，也有可能没有做足够的插入来支付一次扩张的代价。
 <strong>所以C++ vector选择了在删除元素时不自动收缩来回避这个问题</strong> 。如果要进行收缩，应该是元素减少为1/4时进行自动收缩，这样才能保证在表收缩之后有足够的存款进行支付一次收缩的代价。</p>
 </dd>
 </dl>
 </li>
-<li><dl>
-<dt>当删除至1/4个元素时进行自动收缩的平摊代价分析：</dt><dd><p>每次删除操作需要支付的代价为：其自身的删除操作代价和剩下的元素可能进行的移动操作的代价。
+<li><dl class="first docutils">
+<dt>当删除至1/4个元素时进行自动收缩的平摊代价分析：</dt>
+<dd><p class="first">每次删除操作需要支付的代价为：其自身的删除操作代价和剩下的元素可能进行的移动操作的代价。
 即最坏为：1 + 1 = 2元的代价，最好为1 + 0.33333 = 1.3333元的代价，取最坏情况为2元。</p>
-<table class="docutils align-default">
+<table border="1" class="last docutils">
 <colgroup>
-<col style="width: 26%" />
-<col style="width: 24%" />
-<col style="width: 25%" />
-<col style="width: 24%" />
+<col width="26%" />
+<col width="24%" />
+<col width="25%" />
+<col width="24%" />
 </colgroup>
-<tbody>
-<tr class="row-odd"><td><p>剩下的元素……</p></td>
-<td></td>
-<td></td>
-<td></td>
+<tbody valign="top">
+<tr class="row-odd"><td>剩下的元素……</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
 </tr>
-<tr class="row-even"><td><p>还要再支付一个可能移动的代价</p></td>
-<td></td>
-<td><p>最早可能从这开始删除</p></td>
-<td><p>最晚可能从这开始删除</p></td>
+<tr class="row-even"><td>还要再支付一个可能移动的代价</td>
+<td>&#160;</td>
+<td>最早可能从这开始删除</td>
+<td>最晚可能从这开始删除</td>
 </tr>
 </tbody>
 </table>
@@ -6645,7 +6700,8 @@ kyhsenbppk t ddbuotbb cwi rf ju jd nt e q
 </li>
 </ul>
 </li>
-<li><p>因此： <strong>对于动态表的插入和删除操作而言，每个操作的平摊代价都有一个常数的上界。</strong></p></li>
+<li><p class="first">因此： <strong>对于动态表的插入和删除操作而言，每个操作的平摊代价都有一个常数的上界。</strong></p>
+</li>
 </ul>
 </li>
 </ul>
@@ -6656,66 +6712,74 @@ kyhsenbppk t ddbuotbb cwi rf ju jd nt e q
 <div class="section" id="id23">
 <h2>第五部分：高级数据结构<a class="headerlink" href="#id23" title="永久链接至标题">¶</a></h2>
 <ul class="simple">
-<li><p>B树是一种被设计成专门存储在磁盘上的平衡查找树。因为磁盘的速度远远慢于内存，所以B树被设计成尽量减少磁盘访问的次数，
-知道了这一点之后就会很清楚明白B树的变形B+树了，B＋树通过将数据存储在叶子结点从而增大了一个结点所包含的信息进而更加的减少了磁盘的访问次数。</p></li>
-<li><p>可合并堆：这种堆支持Insert,Mininum,Extract-Min,union,delete,decrease-key操作。</p></li>
-<li><p>二项堆能够在O(lgn)的最坏情况时间内支持以上的各种操作。当必须支持union操作时，二项堆优越于二叉堆，因为后者在最坏情况下，合并两个二叉堆要花O(n)的时间。</p></li>
-<li><p>斐波那契堆对于以上各种除了extract-min,delete的操作外都只需要O(1)的实际时间，而extract-min,delete也只需要O(lgn)的平摊时间。它的重要优点在于decrease-key也只需要O(1)的平摊时间。
-注意斐波那契堆的一些操作都只是平摊时间，并非最坏情况时间。现代的快速图算法中，很多是使用斐波那契堆作为其核心数据结构的。</p></li>
-<li><p>不相交集合（查并集）：通过用一棵简单的有根树来表示每个集合，就可以得到惊人的快速操作：一个由m个操作构成的序列的运行时间为O(n α(n) )，而对于宇宙中的原子数总和n，α(n)也&lt;=4，所以可以认为实际时间是O(n)。</p></li>
+<li>B树是一种被设计成专门存储在磁盘上的平衡查找树。因为磁盘的速度远远慢于内存，所以B树被设计成尽量减少磁盘访问的次数，
+知道了这一点之后就会很清楚明白B树的变形B+树了，B＋树通过将数据存储在叶子结点从而增大了一个结点所包含的信息进而更加的减少了磁盘的访问次数。</li>
+<li>可合并堆：这种堆支持Insert,Mininum,Extract-Min,union,delete,decrease-key操作。</li>
+<li>二项堆能够在O(lgn)的最坏情况时间内支持以上的各种操作。当必须支持union操作时，二项堆优越于二叉堆，因为后者在最坏情况下，合并两个二叉堆要花O(n)的时间。</li>
+<li>斐波那契堆对于以上各种除了extract-min,delete的操作外都只需要O(1)的实际时间，而extract-min,delete也只需要O(lgn)的平摊时间。它的重要优点在于decrease-key也只需要O(1)的平摊时间。
+注意斐波那契堆的一些操作都只是平摊时间，并非最坏情况时间。现代的快速图算法中，很多是使用斐波那契堆作为其核心数据结构的。</li>
+<li>不相交集合（查并集）：通过用一棵简单的有根树来表示每个集合，就可以得到惊人的快速操作：一个由m个操作构成的序列的运行时间为O(n α(n) )，而对于宇宙中的原子数总和n，α(n)也&lt;=4，所以可以认为实际时间是O(n)。</li>
 </ul>
 <div class="section" id="b">
 <h3>第18章：B树<a class="headerlink" href="#b" title="永久链接至标题">¶</a></h3>
 <ul>
-<li><p>B树与红黑树类似，但是在 <strong>降低磁盘的I/O次数</strong> 方面要更好一些。所以B树一般都是应用于磁盘操作的系统中。</p></li>
-<li><p>B树思想产生在背景：就是大规模数据存储中，实现索引查询这样一个实际背景下，树节点存储的元素数量是有限的（如果元素数量非常多的话，查找就退化成节点内部的线性查找了），这样导致二叉查找树结构由于树的深度过大而造成磁盘I/O读写过于频繁，进而导致查询效率低下（因为读取一次磁盘相当于访问了无数次内存！），那么如何减少树的深度（当然是不能减少查询的数据量），一个基本的、很自然的想法就是：采用多叉树结构（由于树节点元素数量是有限的，自然该节点的子树数量也就是有限的） <a class="footnote-reference brackets" href="#id39" id="id24">5</a></p></li>
-<li><p>在大多数系统中，B树算法的运行时间主要由它所执行的disk-read和disk-write操作的次数所决定，因而应该有效地使用这两种操作，即让它们读取更多的信息更少的次数。
-由于这个原因，在B树中，一个结点的大小通常相当于一个完整的磁盘页。因此，一个B树结点可以拥有的子女数就由磁盘页的大小所决定。</p></li>
-<li><p>很明显：B树的分支因子越大越好，因为这样运行时间的绝大部分都是由磁盘存取次数决定的。分支因子越大，需要进行的磁盘存取次数就越少。
-但是这个分支因子是有限制的，一个结点的总大小不能大于磁盘中一个页的大小，否则在一个结点内操作时还要来回访问内存，反而会拖慢效率。</p></li>
-<li><p>一个常见的B树的变形，称作为B＋树，所有的附属数据都保存在叶结点中，只将关键字和子女指针保存于内结点里，因此最大化了内结点的分支因子。</p></li>
-<li><p>B 树又叫平衡多路查找树。一棵t（t&gt;=2，t是B树的最小度数）阶的B 树的特性如下：</p>
+<li><p class="first">B树与红黑树类似，但是在 <strong>降低磁盘的I/O次数</strong> 方面要更好一些。所以B树一般都是应用于磁盘操作的系统中。</p>
+</li>
+<li><p class="first">B树思想产生在背景：就是大规模数据存储中，实现索引查询这样一个实际背景下，树节点存储的元素数量是有限的（如果元素数量非常多的话，查找就退化成节点内部的线性查找了），这样导致二叉查找树结构由于树的深度过大而造成磁盘I/O读写过于频繁，进而导致查询效率低下（因为读取一次磁盘相当于访问了无数次内存！），那么如何减少树的深度（当然是不能减少查询的数据量），一个基本的、很自然的想法就是：采用多叉树结构（由于树节点元素数量是有限的，自然该节点的子树数量也就是有限的） <a class="footnote-reference" href="#id39" id="id24">[5]</a></p>
+</li>
+<li><p class="first">在大多数系统中，B树算法的运行时间主要由它所执行的disk-read和disk-write操作的次数所决定，因而应该有效地使用这两种操作，即让它们读取更多的信息更少的次数。
+由于这个原因，在B树中，一个结点的大小通常相当于一个完整的磁盘页。因此，一个B树结点可以拥有的子女数就由磁盘页的大小所决定。</p>
+</li>
+<li><p class="first">很明显：B树的分支因子越大越好，因为这样运行时间的绝大部分都是由磁盘存取次数决定的。分支因子越大，需要进行的磁盘存取次数就越少。
+但是这个分支因子是有限制的，一个结点的总大小不能大于磁盘中一个页的大小，否则在一个结点内操作时还要来回访问内存，反而会拖慢效率。</p>
+</li>
+<li><p class="first">一个常见的B树的变形，称作为B＋树，所有的附属数据都保存在叶结点中，只将关键字和子女指针保存于内结点里，因此最大化了内结点的分支因子。</p>
+</li>
+<li><p class="first">B 树又叫平衡多路查找树。一棵t（t&gt;=2，t是B树的最小度数）阶的B 树的特性如下：</p>
 <img alt="../../_images/btree.jpg" src="../../_images/btree.jpg" />
 <ul class="simple">
-<li><p>每个叶子结点具有相同的深度，即树的高度h。</p></li>
-<li><p>每一个结点能包含的关键字数有一个上界和下界，这些界可用B树的最小度数t来表示（t-1 &lt;= n &lt;= 2t-1）：</p>
-<ul>
-<li><p>每个非根的结点必须至少含有t-1个关键字。每个非根的内结点至少有t个子女。如果树是非空的，则根结点至少包含一个关键字（同时意味着2个子女，根结点的下限永远是1个关键字，2个女子）；</p></li>
-<li><p>每个结点可包含至多2t-1个关键字。所以一个内结点至多可有2t个子女。如果一个结点恰好有2t-1个关键字，我们就说这个结点是满的；</p></li>
+<li>每个叶子结点具有相同的深度，即树的高度h。</li>
+<li>每一个结点能包含的关键字数有一个上界和下界，这些界可用B树的最小度数t来表示（t-1 &lt;= n &lt;= 2t-1）：<ul>
+<li>每个非根的结点必须至少含有t-1个关键字。每个非根的内结点至少有t个子女。如果树是非空的，则根结点至少包含一个关键字（同时意味着2个子女，根结点的下限永远是1个关键字，2个女子）；</li>
+<li>每个结点可包含至多2t-1个关键字。所以一个内结点至多可有2t个子女。如果一个结点恰好有2t-1个关键字，我们就说这个结点是满的；</li>
 </ul>
 </li>
-<li><p>每个非终端结点中包含有n个关键字信息： (n，P0，K1，P1，K2，P2，……，Kn，Pn)。其中：</p>
-<ul>
-<li><p>Ki (i=1…n)为关键字，且关键字按顺序升序排序K(i-1)&lt; Ki。</p></li>
-<li><p>Pi为指向子树根的接点，且指针P(i-1)指向子树种所有结点的关键字均小于Ki，但都大于K(i-1)。</p></li>
-<li><p>关键字的个数n必须满足：t-1 &lt;= n &lt;= 2t-1。</p></li>
+<li>每个非终端结点中包含有n个关键字信息： (n，P0，K1，P1，K2，P2，……，Kn，Pn)。其中：<ul>
+<li>Ki (i=1…n)为关键字，且关键字按顺序升序排序K(i-1)&lt; Ki。</li>
+<li>Pi为指向子树根的接点，且指针P(i-1)指向子树种所有结点的关键字均小于Ki，但都大于K(i-1)。</li>
+<li>关键字的个数n必须满足：t-1 &lt;= n &lt;= 2t-1。</li>
 </ul>
 </li>
 </ul>
 </li>
-<li><p>当t=2时为最简单的B树，又称为2-3-4树，即每个结点的孩子数可能为2,3,4个；包含的关键字个数为1,2,3个。</p></li>
-<li><dl class="simple">
-<dt>与红黑树相比，这里我们看到了B树的能力，虽然两者的高度都以O(lgn)的速度增长，但对于B树来说底要大很多倍。对大多数的树的操作来说，要查找的结点数在B树中要比红黑树中少大约lgt的因子。因为在树中查找任意一个结点通常需要一次磁盘存取，所以磁盘存取的次数大大的减少了。</dt><dd><p>如果让我来实现一个数据库系统，我肯定也会选取类似B树的数据结构作为基本。</p>
+<li><p class="first">当t=2时为最简单的B树，又称为2-3-4树，即每个结点的孩子数可能为2,3,4个；包含的关键字个数为1,2,3个。</p>
+</li>
+<li><dl class="first docutils">
+<dt>与红黑树相比，这里我们看到了B树的能力，虽然两者的高度都以O(lgn)的速度增长，但对于B树来说底要大很多倍。对大多数的树的操作来说，要查找的结点数在B树中要比红黑树中少大约lgt的因子。因为在树中查找任意一个结点通常需要一次磁盘存取，所以磁盘存取的次数大大的减少了。</dt>
+<dd><p class="first last">如果让我来实现一个数据库系统，我肯定也会选取类似B树的数据结构作为基本。</p>
 </dd>
 </dl>
 </li>
-<li><p>B树首先一是棵查找树，所以它的查找操作将会非常简单和高效。</p></li>
-<li><p><strong>B树的插入操作</strong> ：插入操作一定发生在叶子结点，因为B树首先必须是一棵查找树。</p>
+<li><p class="first">B树首先一是棵查找树，所以它的查找操作将会非常简单和高效。</p>
+</li>
+<li><p class="first"><strong>B树的插入操作</strong> ：插入操作一定发生在叶子结点，因为B树首先必须是一棵查找树。</p>
 <p>这是我的代码所使用的思路：因为插入操作肯定是在叶子结点上进行的,首先顺着书向下走直到要进行插入操作的叶子结点将新值插入到该叶子结点中去. 如果因为这个插入操作而使用该结点的值的个数&gt;2*t-1的上界，就需要递归向上进行分裂操作。如果分裂到了根结点，还要处理树长高的情况。这种思路简单，但不是很高效，因为经过了两趟，一趟向下；一趟向上。</p>
 <p>《算法导论》上介绍的方法则比较好：边下行边分裂，当沿着树往下查找新关键字时所属位置时，就分裂沿途遇到的每个满结点（包含叶结点本身）。因此每当要分裂一个满结点时，就能确保它的双亲不是满的。这种方法只需要一趟就可以完成，极大的减少磁盘的读取次数，而这正是B树所设计追求的，因而这种一趟的方法是更优的！</p>
 <p>但是我的代码只实现了我自己的简单方法，书上的方法实现起来应该也不难。</p>
 </li>
-<li><p>插入操作时B树的分裂是B树升高的唯一途径！</p></li>
-<li><p><strong>B树的删除操作</strong> ：删除操作稍微复杂一些，因为删除操作不仅仅会发生在叶子结点，还可能会发生在内结点，这与插入操作不同。但是可以通过一个技巧消除这一点，找到要删除结点的前驱，然后与要删除的结点的关键值进行对调，再删除这个前驱结点就可以保证每次要删除的都是叶子结点。</p>
+<li><p class="first">插入操作时B树的分裂是B树升高的唯一途径！</p>
+</li>
+<li><p class="first"><strong>B树的删除操作</strong> ：删除操作稍微复杂一些，因为删除操作不仅仅会发生在叶子结点，还可能会发生在内结点，这与插入操作不同。但是可以通过一个技巧消除这一点，找到要删除结点的前驱，然后与要删除的结点的关键值进行对调，再删除这个前驱结点就可以保证每次要删除的都是叶子结点。</p>
 <p>同样有可以进行边下行边合并的快速方法，而同样，我这里的代码也没有实现这种快速的方法，而是选用了传统的两趟的删除方法，具体如下：</p>
 <p>任一关键字K的中序前趋(后继)必是K的左子树(右子树)中最右(左)下的结点中最后(最前)一个关键字。根据B树的性质：B树上每一个结点的Key的个数必须为[t-1, 2*t-1]之间，所以这里的Min = t - 1。若被删关键字K所在的结点非树叶，则用K的中序前趋(或后继)K’取代K，然后从叶子中删去K’。从叶子*x开始删去某关键字K的三种情形为：</p>
 <ul class="simple">
-<li><p>情形一：若x-&gt;keynum&gt;Min，则只需删去K及其右指针(*x是叶子，K的右指针为空)即可使删除操作结束。</p></li>
-<li><p>情形二：若x-&gt;keynum=Min，该叶子中的关键字个数已是最小值，删K及其右指针后会破坏B-树的性质(3)。若*x的左(或右)邻兄弟结点*y中的关键字数目大于Min，则将*y中的最大(或最小)关键字上移至双亲结点*parent中，而将*parent中相应的关键字下移至x中。显然这种移动使得双亲中关键字数目不变；*y被移出一个关键字，故其keynum减1，因它原大于Min，故减少1个关键字后keynum仍大于等于Min；而*x中已移入一个关键字，故删K后*x中仍有Min个关键字。涉及移动关键字的三个结点均满足B-树的性质(3)。 请读者验证，上述操作后仍满足B-树的性质(1)。移动完成后，删除过程亦结束。</p></li>
-<li><p>情形三：若*x及其相邻的左右兄弟(也可能只有一个兄弟)中的关键字数目均为最小值Min，则上述的移动操作就不奏效，此时须*x和左或右兄弟合并。不妨设*x有右邻兄弟*y(对左邻兄弟的讨论与此类似)，在*x中删去K及其右子树后，将双亲结点*parent中介于*x和*y之间的关键字K，作为中间关键字，与并x和*y中的关键字一起”合并”为一个新的结点取代*x和*y。因为*x和*y原各有Min个关键字，从双亲中移人的K’抵消了从*x中删除的K，故新结点中恰有2Min(即2「m/2」-2≤m-1)个关键字，没有破坏B-树的性质(3)。但由于K’从双亲中移到新结点后，相当于从*parent中删去了K’，若parent-&gt;keynum原大于Min，则删除操作到此结束；否则，同样要通过移动*parent的左右兄弟中的关键字或将*parent与其 左右兄弟合并的方法来维护B-树性质。最坏情况下，合并操作会向上传播至根，当根中只有一个关键字时，合并操作将会使根结点及其两个孩子合并成一个新的根，从而使整棵树的高度减少一层。</p></li>
+<li>情形一：若x-&gt;keynum&gt;Min，则只需删去K及其右指针(*x是叶子，K的右指针为空)即可使删除操作结束。</li>
+<li>情形二：若x-&gt;keynum=Min，该叶子中的关键字个数已是最小值，删K及其右指针后会破坏B-树的性质(3)。若*x的左(或右)邻兄弟结点*y中的关键字数目大于Min，则将*y中的最大(或最小)关键字上移至双亲结点*parent中，而将*parent中相应的关键字下移至x中。显然这种移动使得双亲中关键字数目不变；*y被移出一个关键字，故其keynum减1，因它原大于Min，故减少1个关键字后keynum仍大于等于Min；而*x中已移入一个关键字，故删K后*x中仍有Min个关键字。涉及移动关键字的三个结点均满足B-树的性质(3)。 请读者验证，上述操作后仍满足B-树的性质(1)。移动完成后，删除过程亦结束。</li>
+<li>情形三：若*x及其相邻的左右兄弟(也可能只有一个兄弟)中的关键字数目均为最小值Min，则上述的移动操作就不奏效，此时须*x和左或右兄弟合并。不妨设*x有右邻兄弟*y(对左邻兄弟的讨论与此类似)，在*x中删去K及其右子树后，将双亲结点*parent中介于*x和*y之间的关键字K，作为中间关键字，与并x和*y中的关键字一起”合并”为一个新的结点取代*x和*y。因为*x和*y原各有Min个关键字，从双亲中移人的K’抵消了从*x中删除的K，故新结点中恰有2Min(即2「m/2」-2≤m-1)个关键字，没有破坏B-树的性质(3)。但由于K’从双亲中移到新结点后，相当于从*parent中删去了K’，若parent-&gt;keynum原大于Min，则删除操作到此结束；否则，同样要通过移动*parent的左右兄弟中的关键字或将*parent与其 左右兄弟合并的方法来维护B-树性质。最坏情况下，合并操作会向上传播至根，当根中只有一个关键字时，合并操作将会使根结点及其两个孩子合并成一个新的根，从而使整棵树的高度减少一层。</li>
 </ul>
 </li>
-<li><p>删除操作看似复杂，但是对一棵高度为h的B树，它只需要O(h)次磁盘操作，因为在递归调用的过程之间，仅需要O(1)次对disk-read,disk-write的调用，时间复杂度为O(th)=O(tlogtn).</p></li>
+<li><p class="first">删除操作看似复杂，但是对一棵高度为h的B树，它只需要O(h)次磁盘操作，因为在递归调用的过程之间，仅需要O(1)次对disk-read,disk-write的调用，时间复杂度为O(th)=O(tlogtn).</p>
+</li>
 </ul>
 <div class="highlight-cpp notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>  1
   2
@@ -7642,62 +7706,69 @@ kyhsenbppk t ddbuotbb cwi rf ju jd nt e q
 <div class="section" id="id25">
 <h3>第19章：二项堆<a class="headerlink" href="#id25" title="永久链接至标题">¶</a></h3>
 <ul>
-<li><p>可合并堆就是普通的堆+支持decrease-key,union操作，但是应该高效的实现union操作是可合并堆最关键的部分。</p></li>
-<li><p>如果不需要高效的支持UNION操作，则普通的堆结构就很好了</p></li>
-<li><dl class="simple">
-<dt>对于 <strong>所有的堆结构：二叉堆、二项堆、斐波那契堆。它们的search操作都是很慢的</strong> ，不能高效的支持search操作！</dt><dd><p>因而在decrease-key和delete等涉及结点的操作时都需要一个指向结点的指针。</p>
+<li><p class="first">可合并堆就是普通的堆+支持decrease-key,union操作，但是应该高效的实现union操作是可合并堆最关键的部分。</p>
+</li>
+<li><p class="first">如果不需要高效的支持UNION操作，则普通的堆结构就很好了</p>
+</li>
+<li><dl class="first docutils">
+<dt>对于 <strong>所有的堆结构：二叉堆、二项堆、斐波那契堆。它们的search操作都是很慢的</strong> ，不能高效的支持search操作！</dt>
+<dd><p class="first last">因而在decrease-key和delete等涉及结点的操作时都需要一个指向结点的指针。</p>
 </dd>
 </dl>
 </li>
-<li><p>一个二项<strong>堆</strong>是由一<strong>组</strong>二项<strong>树</strong>所构成的。</p></li>
-<li><p>二项树是一种递归的定义:</p>
+<li><p class="first">一个二项<strong>堆</strong>是由一<strong>组</strong>二项<strong>树</strong>所构成的。</p>
+</li>
+<li><p class="first">二项树是一种递归的定义:</p>
 <ul class="simple">
-<li><p>二项树B[0]仅仅包含一个节点</p></li>
-<li><p>B[k]是由两棵B[k-1]二项树组成，其中一颗树是另外一颗树的子树。</p></li>
+<li>二项树B[0]仅仅包含一个节点</li>
+<li>B[k]是由两棵B[k-1]二项树组成，其中一颗树是另外一颗树的子树。</li>
 </ul>
 <p>下面是B0 - B4二项树：</p>
 <img alt="../../_images/binary_tree1.png" src="../../_images/binary_tree1.png" />
 </li>
-<li><p>显然二项树具有如下的性质：</p>
+<li><p class="first">显然二项树具有如下的性质：</p>
 <ul class="simple">
-<li><p>对于树B[k]该树含有2^k个节点；</p></li>
-<li><p>树的高度是k；</p></li>
-<li><p>在深度为i中含有Cik节点，其中i = 0， 1，2 … , k;</p></li>
+<li>对于树B[k]该树含有2^k个节点；</li>
+<li>树的高度是k；</li>
+<li>在深度为i中含有Cik节点，其中i = 0， 1，2 … , k;</li>
 </ul>
 </li>
-<li><p>二项堆是由一组满足下面的二项树组成：</p>
+<li><p class="first">二项堆是由一组满足下面的二项树组成：</p>
 <ol class="arabic simple">
-<li><p>H中的每个二项树遵循最小堆性质：结点的关键字大于或等于其父结点的关键字。我们说这种树是最小堆有序的。</p></li>
-<li><p>对于任意的整数k的话，在H不存在另外一个度数也是k的二项树；即至多（有0或1棵）有一棵二项树的根具有度数K。</p></li>
+<li>H中的每个二项树遵循最小堆性质：结点的关键字大于或等于其父结点的关键字。我们说这种树是最小堆有序的。</li>
+<li>对于任意的整数k的话，在H不存在另外一个度数也是k的二项树；即至多（有0或1棵）有一棵二项树的根具有度数K。</li>
 </ol>
-<p>第一个性质保证了二项树的根结点包含了最小的关键字。第二个性质则说明结点数为n的二项堆最多只有logn + 1棵二项树。</p>
+<p>第一个性质保证了二项树的根结点包含了最小的关键字。第二个性质则说明结点数为n的二项堆最多只有logn&nbsp;+ 1棵二项树。</p>
 </li>
-<li><dl class="simple">
-<dt>就像二进制的0、1可以表示出任意的数值，任意个结点数的堆也可以由二项堆来表示。</dt><dd><p>例如：13&lt;1101&gt;个结点的堆可由二项树B3,B2,B0来表示出来。</p>
+<li><dl class="first docutils">
+<dt>就像二进制的0、1可以表示出任意的数值，任意个结点数的堆也可以由二项堆来表示。</dt>
+<dd><p class="first last">例如：13&lt;1101&gt;个结点的堆可由二项树B3,B2,B0来表示出来。</p>
 </dd>
 </dl>
 </li>
-<li><p>根表：一个二项堆中的各二项树的根被组织成一个键表，我们称之为根表！</p>
+<li><p class="first">根表：一个二项堆中的各二项树的根被组织成一个键表，我们称之为根表！</p>
 <img alt="../../_images/binary_tree2.png" src="../../_images/binary_tree2.png" />
 </li>
-<li><p>二项堆的最重要的一个操作就是UNION操作，其它的操作都可以在UNION操作的基础上轻松的实现。</p>
+<li><p class="first">二项堆的最重要的一个操作就是UNION操作，其它的操作都可以在UNION操作的基础上轻松的实现。</p>
 <p>大概思路为：将两个二项堆的根表连接起来组成一个大的二项树的连接，按”度”的单调递增顺序进行排序之后，从左至右来消除具有重复度的二项树。因为原本的每个二项堆中任意度K至多只有一个相应的二项树，所以这个消除重复的操作会非常容易。从小到大找到两个相同度K的二项树，然后连接成一个K+1度的二项树，直到链尾时合并完毕。</p>
 <p>此时的二项堆就满足对任意度K至多只有一棵二项树。此操作的时间复杂度为O(logn)</p>
 <img alt="../../_images/binary_tree3.png" src="../../_images/binary_tree3.png" />
 </li>
-<li><p><strong>其它的操作都可以通过将UNION操作作为基础操作来实现</strong> ：</p>
+<li><p class="first"><strong>其它的操作都可以通过将UNION操作作为基础操作来实现</strong> ：</p>
 <ul>
-<li><p>插入：NEW一个一个结点的二项堆，然后调用UNION与原二项堆来进行合并</p></li>
-<li><p>抽取最小关键字的结点：</p>
+<li><p class="first">插入：NEW一个一个结点的二项堆，然后调用UNION与原二项堆来进行合并</p>
+</li>
+<li><p class="first">抽取最小关键字的结点：</p>
 <ul class="simple">
-<li><p>从原二项堆的根键上取下最小关键字结点的二项树，独立出来；</p></li>
-<li><p>将独立出来的二项树的根结点去掉（这就是整个二项堆的最小关键字），然后将它的子结点逆转并组合成为一个不含最小值的二项堆；</p></li>
-<li><p>最后将这个新的二项堆与原来剩下的二项堆进行合并操作。</p></li>
+<li>从原二项堆的根键上取下最小关键字结点的二项树，独立出来；</li>
+<li>将独立出来的二项树的根结点去掉（这就是整个二项堆的最小关键字），然后将它的子结点逆转并组合成为一个不含最小值的二项堆；</li>
+<li>最后将这个新的二项堆与原来剩下的二项堆进行合并操作。</li>
 </ul>
 <img alt="../../_images/binary_tree4.jpg" src="../../_images/binary_tree4.jpg" />
 </li>
-<li><p>减少关键字：将要减小的关键字与它的父结点进行比较，如果需要就进行交换操作直到根链。使得该关键字在堆中”冒泡上升”直到正确的位置。</p></li>
-<li><p>删除一个关键字（调用其它操作实现）:</p>
+<li><p class="first">减少关键字：将要减小的关键字与它的父结点进行比较，如果需要就进行交换操作直到根链。使得该关键字在堆中”冒泡上升”直到正确的位置。</p>
+</li>
+<li><p class="first">删除一个关键字（调用其它操作实现）:</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">decrease</span><span class="o">-</span><span class="n">key</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">-</span><span class="n">max</span><span class="p">)</span>
 <span class="n">extract</span><span class="o">-</span><span class="n">min</span><span class="p">()</span>
 </pre></div>
@@ -8441,63 +8512,77 @@ kyhsenbppk t ddbuotbb cwi rf ju jd nt e q
 <div class="section" id="id26">
 <h3>第20章：斐波那契堆<a class="headerlink" href="#id26" title="永久链接至标题">¶</a></h3>
 <ul>
-<li><p>斐波那契堆与二项堆相比，取消掉了2个限制，因而更加的松散了：</p>
+<li><p class="first">斐波那契堆与二项堆相比，取消掉了2个限制，因而更加的松散了：</p>
 <ul class="simple">
-<li><p>斐波那契堆中的树不必要求是二项树</p></li>
-<li><p>根链中的树必没有”每个度数至多只能有一棵树”的要求了</p></li>
+<li>斐波那契堆中的树不必要求是二项树</li>
+<li>根链中的树必没有”每个度数至多只能有一棵树”的要求了</li>
 </ul>
 </li>
-<li><p>斐波那契堆首先也是一种堆，所以它也满足堆的性质：子结点比父结点大！</p></li>
-<li><p>斐波那契堆的特点：不涉及删除元素的操作有O(1)的平摊时间。 Extract-Min和Delete的数目和其它相比较小时效率更佳。</p></li>
-<li><p>斐波那契堆在优化加速图算法中有很大的用途。比如用于解决诸如最小生成树、寻找单源最短路径等问题的快速算法都要用到斐波那契堆。</p></li>
-<li><p>斐波那契堆由一组树（并不要求二项树）组成。但实际上，这种堆松散地基于二项堆。斐波那契堆的结构比二项堆更松散一些，从而可以改进渐近时间界。对结构的维护工作尽可能的拖延，直到方便时再做。</p></li>
-<li><p>同任何堆一样：斐波那契堆也不能很好地支持search操作。</p></li>
-<li><p>与二项堆中的树都是有序的不同，斐波那契堆中的树都是有根而无序的。每个节点包含一个指向其父节点的指针p[x]，以及一个指向其任一子女的指针child[x]（指向子女双链表），因为这些子结点本身就没有顺序关系（兄弟之间是无序的，所以更加松散），所以可以随意的指向。</p>
+<li><p class="first">斐波那契堆首先也是一种堆，所以它也满足堆的性质：子结点比父结点大！</p>
+</li>
+<li><p class="first">斐波那契堆的特点：不涉及删除元素的操作有O(1)的平摊时间。 Extract-Min和Delete的数目和其它相比较小时效率更佳。</p>
+</li>
+<li><p class="first">斐波那契堆在优化加速图算法中有很大的用途。比如用于解决诸如最小生成树、寻找单源最短路径等问题的快速算法都要用到斐波那契堆。</p>
+</li>
+<li><p class="first">斐波那契堆由一组树（并不要求二项树）组成。但实际上，这种堆松散地基于二项堆。斐波那契堆的结构比二项堆更松散一些，从而可以改进渐近时间界。对结构的维护工作尽可能的拖延，直到方便时再做。</p>
+</li>
+<li><p class="first">同任何堆一样：斐波那契堆也不能很好地支持search操作。</p>
+</li>
+<li><p class="first">与二项堆中的树都是有序的不同，斐波那契堆中的树都是有根而无序的。每个节点包含一个指向其父节点的指针p[x]，以及一个指向其任一子女的指针child[x]（指向子女双链表），因为这些子结点本身就没有顺序关系（兄弟之间是无序的，所以更加松散），所以可以随意的指向。</p>
 <img alt="../../_images/fibonacci_heap.jpg" src="../../_images/fibonacci_heap.jpg" />
 <p>其中：mark[x]用于指示自从x上一次成为另一个结点子女以来，它是否失掉了一个孩子，在图中用黑色的结点来表示。</p>
 </li>
-<li><p>如果仅支持”make-heap, insert, minimum, extract-min, union操作，那么每个斐波那契堆就只是一组”无序的”二项树。</p></li>
-<li><dl class="simple">
-<dt>对斐波那契堆上的各种可合并堆操作来说，其关键思想就是尽可能久地将工作推后。</dt><dd><p>这种lazy-compute很可能会大大的改善性质，但是也会造成后面真正进行维护时的算法执行时间的常数因子过大。</p>
+<li><p class="first">如果仅支持”make-heap, insert, minimum, extract-min, union操作，那么每个斐波那契堆就只是一组”无序的”二项树。</p>
+</li>
+<li><dl class="first docutils">
+<dt>对斐波那契堆上的各种可合并堆操作来说，其关键思想就是尽可能久地将工作推后。</dt>
+<dd><p class="first last">这种lazy-compute很可能会大大的改善性质，但是也会造成后面真正进行维护时的算法执行时间的常数因子过大。</p>
 </dd>
 </dl>
 </li>
-<li><p>斐波那契堆是通过指向根链上的最小结点的指针min[H]来进行访问的。</p></li>
-<li><dl class="simple">
-<dt>斐波那契堆的日常操作都非常简单，除了extract-min以外：</dt><dd><p>注：这里的时间复杂度均指的是平摊代价，而非一般使用的最坏情况时间。</p>
+<li><p class="first">斐波那契堆是通过指向根链上的最小结点的指针min[H]来进行访问的。</p>
+</li>
+<li><dl class="first docutils">
+<dt>斐波那契堆的日常操作都非常简单，除了extract-min以外：</dt>
+<dd><p class="first last">注：这里的时间复杂度均指的是平摊代价，而非一般使用的最坏情况时间。</p>
 </dd>
 </dl>
 <ul>
-<li><p>插入操作O(1)：直接插入到根链上去，再与最小结点的min[H]进行一下比如，如果比min[H]还小，就将min[H]指针指向新插入的结点。</p></li>
-<li><p>寻找最小节点O(1)： min[x]指向的节点即为最小节点。</p></li>
-<li><p>合并两个斐波那契堆O(1)：分为3步： 1：合并根表；2：设置新的min[h]；3。重置n[x]。
-斐波那契堆过于松散的性质使得连合并操作都只需要O(1)的时间，只需要合并两个根链就可以了。</p></li>
-<li><p>抽取最小节点O(lgn)：相对来说这是最复杂的工作。被延迟的对根表的调整工作最终由这个操作进行。</p>
+<li><p class="first">插入操作O(1)：直接插入到根链上去，再与最小结点的min[H]进行一下比如，如果比min[H]还小，就将min[H]指针指向新插入的结点。</p>
+</li>
+<li><p class="first">寻找最小节点O(1)： min[x]指向的节点即为最小节点。</p>
+</li>
+<li><p class="first">合并两个斐波那契堆O(1)：分为3步： 1：合并根表；2：设置新的min[h]；3。重置n[x]。
+斐波那契堆过于松散的性质使得连合并操作都只需要O(1)的时间，只需要合并两个根链就可以了。</p>
+</li>
+<li><p class="first">抽取最小节点O(lgn)：相对来说这是最复杂的工作。被延迟的对根表的调整工作最终由这个操作进行。</p>
 <div class="line-block">
 <div class="line">1：去掉根表上的最小值，将这个最小值的每个孩子都加入根表；2：将根表上相同度数树的合并。</div>
 <div class="line">（一点都不复杂，代码与二项堆一样容易实现）</div>
 </div>
-<dl class="simple">
-<dt>这里的在根链上合并操作与二项树基本相同，就是按”度的递增”顺序排列所有的子树之后，合并具有相同度的子树，使得最后的根链上每一个度K都只有至多一棵子树。（这里又与二项堆神似了，所以说斐波那契堆是松散地基于二项堆）。形式化地描述为：</dt><dd><p>“调整根表的步骤 1：在根表中找出两个具有相同度数的根x和y，且key[x]&lt;key[y] 2：将y与x连接。将y从根表里去掉，成为x一个孩子，并增加degree[x]。同时，如果y上有标记的话也被清除掉。”</p>
+<dl class="docutils">
+<dt>这里的在根链上合并操作与二项树基本相同，就是按”度的递增”顺序排列所有的子树之后，合并具有相同度的子树，使得最后的根链上每一个度K都只有至多一棵子树。（这里又与二项堆神似了，所以说斐波那契堆是松散地基于二项堆）。形式化地描述为：</dt>
+<dd><p class="first last">“调整根表的步骤 1：在根表中找出两个具有相同度数的根x和y，且key[x]&lt;key[y] 2：将y与x连接。将y从根表里去掉，成为x一个孩子，并增加degree[x]。同时，如果y上有标记的话也被清除掉。”</p>
 </dd>
 </dl>
 </li>
-<li><p>减小一个节点的权值O(1)：</p>
+<li><p class="first">减小一个节点的权值O(1)：</p>
 <ul class="simple">
-<li><p>若此减小不影响堆序，不作调整；</p></li>
-<li><p>若影响堆序，则从堆中删除该节点，将其加入根表，并检查其父亲的mark位；若为false，则停止，并将其置为true；若为true，则删除其父亲，继续递归向上执行；直到一个节点mark域为false或该节点为根节点为止。</p></li>
+<li>若此减小不影响堆序，不作调整；</li>
+<li>若影响堆序，则从堆中删除该节点，将其加入根表，并检查其父亲的mark位；若为false，则停止，并将其置为true；若为true，则删除其父亲，继续递归向上执行；直到一个节点mark域为false或该节点为根节点为止。</li>
 </ul>
 </li>
-<li><p>删除一个节点O(lgn)：1：将该节点权值调整至最小；2：抽取最小值。</p></li>
+<li><p class="first">删除一个节点O(lgn)：1：将该节点权值调整至最小；2：抽取最小值。</p>
+</li>
 </ul>
 </li>
-<li><p>总结：斐波那契堆之所以高效，就是因为它松散了，将很多二项堆要维护的工作都推迟到了extract-min和delete操作之中去了。而它之所以可以这样进行偷懒，就是因为它的限制非常的少，并没有像二项堆一样的要求子树全部必须是二项树，而且根表上的任意度数的子树至多只能有一个。没有了这些限制，斐波那契堆就可以实现的非常的松散以至少将日常工作的维护时间都平摊给extract-min和delete操作。</p>
+<li><p class="first">总结：斐波那契堆之所以高效，就是因为它松散了，将很多二项堆要维护的工作都推迟到了extract-min和delete操作之中去了。而它之所以可以这样进行偷懒，就是因为它的限制非常的少，并没有像二项堆一样的要求子树全部必须是二项树，而且根表上的任意度数的子树至多只能有一个。没有了这些限制，斐波那契堆就可以实现的非常的松散以至少将日常工作的维护时间都平摊给extract-min和delete操作。</p>
 <p>但是，正如斐波那契堆现在更多的应用于理论中，实践中使用的并不多的现象所映射的，在大部分的应用中斐波那契堆并不能带来大幅度的效率的提升。因为它并不是减少了要做的工作，只是将很多要做的工作都进行了推迟，可能出现这样的情况：</p>
 <ul class="simple">
-<li><p>合并操作O(lgn)=&gt;O(1)</p></li>
-<li><p>插入操作O(lgn)=&gt;O(1)</p></li>
-<li><p>减少权值操作O(lgn)=&gt;O(1)</p></li>
-<li><p>但是extract-min操作O(lgn)=&gt;O(3*lgn)≈O(lgn)</p></li>
+<li>合并操作O(lgn)=&gt;O(1)</li>
+<li>插入操作O(lgn)=&gt;O(1)</li>
+<li>减少权值操作O(lgn)=&gt;O(1)</li>
+<li>但是extract-min操作O(lgn)=&gt;O(3*lgn)≈O(lgn)</li>
 </ul>
 <p>这使得在理论分析时，它的所有操作的渐近时间都至少不变坏，但是在实际使用中却没有任何的改善。
 当然这是最坏的情况了，一般对于规模足够大的输入，斐波那契堆是能够很大改善算法的性能的，尤其是对于一些extract-min和delete操作少的情况。比如斐波那契堆的使用能加快 Prime 和 Djikstra 算法的执行速度。</p>
@@ -9536,38 +9621,41 @@ kyhsenbppk t ddbuotbb cwi rf ju jd nt e q
 <div class="section" id="id27">
 <h3>第21章：用于不相交集合的数据结构<a class="headerlink" href="#id27" title="永久链接至标题">¶</a></h3>
 <ul>
-<li><p>用于不相交集合的数据结构又称为 <strong>查并集</strong> ：在很多的应用中（比如图的算法中经常使用，还有哈夫曼编码等），将N个不同的元素分成一组不相交的集合，不相交集合上有两个重要的操作：</p>
+<li><p class="first">用于不相交集合的数据结构又称为 <strong>查并集</strong> ：在很多的应用中（比如图的算法中经常使用，还有哈夫曼编码等），将N个不同的元素分成一组不相交的集合，不相交集合上有两个重要的操作：</p>
 <ul class="simple">
-<li><p><strong>找出给定元素所属的集合</strong></p></li>
-<li><p><strong>合并两个集合</strong></p></li>
+<li><strong>找出给定元素所属的集合</strong></li>
+<li><strong>合并两个集合</strong></li>
 </ul>
 </li>
-<li><p>常用的两种表示方法：一种为链表的实现；另一种是更有效的树的表示法。</p></li>
-<li><dl class="simple">
-<dt>采用树的表示法的运行时间在实践上是线性的，但从理论上来说是超线性的。</dt><dd><p>这句话的意思是：理论上分析的运行时间是大于（超过）线性的，但是在实践中证明它的运行时间却是线性的。</p>
+<li><p class="first">常用的两种表示方法：一种为链表的实现；另一种是更有效的树的表示法。</p>
+</li>
+<li><dl class="first docutils">
+<dt>采用树的表示法的运行时间在实践上是线性的，但从理论上来说是超线性的。</dt>
+<dd><p class="first last">这句话的意思是：理论上分析的运行时间是大于（超过）线性的，但是在实践中证明它的运行时间却是线性的。</p>
 </dd>
 </dl>
 </li>
-<li><p>每个集合通过一个代表来识别，代表即集合中的某个成员。在某些应用中，哪一个成员被选作代表是无所谓的，而关键的是在集合未被修改的前提下，两次寻找得到的答案应该是相同的。</p></li>
-<li><p>不相交集合的链表表示：</p>
+<li><p class="first">每个集合通过一个代表来识别，代表即集合中的某个成员。在某些应用中，哪一个成员被选作代表是无所谓的，而关键的是在集合未被修改的前提下，两次寻找得到的答案应该是相同的。</p>
+</li>
+<li><p class="first">不相交集合的链表表示：</p>
 <img alt="../../_images/cbj1.jpg" src="../../_images/cbj1.jpg" />
 <ul class="simple">
-<li><p>每个链表的第一个对象作为它所在集合的代表</p></li>
-<li><p>链表上的第个结点都有指向它所在集合的代表的指针，从而使得找出所属集合的操作时间降为O(1)</p></li>
-<li><p>但是因为每个结点都有指向代表的指针，使得在进行合并操作时，需要更新所有结点的指向代表的指针，从而时间复杂度为O(n)。这算是有利也有弊吧。</p></li>
-<li><dl class="simple">
-<dt>一种加权合并启发式策略：在进行合并操作时，总是把较短的表拼到较长的表上去。</dt><dd><p>这种简单的小技巧的正式的名字都可以叫做：启发式信息，启发式策略！以后涉及到这种情况的时候也可以这么叫。</p>
-</dd>
+<li>每个链表的第一个对象作为它所在集合的代表</li>
+<li>链表上的第个结点都有指向它所在集合的代表的指针，从而使得找出所属集合的操作时间降为O(1)</li>
+<li>但是因为每个结点都有指向代表的指针，使得在进行合并操作时，需要更新所有结点的指向代表的指针，从而时间复杂度为O(n)。这算是有利也有弊吧。</li>
+<li><dl class="first docutils">
+<dt>一种加权合并启发式策略：在进行合并操作时，总是把较短的表拼到较长的表上去。</dt>
+<dd>这种简单的小技巧的正式的名字都可以叫做：启发式信息，启发式策略！以后涉及到这种情况的时候也可以这么叫。</dd>
 </dl>
 </li>
 </ul>
 </li>
-<li><p>不相交集合森林表示法：用有根树来表示集合，树中的每个结点都包含集合的一个成员，每棵树表示一个集合。每个成员仅指向其父结点，每棵树的根包含了代表，并且是它自己的父结点。</p>
+<li><p class="first">不相交集合森林表示法：用有根树来表示集合，树中的每个结点都包含集合的一个成员，每棵树表示一个集合。每个成员仅指向其父结点，每棵树的根包含了代表，并且是它自己的父结点。</p>
 <img alt="../../_images/cbj2.png" src="../../_images/cbj2.png" />
 </li>
-<li><p>在引入了两种启发式策略（按秩合并、路径压缩）之后，不相交集合森林表示法就是目前已经的、渐近意义最快的不相交集合数据结构了。</p>
+<li><p class="first">在引入了两种启发式策略（按秩合并、路径压缩）之后，不相交集合森林表示法就是目前已经的、渐近意义最快的不相交集合数据结构了。</p>
 <ul>
-<li><p>接秩合并：便包含较少结点的树的根指向包含较多结点的树的根。秩表示的是结点高度的一个上界。
+<li><p class="first">接秩合并：便包含较少结点的树的根指向包含较多结点的树的根。秩表示的是结点高度的一个上界。
 每个结点的秩是结点高度的一个上界，只有在进行UNION操作时，而且进行合并操作的两个集合的秩相同时，才会给最后的根结点的秩+1。代码如下:</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
 <span class="k">static</span> <span class="kt">void</span> <span class="n">_Link</span><span class="p">(</span><span class="n">DisjointSet</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">x</span><span class="p">,</span> <span class="n">DisjointSet</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">y</span><span class="p">)</span> <span class="p">{</span>
@@ -9585,19 +9673,19 @@ kyhsenbppk t ddbuotbb cwi rf ju jd nt e q
 </pre></div>
 </div>
 </li>
-<li><p>路径压缩：（查找路径：在查找一个结点所属的集合时的查找路径上访问过的所有的结点）在每次进行查找元素所属集合的操作时，使得查找路径上的每个结点都直接指向根结点。路径压缩并不改变结点的秩。
+<li><p class="first">路径压缩：（查找路径：在查找一个结点所属的集合时的查找路径上访问过的所有的结点）在每次进行查找元素所属集合的操作时，使得查找路径上的每个结点都直接指向根结点。路径压缩并不改变结点的秩。
 这种路径压缩使用了两趟的方法：一趟是沿查找路径向上升，直至找到根；第二趟时沿查找路径下降，以便更新查找路径上的每个结点，使之指向根。这种路径压缩的思想简直是太棒了！神奇啊！应该学习这种思想，碰到类似的问题也要想到类似的解决办法</p>
 <blockquote>
-<div><table class="docutils align-default">
+<div><table border="1" class="docutils">
 <colgroup>
-<col style="width: 32%" />
-<col style="width: 68%" />
+<col width="32%" />
+<col width="68%" />
 </colgroup>
-<tbody>
-<tr class="row-odd"><td><img alt="../../_images/cbj3.jpg" src="../../_images/cbj3.jpg" />
+<tbody valign="top">
+<tr class="row-odd"><td><img alt="../../_images/cbj3.jpg" class="first last" src="../../_images/cbj3.jpg" />
 </td>
-<td><p>代码如下:</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<td><p class="first">代码如下:</p>
+<div class="last highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
 <span class="k">static</span> <span class="n">DisjointSet</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">&amp;</span> <span class="n">FindSet</span><span class="p">(</span><span class="n">DisjointSet</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">a_set</span><span class="p">)</span> <span class="p">{</span>
   <span class="c1">//路径压缩</span>
   <span class="k">if</span> <span class="p">(</span><span class="o">&amp;</span><span class="n">a_set</span> <span class="o">!=</span> <span class="n">a_set</span><span class="p">.</span><span class="n">Parent</span><span class="p">)</span> <span class="p">{</span>
@@ -9614,8 +9702,9 @@ kyhsenbppk t ddbuotbb cwi rf ju jd nt e q
 </table>
 </div></blockquote>
 </li>
-<li><p>使用了这两种启发式策略之后，算法的最坏运行时间为O(m*alpha(n))，其中m是操作序列中所有的操作的个数总和。
-对于宇宙中的所有原子数之和x, alpha(x)&lt;=4，所以说算法的实际时间是线性的。</p></li>
+<li><p class="first">使用了这两种启发式策略之后，算法的最坏运行时间为O(m*alpha(n))，其中m是操作序列中所有的操作的个数总和。
+对于宇宙中的所有原子数之和x, alpha(x)&lt;=4，所以说算法的实际时间是线性的。</p>
+</li>
 </ul>
 </li>
 </ul>
@@ -9885,57 +9974,72 @@ kyhsenbppk t ddbuotbb cwi rf ju jd nt e q
 <div class="section" id="id28">
 <h2>第六部分：图算法<a class="headerlink" href="#id28" title="永久链接至标题">¶</a></h2>
 <ul class="simple">
-<li><p>图是计算机科学中常用的一类数据结构。</p></li>
-<li><p>两种图的遍历方法：广度优先遍历（求每条边都是单位权值的图的最短路径）和深度优先遍历（拓扑排序、将有向图分解为强连通子图）。</p></li>
-<li><p>最小权生成树：由连接了图中所有顶点的、且权值最小的路径所构成。</p></li>
-<li><p>有向图中的最大流问题：这是个一般性的问题，会以多种形式出现；一个好的计算最大流量的算法可以用来有效地解决多种相关的问题。</p></li>
+<li>图是计算机科学中常用的一类数据结构。</li>
+<li>两种图的遍历方法：广度优先遍历（求每条边都是单位权值的图的最短路径）和深度优先遍历（拓扑排序、将有向图分解为强连通子图）。</li>
+<li>最小权生成树：由连接了图中所有顶点的、且权值最小的路径所构成。</li>
+<li>有向图中的最大流问题：这是个一般性的问题，会以多种形式出现；一个好的计算最大流量的算法可以用来有效地解决多种相关的问题。</li>
 </ul>
 <div class="section" id="id29">
 <h3>第22章：图的基本算法<a class="headerlink" href="#id29" title="永久链接至标题">¶</a></h3>
 <ul>
-<li><p>图的搜索技术是图算法领域的核心</p></li>
-<li><dl class="simple">
-<dt>两种最普通的图的表示方法：邻接表法（节省空间）和邻接矩阵法（查询高效）</dt><dd><p>稀疏图多用邻接表法来表示；而稠密图则用邻接矩阵法来表示比较好。</p>
+<li><p class="first">图的搜索技术是图算法领域的核心</p>
+</li>
+<li><dl class="first docutils">
+<dt>两种最普通的图的表示方法：邻接表法（节省空间）和邻接矩阵法（查询高效）</dt>
+<dd><p class="first last">稀疏图多用邻接表法来表示；而稠密图则用邻接矩阵法来表示比较好。</p>
 </dd>
 </dl>
 </li>
-<li><p>不论是有向图还是无向图，邻接表法都有一个很好的特性，即它所需要的存储空间为O(V+E)；邻接表表示法稍作修改就能支持其它多种图的变体，因而有着很强的适应性。</p></li>
-<li><p>无向图的邻接矩阵A就是它的转置矩阵：A=A<sup>T</sup> 。在某些应用中，可以只存储邻接矩阵的对角线及对角线以上的部分，这样一来，图所占用的存储空间几乎可以减少一半</p></li>
-<li><p>邻接表表示和邻接矩阵表示在渐近意义上至少是一样有效的，但由于邻接矩阵简单明了，因而当图较小时，更多多地采用邻接矩阵来表示。另外，如果一个图不是加权的，采用邻接矩阵的存储形式还有一个优越性：在存储邻接矩阵的每个元素时，可以只用一个二进位，而不必有一个字的空间。</p>
+<li><p class="first">不论是有向图还是无向图，邻接表法都有一个很好的特性，即它所需要的存储空间为O(V+E)；邻接表表示法稍作修改就能支持其它多种图的变体，因而有着很强的适应性。</p>
+</li>
+<li><p class="first">无向图的邻接矩阵A就是它的转置矩阵：A=A<sup>T</sup> 。在某些应用中，可以只存储邻接矩阵的对角线及对角线以上的部分，这样一来，图所占用的存储空间几乎可以减少一半</p>
+</li>
+<li><p class="first">邻接表表示和邻接矩阵表示在渐近意义上至少是一样有效的，但由于邻接矩阵简单明了，因而当图较小时，更多多地采用邻接矩阵来表示。另外，如果一个图不是加权的，采用邻接矩阵的存储形式还有一个优越性：在存储邻接矩阵的每个元素时，可以只用一个二进位，而不必有一个字的空间。</p>
 <p>这样，当采用了二进位以及表示无向图的技巧时，邻接矩阵法的占用空间大的缺点就可以得到一定程度上的改善！</p>
 </li>
-<li><dl class="simple">
-<dt>广度优先搜索能够得到这种意义上的最短路径：每条边的权值都为1，即所有的边都具有单位权值。</dt><dd><p>广度优先所产生的广度优先树是每个顶点到s的最短距离。</p>
+<li><dl class="first docutils">
+<dt>广度优先搜索能够得到这种意义上的最短路径：每条边的权值都为1，即所有的边都具有单位权值。</dt>
+<dd><p class="first last">广度优先所产生的广度优先树是每个顶点到s的最短距离。</p>
 </dd>
 </dl>
 </li>
-<li><dl class="simple">
-<dt>深度优先搜索除了创建一个深度优先森林外，深度优先搜索同时为每个顶点加盖时间戳。每个顶点v有两个时间戳：当顶点v第一次被发现时，记录下第一个时间戳d[v]，当结束检查v的邻接表时，记录下第二个时间戳f[v]。</dt><dd><p>许多基于深度优先搜索的图算法都用到了时间戳，它们对推算深度优先搜索的时行情况有很大的帮助。</p>
+<li><dl class="first docutils">
+<dt>深度优先搜索除了创建一个深度优先森林外，深度优先搜索同时为每个顶点加盖时间戳。每个顶点v有两个时间戳：当顶点v第一次被发现时，记录下第一个时间戳d[v]，当结束检查v的邻接表时，记录下第二个时间戳f[v]。</dt>
+<dd><p class="first last">许多基于深度优先搜索的图算法都用到了时间戳，它们对推算深度优先搜索的时行情况有很大的帮助。</p>
 </dd>
 </dl>
 </li>
-<li><p>这次重新复习深度优先算法，得到的最大的启示就是使用了这2个时间戳，真的是很有用很好的创新啊。当记录下这2个时间戳之后，很多东西都可以由这对时间戳来推导出来了（比如拓扑排序、深度遍历的次序等）。</p></li>
-<li><p>广度搜索通常用于从某个源顶点开始，寻找最短路径距离（以及相关的先辈子图）。深度优先搜索通常作为另一个算法中的一个子程序。</p></li>
-<li><p>后裔区间的嵌套：在一个（有向或无向）图G中的深度优先森林中，顶点v是顶点u的后裔，当且仅当d[u]&lt;d[v]&lt;f[v]&lt;d[u]，由这关系可以推导出大部分的与时间戳相关的性质。</p></li>
-<li><p>边的分类：树边、反向边、正向边、交叉边。</p></li>
-<li><dl class="simple">
-<dt>拓扑排序：在很多应用中，有向无回路图说明事件发生的先后次序。</dt><dd><p>在深度优先遍历的基础上，对有向无回路图进行拓扑排序简直是小菜一蹀。根据遍历所得到的时间戳f[i]逆向排序就好了。</p>
+<li><p class="first">这次重新复习深度优先算法，得到的最大的启示就是使用了这2个时间戳，真的是很有用很好的创新啊。当记录下这2个时间戳之后，很多东西都可以由这对时间戳来推导出来了（比如拓扑排序、深度遍历的次序等）。</p>
+</li>
+<li><p class="first">广度搜索通常用于从某个源顶点开始，寻找最短路径距离（以及相关的先辈子图）。深度优先搜索通常作为另一个算法中的一个子程序。</p>
+</li>
+<li><p class="first">后裔区间的嵌套：在一个（有向或无向）图G中的深度优先森林中，顶点v是顶点u的后裔，当且仅当d[u]&lt;d[v]&lt;f[v]&lt;d[u]，由这关系可以推导出大部分的与时间戳相关的性质。</p>
+</li>
+<li><p class="first">边的分类：树边、反向边、正向边、交叉边。</p>
+</li>
+<li><dl class="first docutils">
+<dt>拓扑排序：在很多应用中，有向无回路图说明事件发生的先后次序。</dt>
+<dd><p class="first last">在深度优先遍历的基础上，对有向无回路图进行拓扑排序简直是小菜一蹀。根据遍历所得到的时间戳f[i]逆向排序就好了。</p>
 </dd>
 </dl>
 </li>
-<li><p>拓扑排序的顶点以与其完成时间时间相反的顺序出现。这种新方法真是长见识啊，比我以前使用的方法好多了，这种方法在遍历完只需要一个简单的sort就完成了拓扑排序，时间复杂度也降低为O(V+E)。</p></li>
-<li><p>这种新的拓扑排序的方法的理论基础是：对于任一对不同的顶点u,v，如果存在一条从u -&gt; v的边，那么u在拓扑排序的结果中一定在v的前面。而又根据后裔区间嵌套的定理：如果存在u -&gt; v，那么f[v]&lt;f[u]，所以得证根据f逆向排序得到的顺序一定为拓扑排序。</p></li>
-<li><p>强连通分支：有向图G=(V, E)的一个强连通分支就是一个最大的顶点集合C，对于C中的每一对顶点u,v，都有u -&gt; v及v -&gt; u；亦即顶点u和v是互相可达的。</p></li>
-<li><p>寻找强连通分支的简明算法：</p>
+<li><p class="first">拓扑排序的顶点以与其完成时间时间相反的顺序出现。这种新方法真是长见识啊，比我以前使用的方法好多了，这种方法在遍历完只需要一个简单的sort就完成了拓扑排序，时间复杂度也降低为O(V+E)。</p>
+</li>
+<li><p class="first">这种新的拓扑排序的方法的理论基础是：对于任一对不同的顶点u,v，如果存在一条从u -&gt; v的边，那么u在拓扑排序的结果中一定在v的前面。而又根据后裔区间嵌套的定理：如果存在u -&gt; v，那么f[v]&lt;f[u]，所以得证根据f逆向排序得到的顺序一定为拓扑排序。</p>
+</li>
+<li><p class="first">强连通分支：有向图G=(V, E)的一个强连通分支就是一个最大的顶点集合C，对于C中的每一对顶点u,v，都有u -&gt; v及v -&gt; u；亦即顶点u和v是互相可达的。</p>
+</li>
+<li><p class="first">寻找强连通分支的简明算法：</p>
 <img alt="../../_images/graphic_base.jpg" src="../../_images/graphic_base.jpg" />
 <ul class="simple">
-<li><p>对G进行深度优先遍历得到每个顶点的时间戳f[x]；</p></li>
-<li><p>求得G的返回图GT；</p></li>
-<li><p>按照f[x]的逆向顺序为顶点顺序对GT进行深度优先遍历，即按照G的拓扑排序的顺序对GT再进行深度优先遍历；</p></li>
-<li><p>步骤c得到的各棵子树就是原图G的各强连通分支。</p></li>
+<li>对G进行深度优先遍历得到每个顶点的时间戳f[x]；</li>
+<li>求得G的返回图GT；</li>
+<li>按照f[x]的逆向顺序为顶点顺序对GT进行深度优先遍历，即按照G的拓扑排序的顺序对GT再进行深度优先遍历；</li>
+<li>步骤c得到的各棵子树就是原图G的各强连通分支。</li>
 </ul>
 </li>
-<li><p>寻找强连通分支的算法的时间复杂度为O(V+E)。</p></li>
+<li><p class="first">寻找强连通分支的算法的时间复杂度为O(V+E)。</p>
+</li>
 </ul>
 <div class="highlight-cpp notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
@@ -10780,23 +10884,27 @@ h
 <div class="section" id="id30">
 <h3>第23章：最小生成树<a class="headerlink" href="#id30" title="永久链接至标题">¶</a></h3>
 <ul>
-<li><p>最小（权值）生成树：由n-1条边，连接了所有的n个顶点，并且所有边上的权值和最小。</p></li>
-<li><p>Kruskal算法和Prim算法：这两种算法中都使用普通的二叉堆就可以很容易地达到O(ElgV)的运行时间。通过采用斐波那契堆，Prim算法的运行时间可以减少到O(E +VlgV)，这对于稠密图来说是个很大的改进。</p></li>
-<li><p>贪心策略可以在最小生成树问题中得到最优解，事实上这里的Kruskal、Prim方法都是贪心算法。它们也都是可以被证明的一定能够得到最优解！</p></li>
-<li><p>在Kruskal算法中，集合A是一个森林，加入集合A中的安全边总是图中连接两个不同连通分支的最小权边；</p>
+<li><p class="first">最小（权值）生成树：由n-1条边，连接了所有的n个顶点，并且所有边上的权值和最小。</p>
+</li>
+<li><p class="first">Kruskal算法和Prim算法：这两种算法中都使用普通的二叉堆就可以很容易地达到O(ElgV)的运行时间。通过采用斐波那契堆，Prim算法的运行时间可以减少到O(E +VlgV)，这对于稠密图来说是个很大的改进。</p>
+</li>
+<li><p class="first">贪心策略可以在最小生成树问题中得到最优解，事实上这里的Kruskal、Prim方法都是贪心算法。它们也都是可以被证明的一定能够得到最优解！</p>
+</li>
+<li><p class="first">在Kruskal算法中，集合A是一个森林，加入集合A中的安全边总是图中连接两个不同连通分支的最小权边；</p>
 <img alt="../../_images/min_generate_tree1.png" src="../../_images/min_generate_tree1.png" />
 <p>在Prim算法中，集合A仅形成单棵树，添入集合A中的安全边总是连接树与一个不在树中的顶点的最小权边。</p>
 <img alt="../../_images/min_generate_tree2.png" src="../../_images/min_generate_tree2.png" />
 </li>
-<li><p>为什么说Prim算法有着更好的实际效率：</p>
+<li><p class="first">为什么说Prim算法有着更好的实际效率：</p>
 <ul class="simple">
-<li><p>Prim算法在执行的过程中，将不在树中的所有顶点都放在一个基于key域的最小优先队列Q中；</p></li>
-<li><p>每次在选取安全边时，只需要从Q中弹出最小key值的顶点即可，而不需要像Kruskal一样为对所有的边的权值进行一次排序；</p></li>
-<li><p>Prim算法使用了用于快速或者最小权值边的技巧（二叉堆、二项堆、斐波那契堆）来加速算法的运行。在最朴素的选取安全边的算法中，需要遍历剩下的所有的边，所需要的时间复杂度为O(EV)，而采用堆来优化后只需要O(ElgV)，大大地改善了算法的执行时间（堆的好处）。</p></li>
-<li><p>不过Kruskal算法实现简单，所以对于一般的应用Kruskal算法很常见。</p></li>
+<li>Prim算法在执行的过程中，将不在树中的所有顶点都放在一个基于key域的最小优先队列Q中；</li>
+<li>每次在选取安全边时，只需要从Q中弹出最小key值的顶点即可，而不需要像Kruskal一样为对所有的边的权值进行一次排序；</li>
+<li>Prim算法使用了用于快速或者最小权值边的技巧（二叉堆、二项堆、斐波那契堆）来加速算法的运行。在最朴素的选取安全边的算法中，需要遍历剩下的所有的边，所需要的时间复杂度为O(EV)，而采用堆来优化后只需要O(ElgV)，大大地改善了算法的执行时间（堆的好处）。</li>
+<li>不过Kruskal算法实现简单，所以对于一般的应用Kruskal算法很常见。</li>
 </ul>
 </li>
-<li><p>Prim算法的性能取决于优先队列Q是如何实现的，因此如果使用斐波那契堆来实现最小优先队列，就可以将Prim算法的运行时间改进为O(E+VlgV)。</p></li>
+<li><p class="first">Prim算法的性能取决于优先队列Q是如何实现的，因此如果使用斐波那契堆来实现最小优先队列，就可以将Prim算法的运行时间改进为O(E+VlgV)。</p>
+</li>
 </ul>
 <div class="highlight-cpp notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
@@ -11164,18 +11272,22 @@ h
 <div class="section" id="id31">
 <h3>第24章：单源最短路径<a class="headerlink" href="#id31" title="永久链接至标题">¶</a></h3>
 <ul>
-<li><p>最短路径：一个顶点到另一个顶点的最短权值路径。广度优先搜索算法就是一种在无权（单位权值）图上执行的最短路径算法。</p></li>
-<li><p>从渐近意义上来说，解决一对顶点的最短路径问题的复杂度与单源最短路径的复杂度相同。</p></li>
-<li><dl class="simple">
-<dt>最短路径算法通常依赖于一种性质，也就是一条两顶点间的最短路径包含路径上其它的最短路径。这里动态规划和贪心算法的特征之一：最优子结构。</dt><dd><p>Dijkstra算法是一个贪心算法。DIJKSTRA算法假定输入图中的所有边的权值都是非负的，而floyd算法允许输入边存在负权边，只要不存在从源点可达的负权回路。而且如果存在着负权回路，它还能检测出来。</p>
+<li><p class="first">最短路径：一个顶点到另一个顶点的最短权值路径。广度优先搜索算法就是一种在无权（单位权值）图上执行的最短路径算法。</p>
+</li>
+<li><p class="first">从渐近意义上来说，解决一对顶点的最短路径问题的复杂度与单源最短路径的复杂度相同。</p>
+</li>
+<li><dl class="first docutils">
+<dt>最短路径算法通常依赖于一种性质，也就是一条两顶点间的最短路径包含路径上其它的最短路径。这里动态规划和贪心算法的特征之一：最优子结构。</dt>
+<dd><p class="first last">Dijkstra算法是一个贪心算法。DIJKSTRA算法假定输入图中的所有边的权值都是非负的，而floyd算法允许输入边存在负权边，只要不存在从源点可达的负权回路。而且如果存在着负权回路，它还能检测出来。</p>
 </dd>
 </dl>
 </li>
-<li><p>Bellman-Ford算法非常简单：对所有的边进行|v|-1遍循环，在每次循环中对每一条边进行松弛的操作。</p>
+<li><p class="first">Bellman-Ford算法非常简单：对所有的边进行|v|-1遍循环，在每次循环中对每一条边进行松弛的操作。</p>
 <img alt="../../_images/single_min_road1.jpg" src="../../_images/single_min_road1.jpg" />
 </li>
-<li><p>按顶点的拓扑顺序对某加权有向无回路图的边进行松弛后，就可以在O(V+E)时间内计算出单源最短路径。在一个有向无回路图中最短路径总是存在的，因为即使图中有权值为负的边，也不可能存在负权回路（因为它根本没有任何回路）。</p></li>
-<li><p>Dijkstra算法是一种贪心策略的算法，它的运行时间一般比Bellman-Ford算法要好:</p>
+<li><p class="first">按顶点的拓扑顺序对某加权有向无回路图的边进行松弛后，就可以在O(V+E)时间内计算出单源最短路径。在一个有向无回路图中最短路径总是存在的，因为即使图中有权值为负的边，也不可能存在负权回路（因为它根本没有任何回路）。</p>
+</li>
+<li><p class="first">Dijkstra算法是一种贪心策略的算法，它的运行时间一般比Bellman-Ford算法要好:</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span>DIJKSTRA(G, w, s)
 1  INITIALIZE-SINGLE-SOURCE(G, s)
 2  S ← Ø
@@ -11190,7 +11302,8 @@ h
 <img alt="../../_images/single_min_road2.jpg" src="../../_images/single_min_road2.jpg" />
 <p>Dijkstra算法在每次循环中，每次仅仅提取d值最小的顶点u是保证这个贪心策略正确性的关键核心所在。因为通过集合S中所有的元素都已经去试着松弛过u了，而非S中的点由于本身它的d值都比u要大，所以即使用它们中的任何一个去松弛u，也不可能达到比现在更小的d值了。因此，在每次循环中选取当前d值最小的顶点加入到S集合中去一定能保证最后得到全局最优解。</p>
 </li>
-<li><p>很多问题都可以转换成图的问题，使用最短路径的算法来加以解决的。 <strong>要善于把一些看似不相干的问题转化为图的问题</strong></p></li>
+<li><p class="first">很多问题都可以转换成图的问题，使用最短路径的算法来加以解决的。 <strong>要善于把一些看似不相干的问题转化为图的问题</strong></p>
+</li>
 </ul>
 <div class="highlight-cpp notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
@@ -11794,34 +11907,39 @@ h
 <div class="section" id="id32">
 <h3>第25章：每对顶点间的最短路径<a class="headerlink" href="#id32" title="永久链接至标题">¶</a></h3>
 <ul>
-<li><p>Folyd-Warshall是一个动态规划算法，运行时间为O(V^3)；Johnson算法使用了几种算法作为其子算法，运行时间为O(V^2 lgV+VE)，尤其适合对大型稀疏图。</p></li>
-<li><p>求每对顶点之间的最短路径问题很适合于动态规划算法来求解，因为它满足”最优子问题的结构”和”重叠子问题”两个特征。</p></li>
-<li><p>一个朴素的思路就是使用Lij(m)来表示从顶点i到顶点j的，中间包含至多m条路径的最短路径。这种思路是朴素的动态规划思想，效率比较好，时间复杂度为O(V3lgV)，但是后面提及的两种算法都对这个”最优子问题的结构”进行了更多的优化。</p></li>
-<li><p>Folyd-Warshall算法的运行时间为O(V3)，它允许权值为负的边，但是假定了不存在权值为负的回路。而且它的代码是紧凑的，而且不包含复杂的数据结构，隐含的常数因子很小。因此，即便对于中等规模的输入图来说Folyd-Warshall算法仍然相当的实用。</p></li>
-<li><p>Folyd-Warshall的核心在于：它改进了”最优子问题结构”，使用dij(k)来表示从顶点i到顶点j、且满足所有中间顶点皆属于集合{1,2,…,k}的一条最短路径的权值。这种限定了起始点的技巧大大的减少了实现的计算量。</p></li>
-<li><p>有向图的传递闭包：G的传递闭包定义为图G*=(V, E*)，其中E*={(i,j) : 图G中存在着一条从i到j的路径}。</p>
+<li><p class="first">Folyd-Warshall是一个动态规划算法，运行时间为O(V^3)；Johnson算法使用了几种算法作为其子算法，运行时间为O(V^2 lgV+VE)，尤其适合对大型稀疏图。</p>
+</li>
+<li><p class="first">求每对顶点之间的最短路径问题很适合于动态规划算法来求解，因为它满足”最优子问题的结构”和”重叠子问题”两个特征。</p>
+</li>
+<li><p class="first">一个朴素的思路就是使用Lij(m)来表示从顶点i到顶点j的，中间包含至多m条路径的最短路径。这种思路是朴素的动态规划思想，效率比较好，时间复杂度为O(V3lgV)，但是后面提及的两种算法都对这个”最优子问题的结构”进行了更多的优化。</p>
+</li>
+<li><p class="first">Folyd-Warshall算法的运行时间为O(V3)，它允许权值为负的边，但是假定了不存在权值为负的回路。而且它的代码是紧凑的，而且不包含复杂的数据结构，隐含的常数因子很小。因此，即便对于中等规模的输入图来说Folyd-Warshall算法仍然相当的实用。</p>
+</li>
+<li><p class="first">Folyd-Warshall的核心在于：它改进了”最优子问题结构”，使用dij(k)来表示从顶点i到顶点j、且满足所有中间顶点皆属于集合{1,2,…,k}的一条最短路径的权值。这种限定了起始点的技巧大大的减少了实现的计算量。</p>
+</li>
+<li><p class="first">有向图的传递闭包：G的传递闭包定义为图G*=(V, E*)，其中E*={(i,j) : 图G中存在着一条从i到j的路径}。</p>
 <p>对于一个大图，即使是只需要确定是否存在路径可达都不是一件很容易的事件。解决此问题的整体思路与Folyd-Warshall算法一样，只是把Folyd-Warshall算法中的min和+操作替换为相应的OR和AND逻辑运算来加快速度，本质并没有区别。</p>
 </li>
-<li><p>Johnson算法可在O(V2lgV+VE)时间内，求出每对顶点间的最短路径。Johnson算法使用Dijkstra和Bellman-Ford算法作为其子程序。</p>
+<li><p class="first">Johnson算法可在O(V2lgV+VE)时间内，求出每对顶点间的最短路径。Johnson算法使用Dijkstra和Bellman-Ford算法作为其子程序。</p>
 <p>Johnson算法是一个实际上非常好的算法，它使得所有的情况（可能存在负权值和负权回路）都可以使用最好的Dijkstra算法来达到最好的运行效率。</p>
 </li>
-<li><p>Johnson算法在所有的边为非负时，把每对顶点依次作为源点来执行Dijkstra算法，就可以找到每对顶点间的最短路径；利用斐波那契最小优先队列，该算法的运行时间为O(V2lgV+VE)。</p>
+<li><p class="first">Johnson算法在所有的边为非负时，把每对顶点依次作为源点来执行Dijkstra算法，就可以找到每对顶点间的最短路径；利用斐波那契最小优先队列，该算法的运行时间为O(V2lgV+VE)。</p>
 <p>因此也可以总结出：对于确定无负权值的图，直接循环调用Dijkstra算法就是求每对顶点间最短路径的最佳算法。</p>
 </li>
-<li><p>Johnson算法使用了重赋权技术，对每一条边的权值w赋予一个新的权值w’，使用新的边权值集合满足以下两个性质：</p>
+<li><p class="first">Johnson算法使用了重赋权技术，对每一条边的权值w赋予一个新的权值w’，使用新的边权值集合满足以下两个性质：</p>
 <ul class="simple">
-<li><p>对所有的顶点u,v，如果路径p是在权值函数w下从u到v的最短路径，当且仅当p也是在权值函数w’下从u到v的最短路径；</p></li>
-<li><p>对于所有的边u,v，新的权值w’(u,v)是非负的（于是满足Dijkstra算法的要求）。</p></li>
+<li>对所有的顶点u,v，如果路径p是在权值函数w下从u到v的最短路径，当且仅当p也是在权值函数w’下从u到v的最短路径；</li>
+<li>对于所有的边u,v，新的权值w’(u,v)是非负的（于是满足Dijkstra算法的要求）。</li>
 </ul>
 </li>
-<li><p>Johnson算法的简明步骤：</p>
+<li><p class="first">Johnson算法的简明步骤：</p>
 <img alt="../../_images/double_min_road.jpg" src="../../_images/double_min_road.jpg" />
 <ul class="simple">
-<li><p>生成一个新图G’，G’是在G上扩展一个起始点后的结果；</p></li>
-<li><p>在G’上调用Bellman-Ford算法。由于Bellman-Ford算法能够检测负权回路，如果存在负权回路则报告存在负权回路并结束整个算法；否则得到在G’上调用Bellman-Ford算法得到的h(x)函数；</p></li>
-<li><p>根据h(x)函数对G中的每一条边进行重赋权，使得G中的每一条边都是非负的；</p></li>
-<li><p>对重赋权后的G进行循环调用Dijkstra算法，得到每对顶点间的最短路径；</p></li>
-<li><p>对得到的每对顶点间的最短路径再根据h(x)函数反向构造出原来权值下的最短路径值。</p></li>
+<li>生成一个新图G’，G’是在G上扩展一个起始点后的结果；</li>
+<li>在G’上调用Bellman-Ford算法。由于Bellman-Ford算法能够检测负权回路，如果存在负权回路则报告存在负权回路并结束整个算法；否则得到在G’上调用Bellman-Ford算法得到的h(x)函数；</li>
+<li>根据h(x)函数对G中的每一条边进行重赋权，使得G中的每一条边都是非负的；</li>
+<li>对重赋权后的G进行循环调用Dijkstra算法，得到每对顶点间的最短路径；</li>
+<li>对得到的每对顶点间的最短路径再根据h(x)函数反向构造出原来权值下的最短路径值。</li>
 </ul>
 </li>
 </ul>
@@ -12267,37 +12385,42 @@ h
 <div class="section" id="id33">
 <h3>第26章：最大流<a class="headerlink" href="#id33" title="永久链接至标题">¶</a></h3>
 <ul>
-<li><p>流守恒：物质进入到某顶点的速度必须等于离开该顶点的速度。</p></li>
-<li><p>最大流问题：是关于流网络的最简单问题，它提出这样的问题：在不违背容量限制的条件下，把物质从源点传输到汇点的最大速率是多少？</p></li>
-<li><p>某个顶点处的总的净流量：为离开该顶点的总的正流量，减去进入该顶点的总的正流量。流守恒性的一种解释是这要瓣，即进行某个非源点非汇点顶点的正网络流，必须等于离开该顶点的正网络流。这个性质（即一个顶点处总的净流量必定为0）通常被非形式化地称为”流进等于流出”。</p></li>
-<li><p>抵消：利用了抵消处理，可以将两城市间的运输用一个流来表示，该流在两个顶点之间的至多一条边上是正的。也就是说，任何在两城市间相互运输球的情况，都可以通过抵消将其转化成一个相等的情况，球只在一个方向上传输：沿正网络流的方向。</p>
+<li><p class="first">流守恒：物质进入到某顶点的速度必须等于离开该顶点的速度。</p>
+</li>
+<li><p class="first">最大流问题：是关于流网络的最简单问题，它提出这样的问题：在不违背容量限制的条件下，把物质从源点传输到汇点的最大速率是多少？</p>
+</li>
+<li><p class="first">某个顶点处的总的净流量：为离开该顶点的总的正流量，减去进入该顶点的总的正流量。流守恒性的一种解释是这要瓣，即进行某个非源点非汇点顶点的正网络流，必须等于离开该顶点的正网络流。这个性质（即一个顶点处总的净流量必定为0）通常被非形式化地称为”流进等于流出”。</p>
+</li>
+<li><p class="first">抵消：利用了抵消处理，可以将两城市间的运输用一个流来表示，该流在两个顶点之间的至多一条边上是正的。也就是说，任何在两城市间相互运输球的情况，都可以通过抵消将其转化成一个相等的情况，球只在一个方向上传输：沿正网络流的方向。</p>
 <p>这样：两个顶点之间至多有两条边，而这两条边至多会有一条有正的流值，另一条相应的边的流值为0（明白这点在理解算法时是有用的）。</p>
 <img alt="../../_images/max_flow1.jpg" src="../../_images/max_flow1.jpg" />
 </li>
-<li><p>具有多个源点和多个汇点的网络最大流问题可以转化成普通的单源点、单汇点的最大流问题（通过添加一个单一的源点和一个单一的汇点并置新添加的边的容量为无穷大来达到）。</p></li>
-<li><p>Ford-Fulkerson算法是求最大流的一般方法，它利用了三点：残留网络、增广路径、最大流最小割定理。</p>
+<li><p class="first">具有多个源点和多个汇点的网络最大流问题可以转化成普通的单源点、单汇点的最大流问题（通过添加一个单一的源点和一个单一的汇点并置新添加的边的容量为无穷大来达到）。</p>
+</li>
+<li><p class="first">Ford-Fulkerson算法是求最大流的一般方法，它利用了三点：残留网络、增广路径、最大流最小割定理。</p>
 <ul class="simple">
-<li><p>残留网络：Gf由可以容纳更多网络流的边所组成；</p></li>
-<li><p>增广路径：为残留网络Gf上从s到t的一条简单路径p，其中p中所的边的最小权值为该增广路径的残留容量；</p></li>
-<li><p>最大流最小割定理：证明了Ford-Fulkerson算法能够得到全局最优解”当一个流是最大流，当且仅当它的残留网络不包含增广路径”。</p></li>
+<li>残留网络：Gf由可以容纳更多网络流的边所组成；</li>
+<li>增广路径：为残留网络Gf上从s到t的一条简单路径p，其中p中所的边的最小权值为该增广路径的残留容量；</li>
+<li>最大流最小割定理：证明了Ford-Fulkerson算法能够得到全局最优解”当一个流是最大流，当且仅当它的残留网络不包含增广路径”。</li>
 </ul>
 </li>
-<li><p>Ford-Fulkerson算法的简明步骤：</p>
+<li><p class="first">Ford-Fulkerson算法的简明步骤：</p>
 <img alt="../../_images/max_flow2.jpg" src="../../_images/max_flow2.jpg" />
 <ul class="simple">
-<li><p>初始化G中所有边的流为0；</p></li>
-<li><p>计算当前图与当前流所映射的残留网络Gf；</p></li>
-<li><p>从残留网络上选取一条增广路径并计算出残留容量，将残留容量添加到图的当前流上；</p></li>
-<li><p>循环步骤b-c直到残留网络Gf中不存在增广路径为止；</p></li>
-<li><p>此时的流即为G的最大流。</p></li>
+<li>初始化G中所有边的流为0；</li>
+<li>计算当前图与当前流所映射的残留网络Gf；</li>
+<li>从残留网络上选取一条增广路径并计算出残留容量，将残留容量添加到图的当前流上；</li>
+<li>循环步骤b-c直到残留网络Gf中不存在增广路径为止；</li>
+<li>此时的流即为G的最大流。</li>
 </ul>
 </li>
-<li><p>使用”广度优先搜索”来求增广路径的Ford-Fulkerson算法即称之为Edmonds-Karp算法，这种使用广度优先搜索来求增广路径的算法能够改善Ford-Fulkerson算法的运行时间。</p></li>
-<li><p>最大二分匹配问题：这是最大流最重要的应用之一，并且有许多其它的问题可以归约成它，有着许多的实际应用。</p>
+<li><p class="first">使用”广度优先搜索”来求增广路径的Ford-Fulkerson算法即称之为Edmonds-Karp算法，这种使用广度优先搜索来求增广路径的算法能够改善Ford-Fulkerson算法的运行时间。</p>
+</li>
+<li><p class="first">最大二分匹配问题：这是最大流最重要的应用之一，并且有许多其它的问题可以归约成它，有着许多的实际应用。</p>
 <img alt="../../_images/max_flow3.jpg" src="../../_images/max_flow3.jpg" />
 <p>例如：把一个机器集合L和要同时执行的任何集合R相匹配。E中的边(u,v)，就说明一台特定机器u能够完成一项特定任务v，最大匹配可以为尽可能多的机器提供任务）</p>
 </li>
-<li><p>解决最大二分匹配问题：先生成一个扩展图G’，再对G’的每条边赋予单位流量1，然后求出最大流，就是该最大二分匹配问题的解。</p>
+<li><p class="first">解决最大二分匹配问题：先生成一个扩展图G’，再对G’的每条边赋予单位流量1，然后求出最大流，就是该最大二分匹配问题的解。</p>
 <img alt="../../_images/max_flow4.png" src="../../_images/max_flow4.png" />
 </li>
 </ul>
@@ -13743,23 +13866,36 @@ false
 </pre></div>
 </div>
 <p class="rubric">引用</p>
-<dl class="footnote brackets">
-<dt class="label" id="id35"><span class="brackets">1</span></dt>
-<dd><p>《算法导论》第2版，机械工业出版社</p>
-</dd>
-<dt class="label" id="id36"><span class="brackets">2</span></dt>
-<dd><p><a class="reference external" href="http://staff.ustc.edu.cn/~lszhuang/alg/">http://staff.ustc.edu.cn/~lszhuang/alg/</a></p>
-</dd>
-<dt class="label" id="id37"><span class="brackets">3</span></dt>
-<dd><p><a class="reference external" href="http://www.wutianqi.com/">http://www.wutianqi.com/</a></p>
-</dd>
-<dt class="label" id="id38"><span class="brackets">4</span></dt>
-<dd><p><a class="reference external" href="http://www.cnblogs.com/timebug/">http://www.cnblogs.com/timebug/</a></p>
-</dd>
-<dt class="label" id="id39"><span class="brackets">5</span></dt>
-<dd><p><a class="reference external" href="http://blog.csdn.net/v_JULY_v/">http://blog.csdn.net/v_JULY_v/</a></p>
-</dd>
-</dl>
+<table class="docutils footnote" frame="void" id="id35" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td>《算法导论》第2版，机械工业出版社</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id36" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><a class="reference external" href="http://staff.ustc.edu.cn/~lszhuang/alg/">http://staff.ustc.edu.cn/~lszhuang/alg/</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id37" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[3]</td><td><a class="reference external" href="http://www.wutianqi.com/">http://www.wutianqi.com/</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id38" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[4]</td><td><a class="reference external" href="http://www.cnblogs.com/timebug/">http://www.cnblogs.com/timebug/</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id39" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[5]</td><td><a class="reference external" href="http://blog.csdn.net/v_JULY_v/">http://blog.csdn.net/v_JULY_v/</a></td></tr>
+</tbody>
+</table>
 <p>如有参考而未能引用的，深表感谢与歉意！</p>
 </div>
 </div>
@@ -13810,7 +13946,7 @@ false
     </div>
     <div class="footer" role="contentinfo">
         &#169; 版权所有 CC BY 2.5.
-      由 <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2 创建。
+      由 <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.1 创建。
     </div>
   </body>
 </html>

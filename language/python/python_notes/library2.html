@@ -1,0 +1,1596 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh_CN">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>库 &#8212; Chuanqi 的技术文档</title>
+    <link rel="stylesheet" href="../../../_static/sphinx13.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/translations.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    <link rel="index" title="索引" href="../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../search.html" />
+    <link rel="canonical" href="http://www.sphinx-doc.org/en/master/language/python/python_notes/library2.html" />
+
+    <!--<link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'-->
+          <!--rel='stylesheet' type='text/css' />-->
+ 
+    <style type="text/css">
+      table.right { float: right; margin-left: 20px; }
+      table.right td { border: 1px solid #ccc; }
+      
+      .injected { display:none; }
+    </style>
+    <script type="text/javascript">
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+
+  </head><body>
+<div class="pageheader">
+  <ul>
+    <li><a href="../../../index.html">笔记首页</a></li>
+    <li><a href="http://blog.tanchuanqi.com">博客首页</a></li>
+    <li><a href="https://tanchuanqi.com">个人主页</a></li>
+  </ul>
+  <div>
+    <a href="../../../index.html">
+      <img src="../../../_static/sphinxheader.png" alt="SPHINX" />
+    </a>
+  </div>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="总目录"
+             accesskey="I">索引</a></li>
+        <!--<li><a href="../../../index.html">首页</a>&#160;|</li>-->
+        <!--<li><a href="../../../contents.html">Documentation</a> &#187;</li>-->
+ 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">库</a><ul>
+<li><a class="reference internal" href="#id2">标准库的数据结构和算法</a><ul>
+<li><a class="reference internal" href="#id3">数据结构</a></li>
+<li><a class="reference internal" href="#id4">算法</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id5">标准库</a><ul>
+<li><a class="reference internal" href="#id6">正则表达式</a></li>
+<li><a class="reference internal" href="#id7">时间日期</a></li>
+<li><a class="reference internal" href="#logging">logging</a><ul>
+<li><a class="reference internal" href="#handler">Handler</a></li>
+<li><a class="reference internal" href="#id8">配置日志</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#argparse-gflags-getopt-configparser">argparse &amp; gflags &amp; getopt &amp; ConfigParser</a><ul>
+<li><a class="reference internal" href="#argparse">argparse 模块</a></li>
+<li><a class="reference internal" href="#gflags">gflags 模块</a></li>
+<li><a class="reference internal" href="#getopt">getopt 模块</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id9">其它库</a><ul>
+<li><a class="reference internal" href="#pipe">一个有趣的库：pipe</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id10">科学计算生态</a><ul>
+<li><a class="reference internal" href="#anaconda">Anaconda</a></li>
+<li><a class="reference internal" href="#numpy">NumPy</a><ul>
+<li><a class="reference internal" href="#id11">数据类型</a></li>
+<li><a class="reference internal" href="#ndarray">ndarray对象常用属性和方法</a></li>
+<li><a class="reference internal" href="#id12">创建：</a></li>
+<li><a class="reference internal" href="#id13">访问</a></li>
+<li><a class="reference internal" href="#id14">广播</a></li>
+<li><a class="reference internal" href="#id15">迭代</a></li>
+<li><a class="reference internal" href="#id16">副本和视图</a></li>
+<li><a class="reference internal" href="#numpy-matlib">numpy.matlib 库</a></li>
+<li><a class="reference internal" href="#numpy-linalg">numpy.linalg 线性代数</a></li>
+<li><a class="reference internal" href="#numpy-io">Numpy IO</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+<div id="searchbox" style="display: none" role="search">
+  <h3>快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="转向" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+    <div class="documentwrapper">
+      <div class="bodywrapper">
+        <div class="body" role="main">
+          
+  <div class="section" id="id1">
+<h1>库<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<blockquote>
+<div><img alt="../../../_images/image3.png" src="../../../_images/image3.png" />
+<img alt="../../../_images/image4.png" src="../../../_images/image4.png" />
+<img alt="../../../_images/image5.png" src="../../../_images/image5.png" />
+<img alt="../../../_images/image6.png" src="../../../_images/image6.png" />
+<img alt="../../../_images/image7.png" src="../../../_images/image7.png" />
+<img alt="../../../_images/image8.png" src="../../../_images/image8.png" />
+<img alt="../../../_images/image9.png" src="../../../_images/image9.png" />
+<img alt="../../../_images/image10.png" src="../../../_images/image10.png" />
+</div></blockquote>
+<div class="section" id="id2">
+<h2>标准库的数据结构和算法<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id3">
+<h3>数据结构<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="6%" />
+<col width="94%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">内置</th>
+<th class="head"><table border="1" class="first last docutils">
+<colgroup>
+<col width="12%" />
+<col width="25%" />
+<col width="63%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">tuple, list, set, dict</th>
+<th class="head">&#160;</th>
+<th class="head">内置的最常用的数据结构</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>str</td>
+<td>&#160;</td>
+<td>str其实是含有Unicode 字符的不可变数组</td>
+</tr>
+<tr class="row-odd"><td>bytes, bytearray</td>
+<td>&#160;</td>
+<td><p class="first">含有单字节的不可变数组</p>
+<p class="last">含有单字节的可变数组</p>
+</td>
+</tr>
+<tr class="row-even"><td>frozenset 不可变集合</td>
+<td><p class="first">vowels = frozenset({‘a’, ‘e’, ‘i’, ‘o’, ‘u’})</p>
+<p class="last">d = { frozenset({1, 2, 3}): ‘hello’ }</p>
+</td>
+<td>不可变集合是静态的，只能查询其中的元素（无法插入或删除）。因为不可变集合是静态的且可散列的，所以可以用作字典的键</td>
+</tr>
+</tbody>
+</table>
+</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-odd"><td>collections</td>
+<td><a class="first reference internal image-reference" href="../../../_images/image11.png"><img alt="../../../_images/image11.png" src="../../../_images/image11.png" style="width: 500px;" /></a>
+<table border="1" class="last docutils">
+<colgroup>
+<col width="12%" />
+<col width="22%" />
+<col width="67%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">deque 双端队列</th>
+<th class="head"><ul class="first last simple">
+<li>append，添加到末尾</li>
+<li>appendleft, 添加到开头</li>
+<li>pop, 剔除末尾</li>
+<li>popleft，移除开头</li>
+</ul>
+</th>
+<th class="head">链表的双向队列，从该队列的头部或尾部插入或者删除一个元素，时间复杂度是O(1).</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>OrderedDict 有序字典</td>
+<td>&#160;</td>
+<td><p class="first">能够按照键的插入顺序保留键值对在字典中的次序。</p>
+<p class="last">python 3.6+ 之后默认的dict实现也保证有序了，这个类在后续版本中没有意义了。</p>
+</td>
+</tr>
+<tr class="row-odd"><td>defaultdict 带默认值的字典</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>ChainMap 字典链表</td>
+<td>chain = ChainMap(dict1, dict2)</td>
+<td>将多个字典分组到一个映射中，在查找时逐个搜索底层映射，直到找到一个符合条件的键。对ChainMap 进行插入、更新和删除操作，只会作用于其中的第一个字典。</td>
+</tr>
+<tr class="row-odd"><td>namedtuple()</td>
+<td>p1 = namedtuple(‘Point’, ‘x y z’)(1, 2, 3)</td>
+<td><p class="first">namedtuple 是不可变的。这意味着在创建namedtuple 实例之后就不能再添加新字段或修改现有字段。</p>
+<p class="last">除此之外，namedtuple 就相当于具有名称的元组。</p>
+</td>
+</tr>
+<tr class="row-even"><td>Counter 多重集合</td>
+<td><div class="first line-block">
+<div class="line">&gt;&gt;&gt; from collections import Counter</div>
+<div class="line">&gt;&gt;&gt; inventory = Counter()</div>
+</div>
+<div class="line-block">
+<div class="line">&gt;&gt;&gt; loot = {‘sword’: 1, ‘bread’: 3}</div>
+<div class="line">&gt;&gt;&gt; inventory.update(loot)</div>
+<div class="line">&gt;&gt;&gt; inventory</div>
+<div class="line">Counter({‘bread’: 3, ‘sword’: 1})</div>
+</div>
+<div class="last line-block">
+<div class="line">&gt;&gt;&gt; more_loot = {‘sword’: 1, ‘apple’: 1}</div>
+<div class="line">&gt;&gt;&gt; inventory.update(more_loot)</div>
+<div class="line">&gt;&gt;&gt; inventory</div>
+<div class="line">Counter({‘bread’: 3, ‘sword’: 2, ‘apple’: 1})</div>
+</div>
+</td>
+<td>如果既要检查元素是否为集合的一部分，又要记录元素在集合中出现的次数，那么就需要用到这个类型。</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr class="row-odd"><td>heapq</td>
+<td><table border="1" class="first last docutils">
+<colgroup>
+<col width="2%" />
+<col width="98%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>堆</td>
+<td><table border="1" class="first last docutils">
+<colgroup>
+<col width="38%" />
+<col width="62%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">heapq.heappush(heap, item)</th>
+<th class="head">把item添加到heap中（heap是一个列表）</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>heapq.heappop(heap)</td>
+<td>把堆顶元素弹出，返回的就是堆顶</td>
+</tr>
+<tr class="row-odd"><td>heapq.heappushpop(heap, item)</td>
+<td>先把item加入到堆中，然后再pop，比heappush()再heappop()要快得多</td>
+</tr>
+<tr class="row-even"><td>heapq.heapreplace(heap, item)</td>
+<td>先pop，然后再把item加入到堆中，比heappop()再heappush()要快得多</td>
+</tr>
+<tr class="row-odd"><td>heapq.heapify(x)</td>
+<td>将列表x进行堆调整，默认的是小顶堆</td>
+</tr>
+<tr class="row-even"><td>heapq.merge(*iterables)</td>
+<td>将多个列表合并，并进行堆调整，返回的是合并后的列表的迭代器</td>
+</tr>
+<tr class="row-odd"><td>heapq.nlargest(n, iterable, key=None)</td>
+<td>返回最大的n个元素（Top-K问题）</td>
+</tr>
+<tr class="row-even"><td>heapq.nsmallest(n, iterable, key=None)</td>
+<td>返回最小的n个元素（Top-K问题）</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr class="row-odd"><td>types</td>
+<td><table border="1" class="first last docutils">
+<colgroup>
+<col width="10%" />
+<col width="29%" />
+<col width="61%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">MappingProxyType 只读字典</th>
+<th class="head">read_only = MappingProxyType(writable)</th>
+<th class="head"><p class="first">python 3.3+ 才有</p>
+<p class="last">如果希望返回一个字典来表示类或模块的内部状态，同时禁止向该对象写入内容，此时MappingProxyType 就能派上用场。使用MappingProxyType 无须创建完整的字典副本。</p>
+</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>NamedTuple</td>
+<td><p class="first">from typing import NamedTuple</p>
+<div class="last line-block">
+<div class="line">class Car(NamedTuple):</div>
+<div class="line">color: str</div>
+<div class="line">mileage: float</div>
+<div class="line">automatic: bool</div>
+</div>
+</td>
+<td><p class="first">python3.6+ 的改进版namedtuple</p>
+<p class="last">主要区别在于用新语法来定义记录类型并支持类型注解（type hint）。</p>
+</td>
+</tr>
+<tr class="row-odd"><td>SimpleNamespace</td>
+<td><div class="first line-block">
+<div class="line">&gt;&gt;&gt; from types import SimpleNamespace</div>
+<div class="line">&gt;&gt;&gt; car1 = SimpleNamespace(color=’red’,mileage=3812.4,automatic=True)</div>
+</div>
+<div class="line-block">
+<div class="line"># 默认的__repr__效果：</div>
+<div class="line">&gt;&gt;&gt; car1</div>
+<div class="line">namespace(automatic=True, color=’red’, mileage=3812.4)</div>
+</div>
+<div class="last line-block">
+<div class="line"># 实例支持属性访问并且是可变的：</div>
+<div class="line">&gt;&gt;&gt; car1.mileage = 12</div>
+<div class="line">&gt;&gt;&gt; car1.windshield = ‘broken’</div>
+<div class="line">&gt;&gt;&gt; del car1.automatic</div>
+<div class="line">&gt;&gt;&gt; car1</div>
+<div class="line">namespace(color=’red’, mileage=12, windshield=’broken’)</div>
+</div>
+</td>
+<td><p class="first">python 3.3+ 主要就是支持a.b的语法</p>
+<p class="last">正如其名，SimpleNamespace 很简单，基本上就是扩展版的字典，能够很好地访问属性并以字符串打印出来，还能自由地添加、修改和删除属性。</p>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr class="row-even"><td>array</td>
+<td><table border="1" class="first last docutils">
+<colgroup>
+<col width="10%" />
+<col width="26%" />
+<col width="64%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>array 基本类型数组</td>
+<td>arr = array.array(‘f’, (1.0, 1.5, 2.0, 2.5))</td>
+<td><p class="first">Python 的array 模块占用的空间较少，用于存储C 语言风格的基本数据类型（如字节、32位整数，以及浮点数等）。</p>
+<p class="last">使用array.array 类创建的数组是可变的，行为与列表类似。但有一个重要的区别：这种数组是单一数据类型的“类型数组”。</p>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr class="row-even"><td>struct</td>
+<td><table border="1" class="first last docutils">
+<colgroup>
+<col width="20%" />
+<col width="1%" />
+<col width="79%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>Struct 序列化C 结构体</td>
+<td>&#160;</td>
+<td>struct.Struct 类用于在Python 值和C 结构体之间转换，并将其序列化为Python 字节对象。</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr class="row-even"><td>queue</td>
+<td><table border="1" class="first last docutils">
+<colgroup>
+<col width="21%" />
+<col width="1%" />
+<col width="78%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">LifoQueue 后进先出栈</th>
+<th class="head">&#160;</th>
+<th class="head">栈实现是同步的，提供了锁语义来支持多个并发的生产者和消费者。</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Queue</td>
+<td>&#160;</td>
+<td>queue.Queue 在Python 标准库中以同步的方式实现，提供了锁语义来支持多个并发的生产者和消费者。</td>
+</tr>
+<tr class="row-odd"><td>PriorityQueue 优先级队列</td>
+<td>&#160;</td>
+<td>自带优先级队列，不需要自己用堆去模拟了。</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr class="row-even"><td>multiprocessing</td>
+<td><table border="1" class="first last docutils">
+<colgroup>
+<col width="25%" />
+<col width="1%" />
+<col width="74%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>Queue 共享作业队列</td>
+<td>&#160;</td>
+<td><p class="first">多进程传递数据专用</p>
+<p class="last">这种类型的队列可以跨进程存储和传输任何可pickle 的对象</p>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id4">
+<h3>算法<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="5%" />
+<col width="95%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">bisect</th>
+<th class="head"><table border="1" class="first last docutils">
+<colgroup>
+<col width="5%" />
+<col width="95%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>二分查找</td>
+<td><table border="1" class="first last docutils">
+<colgroup>
+<col width="22%" />
+<col width="78%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">bisect_left(a,x, lo=0, hi=len(a))</th>
+<th class="head">查找在有序列表a中插入x的index。lo和hi用于指定列表的区间，默认是使用整个列表</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>bisect_right(a,x, lo=0, hi=len(a))</td>
+<td>这2个和bisect_left类似，但如果x已经存在，在其右边插入。</td>
+</tr>
+<tr class="row-odd"><td>bisect(a, x,lo=0, hi=len(a))</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>insort_left(a,x, lo=0, hi=len(a))</td>
+<td>在有序列表a中插入x。如果x已经存在，在其左边插入。返回值为index。 和a.insert(bisect.bisect_left(a,x, lo, hi), x) 的效果相同。</td>
+</tr>
+<tr class="row-odd"><td>insort_right(a,x, lo=0, hi=len(a))</td>
+<td>和insort_left类似，但如果x已经存在，在其右边插入。</td>
+</tr>
+<tr class="row-even"><td>insort(a, x,lo=0, hi=len(a))</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-odd"><td>itertools</td>
+<td><table border="1" class="first docutils">
+<colgroup>
+<col width="13%" />
+<col width="87%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">有限循环</th>
+<th class="head"><a class="first last reference internal image-reference" href="../../../_images/image12.png"><img alt="../../../_images/image12.png" src="../../../_images/image12.png" style="width: 700px;" /></a>
+</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>无限循环</td>
+<td><a class="first last reference internal image-reference" href="../../../_images/image13.png"><img alt="../../../_images/image13.png" src="../../../_images/image13.png" style="width: 700px;" /></a>
+</td>
+</tr>
+</tbody>
+</table>
+<table border="1" class="last docutils">
+<colgroup>
+<col width="13%" />
+<col width="87%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>排列组合</td>
+<td><a class="first last reference internal image-reference" href="../../../_images/image14.png"><img alt="../../../_images/image14.png" src="../../../_images/image14.png" style="width: 700px;" /></a>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>标准库<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id6">
+<h3>正则表达式<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h3>
+</div>
+<div class="section" id="id7">
+<h3>时间日期<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h3>
+<blockquote>
+<div><p>原则, 以datetime为中心, 起点或中转, 转化为目标对象, 涵盖了大多数业务场景中需要的日期转换处理</p>
+<p>步骤:</p>
+<div class="line-block">
+<div class="line">1. 掌握几种对象及其关系</div>
+<div class="line">2. 了解每类对象的基本操作方法</div>
+<div class="line">3. 通过转化关系转化</div>
+</div>
+<p><strong>涉及对象</strong></p>
+<p><strong>1. datetime</strong></p>
+<div class="line-block">
+<div class="line">&gt;&gt;&gt; <strong>import</strong> datetime</div>
+<div class="line">&gt;&gt;&gt; now = datetime.datetime.now()</div>
+<div class="line">&gt;&gt;&gt; now</div>
+<div class="line">datetime.datetime(2015, 1, 12, 23, 9, 12, 946118)</div>
+<div class="line">&gt;&gt;&gt; type(now)</div>
+<div class="line">&lt;type ‘datetime.datetime’&gt;</div>
+</div>
+<p><strong>2. timestamp</strong></p>
+<div class="line-block">
+<div class="line">&gt;&gt;&gt; <strong>import</strong> time</div>
+<div class="line">&gt;&gt;&gt; time.time()</div>
+<div class="line">1421075455.568243</div>
+</div>
+<p><strong>3. time tuple</strong></p>
+<div class="line-block">
+<div class="line">&gt;&gt;&gt; <strong>import</strong> time</div>
+<div class="line">&gt;&gt;&gt; time.localtime()</div>
+<div class="line">time.struct_time(tm_year=2015, tm_mon=1, tm_mday=12, tm_hour=23, tm_min=10, tm_sec=30, tm_wday=0, tm_yday=12, tm_isdst=0)</div>
+</div>
+<p><strong>4. string</strong></p>
+<div class="line-block">
+<div class="line">&gt;&gt;&gt; <strong>import</strong> datetime</div>
+<div class="line">&gt;&gt;&gt; datetime.datetime.now().strftime(“%Y-%m-%d %H:%M:%S”)</div>
+<div class="line">‘2015-01-12 23:13:08’</div>
+</div>
+<p><strong>5. date</strong></p>
+<div class="line-block">
+<div class="line">&gt;&gt;&gt; <strong>import</strong> datetime</div>
+<div class="line">&gt;&gt;&gt; datetime.datetime.now().date()</div>
+<div class="line">datetime.date(2015, 1, 12)</div>
+</div>
+<p><strong>datetime基本操作</strong></p>
+<p><strong>1. 获取当前datetime</strong></p>
+<div class="line-block">
+<div class="line">&gt;&gt;&gt; <strong>import</strong> datetime</div>
+<div class="line">&gt;&gt;&gt; datetime.datetime.now()</div>
+<div class="line">datetime.datetime(2015, 1, 12, 23, 26, 24, 475680)</div>
+</div>
+<p><strong>2. 获取当天date</strong></p>
+<div class="line-block">
+<div class="line">&gt;&gt;&gt; datetime.date.today()</div>
+<div class="line">datetime.date(2015, 1, 12)</div>
+</div>
+<p><strong>3. 获取明天/前N天</strong></p>
+<p>明天</p>
+<div class="line-block">
+<div class="line">&gt;&gt;&gt; datetime.date.today() + datetime.timedelta(days=1)</div>
+<div class="line">datetime.date(2015, 1, 13)</div>
+</div>
+<p>三天前</p>
+<div class="line-block">
+<div class="line">&gt;&gt;&gt; datetime.datetime.now()</div>
+<div class="line">datetime.datetime(2015, 1, 12, 23, 38, 55, 492226)</div>
+<div class="line">&gt;&gt;&gt; datetime.datetime.now() - datetime.timedelta(days=3)</div>
+<div class="line">datetime.datetime(2015, 1, 9, 23, 38, 57, 59363)</div>
+</div>
+<p><strong>4. 获取当天开始和结束时间(00:00:00 23:59:59)</strong></p>
+<div class="line-block">
+<div class="line">&gt;&gt;&gt; datetime.datetime.combine(datetime.date.today(), datetime.time.min)</div>
+<div class="line">datetime.datetime(2015, 1, 12, 0, 0)</div>
+<div class="line">&gt;&gt;&gt; datetime.datetime.combine(datetime.date.today(), datetime.time.max)</div>
+<div class="line">datetime.datetime(2015, 1, 12, 23, 59, 59, 999999)</div>
+</div>
+<p><strong>5. 获取两个datetime的时间差</strong></p>
+<div class="line-block">
+<div class="line">&gt;&gt;&gt; (datetime.datetime(2015,1,13,12,0,0) - datetime.datetime.now()).total_seconds()</div>
+<div class="line">44747.768075</div>
+</div>
+<p><strong>6. 获取本周/本月/上月最后一天</strong></p>
+<p>本周</p>
+<div class="line-block">
+<div class="line">&gt;&gt;&gt; today = datetime.date.today()</div>
+<div class="line">&gt;&gt;&gt; today</div>
+<div class="line">datetime.date(2015, 1, 12)</div>
+<div class="line">&gt;&gt;&gt; sunday = today + datetime.timedelta(6 - today.weekday())</div>
+<div class="line">&gt;&gt;&gt; sunday</div>
+<div class="line">datetime.date(2015, 1, 18)</div>
+</div>
+<p>本月</p>
+<div class="line-block">
+<div class="line">&gt;&gt;&gt; <strong>import</strong> calendar</div>
+<div class="line">&gt;&gt;&gt; today = datetime.date.today()</div>
+<div class="line">&gt;&gt;&gt; _, last_day_num = calendar.monthrange(today.year, today.month)</div>
+<div class="line">&gt;&gt;&gt; last_day = datetime.date(today.year, today.month, last_day_num)</div>
+<div class="line">&gt;&gt;&gt; last_day</div>
+<div class="line">datetime.date(2015, 1, 31)</div>
+</div>
+<p>获取上个月的最后一天(可能跨年)</p>
+<div class="line-block">
+<div class="line">&gt;&gt;&gt; <strong>import</strong> datetime</div>
+<div class="line">&gt;&gt;&gt; today = datetime.date.today()</div>
+<div class="line">&gt;&gt;&gt; first = datetime.date(day=1, month=today.month, year=today.year)</div>
+<div class="line">&gt;&gt;&gt; lastMonth = first - datetime.timedelta(days=1)</div>
+</div>
+<p><strong>关系转换</strong></p>
+<p>几个关系之间的转化</p>
+<p>Datetime Object / String / timestamp / time tuple</p>
+<p><strong>关系转换例子</strong></p>
+<p><strong>datetime &lt;=&gt; string</strong></p>
+<p>datetime -&gt; string</p>
+<div class="line-block">
+<div class="line">&gt;&gt;&gt; <strong>import</strong> datetime</div>
+<div class="line">&gt;&gt;&gt; datetime.datetime.now().strftime(“%Y-%m-%d %H:%M:%S”)</div>
+<div class="line">‘2015-01-12 23:13:08’</div>
+</div>
+<p>string -&gt; datetime</p>
+<div class="line-block">
+<div class="line">&gt;&gt;&gt; <strong>import</strong> datetime</div>
+<div class="line">&gt;&gt;&gt; datetime.datetime.strptime(“2014-12-31 18:20:10”, “%Y-%m-%d %H:%M:%S”)</div>
+<div class="line">datetime.datetime(2014, 12, 31, 18, 20, 10)</div>
+</div>
+<p><strong>datetime &lt;=&gt; timetuple</strong></p>
+<p>datetime -&gt; timetuple</p>
+<div class="line-block">
+<div class="line">&gt;&gt;&gt; <strong>import</strong> datetime</div>
+<div class="line">&gt;&gt;&gt; datetime.datetime.now().timetuple()</div>
+<div class="line">time.struct_time(tm_year=2015, tm_mon=1, tm_mday=12, tm_hour=23, tm_min=17, tm_sec=59, tm_wday=0, tm_yday=12, tm_isdst=-1)</div>
+</div>
+<p>timetuple -&gt; datetime</p>
+<p>timetuple =&gt; timestamp =&gt; datetime [看后面datetime&lt;=&gt;timestamp]</p>
+<p><strong>datetime &lt;=&gt; date</strong></p>
+<p>datetime -&gt; date</p>
+<div class="line-block">
+<div class="line">&gt;&gt;&gt; <strong>import</strong> datetime</div>
+<div class="line">&gt;&gt;&gt; datetime.datetime.now().date()</div>
+<div class="line">datetime.date(2015, 1, 12)</div>
+</div>
+<p>date -&gt; datetime</p>
+<div class="line-block">
+<div class="line">&gt;&gt;&gt; datetime.date.today()</div>
+<div class="line">datetime.date(2015, 1, 12)</div>
+<div class="line">&gt;&gt;&gt; today = datetime.date.today()</div>
+<div class="line">&gt;&gt;&gt; datetime.datetime.combine(today, datetime.time())</div>
+<div class="line">datetime.datetime(2015, 1, 12, 0, 0)</div>
+<div class="line">&gt;&gt;&gt; datetime.datetime.combine(today, datetime.time.min)</div>
+<div class="line">datetime.datetime(2015, 1, 12, 0, 0)</div>
+</div>
+<p><strong>datetime &lt;=&gt; timestamp</strong></p>
+<p>datetime -&gt; timestamp</p>
+<div class="line-block">
+<div class="line">&gt;&gt;&gt; now = datetime.datetime.now()</div>
+<div class="line">&gt;&gt;&gt; timestamp = time.mktime(now.timetuple())</div>
+<div class="line">&gt;&gt;&gt; timestamp</div>
+<div class="line">1421077403.0</div>
+</div>
+<p>timestamp -&gt; datetime</p>
+<div class="line-block">
+<div class="line">&gt;&gt;&gt; datetime.datetime.fromtimestamp(1421077403.0)</div>
+<div class="line">datetime.datetime(2015, 1, 12, 23, 43, 23)</div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="logging">
+<h3>logging<a class="headerlink" href="#logging" title="永久链接至标题">¶</a></h3>
+<p>logging是线程安全的</p>
+<p><strong>日志级别</strong></p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="9%" />
+<col width="91%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"><strong>级别</strong></th>
+<th class="head"><strong>何时使用</strong></th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>DEBUG</td>
+<td>详细信息，典型地调试问题时会感兴趣。</td>
+</tr>
+<tr class="row-odd"><td>INFO</td>
+<td>证明事情按预期工作。</td>
+</tr>
+<tr class="row-even"><td>WARNING</td>
+<td>表明发生了一些意外，或者不久的将来会发生问题（如‘磁盘满了’）。软件还是在正常工作。</td>
+</tr>
+<tr class="row-odd"><td>ERROR</td>
+<td>由于更严重的问题，软件已不能执行一些功能了。</td>
+</tr>
+<tr class="row-even"><td>CRITICAL</td>
+<td>严重错误，表明软件已不能继续运行了。</td>
+</tr>
+</tbody>
+</table>
+<p>简单的将日志打印到屏幕:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;This is debug message&#39;</span><span class="p">)</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;This is info message&#39;</span><span class="p">)</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;This is warning message&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>屏幕上打印:</strong></p>
+<p><cite>WARNING:root:This is warning message</cite></p>
+<p>默认情况下，logging将日志打印到屏幕，日志级别为WARNING；</p>
+<p>logging的几个静态方法 logging.info(“”) 自动转发到 root 记录器，即 logging.info =&gt; logging.getLogger().info(“”)</p>
+<p>通过logging.basicConfig函数对日志的输出格式及方式做相关配置:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">,</span>
+                <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%(asctime)s</span><span class="s1"> </span><span class="si">%(filename)s</span><span class="s1">[line:</span><span class="si">%(lineno)d</span><span class="s1">] </span><span class="si">%(levelname)s</span><span class="s1"> </span><span class="si">%(message)s</span><span class="s1">&#39;</span><span class="p">,</span>
+                <span class="n">datefmt</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%a</span><span class="s1">, </span><span class="si">%d</span><span class="s1"> %b %Y %H:%M:%S&#39;</span><span class="p">,</span>
+                <span class="n">filename</span><span class="o">=</span><span class="s1">&#39;myapp.log&#39;</span><span class="p">,</span>
+                <span class="n">filemode</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">)</span>
+
+<span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;This is debug message&#39;</span><span class="p">)</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;This is info message&#39;</span><span class="p">)</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;This is warning message&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>./myapp.log文件中内容为:</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Sun</span><span class="p">,</span> <span class="mi">24</span> <span class="n">May</span> <span class="mi">2009</span> <span class="mi">21</span><span class="p">:</span><span class="mi">48</span><span class="p">:</span><span class="mi">54</span> <span class="n">demo2</span><span class="o">.</span><span class="n">py</span><span class="p">[</span><span class="n">line</span><span class="p">:</span><span class="mi">11</span><span class="p">]</span> <span class="n">DEBUG</span> <span class="n">This</span> <span class="ow">is</span> <span class="n">debug</span> <span class="n">message</span>
+<span class="n">Sun</span><span class="p">,</span> <span class="mi">24</span> <span class="n">May</span> <span class="mi">2009</span> <span class="mi">21</span><span class="p">:</span><span class="mi">48</span><span class="p">:</span><span class="mi">54</span> <span class="n">demo2</span><span class="o">.</span><span class="n">py</span><span class="p">[</span><span class="n">line</span><span class="p">:</span><span class="mi">12</span><span class="p">]</span> <span class="n">INFO</span> <span class="n">This</span> <span class="ow">is</span> <span class="n">info</span> <span class="n">message</span>
+<span class="n">Sun</span><span class="p">,</span> <span class="mi">24</span> <span class="n">May</span> <span class="mi">2009</span> <span class="mi">21</span><span class="p">:</span><span class="mi">48</span><span class="p">:</span><span class="mi">54</span> <span class="n">demo2</span><span class="o">.</span><span class="n">py</span><span class="p">[</span><span class="n">line</span><span class="p">:</span><span class="mi">13</span><span class="p">]</span> <span class="n">WARNING</span> <span class="n">This</span> <span class="ow">is</span> <span class="n">warning</span> <span class="n">message</span>
+</pre></div>
+</div>
+<p><strong>basicConfig关键字参数</strong></p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"><strong>关键字</strong></th>
+<th class="head"><strong>描述</strong></th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>filename</td>
+<td>创建一个FileHandler，使用指定的文件名，而不是使用StreamHandler。</td>
+</tr>
+<tr class="row-odd"><td>filemode</td>
+<td>如果指明了文件名，指明打开文件的模式（如果没有指明filemode，默认为’a’）。</td>
+</tr>
+<tr class="row-even"><td>format</td>
+<td>handler使用指明的格式化字符串。</td>
+</tr>
+<tr class="row-odd"><td>datefmt</td>
+<td>使用指明的日期／时间格式。</td>
+</tr>
+<tr class="row-even"><td>level</td>
+<td>指明根logger的级别。</td>
+</tr>
+<tr class="row-odd"><td>stream</td>
+<td>使用指明的流来初始化StreamHandler。该参数与’filename’不兼容，如果两个都有，’stream’被忽略。</td>
+</tr>
+</tbody>
+</table>
+<p>将日志同时输出到文件和屏幕:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">logging</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">,</span>
+                <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%(asctime)s</span><span class="s1"> </span><span class="si">%(filename)s</span><span class="s1">[line:</span><span class="si">%(lineno)d</span><span class="s1">] </span><span class="si">%(levelname)s</span><span class="s1"> </span><span class="si">%(message)s</span><span class="s1">&#39;</span><span class="p">,</span>
+                <span class="n">datefmt</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%a</span><span class="s1">, </span><span class="si">%d</span><span class="s1"> %b %Y %H:%M:%S&#39;</span><span class="p">,</span>
+                <span class="n">filename</span><span class="o">=</span><span class="s1">&#39;myapp.log&#39;</span><span class="p">,</span>
+                <span class="n">filemode</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>定义一个StreamHandler，将INFO级别或更高的日志信息打印到标准错误，并将其添加到当前的日志处理对象:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">console</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">StreamHandler</span><span class="p">()</span>
+<span class="n">console</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
+<span class="n">formatter</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">Formatter</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%(name)-12s</span><span class="s1">: </span><span class="si">%(levelname)-8s</span><span class="s1"> </span><span class="si">%(message)s</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">console</span><span class="o">.</span><span class="n">setFormatter</span><span class="p">(</span><span class="n">formatter</span><span class="p">)</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">console</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>logging之日志回滚:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">from</span> <span class="nn">logging.handlers</span> <span class="k">import</span> <span class="n">RotatingFileHandler</span>
+</pre></div>
+</div>
+<p>#定义一个RotatingFileHandler，最多备份5个日志文件，每个日志文件最大10M:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Rthandler</span> <span class="o">=</span> <span class="n">RotatingFileHandler</span><span class="p">(</span><span class="s1">&#39;myapp.log&#39;</span><span class="p">,</span> <span class="n">maxBytes</span><span class="o">=</span><span class="mi">10</span><span class="o">*</span><span class="mi">1024</span><span class="o">*</span><span class="mi">1024</span><span class="p">,</span><span class="n">backupCount</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">Rthandler</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
+<span class="n">formatter</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">Formatter</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%(name)-12s</span><span class="s1">: </span><span class="si">%(levelname)-8s</span><span class="s1"> </span><span class="si">%(message)s</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">Rthandler</span><span class="o">.</span><span class="n">setFormatter</span><span class="p">(</span><span class="n">formatter</span><span class="p">)</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">Rthandler</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="section" id="handler">
+<h4>Handler<a class="headerlink" href="#handler" title="永久链接至标题">¶</a></h4>
+<p>logging有一个日志处理的主对象，其它处理方式都是通过addHandler添加进去的。</p>
+<p>logging的几种handle方式如下:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>logging.StreamHandler: 日志输出到流，可以是sys.stderr、sys.stdout或者文件
+logging.FileHandler: 日志输出到文件
+日志回滚方式，实际使用时用RotatingFileHandler和TimedRotatingFileHandler
+logging.handlers.BaseRotatingHandler
+logging.handlers.RotatingFileHandler
+logging.handlers.TimedRotatingFileHandler
+logging.handlers.SocketHandler: 远程输出日志到TCP/IP sockets
+logging.handlers.DatagramHandler:  远程输出日志到UDP sockets
+logging.handlers.SMTPHandler:  远程输出日志到邮件地址
+logging.handlers.SysLogHandler: 日志输出到syslog
+logging.handlers.NTEventLogHandler: 远程输出日志到Windows NT/2000/XP的事件日志
+logging.handlers.MemoryHandler: 日志输出到内存中的制定buffer
+logging.handlers.HTTPHandler: 通过&quot;GET&quot;或&quot;POST&quot;远程输出到HTTP服务器
+</pre></div>
+</div>
+<p>由于StreamHandler和FileHandler是常用的日志处理方式，所以直接包含在logging模块中，而其他方式则包含在logging.handlers模块中，</p>
+</div>
+<div class="section" id="id8">
+<h4>配置日志<a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h4>
+<p>配置日志至少有以下三种方式：</p>
+<ul class="simple">
+<li>使用INI格式文件：<ul>
+<li><strong>优点</strong>: 使用&nbsp;<a class="reference external" href="http://docs.python.org/library/logging.config.html#logging.config.listen">logging.config.listen()</a>&nbsp;函数监听socket，可在运行过程中更新配置</li>
+<li><strong>缺点</strong>: 通过源码控制日志配置较少（&nbsp;<em>例如</em>&nbsp;子类化定制的过滤器或记录器）。</li>
+</ul>
+</li>
+<li>使用字典或JSON格式文件：<ul>
+<li><strong>优点</strong>: 除了可在运行时动态更新，在Python 2.6之后，还可通过&nbsp;<a class="reference external" href="http://docs.python.org/library/json.html#module-json">json</a>&nbsp;模块从其它文件中导入配置。</li>
+<li><strong>缺点</strong>: 很难通过源码控制日志配置。</li>
+</ul>
+</li>
+<li>使用源码：<ul>
+<li><strong>优点</strong>: 对配置绝对的控制。</li>
+<li><strong>缺点</strong>: 对配置的更改需要对源码进行修改。</li>
+</ul>
+</li>
+</ul>
+<p>通过INI文件进行配置的例子</p>
+<p>我们假设文件名为&nbsp;logging_config.ini&nbsp;。关于文件格式的更多细节，请参见&nbsp;<a class="reference external" href="http://docs.python.org/howto/logging.html">日志指南</a>中的&nbsp;<a class="reference external" href="https://docs.python.org/howto/logging.html#configuring-logging">日志配置</a>&nbsp;部分。</p>
+<blockquote>
+<div><div class="line-block">
+<div class="line">[loggers]</div>
+<div class="line">keys=root</div>
+</div>
+<div class="line-block">
+<div class="line">[handlers]</div>
+<div class="line">keys=stream_handler</div>
+</div>
+<div class="line-block">
+<div class="line">[formatters]</div>
+<div class="line">keys=formatter</div>
+</div>
+<div class="line-block">
+<div class="line">[logger_root]</div>
+<div class="line">level=DEBUG</div>
+<div class="line">handlers=stream_handler</div>
+</div>
+<div class="line-block">
+<div class="line">[handler_stream_handler]</div>
+<div class="line">class=StreamHandler</div>
+<div class="line">level=DEBUG</div>
+<div class="line">formatter=formatter</div>
+<div class="line">args=(sys.stderr,)</div>
+</div>
+<div class="line-block">
+<div class="line">[formatter_formatter]</div>
+<div class="line">format=%(asctime)s %(name)-12s %(levelname)-8s %(message)s</div>
+</div>
+<blockquote>
+<div>然后在源码中调用&nbsp;logging.config.fileConfig()&nbsp;方法:</div></blockquote>
+<div class="line-block">
+<div class="line">import logging</div>
+<div class="line">from logging.config import fileConfig</div>
+</div>
+<div class="line-block">
+<div class="line">fileConfig(‘logging_config.ini’)</div>
+<div class="line">logger = logging.getLogger()</div>
+<div class="line">logger.debug(‘often makes a very good meal of %s’, ‘visiting tourists’)</div>
+</div>
+<blockquote>
+<div><p>通过字典进行配置的例子</p>
+<p>Python 2.7中，你可以使用字典实现详细配置。<a class="reference external" href="https://www.python.org/dev/peps/pep-0391">PEP 391</a>&nbsp;包含了一系列字典配置的强制和 非强制的元素:</p>
+</div></blockquote>
+<div class="line-block">
+<div class="line">import logging</div>
+<div class="line">from logging.config import dictConfig</div>
+</div>
+<div class="line-block">
+<div class="line">logging_config = dict(</div>
+<div class="line">version = 1,</div>
+<div class="line">formatters = {</div>
+<div class="line">‘f’: {‘format’:</div>
+<div class="line">‘%(asctime)s %(name)-12s %(levelname)-8s %(message)s’}</div>
+<div class="line">},</div>
+<div class="line">handlers = {</div>
+<div class="line">‘h’: {‘class’: ‘logging.StreamHandler’,</div>
+<div class="line">‘formatter’: ‘f’,</div>
+<div class="line">‘level’: logging.DEBUG}</div>
+<div class="line">},</div>
+<div class="line">root = {</div>
+<div class="line">‘handlers’: [‘h’],</div>
+<div class="line">‘level’: logging.DEBUG,</div>
+<div class="line">},</div>
+<div class="line">)</div>
+</div>
+<p>dictConfig(logging_config)</p>
+<div class="line-block">
+<div class="line">logger = logging.getLogger()</div>
+<div class="line">logger.debug(‘often makes a very good meal of %s’, ‘visiting tourists’)</div>
+</div>
+<p>通过源码直接配置的例子</p>
+<p>import logging</p>
+<div class="line-block">
+<div class="line">logger = logging.getLogger()</div>
+<div class="line">handler = logging.StreamHandler()</div>
+<div class="line">formatter = logging.Formatter(</div>
+<div class="line">‘%(asctime)s %(name)-12s %(levelname)-8s %(message)s’)</div>
+<div class="line">handler.setFormatter(formatter)</div>
+<div class="line">logger.addHandler(handler)</div>
+<div class="line">logger.setLevel(logging.DEBUG)</div>
+</div>
+<p>logger.debug(‘often makes a very good meal of %s’, ‘visiting tourists’)</p>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="argparse-gflags-getopt-configparser">
+<h3>argparse &amp; gflags &amp; getopt &amp; ConfigParser<a class="headerlink" href="#argparse-gflags-getopt-configparser" title="永久链接至标题">¶</a></h3>
+<p>总之：命令行参数优先使用 argparse，如果需要分布式就使用 gflags。读取ini配置文件就用 ConfigParser。不再使用getopt。</p>
+<div class="section" id="argparse">
+<h4>argparse 模块<a class="headerlink" href="#argparse" title="永久链接至标题">¶</a></h4>
+<p>argparse是标准库，在一般的情况下应该最优先使用，不过它不是分布式的，所以还无法取代gflags。在不需要分布式的情况下，argparse实现的确实非常优秀，值得进入标准库。</p>
+<p>帮助文档： <a class="reference external" href="http://python.usyiyi.cn/translate/python_278/library/argparse.html">http://python.usyiyi.cn/translate/python_278/library/argparse.html</a></p>
+<p>基础用法：</p>
+<blockquote>
+<div><div class="line-block">
+<div class="line">parser = argparse.ArgumentParser(description=’Process some integers.’)</div>
+<div class="line">parser.add_argument(‘integers’, metavar=’N’, type=int, nargs=’+’,</div>
+<div class="line">help=’an integer for the accumulator’)</div>
+<div class="line">parser.add_argument(‘–sum’, dest=’accumulate’, action=’store_const’,</div>
+<div class="line">const=sum, default=max,</div>
+<div class="line">help=’sum the integers (default: find the max)’)</div>
+</div>
+<p>args = parser.parse_args()</p>
+</div></blockquote>
+<p>最重要的 add_argument() 方法：</p>
+<blockquote>
+<div>定义应该如何解析一个命令行参数。下面每个参数有它们自己详细的描述，简单地讲它们是：</div></blockquote>
+<ul>
+<li><p class="first"><a class="reference external" href="http://python.usyiyi.cn/documents/python_278/library/argparse.html#name-or-flags">name or flags</a>&nbsp;-&nbsp;选项字符串的名字或者列表，例如foo&nbsp;或者-f,&nbsp;–foo。</p>
+</li>
+<li><p class="first"><a class="reference external" href="http://python.usyiyi.cn/documents/python_278/library/argparse.html#action">action</a>&nbsp;-&nbsp;在命令行遇到该参数时采取的基本动作类型。</p>
+</li>
+<li><p class="first"><a class="reference external" href="http://python.usyiyi.cn/documents/python_278/library/argparse.html#nargs">nargs</a>&nbsp;-&nbsp;应该读取的命令行参数数目。</p>
+</li>
+<li><p class="first"><a class="reference external" href="http://python.usyiyi.cn/documents/python_278/library/argparse.html#const">const</a>&nbsp;-&nbsp;某些`action &lt;<a class="reference external" href="http://python.usyiyi.cn/documents/python_278/library/argparse.html#action">http://python.usyiyi.cn/documents/python_278/library/argparse.html#action</a>&gt;`__和<a class="reference external" href="http://python.usyiyi.cn/documents/python_278/library/argparse.html#nargs">nargs</a>选项要求的常数值。</p>
+</li>
+<li><p class="first"><a class="reference external" href="http://python.usyiyi.cn/documents/python_278/library/argparse.html#default">default</a>&nbsp;-&nbsp;如果命令行中没有出现该参数时的默认值。</p>
+</li>
+<li><p class="first"><a class="reference external" href="http://python.usyiyi.cn/documents/python_278/library/argparse.html#type">type</a>&nbsp;-&nbsp;命令行参数应该被转换成的类型。</p>
+</li>
+<li><p class="first"><a class="reference external" href="http://python.usyiyi.cn/documents/python_278/library/argparse.html#choices">choices</a>&nbsp;-&nbsp;参数可允许的值的一个容器。</p>
+</li>
+<li><p class="first"><a class="reference external" href="http://python.usyiyi.cn/documents/python_278/library/argparse.html#required">required</a>&nbsp;-&nbsp;该命令行选项是否可以省略（只针对可选参数）。</p>
+</li>
+<li><p class="first"><a class="reference external" href="http://python.usyiyi.cn/documents/python_278/library/argparse.html#help">help</a>&nbsp;-&nbsp;参数的简短描述。</p>
+</li>
+<li><p class="first"><a class="reference external" href="http://python.usyiyi.cn/documents/python_278/library/argparse.html#metavar">metavar</a>&nbsp;-&nbsp;参数在帮助信息中的名字。</p>
+</li>
+<li><p class="first"><a class="reference external" href="http://python.usyiyi.cn/documents/python_278/library/argparse.html#dest">dest</a>&nbsp;-&nbsp;给`parse_args()` 返回的对象要添加的属性名称。</p>
+<p>三种参数：</p>
+</li>
+<li><p class="first">可选参数 ：parser.add_argument(‘–foo’,type=int,help=”foohelp”)</p>
+</li>
+<li><p class="first">必选参数： parser.add_argument(‘–foo’,type=int,help=”foohelp”<strong>,required=True</strong>)</p>
+</li>
+<li><p class="first">位置参数： parser.add_argument(‘bar’,help=”barhelp”)</p>
+<p>理解 action 类型就理解了 add_argument （action类型还可以自定义，通过继承Api基类）：</p>
+</li>
+<li><div class="first line-block">
+<div class="line">‘store’&nbsp;- 只是保存参数的值。这是默认的动作。例如：</div>
+</div>
+<blockquote>
+<div><div class="line-block">
+<div class="line">&gt;&gt;&gt; parser = argparse.ArgumentParser()</div>
+<div class="line">&gt;&gt;&gt; parser.add_argument(‘–foo’)</div>
+<div class="line">&gt;&gt;&gt; parser.parse_args(‘–foo 1’.split())</div>
+<div class="line">Namespace(foo=‘1’)</div>
+</div>
+</div></blockquote>
+</li>
+<li><div class="first line-block">
+<div class="line">‘store_const’&nbsp;- 保存由<a class="reference external" href="http://python.usyiyi.cn/documents/python_278/library/argparse.html#const">const</a>关键字参数指出的值。（注意<a class="reference external" href="http://python.usyiyi.cn/documents/python_278/library/argparse.html#const">const</a>关键字参数默认是几乎没有帮助的None。）’store_const’动作最常用于指定某种标记的可选参数。例如：</div>
+</div>
+<blockquote>
+<div><div class="line-block">
+<div class="line">&gt;&gt;&gt; parser = argparse.ArgumentParser()</div>
+<div class="line">&gt;&gt;&gt; parser.add_argument(‘–foo’, action=’store_const’, const=42)</div>
+<div class="line">&gt;&gt;&gt; parser.parse_args(‘–foo’.split())</div>
+<div class="line">Namespace(foo=42)</div>
+</div>
+</div></blockquote>
+</li>
+<li><div class="first line-block">
+<div class="line">‘store_true’和’store_false’&nbsp;- 它们是’store_const’&nbsp;的特殊情形，分别用于保存值True和False。另外，它们分别会创建默认值False&nbsp;和True。例如：</div>
+</div>
+<blockquote>
+<div><div class="line-block">
+<div class="line">&gt;&gt;&gt; parser = argparse.ArgumentParser()</div>
+<div class="line">&gt;&gt;&gt; parser.add_argument(‘–foo’, action=’store_true’)</div>
+<div class="line">&gt;&gt;&gt; parser.add_argument(‘–bar’, action=’store_false’)</div>
+<div class="line">&gt;&gt;&gt; parser.add_argument(‘–baz’, action=’store_false’)</div>
+<div class="line">&gt;&gt;&gt; parser.parse_args(‘–foo –bar’.split())</div>
+<div class="line">Namespace(bar=False, baz=True, foo=True)</div>
+</div>
+</div></blockquote>
+</li>
+<li><div class="first line-block">
+<div class="line">‘append’&nbsp;- 保存一个列表，并将每个参数值附加在列表的后面。这对于允许指定多次的选项很有帮助。示例用法：</div>
+</div>
+<blockquote>
+<div><div class="line-block">
+<div class="line">&gt;&gt;&gt; parser = argparse.ArgumentParser()</div>
+<div class="line">&gt;&gt;&gt; parser.add_argument(‘–foo’, action=’append’)</div>
+<div class="line">&gt;&gt;&gt; parser.parse_args(‘–foo 1 –foo 2’.split())</div>
+<div class="line">Namespace(foo=[‘1’, ‘2’])</div>
+</div>
+</div></blockquote>
+</li>
+<li><div class="first line-block">
+<div class="line">‘append_const’&nbsp;- 保存一个列表，并将<a class="reference external" href="http://python.usyiyi.cn/documents/python_278/library/argparse.html#const">const</a>关键字参数指出的值附加在列表的后面。（注意<a class="reference external" href="http://python.usyiyi.cn/documents/python_278/library/argparse.html#const">const</a>关键字参数默认是None。）’append_const’&nbsp;动作在多个参数需要保存常量到相同的列表时特别有用。例如：</div>
+</div>
+<blockquote>
+<div><div class="line-block">
+<div class="line">&gt;&gt;&gt; parser = argparse.ArgumentParser()</div>
+<div class="line">&gt;&gt;&gt; parser.add_argument(‘–str’, dest=’types’, action=’append_const’, const=str)</div>
+<div class="line">&gt;&gt;&gt; parser.add_argument(‘–int’, dest=’types’, action=’append_const’, const=int)</div>
+<div class="line">&gt;&gt;&gt; parser.parse_args(‘–str –int’.split())</div>
+<div class="line">Namespace(types=[&lt;type ‘str’&gt;, &lt;type ‘int’&gt;])</div>
+</div>
+</div></blockquote>
+</li>
+<li><div class="first line-block">
+<div class="line">‘count’&nbsp;- 计算关键字参数出现的次数。例如，这可用于增加详细的级别：</div>
+</div>
+<blockquote>
+<div><div class="line-block">
+<div class="line">&gt;&gt;&gt; parser = argparse.ArgumentParser()</div>
+<div class="line">&gt;&gt;&gt; parser.add_argument(‘–verbose’, ‘-v’, action=’count’)</div>
+<div class="line">&gt;&gt;&gt; parser.parse_args(‘-vvv’.split())</div>
+<div class="line">Namespace(verbose=3)</div>
+</div>
+</div></blockquote>
+</li>
+<li><p class="first">‘help’&nbsp;- 打印当前解析器中所有选项的完整的帮助信息然后退出。默认情况下，help动作会自动添加到解析器中。参见<a class="reference external" href="http://python.usyiyi.cn/documents/python_278/library/argparse.html#argparse.ArgumentParser">ArgumentParser</a>以得到如何生成输出信息。</p>
+</li>
+<li><p class="first">‘version’&nbsp;- 它期待version=参数出现在<a class="reference external" href="http://python.usyiyi.cn/documents/python_278/library/argparse.html#argparse.ArgumentParser.add_argument">add_argument()</a>调用中，在调用时打印出版本信息并退出：</p>
+<div class="line-block">
+<div class="line">&gt;&gt;&gt; import argparse</div>
+<div class="line">&gt;&gt;&gt; parser = argparse.ArgumentParser(prog=’PROG’)</div>
+<div class="line">&gt;&gt;&gt; parser.add_argument(‘–version’, action=’version’, version=’<em>%(prog)s</em> 2.0’)</div>
+<div class="line">&gt;&gt;&gt; parser.parse_args([‘–version’])</div>
+<div class="line">PROG 2.0</div>
+</div>
+</li>
+</ul>
+<p>其它值得留意的部分：</p>
+<ul>
+<li><p class="first">部分解析 ArgumentParser.parse_known_args(args=None,&nbsp;namespace=None)</p>
+<p>有些时候，脚本可能只会解析命令行参数一部分并将剩余的参数传递给另外一个脚本或程序。除了在出现多余的参数时不会产生错误信息以外，它工作的方式与<a class="reference external" href="http://python.usyiyi.cn/documents/python_278/library/argparse.html#argparse.ArgumentParser.parse_args">parse_args()</a>非常类似。相反，它返回一个两个元素的元组，包含构造的namespace和剩余的参数字符串的列表。</p>
+<div class="line-block">
+<div class="line">&gt;&gt;&gt; parser = argparse.ArgumentParser()</div>
+<div class="line">&gt;&gt;&gt; parser.add_argument(‘–foo’, action=’store_true’)</div>
+<div class="line">&gt;&gt;&gt; parser.add_argument(‘bar’)</div>
+<div class="line">&gt;&gt;&gt; parser.parse_known_args([‘–foo’, ‘–badger’, ‘BAR’, ‘spam’])</div>
+<div class="line">(Namespace(bar=’BAR’, foo=True), [‘–badger’, ‘spam’])</div>
+</div>
+</li>
+<li><p class="first">Namespace 对象 class&nbsp;argparse.Namespace</p>
+<p><a class="reference external" href="http://python.usyiyi.cn/documents/python_278/library/argparse.html#argparse.ArgumentParser.parse_args">parse_args()</a>&nbsp;默认使用的简单的类，用于创建一个保存属性的对象并返回该对象。</p>
+<p>有时可能需要让<a class="reference external" href="http://python.usyiyi.cn/documents/python_278/library/argparse.html#argparse.ArgumentParser">ArgumentParser</a>分配属性给一个已经存在的对象而不是一个新的<a class="reference external" href="http://python.usyiyi.cn/documents/python_278/library/argparse.html#argparse.Namespace">Namespace</a>对象。这可以通过指定namespace=关键字参数达到：</p>
+<div class="line-block">
+<div class="line">&gt;&gt;&gt; class C(object):</div>
+<div class="line">… pass</div>
+<div class="line">…</div>
+<div class="line">&gt;&gt;&gt; c = C()</div>
+<div class="line">&gt;&gt;&gt; parser = argparse.ArgumentParser()</div>
+<div class="line">&gt;&gt;&gt; parser.add_argument(‘–foo’)</div>
+<div class="line">&gt;&gt;&gt; parser.parse_args(args=[‘–foo’, ‘BAR’], namespace=c)</div>
+<div class="line">&gt;&gt;&gt; c.foo</div>
+<div class="line">‘BAR’</div>
+</div>
+</li>
+<li><p class="first">还有很多高级的特性，如：</p>
+<ul class="simple">
+<li>子命令：大型程序生成像 git status, git commit 之类</li>
+<li>参数组：在 help 时分组显示</li>
+<li>互斥分组</li>
+<li>支持短参数的连写实现 tar -zxf 及缩写 –abcd =&gt; -ab</li>
+</ul>
+</li>
+<li><p class="first">总之，argparse 几乎可以实现非分布式参数的所有情况，非常强大的！</p>
+</li>
+</ul>
+</div>
+<div class="section" id="gflags">
+<h4>gflags 模块<a class="headerlink" href="#gflags" title="永久链接至标题">¶</a></h4>
+<p>GFlags defines a *distributed* command line system, replacing systems like getopt(), optparse and manual argument processing. Rather than an application having to define all flags in or near main(), each python module defines flags that are useful to it. When one python module imports another, it gains access to the other’s flags.</p>
+<p>从官方介绍中也可以看出来， gflags 跟其它命令行参数最大的不同在于，它是分布式的，不需要把所有的参数定义都放在 main 函数附近。分布式非常有用！</p>
+<p>这是Google C++ 版 gflags 的python版本，使用pip安装 pip install python-gflags</p>
+<p>基本跟 C++版的gflags一样，可以视为C++的简化版，一些不同如下：</p>
+<ul class="simple">
+<li>gflags::ParseCommandLineFlags(&amp;argc, &amp;argv, true); 变成了 gflags.FLAGS(sys.argv)</li>
+<li>一些类似于 gflags::SetVersionString的辅助函数没有了</li>
+<li>取消了诸如 –help, –version 之类的预定义参数</li>
+</ul>
+<p>基础用法:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">gflags</span>
+
+<span class="n">FLAGS</span><span class="o">=</span><span class="n">gflags</span><span class="o">.</span><span class="n">FLAGS</span>
+<span class="n">gflags</span><span class="o">.</span><span class="n">DEFINE_bool</span><span class="p">(</span><span class="s1">&#39;debug&#39;</span><span class="p">,</span>\ <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;show debug info&#39;</span><span class="p">)</span>
+<span class="n">gflags</span><span class="o">.</span><span class="n">DEFINE_string</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span><span class="s1">&#39;tanchuanqi&#39;</span><span class="p">,</span> <span class="s1">&#39;your name&#39;</span><span class="p">)</span>
+<span class="n">gflags</span><span class="o">.</span><span class="n">DEFINE_integer</span><span class="p">(</span><span class="s1">&#39;age&#39;</span><span class="p">,</span><span class="mi">17</span><span class="p">,</span> <span class="s1">&#39;your age&#39;</span><span class="p">)</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">FLAGS</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="c1"># FLAGS(sys.argv, True) True指示对未知参数原封不动返回，而不是报错</span>
+<span class="k">except</span> <span class="n">gflags</span><span class="o">.</span><span class="n">FlagsError</span>\ <span class="k">as</span>\ <span class="n">e</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="getopt">
+<h4>getopt 模块<a class="headerlink" href="#getopt" title="永久链接至标题">¶</a></h4>
+<p>官方 Note 说明 getopt 应该被 argparse 所替代&nbsp;，getopt 应该被弃用！</p>
+</div>
+</div>
+</div>
+<div class="section" id="id9">
+<h2>其它库<a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h2>
+<div class="section" id="pipe">
+<h3>一个有趣的库：pipe<a class="headerlink" href="#pipe" title="永久链接至标题">¶</a></h3>
+<p>pipe展示了一种很有新意的使用迭代器和生成器的方式：流。</p>
+<p>pipe将可迭代的数据看成是流，类似于linux，pipe使用 ‘|’ 传递数据流，并且定义了一系列的“流处理”函数用于接受并处理数据流，并最终再次输出数据流或者是将数据流归纳得到一个结果。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pipe</span> <span class="k">import</span> \<span class="o">*</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> \<span class="o">|</span> <span class="n">add</span>
+<span class="go">10</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> \<span class="o">|</span> <span class="n">where</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> \<span class="o">|</span> <span class="n">add</span>
+<span class="go">6</span>
+</pre></div>
+</div>
+<p>pipe中还包括了更多的流处理函数。你甚至可以自己定义流处理函数，只需要定义一个生成器函数并加上修饰器Pipe。如下定义了一个获取元素直到索引不符合条件的流处理函数：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@Pipe</span>
+<span class="gp">... </span><span class="k">def</span> <span class="nf">take_while_idx</span><span class="p">(</span><span class="n">iterable</span><span class="p">,</span> <span class="n">predicate</span><span class="p">):</span>
+<span class="go">...   for idx, x in enumerate(iterable):</span>
+<span class="go">...     if predicate(idx): yield x</span>
+<span class="go">...     else: return</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id10">
+<h2>科学计算生态<a class="headerlink" href="#id10" title="永久链接至标题">¶</a></h2>
+<p>发行版：Python(x,y), WinPython, Anaconda</p>
+<p>包管理：conda, pip</p>
+<p>交互工具：Spyder, ipython, Jupyter(ipython notebook)</p>
+<p>基础库：numpy, SciPy, Matplotlib, Pandas</p>
+<p>深度学习库：TensorFlow, Keras, Theano</p>
+<p>其它科学库：Sympy, Scikit-image, Traits, TraitsUI, Chaco, TVTK, Mayavi, Scikit-learn,</p>
+<p>OpenCV</p>
+<blockquote>
+<div>conda install -c <a class="reference external" href="https://conda.binstar.org/menpo">https://conda.binstar.org/menpo</a> opencv</div></blockquote>
+<p>优质教程和书：</p>
+<ul class="simple">
+<li>用Python做科学计算： <a class="reference external" href="http://bigsec.net/b52/scipydoc/index.html">http://bigsec.net/b52/scipydoc/index.html</a></li>
+</ul>
+<div class="section" id="anaconda">
+<h3>Anaconda<a class="headerlink" href="#anaconda" title="永久链接至标题">¶</a></h3>
+<p>Anaconda主要是有三个功能：自带了许多科学计算的库、支持隔离环境、更好的库管理功能</p>
+<p>Anaconda支持类似于virtualenv的隔离环境功能（默认环境名为root）</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="37%" />
+<col width="63%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">conda create -n test python=3.5 numpy pandas</th>
+<th class="head">创建名为 test 的隔离环境，使用3.5版本的python，同时添加 numpy, pandas 两个包</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>conda create -n dst –clone srt</td>
+<td>从srt克隆一个新的名为dst的隔离环境</td>
+</tr>
+<tr class="row-odd"><td>source activate test</td>
+<td>激活隔离环境</td>
+</tr>
+<tr class="row-even"><td>source deactivate</td>
+<td>退出隔离环境</td>
+</tr>
+<tr class="row-odd"><td>conda env list</td>
+<td>列出所有隔离环境</td>
+</tr>
+<tr class="row-even"><td>conda env remove –name test –all</td>
+<td>删除隔离环境</td>
+</tr>
+</tbody>
+</table>
+<p>Anaconda还支持类似于PIP的包管理功能</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="60%" />
+<col width="40%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">conda search</th>
+<th class="head">搜索包</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>conda list</td>
+<td>列出安装的包</td>
+</tr>
+<tr class="row-odd"><td>conda install –name env package_name</td>
+<td>安装包</td>
+</tr>
+<tr class="row-even"><td>conda remove –name env package_name</td>
+<td>卸载包 alias -&gt; uninstall</td>
+</tr>
+<tr class="row-odd"><td>conda update package_name</td>
+<td>更新包 alias -&gt; upgrade</td>
+</tr>
+</tbody>
+</table>
+<p>conda 安装包与PIP的区别和联系</p>
+<ol class="arabic simple">
+<li>pip只是包管理器，无法对环境进行管理。因此如果想在指定环境中使用pip进行安装包，则需要先切换到指定环境中，再使用pip命令安装包。</li>
+<li>pip无法更新python，因为pip并不将python视为包。</li>
+<li>pip可以安装一些conda无法安装的包；conda也可以安装一些pip无法安装的包。因此当使用一种命令无法安装包时，可以尝试用另一种命令。</li>
+</ol>
+<p>据我观察，在conda中使用PIP安装的包应该是在</p>
+<p>~/anaconda3/lib/python3.5/site-packages/pip/_vendor 目录下</p>
+<p>也支持类似于PIP的freeze功能</p>
+<blockquote>
+<div><p>conda env export &gt; environment.yaml</p>
+<p>conda env update -f=/path/to/environment.yaml</p>
+</div></blockquote>
+<p>conda将conda、python等都视为package，因此，完全可以使用conda来管理conda和python的版本，例如</p>
+<blockquote>
+<div><p># 更新conda，保持conda最新</p>
+<p>conda update conda</p>
+<p># 更新anaconda</p>
+<p>conda update anaconda</p>
+<p># 更新python conda</p>
+<p>update python</p>
+<p># 假设当前环境是python 3.4, conda会将python升级为3.4.x系列的当前最新版本</p>
+</div></blockquote>
+<p>区分conda和anaconda的概念</p>
+<blockquote>
+<div><p>conda是包管理工具。</p>
+<p>anaconda是用来做科学计算的这些包的集合，也就是所谓的发行版。</p>
+<p>软件发行版是在系统上提前编译和配置好的软件包集合， 装好了后就可以直接用。</p>
+<p>包管理器是自动化软件安装，更新，卸载的一种工具。</p>
+</div></blockquote>
+<p>设置国内源</p>
+<blockquote>
+<div><div class="line-block">
+<div class="line"># 添加Anaconda的TUNA镜像</div>
+<div class="line">conda config –add channels <a class="reference external" href="https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/">https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/</a></div>
+<div class="line"># TUNA的help中镜像地址加有引号，需要去掉</div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="numpy">
+<h3>NumPy<a class="headerlink" href="#numpy" title="永久链接至标题">¶</a></h3>
+<p>Numpy主要的功能有：数组运算、线性代数运算</p>
+<p>基本名词：随着数组维度的增加，依次被称为：标量、向量、矩阵、张量</p>
+<p>NumPy 通常与 SciPy（Scientific Python） 和 Matplotlib（绘图库） 一起使用。 这种组合广泛用于替代 MatLab，是一个流行的技术计算平台。</p>
+<ul class="simple">
+<li>Python 作为MatLab 的替代方案，现在被视为一种更加现代和完整的编程语言。</li>
+<li>NumPy 是开源的，这是它的一个额外的优势。</li>
+</ul>
+<p>NumPy 中定义的最重要的对象是称为 ndarray 的 N 维数组类型。 它描述相同类型的元素集合。 可以使用基于零的索引访问集合中的项目。</p>
+<p>内存结构如下图所示：</p>
+<blockquote>
+<div><img alt="../../../_images/image15.png" src="../../../_images/image15.png" />
+</div></blockquote>
+<div class="section" id="id11">
+<h4>数据类型<a class="headerlink" href="#id11" title="永久链接至标题">¶</a></h4>
+<p>NumPy 数字类型是 dtype （数据类型） 对象的实例，数据类型对象描述了对应于数组的固定内存块的解释。</p>
+<p>numpy内置定义了很多数据类型，如np.int8, np,float32 等</p>
+<blockquote>
+<div><p>构造方法：numpy.dtype(object, align, copy)</p>
+<p>使用示例：np.dtype(np.int8)、 np.dtype(‘i4’)</p>
+</div></blockquote>
+<p>下面的用法相当于python里快捷创建一个命名tuple:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">student</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">([(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span><span class="s1">&#39;S20&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;age&#39;</span><span class="p">,</span> <span class="s1">&#39;i1&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;marks&#39;</span><span class="p">,</span> <span class="s1">&#39;f4&#39;</span><span class="p">)])</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([(</span><span class="s1">&#39;abc&#39;</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">50</span><span class="p">),(</span><span class="s1">&#39;xyz&#39;</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">75</span><span class="p">)],</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">student</span><span class="p">)</span>
+<span class="nb">print</span> <span class="n">a</span>
+</pre></div>
+</div>
+<p>OUTPUT:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[(</span><span class="s1">&#39;abc&#39;</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mf">50.0</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;xyz&#39;</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mf">75.0</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="ndarray">
+<h4>ndarray对象常用属性和方法<a class="headerlink" href="#ndarray" title="永久链接至标题">¶</a></h4>
+<p>属性：</p>
+<ul class="simple">
+<li>shape</li>
+<li>ndim</li>
+<li>itemsize</li>
+<li>flags：标识一些对齐、行优先或列优先之类的元信息；</li>
+</ul>
+<p>方法：</p>
+<ul class="simple">
+<li>reshape()</li>
+</ul>
+</div>
+<div class="section" id="id12">
+<h4>创建：<a class="headerlink" href="#id12" title="永久链接至标题">¶</a></h4>
+<p>构造方法：numpy.ndarray([1,2,3])</p>
+<ul class="simple">
+<li>直接创建一个shape=(1,2,3)的ndarray，这里传入的只是ndarray的shape，跟上面传入数组的内容要区分开。</li>
+</ul>
+<p>常用的创建数组的工厂方法：</p>
+<ul class="simple">
+<li>empty()：创建指定形状和 dtype 的未初始化数组</li>
+<li>zeros()：返回特定大小，以 0 填充的新数组</li>
+<li>ones()：返回特定大小，以 1 填充的新数组</li>
+<li>eye()：创建单位数组</li>
+</ul>
+<p>从现在数据构建：</p>
+<ul class="simple">
+<li>numpy.array(object, dtype = None, copy = True, order = None, subook = False, ndmin = 0)<ul>
+<li>一般通过这个方法直接创建，这里传入的object是一个python的list，表明了将来创建的ndarray的实际内容。</li>
+</ul>
+</li>
+<li>numpy.asarray(a, dtype = None, order = None)<ul>
+<li>此函数类似于 numpy.array ，除了它有较少的参数。</li>
+</ul>
+</li>
+<li>numpy.frombuffer()</li>
+<li>numpy.fromiter()</li>
+</ul>
+<p>从数值范围创建：</p>
+<ul class="simple">
+<li>numpy.arange(start, stop, step, dtype)</li>
+<li>numpy.linspace(start, stop, num, endpoint, retstep, dtype) 类似于arange()，从一个范围里创建指定数量的均匀分布的元素</li>
+<li>numpy.logscale(start, stop, num, endpoint, base, dtype) 上面类似，对数刻度上的均匀分布</li>
+</ul>
+</div>
+<div class="section" id="id13">
+<h4>访问<a class="headerlink" href="#id13" title="永久链接至标题">¶</a></h4>
+<p>ndarray对象中的元素遵循基于零的索引。 有三种可用的索引方法类型：</p>
+<ul class="simple">
+<li>字段访问：使用从0开始的下标访问</li>
+<li>基本切片：Python 中基本切片概念到 n 维的扩展，将 start ， stop 和 step 参数提供给内置的 slice 函数来构造一个 Python slice 对象。</li>
+<li>高级索引：<ul>
+<li>整数索引：x[[0,1,2], [0,1,0]] 的结果是数组中 (0,0) ， (1,1) 和 (2,0) 位置处的元素。</li>
+<li>布尔索引：非常神奇，print x[x &gt; 5] 会打印出“大于5的元素”。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id14">
+<h4>广播<a class="headerlink" href="#id14" title="永久链接至标题">¶</a></h4>
+<p>术语广播是指 NumPy 在算术运算期间处理不同形状的数组的能力。</p>
+<p>因为一些操作对两个数组的维数有要求，广播功能会将较小的数组广播到较大数组的大小，以便使它们的形状可兼容。</p>
+<p>基本上，就是会对一些长度为1的纬度进行复制扩展，使得这些长度为1的维度符合运算的要求。</p>
+</div>
+<div class="section" id="id15">
+<h4>迭代<a class="headerlink" href="#id15" title="永久链接至标题">¶</a></h4>
+<p>NumPy 包包含一个迭代器对象 numpy.nditer 。 它是一个有效的多维迭代器对象，可以用于在数组上进行迭代。 迭代的顺序匹配数组的内容布局，而不考虑特定的排序。</p>
+<p>nditer 对象有另一个可选参数 op_flags 。 其默认值为只读，但可以设置为读写或只写模式。 这将允许使用此迭代器修改数组元素。</p>
+<p>如果两个数组是可广播的， nditer 组合对象能够同时迭代它们。</p>
+<p>np.nditer([a,b])</p>
+<p>数组操作</p>
+<ul>
+<li><p class="first">reshape</p>
+</li>
+<li><p class="first">flat：返回数组上的一维迭代器</p>
+</li>
+<li><p class="first">flatten：返回折叠为一维的数组副本</p>
+</li>
+<li><p class="first">ravel：返回展开的一维数组，并且按需生成副本</p>
+</li>
+<li><p class="first">transpose：翻转给定数组的维度。如果可能的话它会返回一个视图</p>
+</li>
+<li><p class="first">T：数组的转置，transpose的特殊情况</p>
+</li>
+<li><p class="first">rollaxis：向后滚动特定的轴，直到一个特定位置</p>
+</li>
+<li><p class="first">swapaxes：交换数组的两个轴</p>
+</li>
+<li><p class="first">broadcast：返回将一个数组广播到另一个数组的结果</p>
+</li>
+<li><p class="first">boardcast：广播到特定的形状，返回只读视图</p>
+</li>
+<li><p class="first">expand_dims：在指定位置插入新的轴来扩展数组形状</p>
+</li>
+<li><p class="first">squeeze：从给定数组的形状中删除一维条目</p>
+</li>
+<li><p class="first">数组的连接：</p>
+<ul class="simple">
+<li>concatenate：沿现存的轴连接</li>
+<li>stack：沿新轴进行连接</li>
+<li>hstack：水平堆叠，stack的特殊调用</li>
+<li>vstack：垂直堆叠，stack的特殊调用</li>
+</ul>
+</li>
+<li><p class="first">数组分割：</p>
+<ul class="simple">
+<li>split</li>
+<li>hsplit</li>
+<li>vsplit</li>
+</ul>
+</li>
+<li><p class="first">添加删除元素：</p>
+<ul class="simple">
+<li>resize 返回指定形状的新数组，如果新大小大于原始大小，则包含原始数组中的元素的重复副本。</li>
+<li>append 将值添加到数组末尾， 附加操作不是原地的，而是分配新的数组。</li>
+<li>insert 沿指定轴将值插入到指定下标之前，插入没有原地的，函数会返回一个新数组。</li>
+<li>delete 返回删掉某个轴的子数组的新数组</li>
+<li>unique 寻找数组内的唯一元素</li>
+</ul>
+</li>
+<li><p class="first">位操作：</p>
+<ul class="simple">
+<li><a href="#id17"><span class="problematic" id="id18">|bitwise_shift|</span></a></li>
+</ul>
+</li>
+<li><p class="first">字符串函数（对 dtype 为 numpy.string_ 或 numpy.unicode_ 的数组执行向量</p>
+<p>化字符串操作）：</p>
+<img alt="../../../_images/image17.png" src="../../../_images/image17.png" />
+</li>
+<li><p class="first">数值运算：</p>
+<ul class="simple">
+<li>三角函数：sin, cos, tan 等等</li>
+<li>四舍五入：around(), floor(), ceil()</li>
+<li>加减乘除：add() ， subtract() ， multiply() 和 divide()</li>
+<li>倒数：reciprocal()、幂 pow()、 取余 mod()</li>
+</ul>
+</li>
+<li><p class="first">统计：</p>
+<ul class="simple">
+<li>amin() 极小, amax() 极大, median()中间值, ptp() 取值范围</li>
+<li>mean()算术平均值、average()加权平均值</li>
+<li>std()标准差、var()方差</li>
+</ul>
+</li>
+<li><p class="first">排序、搜索、计数</p>
+<ul class="simple">
+<li>排序：sort(), argsort(), lexsort()</li>
+<li>搜索：argmax(), argmin(), nonzero(),</li>
+<li>高级搜索：<ul>
+<li>where()： where(x&gt;5)，类似于高级索引</li>
+<li>extract()：用任何条件进行过滤</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id16">
+<h4>副本和视图<a class="headerlink" href="#id16" title="永久链接至标题">¶</a></h4>
+<p>很明显，副本是深度复制，而视图只是复制了元信息。</p>
+<ul class="simple">
+<li>NumPy 拥有 ndarray.view() 方法，它是一个新的数组对象，并可查看原始数组的相同数据。</li>
+<li>ndarray.copy() 函数创建一个深层副本。</li>
+</ul>
+</div>
+<div class="section" id="numpy-matlib">
+<h4>numpy.matlib 库<a class="headerlink" href="#numpy-matlib" title="永久链接至标题">¶</a></h4>
+<p>numpy里还有一个矩阵库，这里的类型是 matrix 类型。</p>
+<p>里面提供了很多与ndarray类似的操作，不明白为什么要存在这个 matrix 类型？</p>
+</div>
+<div class="section" id="numpy-linalg">
+<h4>numpy.linalg 线性代数<a class="headerlink" href="#numpy-linalg" title="永久链接至标题">¶</a></h4>
+<blockquote>
+<div><img alt="../../../_images/image18.png" src="../../../_images/image18.png" />
+</div></blockquote>
+</div>
+<div class="section" id="numpy-io">
+<h4>Numpy IO<a class="headerlink" href="#numpy-io" title="永久链接至标题">¶</a></h4>
+<p>NumPy 为 ndarray 对象引入了一个简单的文件格式。 这个 npy 文件在磁盘文件中，存储重建 ndarray 所需的数据、图形、 dtype 和其他信息，以便正确获取数组，即使该文件在具有不同架构的另一台机器上。</p>
+<p>ndarray 对象可以保存到磁盘文件并从磁盘文件加载。 可用的 IO 功能有：</p>
+<ul class="simple">
+<li>np.tofile() &amp; np.fromfile()：二进制 raw 格式</li>
+<li>np.save() &amp; np.load() &amp; np.savez() ：这是最常用的IO方法。load()和save()用Numpy专用的二进制格式保存数据，它们会自动处理元素类型和形状等信息。savez()提供了将多个数组存储至一个文件的能力，调用load()方法返回的对象，可以使用数组名对各个数组进行读取。</li>
+<li>savetxt() &amp; loadtxt()：文本格式</li>
+</ul>
+<p>Numpy Cheat Sheet</p>
+<img alt="../../../_images/image19.png" src="../../../_images/image19.png" />
+</div>
+</div>
+</div>
+</div>
+
+
+        </div>
+
+
+
+        <!-- 来必力City版安装代码 -->
+        <div id="lv-container" data-id="city" data-uid="MTAyMC80MDU4Ni8xNzExMw==">
+        <script type="text/javascript">
+           (function(d, s) {
+               var j, e = d.getElementsByTagName(s)[0];
+
+               if (typeof LivereTower === 'function') { return; }
+
+               j = d.createElement(s);
+               j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+               j.async = true;
+
+               e.parentNode.insertBefore(j, e);
+           })(document, 'script');
+        </script>
+        <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+        </div>
+        <!-- City版安装代码已完成 -->
+      </div>
+    </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="总目录"
+             >索引</a></li>
+        <!--<li><a href="../../../index.html">首页</a>&#160;|</li>-->
+        <!--<li><a href="../../../contents.html">Documentation</a> &#187;</li>-->
+ 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; 版权所有 CC BY 2.5.
+      由 <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.1 创建。
+    </div>
+  </body>
+</html>

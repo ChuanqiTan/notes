@@ -60,6 +60,7 @@ Python
 
    language/python/dive_into_python
    language/python/expert_python
+   language/python/py_notes
 
 
 其它语言

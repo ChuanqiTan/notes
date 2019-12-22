@@ -1,9 +1,11 @@
 
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml" lang="zh_CN">
   <head>
-    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Shell 编程 &#8212; Chuanqi 的技术文档</title>
     <link rel="stylesheet" href="../_static/sphinx13.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -11,14 +13,13 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/language_data.js"></script>
     <script type="text/javascript" src="../_static/translations.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
     <link rel="next" title="Vim" href="../tools/vim.html" />
-    <link rel="prev" title="Python高级编程" href="python/expert_python.html" />
+    <link rel="prev" title="其它" href="python/python_notes/others.html" />
     <link rel="canonical" href="http://www.sphinx-doc.org/en/master/language/bash_shell.html" />
 
     <!--<link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'-->
@@ -83,7 +84,7 @@
           <a href="../tools/vim.html" title="Vim"
              accesskey="N">下一页</a> |</li>
         <li class="right" >
-          <a href="python/expert_python.html" title="Python高级编程"
+          <a href="python/python_notes/others.html" title="其它"
              accesskey="P">上一页</a> |</li>
         <!--<li><a href="../index.html">首页</a>&#160;|</li>-->
         <!--<li><a href="../contents.html">Documentation</a> &#187;</li>-->
@@ -92,7 +93,7 @@
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="../index.html">目录</a></h3>
+  <h3><a href="../index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Shell 编程</a><ul>
 <li><a class="reference internal" href="#ubuntu-bash-shell">Ubuntu Bash Shell 必备快捷键</a></li>
@@ -104,17 +105,19 @@
 </ul>
 
   <h4>上一个主题</h4>
-  <p class="topless"><a href="python/expert_python.html"
-                        title="上一章">Python高级编程</a></p>
+  <p class="topless"><a href="python/python_notes/others.html"
+                        title="上一章">其它</a></p>
   <h4>下一个主题</h4>
   <p class="topless"><a href="../tools/vim.html"
                         title="下一章">Vim</a></p>
 <div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">快速搜索</h3>
+  <h3>快速搜索</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" />
       <input type="submit" value="转向" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
@@ -130,146 +133,146 @@
   <div class="section" id="shell">
 <h1>Shell 编程<a class="headerlink" href="#shell" title="永久链接至标题">¶</a></h1>
 <div class="sidebar">
-<p class="sidebar-title">Linux &amp; Shell</p>
-<div class="line-block">
+<p class="first sidebar-title">Linux &amp; Shell</p>
+<div class="last line-block">
 <div class="line">所有合格的计算机从业人员都应该熟悉Linux和Shell</div>
 </div>
 </div>
 <div class="section" id="ubuntu-bash-shell">
 <h2>Ubuntu Bash Shell 必备快捷键<a class="headerlink" href="#ubuntu-bash-shell" title="永久链接至标题">¶</a></h2>
-<table class="docutils align-default">
+<table border="1" class="docutils">
 <colgroup>
-<col style="width: 23%" />
-<col style="width: 77%" />
+<col width="23%" />
+<col width="77%" />
 </colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>命令</p></th>
-<th class="head"><p>说明</p></th>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">命令</th>
+<th class="head">说明</th>
 </tr>
 </thead>
-<tbody>
-<tr class="row-even"><td><p>Ctrl + A</p></td>
-<td><p>相当于HOME键，用于将光标定位到本行最前面，回到命令行开始</p></td>
+<tbody valign="top">
+<tr class="row-even"><td>Ctrl + A</td>
+<td>相当于HOME键，用于将光标定位到本行最前面，回到命令行开始</td>
 </tr>
-<tr class="row-odd"><td><p>Ctrl + E</p></td>
-<td><p>相当于End键，即将光标移动到本行末尾，转到命令行尾</p></td>
+<tr class="row-odd"><td>Ctrl + E</td>
+<td>相当于End键，即将光标移动到本行末尾，转到命令行尾</td>
 </tr>
-<tr class="row-even"><td><p>Ctrl + B</p></td>
-<td><p>相当于左箭头键，用于将光标向左移动一格</p></td>
+<tr class="row-even"><td>Ctrl + B</td>
+<td>相当于左箭头键，用于将光标向左移动一格</td>
 </tr>
-<tr class="row-odd"><td><p>Ctrl + F</p></td>
-<td><p>相当于右箭头键，用于将光标向右移动一格</p></td>
+<tr class="row-odd"><td>Ctrl + F</td>
+<td>相当于右箭头键，用于将光标向右移动一格</td>
 </tr>
-<tr class="row-even"><td><p>Ctrl + X + X</p></td>
-<td><p>光标移动到最后和当前位置两个地方跳转</p></td>
+<tr class="row-even"><td>Ctrl + X + X</td>
+<td>光标移动到最后和当前位置两个地方跳转</td>
 </tr>
-<tr class="row-odd"><td><p>Ctrl + D</p></td>
-<td><p>相当于Del键，如果命令行没有命令字符，就退出shell</p></td>
+<tr class="row-odd"><td>Ctrl + D</td>
+<td>相当于Del键，如果命令行没有命令字符，就退出shell</td>
 </tr>
-<tr class="row-even"><td><p>Ctrl + H</p></td>
-<td><p>删除光标所在位置之前的一个字符(H是vi里的向左的意思嘛)</p></td>
+<tr class="row-even"><td>Ctrl + H</td>
+<td>删除光标所在位置之前的一个字符(H是vi里的向左的意思嘛)</td>
 </tr>
-<tr class="row-odd"><td><p>Ctrl + K</p></td>
-<td><p>删除光标所在位置之后（右边）的所有字符</p></td>
+<tr class="row-odd"><td>Ctrl + K</td>
+<td>删除光标所在位置之后（右边）的所有字符</td>
 </tr>
-<tr class="row-even"><td><p>Ctrl + U</p></td>
-<td><p>删除光标所在位置之前（左边）的所有字符 （密码输入错误的时候比较有用）</p></td>
+<tr class="row-even"><td>Ctrl + U</td>
+<td>删除光标所在位置之前（左边）的所有字符 （密码输入错误的时候比较有用）</td>
 </tr>
-<tr class="row-odd"><td><p>Ctrl + W</p></td>
-<td><p>用于删除当前光标左侧的一个单词</p></td>
+<tr class="row-odd"><td>Ctrl + W</td>
+<td>用于删除当前光标左侧的一个单词</td>
 </tr>
-<tr class="row-even"><td><p>Ctrl + P</p></td>
-<td><p>相当于上箭头键，即显示上一个命令</p></td>
+<tr class="row-even"><td>Ctrl + P</td>
+<td>相当于上箭头键，即显示上一个命令</td>
 </tr>
-<tr class="row-odd"><td><p>Ctrl + N</p></td>
-<td><p>相当于下箭头键，即显示下一个命令</p></td>
+<tr class="row-odd"><td>Ctrl + N</td>
+<td>相当于下箭头键，即显示下一个命令</td>
 </tr>
-<tr class="row-even"><td><p>Ctrl + T</p></td>
-<td><p>用于颠倒光标所在处字符和前一个字符的位置。（用于打错了2个字符吧）</p></td>
+<tr class="row-even"><td>Ctrl + T</td>
+<td>用于颠倒光标所在处字符和前一个字符的位置。（用于打错了2个字符吧）</td>
 </tr>
-<tr class="row-odd"><td><p>Ctrl + J</p></td>
-<td><p>相当于回车键</p></td>
+<tr class="row-odd"><td>Ctrl + J</td>
+<td>相当于回车键</td>
 </tr>
-<tr class="row-even"><td><p>Ctrl + C</p></td>
-<td><p>终止正在执行的命令</p></td>
+<tr class="row-even"><td>Ctrl + C</td>
+<td>终止正在执行的命令</td>
 </tr>
-<tr class="row-odd"><td><p>Ctrl + Z</p></td>
-<td><p>挂起/停止正在执行的命令</p></td>
+<tr class="row-odd"><td>Ctrl + Z</td>
+<td>挂起/停止正在执行的命令</td>
 </tr>
-<tr class="row-even"><td><p>Ctrl + L</p></td>
-<td><p>清屏，类似 clear 命令</p></td>
+<tr class="row-even"><td>Ctrl + L</td>
+<td>清屏，类似 clear 命令</td>
 </tr>
-<tr class="row-odd"><td><p>Ctrl + R</p></td>
-<td><p>查找之前执行过的命令(Ctrl+Shift+R是反向查找)</p></td>
+<tr class="row-odd"><td>Ctrl + R</td>
+<td>查找之前执行过的命令(Ctrl+Shift+R是反向查找)</td>
 </tr>
-<tr class="row-even"><td><p>Ctrl + Y</p></td>
-<td><p>粘贴或者恢复上次的删除 （^k,^u等命令所删除的）</p></td>
+<tr class="row-even"><td>Ctrl + Y</td>
+<td>粘贴或者恢复上次的删除 （^k,^u等命令所删除的）</td>
 </tr>
-<tr class="row-odd"><td><p></p></td>
-<td></td>
+<tr class="row-odd"><td></td>
+<td>&#160;</td>
 </tr>
-<tr class="row-even"><td><p>Alt + ?</p></td>
-<td><p>显示命令补全的候选项（与Tab不同在于只显示不插入）</p></td>
+<tr class="row-even"><td>Alt + ?</td>
+<td>显示命令补全的候选项（与Tab不同在于只显示不插入）</td>
 </tr>
-<tr class="row-odd"><td><p>Alt + *</p></td>
-<td><p>插入命令补全的所有候选项，可以快速输入文件夹下所有文件名</p></td>
+<tr class="row-odd"><td>Alt + *</td>
+<td>插入命令补全的所有候选项，可以快速输入文件夹下所有文件名</td>
 </tr>
-<tr class="row-even"><td><p>Alt + .</p></td>
-<td><p>插入前一个命令的最后一个单词 （这个很好很强大）</p></td>
+<tr class="row-even"><td>Alt + .</td>
+<td>插入前一个命令的最后一个单词 （这个很好很强大）</td>
 </tr>
-<tr class="row-odd"><td><p>Alt + B</p></td>
-<td><p>光标往左移动一个单词</p></td>
+<tr class="row-odd"><td>Alt + B</td>
+<td>光标往左移动一个单词</td>
 </tr>
-<tr class="row-even"><td><p>Alt + F</p></td>
-<td><p>光标往右移动一个单词（诶，和显示菜单的快捷键冲突了）</p></td>
+<tr class="row-even"><td>Alt + F</td>
+<td>光标往右移动一个单词（诶，和显示菜单的快捷键冲突了）</td>
 </tr>
-<tr class="row-odd"><td><p>Alt + C</p></td>
-<td><p>将光标所在的字符变成大写</p></td>
+<tr class="row-odd"><td>Alt + C</td>
+<td>将光标所在的字符变成大写</td>
 </tr>
-<tr class="row-even"><td><p>Alt + D</p></td>
-<td><p>删除光标所在位置的单词</p></td>
+<tr class="row-even"><td>Alt + D</td>
+<td>删除光标所在位置的单词</td>
 </tr>
-<tr class="row-odd"><td><p>Alt + L</p></td>
-<td><p>将单词中光标位置之后的字符变成小写</p></td>
+<tr class="row-odd"><td>Alt + L</td>
+<td>将单词中光标位置之后的字符变成小写</td>
 </tr>
-<tr class="row-even"><td><p>Alt + U</p></td>
-<td><p>将单词中光标位置之后的字符变成大写</p></td>
+<tr class="row-even"><td>Alt + U</td>
+<td>将单词中光标位置之后的字符变成大写</td>
 </tr>
-<tr class="row-odd"><td><p>Alt + T</p></td>
-<td><p>交换当前光标所在单词和上一个单词</p></td>
+<tr class="row-odd"><td>Alt + T</td>
+<td>交换当前光标所在单词和上一个单词</td>
 </tr>
-<tr class="row-even"><td><p>Alt + Backspace</p></td>
-<td><p>向前删除单词，与Ctrl+W类似，分隔符有些区别</p></td>
+<tr class="row-even"><td>Alt + Backspace</td>
+<td>向前删除单词，与Ctrl+W类似，分隔符有些区别</td>
 </tr>
-<tr class="row-odd"><td><p></p></td>
-<td></td>
+<tr class="row-odd"><td></td>
+<td>&#160;</td>
 </tr>
-<tr class="row-even"><td><p>Shift + Insert</p></td>
-<td><p>插入选中的内容</p></td>
+<tr class="row-even"><td>Shift + Insert</td>
+<td>插入选中的内容</td>
 </tr>
-<tr class="row-odd"><td><p>Ctrl + Shift + C</p></td>
-<td><p>复制到系统剪切板</p></td>
+<tr class="row-odd"><td>Ctrl + Shift + C</td>
+<td>复制到系统剪切板</td>
 </tr>
-<tr class="row-even"><td><p>Ctrl + Shift + V</p></td>
-<td><p>从系统剪切板粘贴</p></td>
+<tr class="row-even"><td>Ctrl + Shift + V</td>
+<td>从系统剪切板粘贴</td>
 </tr>
-<tr class="row-odd"><td><p>Ctrl + Shift + T</p></td>
-<td><p>新建标签页</p></td>
+<tr class="row-odd"><td>Ctrl + Shift + T</td>
+<td>新建标签页</td>
 </tr>
-<tr class="row-even"><td><p>Ctrl + Shift + W</p></td>
-<td><p>关闭标签页</p></td>
+<tr class="row-even"><td>Ctrl + Shift + W</td>
+<td>关闭标签页</td>
 </tr>
-<tr class="row-odd"><td><p>Ctrl + PageUp</p></td>
-<td><p>前一标签页</p></td>
+<tr class="row-odd"><td>Ctrl + PageUp</td>
+<td>前一标签页</td>
 </tr>
-<tr class="row-even"><td><p>Ctrl + PageDown</p></td>
-<td><p>后一标签页</p></td>
+<tr class="row-even"><td>Ctrl + PageDown</td>
+<td>后一标签页</td>
 </tr>
-<tr class="row-odd"><td><p>Ctrl + Shift + PageUp</p></td>
-<td><p>标签页左移动</p></td>
+<tr class="row-odd"><td>Ctrl + Shift + PageUp</td>
+<td>标签页左移动</td>
 </tr>
-<tr class="row-even"><td><p>Ctrl + Shift + PageDown</p></td>
-<td><p>标签页右移动</p></td>
+<tr class="row-even"><td>Ctrl + Shift + PageDown</td>
+<td>标签页右移动</td>
 </tr>
 </tbody>
 </table>
@@ -277,103 +280,106 @@
 <div class="section" id="id1">
 <h2>基本 Shell 命令<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
 <ul>
-<li><p>Bash Shell中的通配符</p>
+<li><p class="first">Bash Shell中的通配符</p>
 <ul class="simple">
-<li><p>? 匹配任意单个字符。</p></li>
-<li><p>* 匹配任意字符串。</p></li>
-<li><p>[set] 匹配set中的任意字符。[!set]是取反操作，匹配不在set中的任意字符，如：</p>
-<ul>
-<li><p>[0-9] 匹配所有数字</p></li>
-<li><p>[akz] 匹配a，k，z三个字符</p></li>
-<li><p>[!abc] 匹配除a，b，c之外的所有字符</p></li>
+<li>? 匹配任意单个字符。</li>
+<li>* 匹配任意字符串。</li>
+<li>[set] 匹配set中的任意字符。[!set]是取反操作，匹配不在set中的任意字符，如：<ul>
+<li>[0-9] 匹配所有数字</li>
+<li>[akz] 匹配a，k，z三个字符</li>
+<li>[!abc] 匹配除a，b，c之外的所有字符</li>
 </ul>
 </li>
 </ul>
 </li>
-<li><p>Bash Shel中的特殊符号：</p>
+<li><p class="first">Bash Shel中的特殊符号：</p>
 <ul class="simple">
-<li><p>#        注解符号：这个最常被使用在script当中，视为注释；</p></li>
-<li><p>\       逃脱符号：将『特殊字符或万用字符』还原成一般字符</p></li>
-<li><p>|       管线(pipe)：分隔两个管线命令的界定(后两节介绍)；</p></li>
-<li><p>;        连续指令下达分隔符号：连续性命令的界定(注意！与管线命令并不相同)</p></li>
-<li><p>~        使用者的家目录</p></li>
-<li><p>$        取用变量前置字元：亦即是变量之前需要加的变量取代值</p></li>
-<li><p>&amp;        工作控制(job control)：执行命令时将进程放到后台执行[ dojob &amp; ]</p></li>
-<li><p>!        逻辑运算意义上的『非』 not的意思！</p></li>
-<li><p>/        目录符号：路径分隔的符号</p></li>
-<li><dl class="simple">
-<dt>&gt;, &gt;&gt;    资料流 <strong>重导向</strong> ：输出导向，分别是『取代』与『累加』</dt><dd><p>（注意tee命令：也可以实现重导向，同时还在standard out输出一份）</p>
-</dd>
+<li>#        注解符号：这个最常被使用在script当中，视为注释；</li>
+<li>\       逃脱符号：将『特殊字符或万用字符』还原成一般字符</li>
+<li>|       管线(pipe)：分隔两个管线命令的界定(后两节介绍)；</li>
+<li>;        连续指令下达分隔符号：连续性命令的界定(注意！与管线命令并不相同)</li>
+<li>~        使用者的家目录</li>
+<li>$        取用变量前置字元：亦即是变量之前需要加的变量取代值</li>
+<li>&amp;        工作控制(job control)：执行命令时将进程放到后台执行[ dojob &amp; ]</li>
+<li>!        逻辑运算意义上的『非』 not的意思！</li>
+<li>/        目录符号：路径分隔的符号</li>
+<li><dl class="first docutils">
+<dt>&gt;, &gt;&gt;    资料流 <strong>重导向</strong> ：输出导向，分别是『取代』与『累加』</dt>
+<dd>（注意tee命令：也可以实现重导向，同时还在standard out输出一份）</dd>
 </dl>
 </li>
-<li><dl class="simple">
-<dt>&lt;, &lt;&lt;    资料流 <strong>重导向</strong> ：输入导向(使用文件作输入 与 指定结束符)</dt><dd><p>指定结束符功能：从标准输入中读取输入，直到遇到指定的结束符。</p>
-</dd>
+<li><dl class="first docutils">
+<dt>&lt;, &lt;&lt;    资料流 <strong>重导向</strong> ：输入导向(使用文件作输入 与 指定结束符)</dt>
+<dd>指定结束符功能：从标准输入中读取输入，直到遇到指定的结束符。</dd>
 </dl>
 </li>
-<li><p>‘ ‘      单引号，不具有变量置换的功能的字符串</p></li>
-<li><p>” ”      具有变量置换的功能的字符串！</p></li>
-<li><p>` `      两个『 ` 』中间为可以先执行的指令，亦可使用$( )</p></li>
-<li><p>( )      在中间为子shell的起始与结束</p></li>
-<li><p>{ }      在中间为命令区块的组合！</p></li>
+<li>‘ ‘      单引号，不具有变量置换的功能的字符串</li>
+<li>” ”      具有变量置换的功能的字符串！</li>
+<li>` `      两个『 ` 』中间为可以先执行的指令，亦可使用$( )</li>
+<li>( )      在中间为子shell的起始与结束</li>
+<li>{ }      在中间为命令区块的组合！</li>
 </ul>
 </li>
-<li><p>shell中的简单的条件判断，利用短路求值。&amp;?（命令传回码）, &amp;&amp;, ||当使用cat adsfa &amp;&amp; ll时，什么都不会执行，因为短路求值</p></li>
-<li><p>数据流重定向：</p>
+<li><p class="first">shell中的简单的条件判断，利用短路求值。&amp;?（命令传回码）, &amp;&amp;, ||当使用cat adsfa &amp;&amp; ll时，什么都不会执行，因为短路求值</p>
+</li>
+<li><p class="first">数据流重定向：</p>
 <ul class="simple">
-<li><p>标准输入：代码为0，使用&lt;或&lt;&lt;；</p></li>
-<li><p>标准输出：代码为1，使用&gt;或&gt;&gt;；</p></li>
-<li><p>标准错误输出：代码为2，使用2&gt;或2&gt;&gt;。</p></li>
-<li><p>当同时重定向标准输出与标准错误输出时使用 <code class="docutils literal notranslate"><span class="pre">&gt;</span> <span class="pre">list.txt</span> <span class="pre">2&gt;&amp;1</span></code> 或 <code class="docutils literal notranslate"><span class="pre">&amp;&gt;list.txt</span></code></p></li>
-<li><p>双向重定向tee：tee会同时将数据流送到文件与屏幕！ <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">|</span> <span class="pre">tee</span> <span class="pre">log.log</span></code></p></li>
-<li><p>一个技巧：清空一个文件 &gt; a.txt，将空定向到a.txt就把它清空了。</p></li>
+<li>标准输入：代码为0，使用&lt;或&lt;&lt;；</li>
+<li>标准输出：代码为1，使用&gt;或&gt;&gt;；</li>
+<li>标准错误输出：代码为2，使用2&gt;或2&gt;&gt;。</li>
+<li>当同时重定向标准输出与标准错误输出时使用 <code class="docutils literal notranslate"><span class="pre">&gt;</span> <span class="pre">list.txt</span> <span class="pre">2&gt;&amp;1</span></code> 或 <code class="docutils literal notranslate"><span class="pre">&amp;&gt;list.txt</span></code></li>
+<li>双向重定向tee：tee会同时将数据流送到文件与屏幕！ <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">|</span> <span class="pre">tee</span> <span class="pre">log.log</span></code></li>
+<li>一个技巧：清空一个文件 &gt; a.txt，将空定向到a.txt就把它清空了。</li>
 </ul>
 </li>
-<li><p>管道命令pipe（｜）：</p>
+<li><p class="first">管道命令pipe（｜）：</p>
 <ul class="simple">
-<li><p>仅会处理standard output，对于standard error output不能直接处理</p></li>
-<li><p>后一个命令需要能够接收前一个命令的输出作为输入才行</p></li>
-<li><p>号在管道中的重要作用：tar -cvf - /home | tar -xvf -，第一个”-“使用stdout代替输出文件，第二个”-“代替上一步所输出的stdout，并将这个输出流视为下次tar的输入文件。</p></li>
+<li>仅会处理standard output，对于standard error output不能直接处理</li>
+<li>后一个命令需要能够接收前一个命令的输出作为输入才行</li>
+<li>号在管道中的重要作用：tar -cvf - /home | tar -xvf -，第一个”-“使用stdout代替输出文件，第二个”-“代替上一步所输出的stdout，并将这个输出流视为下次tar的输入文件。</li>
 </ul>
 </li>
-<li><p>Shell script是利用shell的功能所写的一个脚本程序，将一些shell语法与命令写在里面，搭配正则表达式、管道命令与数据流重定向等功能，以达到我们所想要的目的。</p></li>
-<li><p>shell script是通过使用bash abc.sh或sh abc.sh来执行的
-或者以#!/bin/sh 开始，然后赋予执行权限，再直接执行就可以了。</p></li>
-<li><p>写shell script的一个好的习惯就是在一开头就设置好执行需要的环境变量预先声明和设置，经常是指PATH和LANG这2个环境变量</p></li>
-<li><p>shell script执行方式：在子进程中执行 和 在当前进程中执行</p>
+<li><p class="first">Shell script是利用shell的功能所写的一个脚本程序，将一些shell语法与命令写在里面，搭配正则表达式、管道命令与数据流重定向等功能，以达到我们所想要的目的。</p>
+</li>
+<li><p class="first">shell script是通过使用bash abc.sh或sh abc.sh来执行的
+或者以#!/bin/sh 开始，然后赋予执行权限，再直接执行就可以了。</p>
+</li>
+<li><p class="first">写shell script的一个好的习惯就是在一开头就设置好执行需要的环境变量预先声明和设置，经常是指PATH和LANG这2个环境变量</p>
+</li>
+<li><p class="first">shell script执行方式：在子进程中执行 和 在当前进程中执行</p>
 <ul class="simple">
-<li><p>bash abc.sh 在子进程中执行shell</p></li>
-<li><p>source abc.sh 在当前进程中执行shell</p></li>
+<li>bash abc.sh 在子进程中执行shell</li>
+<li>source abc.sh 在当前进程中执行shell</li>
 </ul>
 </li>
-<li><div class="line-block">
+<li><div class="first line-block">
 <div class="line">test测试命令：test -e /dmtsai &amp;&amp; echo “exist” || echo “Not exist”;</div>
 <div class="line">test 命令用于测试字符串,文件状态和数字。</div>
 <div class="line">test 一般有两种格式,即:test condition 或 [ condition ] (使用方括号时,要注意在条件两边加上空格)</div>
 <div class="line">[]作为判断命令：[ “$HOME” == “$MAIL” ]</div>
 </div>
 <ul class="simple">
-<li><p>中括号[]内的每一个组件都必须要有空格键来分隔</p></li>
-<li><p>中括号内的变量，最好都以双引号括起来</p></li>
-<li><p>中括号内的常量，最好都以单或双引号括起来</p></li>
-<li><p>test命令非常的强大，支持各种类型的测试（是不是文件，是什么类型的文件，权限如何，文件新旧比较，字符串比较，数字比较等等）</p></li>
-<li><p>测试里还支持逻辑运算：使用-a, -o, !(&amp;&amp;, ||, !)运算符</p></li>
+<li>中括号[]内的每一个组件都必须要有空格键来分隔</li>
+<li>中括号内的变量，最好都以双引号括起来</li>
+<li>中括号内的常量，最好都以单或双引号括起来</li>
+<li>test命令非常的强大，支持各种类型的测试（是不是文件，是什么类型的文件，权限如何，文件新旧比较，字符串比较，数字比较等等）</li>
+<li>测试里还支持逻辑运算：使用-a, -o, !(&amp;&amp;, ||, !)运算符</li>
 </ul>
 </li>
-<li><div class="line-block">
+<li><div class="first line-block">
 <div class="line">expr命令：用于数值和字符串运算</div>
 <div class="line">Usage: <code class="docutils literal notranslate"><span class="pre">expr</span> <span class="pre">expression</span></code></div>
 <div class="line">命令运算完毕后,除了会返回表达式运算的结果外,还会生成一个 expr 执行状态码表示 expr 的执行状态（0 : 结果不是 0 或 null； 1 : 结果是 0 或 null； 2 : 表达式无效）</div>
 </div>
 <ul class="simple">
-<li><p>expr 的 expression 中,运算符前后都要留一个空格,并且一般最好加上单引号。</p></li>
-<li><p>expr 的 expression 中运算数只能是整数不能是小数。</p></li>
-<li><p>expr 还支持常见的字符串运算</p></li>
-<li><p>字符串模式匹配:expr match STR REGEXP : STR 是字符串,REGEXP 是正则表达式。返回 STR 中匹配 REGEXP 的字符个数。</p></li>
-<li><p>expr STR:REGEXP : 相当于 expr match STR REGEXP。</p></li>
+<li>expr 的 expression 中,运算符前后都要留一个空格,并且一般最好加上单引号。</li>
+<li>expr 的 expression 中运算数只能是整数不能是小数。</li>
+<li>expr 还支持常见的字符串运算</li>
+<li>字符串模式匹配:expr match STR REGEXP : STR 是字符串,REGEXP 是正则表达式。返回 STR 中匹配 REGEXP 的字符个数。</li>
+<li>expr STR:REGEXP : 相当于 expr match STR REGEXP。</li>
 </ul>
 </li>
-<li><p>条件判断式：:</p>
+<li><p class="first">条件判断式：:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="o">[</span> 条件判断式一 <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
     <span class="k">do</span> A
 <span class="k">elif</span> <span class="o">[</span> 条件判断式二 <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
@@ -384,7 +390,7 @@
 </pre></div>
 </div>
 </li>
-<li><p>case语句：模式部分可以包括元字符: *、?、[ ] 表示一类字符或范围中任意字符。:</p>
+<li><p class="first">case语句：模式部分可以包括元字符: *、?、[ ] 表示一类字符或范围中任意字符。:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="k">case</span> <span class="nv">$1</span> in
   <span class="s2">&quot;hello&quot;</span><span class="o">)</span>
       <span class="nb">echo</span> <span class="s2">&quot;Hello,  how are you?&quot;</span>
@@ -399,7 +405,7 @@
 </pre></div>
 </div>
 </li>
-<li><p>function功能： shell中的函数也有声明的问题，所以也应该放在调用代码的前面:</p>
+<li><p class="first">function功能： shell中的函数也有声明的问题，所以也应该放在调用代码的前面:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span><span class="k">function</span><span class="o">]</span> doit<span class="o">(){</span>
     <span class="nb">echo</span> <span class="s2">&quot;The argument is </span><span class="nv">$1</span><span class="s2">&quot;</span>      <span class="c1">#这样使用参数一定要知道！</span>
 <span class="o">}</span>
@@ -412,11 +418,11 @@ doit arg1
 <div class="line">从调用函数中返回,可以有两种处理方式:</div>
 </div>
 <ul class="simple">
-<li><p>让函数正常执行到函数末尾,然后返回脚本中调用函数的控制部分(默认方式)。</p></li>
-<li><p>使用 return 返回脚本中函数调用的下一条语句,可以带返回值。0 为成功,非 0 为有错误。</p></li>
+<li>让函数正常执行到函数末尾,然后返回脚本中调用函数的控制部分(默认方式)。</li>
+<li>使用 return 返回脚本中函数调用的下一条语句,可以带返回值。0 为成功,非 0 为有错误。</li>
 </ul>
 </li>
-<li><p>循环while, until:</p>
+<li><p class="first">循环while, until:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="k">while</span> <span class="o">[</span> condition <span class="o">]</span>
 <span class="k">do</span>
     Loop Statements
@@ -428,7 +434,7 @@ doit arg1
 </pre></div>
 </div>
 </li>
-<li><p>循环for…do…done:</p>
+<li><p class="first">循环for…do…done:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> var in con1 con2 con3 …
 <span class="k">do</span>
     Loop Statements
@@ -440,31 +446,34 @@ doit arg1
 </pre></div>
 </div>
 </li>
-<li><p>循环控制语句：</p>
+<li><p class="first">循环控制语句：</p>
 <ul class="simple">
-<li><p>break 语句允许退出循环或 case 语句。
-Usage: <code class="docutils literal notranslate"><span class="pre">break</span> <span class="pre">[n]</span> <span class="pre">//</span> <span class="pre">跳出[n</span> <span class="pre">层]循环</span></code></p></li>
-<li><p>continue 语句用于跳出当前本轮循环步,重新开始新一轮的循环步。</p></li>
+<li>break 语句允许退出循环或 case 语句。
+Usage: <code class="docutils literal notranslate"><span class="pre">break</span> <span class="pre">[n]</span> <span class="pre">//</span> <span class="pre">跳出[n</span> <span class="pre">层]循环</span></code></li>
+<li>continue 语句用于跳出当前本轮循环步,重新开始新一轮的循环步。</li>
 </ul>
 </li>
-<li><p>有了顺序结构、选择结构、循环结构和函数功能的shell script就已经具备了C语言类似的结构化程序设计语言的能力了，理论上已经可以做任何想要的事了。</p></li>
-<li><p>shell script读取脚本参数处理时有2个相关的主要命令：</p>
+<li><p class="first">有了顺序结构、选择结构、循环结构和函数功能的shell script就已经具备了C语言类似的结构化程序设计语言的能力了，理论上已经可以做任何想要的事了。</p>
+</li>
+<li><p class="first">shell script读取脚本参数处理时有2个相关的主要命令：</p>
 <ul>
-<li><p>shift：它每次将参数位置向左偏移（缺省1位） Usage: <code class="docutils literal notranslate"><span class="pre">shift</span> <span class="pre">N</span> <span class="pre">//</span> <span class="pre">N</span> <span class="pre">为一个数字</span></code></p></li>
-<li><div class="line-block">
+<li><p class="first">shift：它每次将参数位置向左偏移（缺省1位） Usage: <code class="docutils literal notranslate"><span class="pre">shift</span> <span class="pre">N</span> <span class="pre">//</span> <span class="pre">N</span> <span class="pre">为一个数字</span></code></p>
+</li>
+<li><div class="first line-block">
 <div class="line">getopts：getopts 用于形成命令行处理标准形式。</div>
 <div class="line">Usage: <code class="docutils literal notranslate"><span class="pre">getopts</span> <span class="pre">option_string</span> <span class="pre">variable_name</span></code></div>
 <div class="line">getopts 读取字符串 option_string,获知脚本可以使用的有效选项(在命令行中选项应该以”-“开头)。</div>
 <div class="line">option_string 由字母和冒号组成,每一个字母就是一个有效选项。</div>
 </div>
 <ul class="simple">
-<li><p>如果 option_string 中一个字母后跟一个”:”,表示该字母选项后应该有一个参数。</p></li>
-<li><p>如果 option_string 以”:”开头,表示当命令行中出现了无效选项时,getopts 不打印错误信息。</p></li>
-<li><p>eg: getopts :ac:h optchar // 表示脚本文件在命令行下只可以接受选项-a -h -c(必须带参数)，并且在传入无效参数时仅仅忽略而不会报警！</p></li>
+<li>如果 option_string 中一个字母后跟一个”:”,表示该字母选项后应该有一个参数。</li>
+<li>如果 option_string 以”:”开头,表示当命令行中出现了无效选项时,getopts 不打印错误信息。</li>
+<li>eg: getopts :ac:h optchar // 表示脚本文件在命令行下只可以接受选项-a -h -c(必须带参数)，并且在传入无效参数时仅仅忽略而不会报警！</li>
 </ul>
 </li>
-<li><p>正是由于Linux中有了自带的优秀处理参数的命令getopts，所以Linux中命令的相关格式就比较统一。</p></li>
-<li><p>getopts 语句一般和 while 循环、case 结构联合使用。:</p>
+<li><p class="first">正是由于Linux中有了自带的优秀处理参数的命令getopts，所以Linux中命令的相关格式就比较统一。</p>
+</li>
+<li><p class="first">getopts 语句一般和 while 循环、case 结构联合使用。:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="k">while</span> <span class="nb">getopts</span> :ac:h OPT
 <span class="k">do</span>
   <span class="k">case</span> <span class="nv">$OPT</span> in
@@ -476,151 +485,160 @@ Usage: <code class="docutils literal notranslate"><span class="pre">break</span>
 </pre></div>
 </div>
 </li>
-<li><p>每次 getopts 执行时,如果在命令行的第 x(x=1…n)个参数中匹配到字母选项,则环境变量 $OPTIND 的值为x+1。在命令行脚本启动时,$OPTIND 会被初始化为 1。</p></li>
+<li><p class="first">每次 getopts 执行时,如果在命令行的第 x(x=1…n)个参数中匹配到字母选项,则环境变量 $OPTIND 的值为x+1。在命令行脚本启动时,$OPTIND 会被初始化为 1。</p>
+</li>
 </ul>
 </li>
-<li><div class="line-block">
+<li><div class="first line-block">
 <div class="line">shell script的调试：sh [-nvx] myshellscript.sh （调试时多用-x参数）</div>
 <div class="line">也可以在脚本开始时将 set 选项打开,然后在结束时关闭它。（set -n -v -x）</div>
 </div>
 <blockquote>
 <div><ul class="simple">
-<li><p>-n：不要执行script，仅查询语法的问题；</p></li>
-<li><p>-v：在执行script前，先将script的内容输出到屏幕上；</p></li>
-<li><p>-x：将使用到的script内容显示到屏幕上，这是非常有用的参数（-x会使得进行变量替换后的，真正被kernel执行的命令及其参数显示出来，所以这是相当的有用啊！相当于C/C++里的宏展开嘛，GCC也有这个编译器选项）！</p></li>
+<li>-n：不要执行script，仅查询语法的问题；</li>
+<li>-v：在执行script前，先将script的内容输出到屏幕上；</li>
+<li>-x：将使用到的script内容显示到屏幕上，这是非常有用的参数（-x会使得进行变量替换后的，真正被kernel执行的命令及其参数显示出来，所以这是相当的有用啊！相当于C/C++里的宏展开嘛，GCC也有这个编译器选项）！</li>
 </ul>
 </div></blockquote>
 </li>
-<li><p>在script内，$0, $1, $2, … , $&#64;都是有特殊意义的，比如前面的function里的取参数。</p></li>
-<li><div class="line-block">
+<li><p class="first">在script内，$0, $1, $2, … , $&#64;都是有特殊意义的，比如前面的function里的取参数。</p>
+</li>
+<li><div class="first line-block">
 <div class="line">sort 用于文本文件数据内容排序</div>
 <div class="line">usage: <code class="docutils literal notranslate"><span class="pre">sort</span> <span class="pre">[sort</span> <span class="pre">选项]</span> <span class="pre">[input_file</span> <span class="pre">....]</span></code></div>
 </div>
 <ul class="simple">
-<li><p>排序模式: 对输入文件进行排序,是默认的模式。</p></li>
-<li><p>合并模式: 对两个已排序的文件进行合并。需要指定”-m”选项。
-sort -m [-o 输出文件] [选项] file1 file2</p></li>
-<li><p>检查模式: 测试给定的输入文件是否已排序。需要指定”-c”选项。</p></li>
-<li><p>sort 的常用数据排序选项</p>
-<ul>
-<li><p>-o : 指定输出文件。Eg: sort -o out.txt in.txt</p></li>
-<li><p>-n : 当指定位置上是数字字符时,按数值大小来排序,而不是逐字符比较。</p></li>
-<li><p>-b : 忽略前置空白。</p></li>
-<li><p>-r : 颠倒输出排序的结果(即逆序输出)。</p></li>
-<li><p>-d : 在排序时忽略所有除英文字母、数字及空白之外的字符。</p></li>
-<li><p>-f : 在排序时将字母大小写视为相同。</p></li>
-<li><p>-i : 在排序时忽略超过 ASCII 可打印范围(8 进制 040-0174)的字符。</p></li>
-<li><p>-M : 对表示月份的三个大写字母进行比较,”无效名称” &lt; “JAN” &lt; “FEB” &lt;…&lt; “DEC”。</p></li>
+<li>排序模式: 对输入文件进行排序,是默认的模式。</li>
+<li>合并模式: 对两个已排序的文件进行合并。需要指定”-m”选项。
+sort -m [-o 输出文件] [选项] file1 file2</li>
+<li>检查模式: 测试给定的输入文件是否已排序。需要指定”-c”选项。</li>
+<li>sort 的常用数据排序选项<ul>
+<li>-o : 指定输出文件。Eg: sort -o out.txt in.txt</li>
+<li>-n : 当指定位置上是数字字符时,按数值大小来排序,而不是逐字符比较。</li>
+<li>-b : 忽略前置空白。</li>
+<li>-r : 颠倒输出排序的结果(即逆序输出)。</li>
+<li>-d : 在排序时忽略所有除英文字母、数字及空白之外的字符。</li>
+<li>-f : 在排序时将字母大小写视为相同。</li>
+<li>-i : 在排序时忽略超过 ASCII 可打印范围(8 进制 040-0174)的字符。</li>
+<li>-M : 对表示月份的三个大写字母进行比较,”无效名称” &lt; “JAN” &lt; “FEB” &lt;…&lt; “DEC”。</li>
 </ul>
 </li>
 </ul>
 </li>
-<li><p>uniq: uniq 认为持续不断重复出现的行(中间不包括其它文本)才是重复行，因此，它和C++中的uniq很像，一般和sort搭配使用。</p>
+<li><p class="first">uniq: uniq 认为持续不断重复出现的行(中间不包括其它文本)才是重复行，因此，它和C++中的uniq很像，一般和sort搭配使用。</p>
 <ul>
-<li><p>-u 只显示没有重复的行。不使用此选项时,uniq 会把连续重复行的内容显示一次</p></li>
-<li><p>-d 只显示有重复数据行,每种重复行只显示其中一行。</p></li>
-<li><p>-c 打印每一重复行出现次数。</p></li>
-<li><p>-i 忽略字母的大小写</p></li>
-<li><p>-fx x 为数字(x=1.2..),先跳过 x 个域再开始比较,与”-x”等效。有的系统使用”-nx”选项。</p></li>
-<li><div class="line-block">
+<li><p class="first">-u 只显示没有重复的行。不使用此选项时,uniq 会把连续重复行的内容显示一次</p>
+</li>
+<li><p class="first">-d 只显示有重复数据行,每种重复行只显示其中一行。</p>
+</li>
+<li><p class="first">-c 打印每一重复行出现次数。</p>
+</li>
+<li><p class="first">-i 忽略字母的大小写</p>
+</li>
+<li><p class="first">-fx x 为数字(x=1.2..),先跳过 x 个域再开始比较,与”-x”等效。有的系统使用”-nx”选项。</p>
+</li>
+<li><div class="first line-block">
 <div class="line">-sx 跳过 x 个字符后再开始比较(x=1.2..),与”+x”等效。与”-fx”连用时,一般放在”-fx”之后。</div>
 <div class="line">uniq -f2 -s4 parts.txt // 从文件 parts.txt 行中的第 3 个字段第 5 字符开始执行</div>
 </div>
 </li>
 </ul>
 </li>
-<li><p>join: 寻找2个文件里相同的行，并输出这个相同的行（默认只取每一行的第一个字段）</p>
+<li><p class="first">join: 寻找2个文件里相同的行，并输出这个相同的行（默认只取每一行的第一个字段）</p>
 <ul class="simple">
-<li><p>-ax : 将文件编号为 x(x=1,2)的文件中未被匹配连接的行额外打印出来。</p></li>
-<li><p>-o x.y[,x.y,…] : 在输出中只打印文件 x 的第 y(y=1,2…)个字段。</p></li>
-<li><p>-j m : 指定两个文件都用第 m(m=1,2…)个字段作为 join 字段。</p></li>
-<li><p>-j1 m 或 -1 m : 指定文件 1 使用第 m(m=1,2…)个字段作为 join 字段。</p></li>
-<li><p>-j2 m 或 -2 m : 指定文件 2 使用第 m(m=1,2…)个字段作为 join 字段。</p></li>
-<li><p>-t char: 指定 char 为输入输出字段的分隔符,省略时使用 shell 环境变量 IFS。</p></li>
-<li><p>-i: 忽略字母的大小写。</p></li>
-<li><p>-vx : 只打印文件 x(x=1,2)中未被匹配连接的行,而不打印连接的结果。</p></li>
+<li>-ax : 将文件编号为 x(x=1,2)的文件中未被匹配连接的行额外打印出来。</li>
+<li>-o x.y[,x.y,…] : 在输出中只打印文件 x 的第 y(y=1,2…)个字段。</li>
+<li>-j m : 指定两个文件都用第 m(m=1,2…)个字段作为 join 字段。</li>
+<li>-j1 m 或 -1 m : 指定文件 1 使用第 m(m=1,2…)个字段作为 join 字段。</li>
+<li>-j2 m 或 -2 m : 指定文件 2 使用第 m(m=1,2…)个字段作为 join 字段。</li>
+<li>-t char: 指定 char 为输入输出字段的分隔符,省略时使用 shell 环境变量 IFS。</li>
+<li>-i: 忽略字母的大小写。</li>
+<li>-vx : 只打印文件 x(x=1,2)中未被匹配连接的行,而不打印连接的结果。</li>
 </ul>
 </li>
-<li><div class="line-block">
+<li><div class="first line-block">
 <div class="line">cut 命令主要用于选择性的打印输入文件行的部分内容。</div>
 <div class="line">usage: <code class="docutils literal notranslate"><span class="pre">cut</span> <span class="pre">[options]</span> <span class="pre">input_file(s)</span></code></div>
 </div>
 <ul class="simple">
-<li><p>输入文件可以是一个文件列表。如果没有指定输入文件,或设置为”-“,将会使用标准输入为输入。</p></li>
-<li><p>-d char : 指定 char 为输入行字段分隔符(预设使用 shell 环境变量 IFS)。输出使用相同的域分隔符。</p></li>
-<li><p>-f 字段列表 : 只打印在字段列表中的字段。用数字表示要打印的字段,列表可以使用”-“和”,”。数字都是从 1开始编号。”-m”表示 1-m,”n-“表示从 n 到最末。</p></li>
-<li><p>-c 字符列表 : 用数字列表指定要剪切的字符位置</p></li>
+<li>输入文件可以是一个文件列表。如果没有指定输入文件,或设置为”-“,将会使用标准输入为输入。</li>
+<li>-d char : 指定 char 为输入行字段分隔符(预设使用 shell 环境变量 IFS)。输出使用相同的域分隔符。</li>
+<li>-f 字段列表 : 只打印在字段列表中的字段。用数字表示要打印的字段,列表可以使用”-“和”,”。数字都是从 1开始编号。”-m”表示 1-m,”n-“表示从 n 到最末。</li>
+<li>-c 字符列表 : 用数字列表指定要剪切的字符位置</li>
 </ul>
 <p>eg: <code class="docutils literal notranslate"><span class="pre">echo</span> <span class="pre">&quot;a</span> <span class="pre">b</span> <span class="pre">c</span> <span class="pre">d</span> <span class="pre">e</span> <span class="pre">g</span> <span class="pre">e</span> <span class="pre">f</span> <span class="pre">asd</span> <span class="pre">fas</span> <span class="pre">d&quot;</span> <span class="pre">|</span> <span class="pre">cut</span> <span class="pre">-d</span> <span class="pre">'</span> <span class="pre">'</span> <span class="pre">-f</span> <span class="pre">3,5</span></code> 结果为：c e</p>
 </li>
-<li><div class="line-block">
+<li><div class="first line-block">
 <div class="line">paste 将两个输入文件的每一行连接成一个新行并输出。file1 的行内容位于 file2 之前。</div>
 <div class="line">Usage: <code class="docutils literal notranslate"><span class="pre">paste</span> <span class="pre">[options]</span> <span class="pre">[file1</span> <span class="pre">file2]</span></code></div>
 <div class="line">粘贴两个不同来源的数据时,首先需应该将其分类(即要求已经排序),并确保两个文件行数相同。</div>
 </div>
 <ul class="simple">
-<li><p>-d char : 指定 char 作为字段分隔符。例如用&#64;分隔域,使用-d&#64;。</p></li>
-<li><p>-s: 将每个文件的内容作为一行输出,有 n 个输入文件就输出 n 行。</p></li>
+<li>-d char : 指定 char 作为字段分隔符。例如用&#64;分隔域,使用-d&#64;。</li>
+<li>-s: 将每个文件的内容作为一行输出,有 n 个输入文件就输出 n 行。</li>
 </ul>
 </li>
-<li><div class="line-block">
+<li><div class="first line-block">
 <div class="line">split 用来将大文件分割成小文件,split 预设为 100 行生成一个新的文件。</div>
 <div class="line">Usage: <code class="docutils literal notranslate"><span class="pre">split</span> <span class="pre">[选项]</span> <span class="pre">input-filename</span> <span class="pre">[输出文件前缀]</span></code></div>
 </div>
 <ul class="simple">
-<li><p>-x、-lx、–lines=x : 每 x 行生成一个新的输出文件</p></li>
-<li><p>-b n、–bytes=n: 每 n 字节生成一个新的输出文件,可用后缀 b k m 表示以 block KB MB 为单位。</p></li>
-<li><p>–verbose : 每生成一个新的输出文件时,就打印一行信息到标准错误。</p></li>
+<li>-x、-lx、–lines=x : 每 x 行生成一个新的输出文件</li>
+<li>-b n、–bytes=n: 每 n 字节生成一个新的输出文件,可用后缀 b k m 表示以 block KB MB 为单位。</li>
+<li>–verbose : 每生成一个新的输出文件时,就打印一行信息到标准错误。</li>
 </ul>
 </li>
-<li><div class="line-block">
+<li><div class="first line-block">
 <div class="line">tr 主要用来从标准输入中通过三种操作: 字符替换、压缩重复字符和删除字符,然后打印输出到标准输出。</div>
 <div class="line">Usage: <code class="docutils literal notranslate"><span class="pre">tr</span> <span class="pre">[OPTION]</span> <span class="pre">String1</span> <span class="pre">[String2]</span>&#160; <span class="pre">（string支持[a-z][a*n]）</span></code></div>
 <div class="line">tr 有 3 个常用选项(c d s)，tr可以视为sed的一个极其简化版本，可以更简洁的实现sed的部分功能。</div>
 </div>
 <ul class="simple">
-<li><p>-c：用字符串1中字符集的补集替换此字符集，要求字符集为ASCII。</p></li>
-<li><p>-d：删除字符串1中所有输入字符。</p></li>
-<li><p>-s：删除所有重复出现字符序列，只保留第一个；即将重复出现字符串压缩为一个字符串。</p></li>
+<li>-c：用字符串1中字符集的补集替换此字符集，要求字符集为ASCII。</li>
+<li>-d：删除字符串1中所有输入字符。</li>
+<li>-s：删除所有重复出现字符序列，只保留第一个；即将重复出现字符串压缩为一个字符串。</li>
 </ul>
 </li>
-<li><p>Shell中的各种引号：</p>
+<li><p class="first">Shell中的各种引号：</p>
 <ul class="simple">
-<li><p>双引号(” “)：使用双引号可引用除字符 $(美元符号)、`(反引号)、\(反斜线) 外的任意字符或字符串。
-双引号不会阻止shell 对这 3 个字符作特殊处理(标示变量名、命令替换、反斜线转义 )。</p></li>
-<li><p>单引号(‘ ‘)：如果用单引号把字符串括起来,则单引号内字符串中的任何特殊字符的特殊含义均被屏蔽。</p></li>
-<li><p>反引号(` `)：shell 将反引号中的内容作为一个系统命令,并执行其内容。使用这种方法可以替换输出为一个变量。</p></li>
-<li><p>反斜线(\)：转义字符，与大多数编程语言中的转义字符相同。</p></li>
+<li>双引号(” “)：使用双引号可引用除字符 $(美元符号)、`(反引号)、\(反斜线) 外的任意字符或字符串。
+双引号不会阻止shell 对这 3 个字符作特殊处理(标示变量名、命令替换、反斜线转义 )。</li>
+<li>单引号(‘ ‘)：如果用单引号把字符串括起来,则单引号内字符串中的任何特殊字符的特殊含义均被屏蔽。</li>
+<li>反引号(` `)：shell 将反引号中的内容作为一个系统命令,并执行其内容。使用这种方法可以替换输出为一个变量。</li>
+<li>反斜线(\)：转义字符，与大多数编程语言中的转义字符相同。</li>
 </ul>
 </li>
-<li><div class="line-block">
+<li><div class="first line-block">
 <div class="line">tput 命令可以增强应用外观及脚本的控制 （显示丰富多彩的输出时使用）</div>
 <div class="line">Usage: <code class="docutils literal notranslate"><span class="pre">tput</span> <span class="pre">[-V]</span> <span class="pre">[-S]</span> <span class="pre">[-Ttermtype]</span> <span class="pre">capname</span></code></div>
 <div class="line">tput 产生三种不同的输出:字符型、数字型和布尔型(真/假)。即: capname 参数</div>
 </div>
 <ul>
-<li><div class="line-block">
+<li><div class="first line-block">
 <div class="line">大部分常用字符串:</div>
 <div class="line">bel警铃；blink 闪烁模式；bold粗体；civis 隐藏光标；clear 清屏；cnorm 不隐藏光标；cup x y 移动光标到屏幕位置(x,y)；el 清除到行尾；ell 清除到行首；smso 启动突出模式；rmso 停止突出模式；smul 开始下划线模式；rmul 结束下划线模式；sc 保存当前光标位置；rc 恢复光标到最后保存位置；sgr0 正常屏幕；rev逆转视图</div>
 </div>
 </li>
-<li><p>大部分常用数字输出:cols 列数目；ittab 设置宽度；lines 屏幕行数</p></li>
-<li><p>两种布尔操作符:chts 光标不可见；hs具有状态行</p></li>
-<li><div class="line-block">
+<li><p class="first">大部分常用数字输出:cols 列数目；ittab 设置宽度；lines 屏幕行数</p>
+</li>
+<li><p class="first">两种布尔操作符:chts 光标不可见；hs具有状态行</p>
+</li>
+<li><div class="first line-block">
 <div class="line">所有控制字符均以一个转义序列033 开始,然后后紧跟字符[,最后是表示控制字符的实际序列,用于打开或关闭某终端属性</div>
 <div class="line">eg: echo -e “033[40;32m”   // 产生一个黑色背景加绿色前景色</div>
 </div>
 </li>
 </ul>
 </li>
-<li><p>eval 命令将会首先扫描命令行进行所有的变量置换,然后再执行该命令。该命令适用于那些一次扫描无法实现其功能的变量。该命令对变量进行两次扫描。</p></li>
-<li><div class="line-block">
+<li><p class="first">eval 命令将会首先扫描命令行进行所有的变量置换,然后再执行该命令。该命令适用于那些一次扫描无法实现其功能的变量。该命令对变量进行两次扫描。</p>
+</li>
+<li><div class="first line-block">
 <div class="line">logger 向系统全局的日志文件 messages(/var/log 或/var/adm 目录下)中记录信息。</div>
 <div class="line">Usage: <code class="docutils literal notranslate"><span class="pre">logger</span> <span class="pre">[</span> <span class="pre">-p</span> <span class="pre">pri</span> <span class="pre">]</span> <span class="pre">[</span> <span class="pre">-i</span> <span class="pre">]</span> <span class="pre">message</span></code></div>
 <div class="line">合理的用途就是用于脚本非正常退出时。如果希望向日志文件中发送消息,只要在捕获信号的退出函数中包含 logger 命令即可。</div>
 </div>
 </li>
-<li><div class="line-block">
+<li><div class="first line-block">
 <div class="line"><strong>xargs</strong> 从管道提取信息作为参数给命令。</div>
 <div class="line">Usage:  <code class="docutils literal notranslate"><span class="pre">xargs</span> <span class="pre">[opt]</span> <span class="pre">[</span> <span class="pre">command</span> <span class="pre">[initial-arguments]</span> <span class="pre">]</span></code></div>
 <div class="line">他从stdin读取由空格分割的字符串(假设为arg0 arg1 … argN)，并执行command [initial-arguments] arg0 arg1 … argN，如果参数太多的话，xargs保证参数大小在不超过系统限制的ARG_MAX bytes大小的前提下，一次或多次执行command命令。</div>
@@ -628,57 +646,59 @@ sort -m [-o 输出文件] [选项] file1 file2</p></li>
 <div class="line">因为find命令里使用CMD时在不同的系统中可能会参数太长溢出或新开线程太多而产生错误，使用xargs搭配find命令更加的好用和高效。</div>
 </div>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">-I</span> <span class="pre">{}</span></code> 选项告诉 xargs 用每项的名称替换{}，同时限定每次只传递一个参数。</p>
-<ul>
-<li><p>以前版本只要用 <code class="docutils literal notranslate"><span class="pre">-i</span></code> 参数，已被废弃（<code class="docutils literal notranslate"><span class="pre">-i</span><span class="pre">for</span><span class="pre">xargs</span><span class="pre">was</span> <span class="pre">deprecated</span> <span class="pre">around</span> <span class="pre">version</span> <span class="pre">4.2.9.</span> <span class="pre">You</span> <span class="pre">should</span> <span class="pre">use</span><span class="pre">-I</span> <span class="pre">{}</span></code>）</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">|</span> <span class="pre">xargs</span> <span class="pre">-I</span> <span class="pre">{}</span> <span class="pre">mv</span> <span class="pre">{}</span> <span class="pre">{}.bak</span></code> 进行同名备份。</p></li>
+<li><code class="docutils literal notranslate"><span class="pre">-I</span> <span class="pre">{}</span></code> 选项告诉 xargs 用每项的名称替换{}，同时限定每次只传递一个参数。<ul>
+<li>以前版本只要用 <code class="docutils literal notranslate"><span class="pre">-i</span></code> 参数，已被废弃（<code class="docutils literal notranslate"><span class="pre">-i&nbsp;for&nbsp;xargs&nbsp;was</span> <span class="pre">deprecated</span> <span class="pre">around</span> <span class="pre">version</span> <span class="pre">4.2.9.</span> <span class="pre">You</span> <span class="pre">should</span> <span class="pre">use&nbsp;-I</span> <span class="pre">{}</span></code>）</li>
+<li><code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">|</span> <span class="pre">xargs</span> <span class="pre">-I</span> <span class="pre">{}</span> <span class="pre">mv</span> <span class="pre">{}</span> <span class="pre">{}.bak</span></code> 进行同名备份。</li>
 </ul>
 </li>
-<li><p>-t 选项指示 xargs 先打印命令，然后再执行。</p></li>
-<li><p>-n 选项限制单个命令行的参数个数， <code class="docutils literal notranslate"><span class="pre">file</span> <span class="pre">*</span> <span class="pre">|</span> <span class="pre">cut</span> <span class="pre">-d&quot;:&quot;</span> <span class="pre">-f1</span> <span class="pre">|</span> <span class="pre">xargs</span> <span class="pre">-t</span> <span class="pre">-n</span> <span class="pre">2</span> <span class="pre">ls</span> <span class="pre">-ltr</span></code> 限定每次只传递2个参数。</p></li>
+<li>-t 选项指示 xargs 先打印命令，然后再执行。</li>
+<li>-n 选项限制单个命令行的参数个数， <code class="docutils literal notranslate"><span class="pre">file</span> <span class="pre">*</span> <span class="pre">|</span> <span class="pre">cut</span> <span class="pre">-d&quot;:&quot;</span> <span class="pre">-f1</span> <span class="pre">|</span> <span class="pre">xargs</span> <span class="pre">-t</span> <span class="pre">-n</span> <span class="pre">2</span> <span class="pre">ls</span> <span class="pre">-ltr</span></code> 限定每次只传递2个参数。</li>
 </ul>
 </li>
-<li><p>echo [-e][-n] STRING</p>
+<li><p class="first">echo [-e][-n] STRING</p>
 <ul class="simple">
-<li><p>-e Linux中的echo默认不解释STRING中的转义字符，除非加上此选项（解释转义字符的最常用用途就是打印彩色字吧）</p></li>
-<li><p>-n 默认在输出STRING后会再输出一个换行，加了些选项将不输出换行</p></li>
+<li>-e Linux中的echo默认不解释STRING中的转义字符，除非加上此选项（解释转义字符的最常用用途就是打印彩色字吧）</li>
+<li>-n 默认在输出STRING后会再输出一个换行，加了些选项将不输出换行</li>
 </ul>
 </li>
-<li><div class="line-block">
+<li><div class="first line-block">
 <div class="line">read varible1 varible2 varible3…</div>
 <div class="line">注意当输入的单词数大于变量数时，read会把所有的超长部分都赋予最后一个变量。</div>
 </div>
 </li>
-<li><p>查看文件内容常用的 <code class="docutils literal notranslate"><span class="pre">cat</span> <span class="pre">more</span> <span class="pre">less</span></code></p>
-<dl class="field-list simple">
-<dt class="field-odd">cat</dt>
-<dd class="field-odd"><p>简单的显示一个文件的内容</p>
-</dd>
-<dt class="field-even">more</dt>
-<dd class="field-even"><p>分页查看文件内容</p>
-</dd>
-<dt class="field-odd">less</dt>
-<dd class="field-odd"><p>分页可控制查看文件内容</p>
-</dd>
-</dl>
+<li><p class="first">查看文件内容常用的 <code class="docutils literal notranslate"><span class="pre">cat</span> <span class="pre">more</span> <span class="pre">less</span></code></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">cat:</th><td class="field-body">简单的显示一个文件的内容</td>
+</tr>
+<tr class="field-even field"><th class="field-name">more:</th><td class="field-body">分页查看文件内容</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">less:</th><td class="field-body">分页可控制查看文件内容</td>
+</tr>
+</tbody>
+</table>
 <p>通俗点说:</p>
 <blockquote>
 <div><ul class="simple">
-<li><p>cat一次性把文件内容全部显示出来，管你看不看得清，显示完了cat命令就返回了，不能进行交互式操作，适合察看内容短小、不超过一屏的文件；</p></li>
-<li><p>more比cat强大一点，支持分页显示，你可以ctrl+B ctrl+F …..上下滚屏，但是不支持像shift+G（跳到文件尾）这种操作；</p></li>
-<li><p>less比more更强大一点，支持各种命令，随便翻页、跳转、查找…..想怎么看，就怎么看，爱怎么看，就怎么看。</p></li>
+<li>cat一次性把文件内容全部显示出来，管你看不看得清，显示完了cat命令就返回了，不能进行交互式操作，适合察看内容短小、不超过一屏的文件；</li>
+<li>more比cat强大一点，支持分页显示，你可以ctrl+B ctrl+F …..上下滚屏，但是不支持像shift+G（跳到文件尾）这种操作；</li>
+<li>less比more更强大一点，支持各种命令，随便翻页、跳转、查找…..想怎么看，就怎么看，爱怎么看，就怎么看。</li>
 </ul>
 </div></blockquote>
 </li>
-<li><div class="line-block">
+<li><div class="first line-block">
 <div class="line">tee命令把一个副本送到标准输出，同时还拷贝到相应的文件中去</div>
 <div class="line">Usage: <code class="docutils literal notranslate"><span class="pre">tee</span> <span class="pre">-a</span> <span class="pre">filename</span></code> (-a表示追加到文件尾，tee应与管道一起使用)</div>
 <div class="line">Eg: <code class="docutils literal notranslate"><span class="pre">who</span> <span class="pre">|</span> <span class="pre">tee</span> <span class="pre">-a</span> <span class="pre">a.log</span></code></div>
 </div>
 </li>
-<li><p>标准输入（文件描述符0），标准输出（文件描述符1），标准错误（文件描述符2）。如果打开了其它的文件进行输入输出，则其被设置为文件描述符3－9</p></li>
-<li><dl class="simple">
-<dt><strong>反转文件</strong> <code class="docutils literal notranslate"><span class="pre">tac</span></code>, <code class="docutils literal notranslate"><span class="pre">rev</span></code></dt><dd><p><code class="docutils literal notranslate"><span class="pre">tac</span></code> 反转文件的行序，使之从尾到头排列； <code class="docutils literal notranslate"><span class="pre">rev</span></code> 反转文件每行的内容，使之从行尾到行首倒转。</p>
+<li><p class="first">标准输入（文件描述符0），标准输出（文件描述符1），标准错误（文件描述符2）。如果打开了其它的文件进行输入输出，则其被设置为文件描述符3－9</p>
+</li>
+<li><dl class="first docutils">
+<dt><strong>反转文件</strong> <code class="docutils literal notranslate"><span class="pre">tac</span></code>, <code class="docutils literal notranslate"><span class="pre">rev</span></code></dt>
+<dd><p class="first last"><code class="docutils literal notranslate"><span class="pre">tac</span></code> 反转文件的行序，使之从尾到头排列； <code class="docutils literal notranslate"><span class="pre">rev</span></code> 反转文件每行的内容，使之从行尾到行首倒转。</p>
 </dd>
 </dl>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cat</span> <span class="n">tt</span>
@@ -701,129 +721,141 @@ sort -m [-o 输出文件] [选项] file1 file2</p></li>
 <div class="section" id="find-grep-sed-awk">
 <h2>强力命令: find,grep,sed,awk<a class="headerlink" href="#find-grep-sed-awk" title="永久链接至标题">¶</a></h2>
 <ul>
-<li><div class="line-block">
+<li><div class="first line-block">
 <div class="line"><strong>find 命令</strong> ：find命令是最强大的查找命令，几乎可以做到一切想做的事情。它太强大了，以至于它的参数有点复杂。</div>
 <div class="line">Usage: <code class="docutils literal notranslate"><span class="pre">find</span> <span class="pre">pathname</span> <span class="pre">-options</span> <span class="pre">[-print</span> <span class="pre">-exec</span> <span class="pre">-ok</span> <span class="pre">...]</span></code></div>
 <div class="line">path_name很好理解，它是指要搜索的根目录，默认情况下是当前路径。</div>
 <div class="line">expression有点复杂，因为它支持的功能太多，弹性太大，所以它必须由4部分组成：</div>
 </div>
 <ul class="simple">
-<li><p>OPTION：指定搜索方式，一般放在开头，但是一般可以省略</p></li>
-<li><p>TEST：指定检索条件，只有符合检索条件的才会被进行下一步的ACION处理。TEST支持的参数非常多，我看了下，常用的应该有以下几种：</p>
-<ul>
-<li><p>-name, -lname, -iname, -ilname：i表未忽略大小写，l表示链接文件</p></li>
-<li><p>-regex “…” ：使用正则表达式查找文件</p></li>
-<li><p>-type C：（bcdplsf）分别表示（块设备，字符设备，目录，命令，管道，符号链接，socket，正规文件）</p></li>
+<li>OPTION：指定搜索方式，一般放在开头，但是一般可以省略</li>
+<li>TEST：指定检索条件，只有符合检索条件的才会被进行下一步的ACION处理。TEST支持的参数非常多，我看了下，常用的应该有以下几种：<ul>
+<li>-name, -lname, -iname, -ilname：i表未忽略大小写，l表示链接文件</li>
+<li>-regex “…” ：使用正则表达式查找文件</li>
+<li>-type C：（bcdplsf）分别表示（块设备，字符设备，目录，命令，管道，符号链接，socket，正规文件）</li>
 </ul>
 </li>
-<li><p>ACTION：对TEST的结果执行的操作，默认为-print</p>
-<ul>
-<li><p>-print：一行一行打印文件名</p></li>
-<li><p>-ls：以ll命令的方式打印出来，包含丰富的信息</p></li>
-<li><p>-exec CMD {} \; 把TEST的结果作为CMD命令的参数，并执行该CMD</p></li>
-<li><p>-ok CMD {} \; 与-exec命令相同，但是在每次执行命令之前询问Y/N？</p></li>
+<li>ACTION：对TEST的结果执行的操作，默认为-print<ul>
+<li>-print：一行一行打印文件名</li>
+<li>-ls：以ll命令的方式打印出来，包含丰富的信息</li>
+<li>-exec CMD {} \; 把TEST的结果作为CMD命令的参数，并执行该CMD</li>
+<li>-ok CMD {} \; 与-exec命令相同，但是在每次执行命令之前询问Y/N？</li>
 </ul>
 </li>
-<li><p>OPERATOR：对TEST或ACTION执行 “与，或，非” 操作，完整支持逻辑运算：</p>
-<ul>
-<li><p>与：EXPR1 EXPR2 或 EXPR1 -a EXPR2 或 EXPR1 -and EXPR2</p></li>
-<li><p>或：EXPR1 -o EXPR2 或 EXPR1 -or EXPR2</p></li>
-<li><p>非：! EXPR 或 -not EXPR</p></li>
-<li><p>支持括号()：(EXPR)支持括号就有了一切复杂逻辑的可能。</p></li>
+<li>OPERATOR：对TEST或ACTION执行 “与，或，非” 操作，完整支持逻辑运算：<ul>
+<li>与：EXPR1 EXPR2 或 EXPR1 -a EXPR2 或 EXPR1 -and EXPR2</li>
+<li>或：EXPR1 -o EXPR2 或 EXPR1 -or EXPR2</li>
+<li>非：! EXPR 或 -not EXPR</li>
+<li>支持括号()：(EXPR)支持括号就有了一切复杂逻辑的可能。</li>
 </ul>
 </li>
 </ul>
 </li>
-<li><div class="line-block">
+<li><div class="first line-block">
 <div class="line"><strong>grep</strong> 命令：Linux中使用最广泛的字符串处理命令，grep将找到并打印匹配模式的行！</div>
 <div class="line">姐妹命令：egrep扩展grep， fgrep快速grep（查找字符串而不是模式）</div>
 <div class="line">Usage：<code class="docutils literal notranslate"><span class="pre">grep</span> <span class="pre">[OPTION]</span> <span class="pre">regular_expression</span> <span class="pre">[file_name</span> <span class="pre">...]</span></code></div>
 </div>
 <ul class="simple">
-<li><p>如果指定了file_name，grep将对这些文件的内容进行逐行匹配，否则对标准输入的内容进行匹配</p></li>
-<li><p>OPTION</p>
-<ul>
-<li><p>-c 只输出匹配的行数</p></li>
-<li><p>-i 不区分大小写</p></li>
-<li><p>-h 查询多个文件时，不显示文件名</p></li>
-<li><p>-l 查询多个文件时，只显示文件名</p></li>
-<li><p>-n 显示匹配的行及行号</p></li>
-<li><p>-s 不显示不存在或无匹配文件等错误信息</p></li>
-<li><p>-v 只显示不包含匹配模式的行（非常重要、常用！）</p></li>
-<li><p>-r 递归地读取每个资料夹下的所有档案，此相当于 -d recsuse 参数。</p></li>
-<li><p>-o 只输出匹配的部分（非常常用的）！</p></li>
+<li>如果指定了file_name，grep将对这些文件的内容进行逐行匹配，否则对标准输入的内容进行匹配</li>
+<li>OPTION<ul>
+<li>-c 只输出匹配的行数</li>
+<li>-i 不区分大小写</li>
+<li>-h 查询多个文件时，不显示文件名</li>
+<li>-l 查询多个文件时，只显示文件名</li>
+<li>-n 显示匹配的行及行号</li>
+<li>-s 不显示不存在或无匹配文件等错误信息</li>
+<li>-v 只显示不包含匹配模式的行（非常重要、常用！）</li>
+<li>-r 递归地读取每个资料夹下的所有档案，此相当于 -d recsuse 参数。</li>
+<li>-o 只输出匹配的部分（非常常用的）！</li>
 </ul>
 </li>
-<li><p>常见的匹配模式的类名形式：</p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">[[:upper:]]</span></code> 等价于 [A-Z]</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">[[:lower:]]</span></code> 等价于 [a-z]</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">[[:digit::]]</span></code> 等价于 [0-9]</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">[[:alnum:]]</span></code> 等价于 [0-9a-zA-Z]</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">[[:space:]]</span></code> 等价于 空格或Tab键</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">[[:alpha:]]</span></code> 等价于 [a-zA-Z]</p></li>
+<li>常见的匹配模式的类名形式：<ul>
+<li><code class="docutils literal notranslate"><span class="pre">[[:upper:]]</span></code> 等价于 [A-Z]</li>
+<li><code class="docutils literal notranslate"><span class="pre">[[:lower:]]</span></code> 等价于 [a-z]</li>
+<li><code class="docutils literal notranslate"><span class="pre">[[:digit::]]</span></code> 等价于 [0-9]</li>
+<li><code class="docutils literal notranslate"><span class="pre">[[:alnum:]]</span></code> 等价于 [0-9a-zA-Z]</li>
+<li><code class="docutils literal notranslate"><span class="pre">[[:space:]]</span></code> 等价于 空格或Tab键</li>
+<li><code class="docutils literal notranslate"><span class="pre">[[:alpha:]]</span></code> 等价于 [a-zA-Z]</li>
 </ul>
 </li>
 </ul>
 </li>
-<li><div class="line-block">
+<li><div class="first line-block">
 <div class="line"><strong>sed</strong> 也是一个与awk非常类似的工具，可以看作是awk的功能简化版，它也是一行一行的处理文本。</div>
 <div class="line">Usage: <code class="docutils literal notranslate"><span class="pre">sed</span> <span class="pre">[OPTION]</span> <span class="pre">'sed_command'</span> <span class="pre">[input_file]</span></code></div>
 </div>
 <ul>
-<li><p>OPTION:</p>
+<li><p class="first">OPTION:</p>
 <ul class="simple">
-<li><p>-n           sed 默认显示每一行，无论它是否将被处理，-n彻底不显示任何一行，除非明确被p出来的内容</p></li>
-<li><p>-e           连接多条sed_command，”-e” 选项不常被大范围使用，更好的方法是用分号来分隔命令</p></li>
-<li><p>-f           指定sed脚本文件名</p></li>
-<li><p>-i[SUFFIX]   修改原文件，如果提供suffix，作备份（新版本支持！）</p></li>
-<li><p>-r           使用扩展正则表达式</p></li>
+<li>-n           sed 默认显示每一行，无论它是否将被处理，-n彻底不显示任何一行，除非明确被p出来的内容</li>
+<li>-e           连接多条sed_command，”-e” 选项不常被大范围使用，更好的方法是用分号来分隔命令</li>
+<li>-f           指定sed脚本文件名</li>
+<li>-i[SUFFIX]   修改原文件，如果提供suffix，作备份（新版本支持！）</li>
+<li>-r           使用扩展正则表达式</li>
 </ul>
 </li>
-<li><p>sed_command的格式为：[address] <a class="reference internal" href="#sed-edit-cmd">sed_edit_cmd</a>:</p>
+<li><p class="first">sed_command的格式为：[address] <a class="reference internal" href="#sed-edit-cmd">sed_edit_cmd</a>:</p>
 <ul>
-<li><p>address表示要编辑的行，缺省为所有的行，通过行号或正则表达式指定要改变的文本行</p>
+<li><p class="first">address表示要编辑的行，缺省为所有的行，通过行号或正则表达式指定要改变的文本行</p>
 <ul class="simple">
-<li><p>x                     一行号</p></li>
-<li><p>x,y                   行号范围</p></li>
-<li><p>/pattern/             查询包含模式的行</p></li>
-<li><p>/pattern/pattern/     查询包含两个模式的行</p></li>
-<li><p>/pattern/,x           在指定行号上查询匹配模式的行</p></li>
-<li><p>x,/pattern/           通过行号和模式查询匹配行</p></li>
-<li><p>x，y！                查询不包含行号x，y的行</p></li>
-<li><p>$                     表示最后一行</p></li>
+<li>x                     一行号</li>
+<li>x,y                   行号范围</li>
+<li>/pattern/             查询包含模式的行</li>
+<li>/pattern/pattern/     查询包含两个模式的行</li>
+<li>/pattern/,x           在指定行号上查询匹配模式的行</li>
+<li>x,/pattern/           通过行号和模式查询匹配行</li>
+<li>x，y！                查询不包含行号x，y的行</li>
+<li>$                     表示最后一行</li>
 </ul>
 </li>
-<li><p><span class="target" id="sed-edit-cmd">sed_edit_cmd</span> 表示对要进行编辑的行需要执行的命令：</p>
+<li><p class="first"><span class="target" id="sed-edit-cmd">sed_edit_cmd</span> 表示对要进行编辑的行需要执行的命令：</p>
 <ul>
-<li><p>d  删除行</p></li>
-<li><p>p  打印文本(注意会覆盖-n选项，这非常重要)</p></li>
-<li><p>!  对所选行之外的所有行应用命令</p></li>
-<li><p>=  打印行号</p></li>
-<li><div class="line-block">
+<li><p class="first">d  删除行</p>
+</li>
+<li><p class="first">p  打印文本(注意会覆盖-n选项，这非常重要)</p>
+</li>
+<li><p class="first">!  对所选行之外的所有行应用命令</p>
+</li>
+<li><p class="first">=  打印行号</p>
+</li>
+<li><div class="first line-block">
 <div class="line">s  替换命令( <code class="docutils literal notranslate"><span class="pre">'s/^west/north/g'</span></code> )注意分隔符不必是’/’可以是换行符和反斜线外的任何字符（ <code class="docutils literal notranslate"><span class="pre">s#^west#north#g</span></code> ）</div>
 <div class="line">[gpw]参数：g指全部替换（缺省只第1次替换匹配）；p显示被替换后的行；w将被替换后的行内容写到文件中</div>
 <div class="line"><code class="docutils literal notranslate"><span class="pre">sed</span> <span class="pre">-n</span> <span class="pre">'s/abc/hello</span> <span class="pre">&amp;/p'</span> <span class="pre">txt.txt</span></code> 等效于在abc前插入hello，其中 <strong>&amp;表示原文本</strong> 。</div>
 </div>
 </li>
-<li><p>r  读文件附加到该行的未尾</p></li>
-<li><p>w  写文件</p></li>
-<li><p>a  在当前行后添加一行或多行</p></li>
-<li><p>i  在当前行之前插入文本</p></li>
-<li><p>c  用新文本代替当前行中的文本</p></li>
-<li><p>l  显示模式空间中的内容，显示非打印字符为两字节ASCII码</p></li>
-<li><p>y  将一字符转换为另一字符(如：[address]y/abc/xyz/)</p></li>
-<li><p>n  读入下一行，并将其读入模式缓冲区中，任何命令都将应用于下一行</p></li>
-<li><p>q  结束或退出sed</p></li>
-<li><p>D  删除多行pattern space中到n为止</p></li>
-<li><p>N  将下一行附加到上一行</p></li>
-<li><p>P  打印到多行pattern space的n为止</p></li>
-</ul>
+<li><p class="first">r  读文件附加到该行的未尾</p>
+</li>
+<li><p class="first">w  写文件</p>
+</li>
+<li><p class="first">a  在当前行后添加一行或多行</p>
+</li>
+<li><p class="first">i  在当前行之前插入文本</p>
+</li>
+<li><p class="first">c  用新文本代替当前行中的文本</p>
+</li>
+<li><p class="first">l  显示模式空间中的内容，显示非打印字符为两字节ASCII码</p>
+</li>
+<li><p class="first">y  将一字符转换为另一字符(如：[address]y/abc/xyz/)</p>
+</li>
+<li><p class="first">n  读入下一行，并将其读入模式缓冲区中，任何命令都将应用于下一行</p>
+</li>
+<li><p class="first">q  结束或退出sed</p>
+</li>
+<li><p class="first">D  删除多行pattern space中到n为止</p>
+</li>
+<li><p class="first">N  将下一行附加到上一行</p>
+</li>
+<li><p class="first">P  打印到多行pattern space的n为止</p>
 </li>
 </ul>
 </li>
-<li><p>input_file指定sed的输入文件，可以是一个文件列表，缺省为标准输入。注意sed不与初始文件打交道，而只与它的一个拷贝打交道，如果操作结果没有重定向到文件（保存结果的方式），那么将输出到屏幕（不会影响原文件！除非使用-i选项）。</p></li>
-<li><p>sed 使用示例:</p>
+</ul>
+</li>
+<li><p class="first">input_file指定sed的输入文件，可以是一个文件列表，缺省为标准输入。注意sed不与初始文件打交道，而只与它的一个拷贝打交道，如果操作结果没有重定向到文件（保存结果的方式），那么将输出到屏幕（不会影响原文件！除非使用-i选项）。</p>
+</li>
+<li><p class="first">sed 使用示例:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sed -i <span class="s1">&#39;s/old pattern/new pattern/g&#39;</span> file.txt       <span class="c1"># 文本替换</span>
 sed <span class="s1">&#39;/pattern/ s/old/new/&#39;</span> sample_one               <span class="c1"># 对匹配pattern的行使用new替换old</span>
 sed <span class="s1">&#39;5,6 s/1/2/&#39;</span> sample_one                         <span class="c1"># 只对5-6行进行替换操作</span>
@@ -838,25 +870,25 @@ sed -i <span class="s2">&quot;s/old/new/g&quot;</span> <span class="sb">`</span>
 </li>
 </ul>
 </li>
-<li><div class="line-block">
+<li><div class="first line-block">
 <div class="line">重量级选手： <strong>awk</strong></div>
 <div class="line">awk是一个优秀的样式扫描与处理工具，完整的awk脚本通常用来格式化文本文件中的信息。这有一篇不错的 <a class="reference external" href="http://man.lupaworld.com/content/manage/ringkee/awk.htm">学习笔记</a></div>
 </div>
 <ul>
-<li><p>Usage: <code class="docutils literal notranslate"><span class="pre">awk</span> <span class="pre">[opion]</span> <span class="pre">'awk_script'</span> <span class="pre">input_file1</span> <span class="pre">[input_file2</span> <span class="pre">...]</span></code></p>
+<li><p class="first">Usage: <code class="docutils literal notranslate"><span class="pre">awk</span> <span class="pre">[opion]</span> <span class="pre">'awk_script'</span> <span class="pre">input_file1</span> <span class="pre">[input_file2</span> <span class="pre">...]</span></code></p>
 <ul class="simple">
-<li><p>-F fs 使用 fs 作为输入记录的字段分隔符，如果省略该选项，wak 使用环境变量 IFS 的值</p></li>
-<li><p>-f filename 从文件 filename 中读取 awk_script</p></li>
-<li><p>-v var=value 为 awk_script 设置变量</p></li>
+<li>-F fs 使用 fs 作为输入记录的字段分隔符，如果省略该选项，wak 使用环境变量 IFS 的值</li>
+<li>-f filename 从文件 filename 中读取 awk_script</li>
+<li>-v var=value 为 awk_script 设置变量</li>
 </ul>
 </li>
-<li><p>另外两种使用awk程序文件来使用awk的方法：</p>
+<li><p class="first">另外两种使用awk程序文件来使用awk的方法：</p>
 <ul class="simple">
-<li><p>将awk程序写入到一个文件中，执行awk -f file_name [input_file]；</p></li>
-<li><p>在一个文件的第一行写入#!/bin/awk -f 然后把这个文件赋予执行权限，就可以像一个可执行文件一样进行调用了。</p></li>
+<li>将awk程序写入到一个文件中，执行awk -f file_name [input_file]；</li>
+<li>在一个文件的第一行写入#!/bin/awk -f 然后把这个文件赋予执行权限，就可以像一个可执行文件一样进行调用了。</li>
 </ul>
 </li>
-<li><p><strong>awk 命令的一般形式</strong> : (其中 BEGIN { actions } 和 END { actions } 是可选的。):</p>
+<li><p class="first"><strong>awk 命令的一般形式</strong> : (其中 BEGIN { actions } 和 END { actions } 是可选的。):</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>awk <span class="s1">&#39;</span>
 <span class="s1">      BEGIN { actions }\</span>
 <span class="s1">      awk_pattern1 { actions }\</span>
@@ -868,42 +900,42 @@ inputfile（inputfile可以是一个文件列表）
 </pre></div>
 </div>
 </li>
-<li><div class="line-block">
+<li><div class="first line-block">
 <div class="line"><strong>像一个数据库一样的工作</strong> ，这是awk最大的特征：</div>
 <div class="line">awk处理的工作与数据库的处理方式有相同之处，其相同处之一就是awk支持对记录和字段的处理，其中对字段的处理是grep和sed不能实现的，这也是awk优于二者的原因之一。</div>
 <div class="line">在awk中，缺省的情况下总是将文本文件中的一行视为一个记录，而将一行中的某一部分作为记录中的一个字段。于是，awk把一个文件变成了一个数据库。</div>
 </div>
 </li>
-<li><p><strong>awk 的运行过程</strong> :（明白了AWK的运行过程就对它完全了解了，awk不再神秘了）</p>
+<li><p class="first"><strong>awk 的运行过程</strong> :（明白了AWK的运行过程就对它完全了解了，awk不再神秘了）</p>
 <ol class="arabic simple">
-<li><p>如果 BEGIN 区块存在，awk 执行它指定的 actions。</p></li>
-<li><p>awk 从输入文件中读取一行，称为一条输入记录。(如果输入文件省略，将从标准输入读取)</p></li>
-<li><p>awk 将读入的记录分割成字段，将第 1 个字段放入变量$1 中，第 2 个字段放入$2，以此类推。$0 表示整条记录。字段分隔符使用 shell 环境变量 IFS 或由参数指定。</p></li>
-<li><p>把当前输入记录依次与每一个 awk_cmd 中 awk_pattern 比较，看是否匹配，如果相匹配，就执行对应的actions。如果不匹配，就跳过对应的 actions，直到比较完所有的 awk_cmd。</p></li>
-<li><p>当一条输入记录比较了所有的 awk_cmd 后，awk 读取输入的下一行，继续重复步骤3和4，这个过程一直持续，直到 awk 读取到文件尾。</p></li>
-<li><p>当 awk 读完所有的输入行后，如果存在 END，就执行相应的 actions。</p></li>
+<li>如果 BEGIN 区块存在，awk 执行它指定的 actions。</li>
+<li>awk 从输入文件中读取一行，称为一条输入记录。(如果输入文件省略，将从标准输入读取)</li>
+<li>awk 将读入的记录分割成字段，将第 1 个字段放入变量$1 中，第 2 个字段放入$2，以此类推。$0 表示整条记录。字段分隔符使用 shell 环境变量 IFS 或由参数指定。</li>
+<li>把当前输入记录依次与每一个 awk_cmd 中 awk_pattern 比较，看是否匹配，如果相匹配，就执行对应的actions。如果不匹配，就跳过对应的 actions，直到比较完所有的 awk_cmd。</li>
+<li>当一条输入记录比较了所有的 awk_cmd 后，awk 读取输入的下一行，继续重复步骤3和4，这个过程一直持续，直到 awk 读取到文件尾。</li>
+<li>当 awk 读完所有的输入行后，如果存在 END，就执行相应的 actions。</li>
 </ol>
 </li>
-<li><p><strong>awk 的模式</strong> (pattern部分):</p>
+<li><p class="first"><strong>awk 的模式</strong> (pattern部分):</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">/pattern/</span></code>     使用通配符的扩展集。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">/p1/</span> <span class="pre">&amp;&amp;</span> <span class="pre">/p2/</span></code>  可以用关系运算符进行操作。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">$1</span> <span class="pre">~/[0-9]+/</span></code>  <em>模式匹配表达式</em> 用运算符~(匹配)和~!(不匹配)。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">p1,</span> <span class="pre">p2</span></code>        <em>范围模板</em> ，指定一个行的范围。该语法不能包括BEGIN和END模式。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">BEGIN</span></code>         让用户指定在第一条输入记录被处理之前所发生的动作，通常可在这里设置全局变量。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">END</span></code>           让用户在最后一条输入记录被读取之后发生的动作。</p></li>
+<li><code class="docutils literal notranslate"><span class="pre">/pattern/</span></code>     使用通配符的扩展集。</li>
+<li><code class="docutils literal notranslate"><span class="pre">/p1/</span> <span class="pre">&amp;&amp;</span> <span class="pre">/p2/</span></code>  可以用关系运算符进行操作。</li>
+<li><code class="docutils literal notranslate"><span class="pre">$1</span> <span class="pre">~/[0-9]+/</span></code>  <em>模式匹配表达式</em> 用运算符~(匹配)和~!(不匹配)。</li>
+<li><code class="docutils literal notranslate"><span class="pre">p1,</span> <span class="pre">p2</span></code>        <em>范围模板</em> ，指定一个行的范围。该语法不能包括BEGIN和END模式。</li>
+<li><code class="docutils literal notranslate"><span class="pre">BEGIN</span></code>         让用户指定在第一条输入记录被处理之前所发生的动作，通常可在这里设置全局变量。</li>
+<li><code class="docutils literal notranslate"><span class="pre">END</span></code>           让用户在最后一条输入记录被读取之后发生的动作。</li>
 </ul>
 </li>
-<li><p><strong>awk 的命令</strong> （action部分）:</p>
+<li><p class="first"><strong>awk 的命令</strong> （action部分）:</p>
 <ol class="arabic simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">print</span> <span class="pre">参数列表</span></code>           print 可以打印字符串(加双引号)、变量和表达式，是 awk 最基本的命令，参数列表要用逗号(,)分隔。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">printf</span> <span class="pre">([格式符]，参数)</span></code>  格式化打印命令(函数)，与 C 语言的 printf 函数类似。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">next</span></code>                     强迫 awk 立刻停止处理当前的记录,而开始读取和处理下一条记录。</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">nextfile</span></code>                 强迫 awk 立刻停止处理当前的输入文件而处理输入文件列表中的下一个文件</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">exit</span></code>                     使 awk 停止执行而跳出。如果有 END 存在，awk 会去执行 END 的 actions。</p></li>
+<li><code class="docutils literal notranslate"><span class="pre">print</span> <span class="pre">参数列表</span></code>           print 可以打印字符串(加双引号)、变量和表达式，是 awk 最基本的命令，参数列表要用逗号(,)分隔。</li>
+<li><code class="docutils literal notranslate"><span class="pre">printf</span> <span class="pre">([格式符]，参数)</span></code>  格式化打印命令(函数)，与 C 语言的 printf 函数类似。</li>
+<li><code class="docutils literal notranslate"><span class="pre">next</span></code>                     强迫 awk 立刻停止处理当前的记录,而开始读取和处理下一条记录。</li>
+<li><code class="docutils literal notranslate"><span class="pre">nextfile</span></code>                 强迫 awk 立刻停止处理当前的输入文件而处理输入文件列表中的下一个文件</li>
+<li><code class="docutils literal notranslate"><span class="pre">exit</span></code>                     使 awk 停止执行而跳出。如果有 END 存在，awk 会去执行 END 的 actions。</li>
 </ol>
 </li>
-<li><p><strong>几个实例</strong>:</p>
+<li><p class="first"><strong>几个实例</strong>:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>awk <span class="s1">&#39;/^(no|so)/&#39;</span> <span class="nb">test</span>                                 <span class="c1">#打印所有以模式no或so开头的行。</span>
 awk <span class="s1">&#39;/^[ns]/{print $1}&#39;</span> <span class="nb">test</span>                          <span class="c1">#如果记录以n或s开头，就打印这个记录。</span>
 awk <span class="s1">&#39;$1 ~/[0-9][0-9]$/(print $1}&#39;</span> <span class="nb">test</span>                <span class="c1">#如果第一个域以两个数字结束就打印这个记录。</span>
@@ -916,166 +948,170 @@ awk <span class="s1">&#39;/^root/,/^mysql/&#39;</span> <span class="nb">test</sp
 </pre></div>
 </div>
 </li>
-<li><p><strong>awk 中的环境变量</strong>:</p>
-<table class="docutils align-default">
+<li><p class="first"><strong>awk 中的环境变量</strong>:</p>
+<table border="1" class="docutils">
 <colgroup>
-<col style="width: 20%" />
-<col style="width: 80%" />
+<col width="20%" />
+<col width="80%" />
 </colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>变量</p></th>
-<th class="head"><p>描述</p></th>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">变量</th>
+<th class="head">描述</th>
 </tr>
 </thead>
-<tbody>
-<tr class="row-even"><td><p>$n</p></td>
-<td><p>当前记录的第n个字段，字段间由FS分隔。</p></td>
+<tbody valign="top">
+<tr class="row-even"><td>$n</td>
+<td>当前记录的第n个字段，字段间由FS分隔。</td>
 </tr>
-<tr class="row-odd"><td><p>$0</p></td>
-<td><p>完整的输入记录。</p></td>
+<tr class="row-odd"><td>$0</td>
+<td>完整的输入记录。</td>
 </tr>
-<tr class="row-even"><td><p>ARGC</p></td>
-<td><p>命令行参数的数目。</p></td>
+<tr class="row-even"><td>ARGC</td>
+<td>命令行参数的数目。</td>
 </tr>
-<tr class="row-odd"><td><p>ARGIND</p></td>
-<td><p>命令行中当前文件的位置(从0开始算)。</p></td>
+<tr class="row-odd"><td>ARGIND</td>
+<td>命令行中当前文件的位置(从0开始算)。</td>
 </tr>
-<tr class="row-even"><td><p>ARGV</p></td>
-<td><p>包含命令行参数的数组。</p></td>
+<tr class="row-even"><td>ARGV</td>
+<td>包含命令行参数的数组。</td>
 </tr>
-<tr class="row-odd"><td><p>CONVFMT</p></td>
-<td><p>数字转换格式(默认值为%.6g)</p></td>
+<tr class="row-odd"><td>CONVFMT</td>
+<td>数字转换格式(默认值为%.6g)</td>
 </tr>
-<tr class="row-even"><td><p>ENVIRON</p></td>
-<td><p>环境变量关联数组。</p></td>
+<tr class="row-even"><td>ENVIRON</td>
+<td>环境变量关联数组。</td>
 </tr>
-<tr class="row-odd"><td><p>ERRNO</p></td>
-<td><p>最后一个系统错误的描述。</p></td>
+<tr class="row-odd"><td>ERRNO</td>
+<td>最后一个系统错误的描述。</td>
 </tr>
-<tr class="row-even"><td><p>FIELDWIDTHS</p></td>
-<td><p>字段宽度列表(用空格键分隔)。</p></td>
+<tr class="row-even"><td>FIELDWIDTHS</td>
+<td>字段宽度列表(用空格键分隔)。</td>
 </tr>
-<tr class="row-odd"><td><p>FILENAME</p></td>
-<td><p>当前文件名。</p></td>
+<tr class="row-odd"><td>FILENAME</td>
+<td>当前文件名。</td>
 </tr>
-<tr class="row-even"><td><p>FNR 同 NR，</p></td>
-<td><p>但相对于当前文件。</p></td>
+<tr class="row-even"><td>FNR 同 NR，</td>
+<td>但相对于当前文件。</td>
 </tr>
-<tr class="row-odd"><td><p>FS</p></td>
-<td><p>字段分隔符(默认是任何空格)。</p></td>
+<tr class="row-odd"><td>FS</td>
+<td>字段分隔符(默认是任何空格)。</td>
 </tr>
-<tr class="row-even"><td><p>IGNORECASE</p></td>
-<td><p>如果为真，则进行忽略大小写的匹配。</p></td>
+<tr class="row-even"><td>IGNORECASE</td>
+<td>如果为真，则进行忽略大小写的匹配。</td>
 </tr>
-<tr class="row-odd"><td><p>NF</p></td>
-<td><p>当前记录中的字段数。</p></td>
+<tr class="row-odd"><td>NF</td>
+<td>当前记录中的字段数。</td>
 </tr>
-<tr class="row-even"><td><p>NR</p></td>
-<td><p>当前记录数。</p></td>
+<tr class="row-even"><td>NR</td>
+<td>当前记录数。</td>
 </tr>
-<tr class="row-odd"><td><p>OFMT</p></td>
-<td><p>数字的输出格式(默认值是%.6g)。</p></td>
+<tr class="row-odd"><td>OFMT</td>
+<td>数字的输出格式(默认值是%.6g)。</td>
 </tr>
-<tr class="row-even"><td><p>OFS</p></td>
-<td><p>输出字段分隔符(默认值是一个空格)。</p></td>
+<tr class="row-even"><td>OFS</td>
+<td>输出字段分隔符(默认值是一个空格)。</td>
 </tr>
-<tr class="row-odd"><td><p>ORS</p></td>
-<td><p>输出记录分隔符(默认值是一个换行符)。</p></td>
+<tr class="row-odd"><td>ORS</td>
+<td>输出记录分隔符(默认值是一个换行符)。</td>
 </tr>
-<tr class="row-even"><td><p>RLENGTH</p></td>
-<td><p>由match函数所匹配的字符串的长度。</p></td>
+<tr class="row-even"><td>RLENGTH</td>
+<td>由match函数所匹配的字符串的长度。</td>
 </tr>
-<tr class="row-odd"><td><p>RS</p></td>
-<td><p>记录分隔符(默认是一个换行符)。</p></td>
+<tr class="row-odd"><td>RS</td>
+<td>记录分隔符(默认是一个换行符)。</td>
 </tr>
-<tr class="row-even"><td><p>RSTART</p></td>
-<td><p>由match函数所匹配的字符串的第一个位置。</p></td>
+<tr class="row-even"><td>RSTART</td>
+<td>由match函数所匹配的字符串的第一个位置。</td>
 </tr>
-<tr class="row-odd"><td><p>SUBSEP</p></td>
-<td><p>数组下标分隔符(默认值是034)。</p></td>
+<tr class="row-odd"><td>SUBSEP</td>
+<td>数组下标分隔符(默认值是034)。</td>
 </tr>
 </tbody>
 </table>
 </li>
-<li><p><strong>awk 编程</strong> :</p>
+<li><p class="first"><strong>awk 编程</strong> :</p>
 <ul>
-<li><p>变量：变量不需要定义就可以直接使用，还可以使用从命令行传递的变量，以及内置的环境变量。</p></li>
-<li><p>重定向：可以使用shell的重定向符进行重定向输出。</p></li>
-<li><div class="line-block">
+<li><p class="first">变量：变量不需要定义就可以直接使用，还可以使用从命令行传递的变量，以及内置的环境变量。</p>
+</li>
+<li><p class="first">重定向：可以使用shell的重定向符进行重定向输出。</p>
+</li>
+<li><div class="first line-block">
 <div class="line">getline函数：它从输入中获得下一行的内容，并给NF,NR和FNR等内建变量赋值。如果得到一条记录，getline函数返回1，如果到达文件的末尾就返回0，如果出现错误，例如打开文件失败，就返回-1。</div>
 <div class="line">awk ‘BEGIN{while( “ls” | getline f) print f}’，ls的输出传递给geline作为输入，循环使getline从ls的输出中读取一行，并把它打印到屏幕，直到最后一个文件。</div>
 <div class="line">于是这条命令相当于显示当前目录下所有文件名。</div>
 </div>
 </li>
-<li><p>system函数：可以在awk中调用linux系统命令。</p></li>
-<li><p>支持while循环、for循环、for in循环、完整的if/else语法、下标可以为数字和字母的数组。</p></li>
-<li><p>awk的函数：</p>
+<li><p class="first">system函数：可以在awk中调用linux系统命令。</p>
+</li>
+<li><p class="first">支持while循环、for循环、for in循环、完整的if/else语法、下标可以为数字和字母的数组。</p>
+</li>
+<li><p class="first">awk的函数：</p>
 <ul>
-<li><p>内建函数：</p>
+<li><p class="first">内建函数：</p>
 <ul>
-<li><p>字符串函数：</p>
+<li><p class="first">字符串函数：</p>
 <ul class="simple">
-<li><p>sub(regular expression, substitution string, target string) 替换操作</p></li>
-<li><p>gsub() 作用如sub，但它在整个文档中进行匹配。</p></li>
-<li><p>index(string, substring) 返回子字符串第一次被匹配的位置，偏移量从位置1开始。</p></li>
-<li><p>length(string) 求字符串长度</p></li>
-<li><p>substr( string, starting position, length of string ) 返回从位置1开始的子字符串。</p></li>
-<li><p>match( string, regular expression ) 返回在字符串中正则表达式位置的索引，如果找不到指定的正则表达式则返回0。</p></li>
-<li><p>toupper和tolower函数可用于字符串大小间的转换</p></li>
-<li><p>split( string, array, field separator ) 可按给定的分隔符把字符串分割为一个数组，默认为当前FS值进行分割。</p></li>
+<li>sub(regular expression, substitution string, target string) 替换操作</li>
+<li>gsub() 作用如sub，但它在整个文档中进行匹配。</li>
+<li>index(string, substring) 返回子字符串第一次被匹配的位置，偏移量从位置1开始。</li>
+<li>length(string) 求字符串长度</li>
+<li>substr( string, starting position, length of string ) 返回从位置1开始的子字符串。</li>
+<li>match( string, regular expression ) 返回在字符串中正则表达式位置的索引，如果找不到指定的正则表达式则返回0。</li>
+<li>toupper和tolower函数可用于字符串大小间的转换</li>
+<li>split( string, array, field separator ) 可按给定的分隔符把字符串分割为一个数组，默认为当前FS值进行分割。</li>
 </ul>
 </li>
-<li><p>时间函数：</p>
+<li><p class="first">时间函数：</p>
 <ul class="simple">
-<li><p>systime()返回从1970年1月1日开始到当前时间(不计闰年)的整秒数。</p></li>
-<li><p>strftime()使用C库中的strftime函数格式化时间。</p></li>
+<li>systime()返回从1970年1月1日开始到当前时间(不计闰年)的整秒数。</li>
+<li>strftime()使用C库中的strftime函数格式化时间。</li>
 </ul>
 </li>
-<li><p>数学函数：</p>
+<li><p class="first">数学函数：</p>
 <blockquote>
-<div><table class="docutils align-default">
+<div><table border="1" class="docutils">
 <colgroup>
-<col style="width: 20%" />
-<col style="width: 80%" />
+<col width="20%" />
+<col width="80%" />
 </colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>函数名称</p></th>
-<th class="head"><p>返回值</p></th>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">函数名称</th>
+<th class="head">返回值</th>
 </tr>
 </thead>
-<tbody>
-<tr class="row-even"><td><p>atan2(x,y)</p></td>
-<td><p>y,x范围内的余切</p></td>
+<tbody valign="top">
+<tr class="row-even"><td>atan2(x,y)</td>
+<td>y,x范围内的余切</td>
 </tr>
-<tr class="row-odd"><td><p>cos(x)</p></td>
-<td><p>余弦函数</p></td>
+<tr class="row-odd"><td>cos(x)</td>
+<td>余弦函数</td>
 </tr>
-<tr class="row-even"><td><p>exp(x)</p></td>
-<td><p>求幂</p></td>
+<tr class="row-even"><td>exp(x)</td>
+<td>求幂</td>
 </tr>
-<tr class="row-odd"><td><p>int(x)</p></td>
-<td><p>取整</p></td>
+<tr class="row-odd"><td>int(x)</td>
+<td>取整</td>
 </tr>
-<tr class="row-even"><td><p>log(x)</p></td>
-<td><p>自然对数</p></td>
+<tr class="row-even"><td>log(x)</td>
+<td>自然对数</td>
 </tr>
-<tr class="row-odd"><td><p>rand()</p></td>
-<td><p>随机数</p></td>
+<tr class="row-odd"><td>rand()</td>
+<td>随机数</td>
 </tr>
-<tr class="row-even"><td><p>sin(x)</p></td>
-<td><p>正弦</p></td>
+<tr class="row-even"><td>sin(x)</td>
+<td>正弦</td>
 </tr>
-<tr class="row-odd"><td><p>sqrt(x)</p></td>
-<td><p>平方根</p></td>
+<tr class="row-odd"><td>sqrt(x)</td>
+<td>平方根</td>
 </tr>
-<tr class="row-even"><td><p>srand(x)</p></td>
-<td><p>x是rand()函数的种子</p></td>
+<tr class="row-even"><td>srand(x)</td>
+<td>x是rand()函数的种子</td>
 </tr>
-<tr class="row-odd"><td><p>int(x)</p></td>
-<td><p>取整，过程没有舍入</p></td>
+<tr class="row-odd"><td>int(x)</td>
+<td>取整，过程没有舍入</td>
 </tr>
-<tr class="row-even"><td><p>rand()</p></td>
-<td><p>产生一个大于等于0而小于1的随机数</p></td>
+<tr class="row-even"><td>rand()</td>
+<td>产生一个大于等于0而小于1的随机数</td>
 </tr>
 </tbody>
 </table>
@@ -1083,7 +1119,7 @@ awk <span class="s1">&#39;/^root/,/^mysql/&#39;</span> <span class="nb">test</sp
 </li>
 </ul>
 </li>
-<li><p>自定义函数:</p>
+<li><p class="first">自定义函数:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="k">function</span> name <span class="o">(</span> parameter, parameter, parameter, ... <span class="o">)</span> <span class="o">{</span>
   statements
   <span class="k">return</span> expression  <span class="c1"># the return statement and expression are optional</span>
@@ -1095,12 +1131,12 @@ awk <span class="s1">&#39;/^root/,/^mysql/&#39;</span> <span class="nb">test</sp
 </li>
 </ul>
 </li>
-<li><p><strong>需要注意的几点</strong> ：</p>
+<li><p class="first"><strong>需要注意的几点</strong> ：</p>
 <ul class="simple">
-<li><p>一条 awk_cmd 的 awk_pattern 可以省略，省略时不对输入记录进行匹配比较就执行相应的 actions。一条awk_cmd 的 actions 也可以省略，省略时默认的动作为打印当前输入记录(print $0) 。</p></li>
-<li><p>awk_script 中只有 END 区块或 BEGIN区块是被允许的。如果 awk_script 中只有 BEGIN { actions } ，awk 不会读取 input_file。</p></li>
-<li><p>awk 把输入文件的数据读入内存，然后操作内存中的输入数据副本，awk 不会修改输入文件的内容。</p></li>
-<li><p>awk 的总是输出到标准输出，如果想让 awk 输出到文件，可以使用重定向，awk ‘$1 &gt; 100 {print $1 &gt; “output_file” }’ test。</p></li>
+<li>一条 awk_cmd 的 awk_pattern 可以省略，省略时不对输入记录进行匹配比较就执行相应的 actions。一条awk_cmd 的 actions 也可以省略，省略时默认的动作为打印当前输入记录(print $0) 。</li>
+<li>awk_script 中只有 END 区块或 BEGIN区块是被允许的。如果 awk_script 中只有 BEGIN { actions } ，awk 不会读取 input_file。</li>
+<li>awk 把输入文件的数据读入内存，然后操作内存中的输入数据副本，awk 不会修改输入文件的内容。</li>
+<li>awk 的总是输出到标准输出，如果想让 awk 输出到文件，可以使用重定向，awk ‘$1 &gt; 100 {print $1 &gt; “output_file” }’ test。</li>
 </ul>
 </li>
 </ul>
@@ -1110,174 +1146,174 @@ awk <span class="s1">&#39;/^root/,/^mysql/&#39;</span> <span class="nb">test</sp
 <div class="section" id="bash3-9-1">
 <h2>《高级Bash脚本编程指南3.9.1》 参考卡片<a class="headerlink" href="#bash3-9-1" title="永久链接至标题">¶</a></h2>
 <p>表格 B-1. 特殊的shell变量</p>
-<table class="docutils align-default">
+<table border="1" class="docutils">
 <colgroup>
-<col style="width: 13%" />
-<col style="width: 88%" />
+<col width="13%" />
+<col width="88%" />
 </colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>变量</p></th>
-<th class="head"><p>含义</p></th>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">变量</th>
+<th class="head">含义</th>
 </tr>
 </thead>
-<tbody>
-<tr class="row-even"><td><p>$0</p></td>
-<td><p>脚本名字</p></td>
+<tbody valign="top">
+<tr class="row-even"><td>$0</td>
+<td>脚本名字</td>
 </tr>
-<tr class="row-odd"><td><p>$1</p></td>
-<td><p>位置参数 #1</p></td>
+<tr class="row-odd"><td>$1</td>
+<td>位置参数 #1</td>
 </tr>
-<tr class="row-even"><td><p>$2 - $9</p></td>
-<td><p>位置参数 #2 - #9</p></td>
+<tr class="row-even"><td>$2 - $9</td>
+<td>位置参数 #2 - #9</td>
 </tr>
-<tr class="row-odd"><td><p>${10}</p></td>
-<td><p>位置参数 #10</p></td>
+<tr class="row-odd"><td>${10}</td>
+<td>位置参数 #10</td>
 </tr>
-<tr class="row-even"><td><p>$#</p></td>
-<td><p>位置参数的个数</p></td>
+<tr class="row-even"><td>$#</td>
+<td>位置参数的个数</td>
 </tr>
-<tr class="row-odd"><td><p>$*</p></td>
-<td><p>所有的位置参数(作为单个字符串, “$1 $2 $3 … $n”)</p></td>
+<tr class="row-odd"><td>$*</td>
+<td>所有的位置参数(作为单个字符串, “$1 $2 $3 … $n”)</td>
 </tr>
-<tr class="row-even"><td><p>$&#64;</p></td>
-<td><p>所有的位置参数(每个都作为独立的字符串, “$1” “$2” “$3” … “$n”)</p></td>
+<tr class="row-even"><td>$&#64;</td>
+<td>所有的位置参数(每个都作为独立的字符串, “$1” “$2” “$3” … “$n”)</td>
 </tr>
-<tr class="row-odd"><td><p>${#*}</p></td>
-<td><p>传递到脚本中的命令行参数的个数</p></td>
+<tr class="row-odd"><td>${#*}</td>
+<td>传递到脚本中的命令行参数的个数</td>
 </tr>
-<tr class="row-even"><td><p>${#&#64;}</p></td>
-<td><p>传递到脚本中的命令行参数的个数</p></td>
+<tr class="row-even"><td>${#&#64;}</td>
+<td>传递到脚本中的命令行参数的个数</td>
 </tr>
-<tr class="row-odd"><td><p>$?</p></td>
-<td><p>返回值</p></td>
+<tr class="row-odd"><td>$?</td>
+<td>返回值</td>
 </tr>
-<tr class="row-even"><td><p>$$</p></td>
-<td><p>脚本的进程ID(PID)</p></td>
+<tr class="row-even"><td>$$</td>
+<td>脚本的进程ID(PID)</td>
 </tr>
-<tr class="row-odd"><td><p>$-</p></td>
-<td><p>传递到脚本中的标志(使用set)</p></td>
+<tr class="row-odd"><td>$-</td>
+<td>传递到脚本中的标志(使用set)</td>
 </tr>
-<tr class="row-even"><td><p>$_</p></td>
-<td><p>之前命令的最后一个参数</p></td>
+<tr class="row-even"><td>$_</td>
+<td>之前命令的最后一个参数</td>
 </tr>
-<tr class="row-odd"><td><p>$!</p></td>
-<td><p>运行在后台的最后一个作业的进程ID(PID)</p></td>
+<tr class="row-odd"><td>$!</td>
+<td>运行在后台的最后一个作业的进程ID(PID)</td>
 </tr>
 </tbody>
 </table>
 <p>表格 B-2. 测试操作: 二元比较</p>
-<table class="docutils align-default">
+<table border="1" class="docutils">
 <colgroup>
-<col style="width: 11%" />
-<col style="width: 12%" />
-<col style="width: 3%" />
-<col style="width: 14%" />
-<col style="width: 19%" />
-<col style="width: 3%" />
-<col style="width: 11%" />
-<col style="width: 27%" />
+<col width="11%" />
+<col width="12%" />
+<col width="3%" />
+<col width="14%" />
+<col width="19%" />
+<col width="3%" />
+<col width="11%" />
+<col width="27%" />
 </colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>操作</p></th>
-<th class="head"><p>描述</p></th>
-<th class="head"></th>
-<th class="head"><p>操作</p></th>
-<th class="head"><p>描述</p></th>
-<th class="head"></th>
-<th class="head"><p>操作</p></th>
-<th class="head"><p>描述</p></th>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">操作</th>
+<th class="head">描述</th>
+<th class="head">&#160;</th>
+<th class="head">操作</th>
+<th class="head">描述</th>
+<th class="head">&#160;</th>
+<th class="head">操作</th>
+<th class="head">描述</th>
 </tr>
 </thead>
-<tbody>
-<tr class="row-even"><td><p>算术比较</p></td>
-<td></td>
-<td></td>
-<td><p>字符串比较</p></td>
-<td></td>
-<td></td>
-<td><p>算术比较</p></td>
-<td><p>双括号(( … ))结构</p></td>
+<tbody valign="top">
+<tr class="row-even"><td>算术比较</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>字符串比较</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>算术比较</td>
+<td>双括号(( … ))结构</td>
 </tr>
-<tr class="row-odd"><td><p>-eq</p></td>
-<td><p>等于</p></td>
-<td></td>
-<td><p>=</p></td>
-<td><p>等于</p></td>
-<td></td>
-<td></td>
-<td></td>
+<tr class="row-odd"><td>-eq</td>
+<td>等于</td>
+<td>&#160;</td>
+<td>=</td>
+<td>等于</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
 </tr>
-<tr class="row-even"><td><p></p></td>
-<td></td>
-<td></td>
-<td><p>==</p></td>
-<td><p>等于</p></td>
-<td></td>
-<td></td>
-<td></td>
+<tr class="row-even"><td></td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>==</td>
+<td>等于</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
 </tr>
-<tr class="row-odd"><td><p>-ne</p></td>
-<td><p>不等于</p></td>
-<td></td>
-<td><p>!=</p></td>
-<td><p>不等于</p></td>
-<td></td>
-<td></td>
-<td></td>
+<tr class="row-odd"><td>-ne</td>
+<td>不等于</td>
+<td>&#160;</td>
+<td>!=</td>
+<td>不等于</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
 </tr>
-<tr class="row-even"><td><p>-lt</p></td>
-<td><p>小于</p></td>
-<td></td>
-<td><p>&lt;</p></td>
-<td><p>小于 (ASCII)*</p></td>
-<td></td>
-<td><p>&lt;</p></td>
-<td><p>小于</p></td>
+<tr class="row-even"><td>-lt</td>
+<td>小于</td>
+<td>&#160;</td>
+<td>&lt;</td>
+<td>小于 (ASCII)*</td>
+<td>&#160;</td>
+<td>&lt;</td>
+<td>小于</td>
 </tr>
-<tr class="row-odd"><td><p>-le</p></td>
-<td><p>小于等于</p></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td><p>&lt;=</p></td>
-<td><p>小于等于</p></td>
+<tr class="row-odd"><td>-le</td>
+<td>小于等于</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&lt;=</td>
+<td>小于等于</td>
 </tr>
-<tr class="row-even"><td><p>-gt</p></td>
-<td><p>大于</p></td>
-<td></td>
-<td><p>&gt;</p></td>
-<td><p>大于 (ASCII)*</p></td>
-<td></td>
-<td><p>&gt;</p></td>
-<td><p>大于</p></td>
+<tr class="row-even"><td>-gt</td>
+<td>大于</td>
+<td>&#160;</td>
+<td>&gt;</td>
+<td>大于 (ASCII)*</td>
+<td>&#160;</td>
+<td>&gt;</td>
+<td>大于</td>
 </tr>
-<tr class="row-odd"><td><p>-ge</p></td>
-<td><p>大于等于</p></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td><p>&gt;=</p></td>
-<td><p>大于等于</p></td>
+<tr class="row-odd"><td>-ge</td>
+<td>大于等于</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&gt;=</td>
+<td>大于等于</td>
 </tr>
-<tr class="row-even"><td><p></p></td>
-<td></td>
-<td></td>
-<td><p>-z</p></td>
-<td><p>字符串为空</p></td>
-<td></td>
-<td></td>
-<td></td>
+<tr class="row-even"><td></td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>-z</td>
+<td>字符串为空</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
 </tr>
-<tr class="row-odd"><td><p></p></td>
-<td></td>
-<td></td>
-<td><p>-n</p></td>
-<td><p>字符串不为空</p></td>
-<td></td>
-<td></td>
-<td></td>
+<tr class="row-odd"><td></td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>-n</td>
+<td>字符串不为空</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
 </tr>
 </tbody>
 </table>
@@ -1286,100 +1322,100 @@ awk <span class="s1">&#39;/^root/,/^mysql/&#39;</span> <span class="nb">test</sp
 <div class="line"><br /></div>
 </div>
 <p>表格 B-3. 文件类型的测试操作</p>
-<table class="docutils align-default">
+<table border="1" class="docutils">
 <colgroup>
-<col style="width: 5%" />
-<col style="width: 45%" />
-<col style="width: 10%" />
-<col style="width: 40%" />
+<col width="5%" />
+<col width="45%" />
+<col width="10%" />
+<col width="40%" />
 </colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>操作</p></th>
-<th class="head"><p>测试条件</p></th>
-<th class="head"><p>操作</p></th>
-<th class="head"><p>测试条件</p></th>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">操作</th>
+<th class="head">测试条件</th>
+<th class="head">操作</th>
+<th class="head">测试条件</th>
 </tr>
 </thead>
-<tbody>
-<tr class="row-even"><td><p>-e</p></td>
-<td><p>文件是否存在</p></td>
-<td><p>-s</p></td>
-<td><p>文件大小不为0</p></td>
+<tbody valign="top">
+<tr class="row-even"><td>-e</td>
+<td>文件是否存在</td>
+<td>-s</td>
+<td>文件大小不为0</td>
 </tr>
-<tr class="row-odd"><td><p>-f</p></td>
-<td><p>是一个标准文件</p></td>
-<td></td>
-<td></td>
+<tr class="row-odd"><td>-f</td>
+<td>是一个标准文件</td>
+<td>&#160;</td>
+<td>&#160;</td>
 </tr>
-<tr class="row-even"><td><p>-d</p></td>
-<td><p>是一个目录</p></td>
-<td><p>-r</p></td>
-<td><p>文件具有读权限</p></td>
+<tr class="row-even"><td>-d</td>
+<td>是一个目录</td>
+<td>-r</td>
+<td>文件具有读权限</td>
 </tr>
-<tr class="row-odd"><td><p>-h</p></td>
-<td><p>文件是一个符号链接</p></td>
-<td><p>-w</p></td>
-<td><p>文件具有写权限</p></td>
+<tr class="row-odd"><td>-h</td>
+<td>文件是一个符号链接</td>
+<td>-w</td>
+<td>文件具有写权限</td>
 </tr>
-<tr class="row-even"><td><p>-L</p></td>
-<td><p>文件是一个符号链接</p></td>
-<td><p>-x</p></td>
-<td><p>文件具有执行权限</p></td>
+<tr class="row-even"><td>-L</td>
+<td>文件是一个符号链接</td>
+<td>-x</td>
+<td>文件具有执行权限</td>
 </tr>
-<tr class="row-odd"><td><p>-b</p></td>
-<td><p>文件是一个块设备</p></td>
-<td></td>
-<td></td>
+<tr class="row-odd"><td>-b</td>
+<td>文件是一个块设备</td>
+<td>&#160;</td>
+<td>&#160;</td>
 </tr>
-<tr class="row-even"><td><p>-c</p></td>
-<td><p>文件是一个字符设备</p></td>
-<td><p>-g</p></td>
-<td><p>设置了sgid标记</p></td>
+<tr class="row-even"><td>-c</td>
+<td>文件是一个字符设备</td>
+<td>-g</td>
+<td>设置了sgid标记</td>
 </tr>
-<tr class="row-odd"><td><p>-p</p></td>
-<td><p>文件是一个管道</p></td>
-<td><p>-u</p></td>
-<td><p>设置了suid标记</p></td>
+<tr class="row-odd"><td>-p</td>
+<td>文件是一个管道</td>
+<td>-u</td>
+<td>设置了suid标记</td>
 </tr>
-<tr class="row-even"><td><p>-S</p></td>
-<td><p>文件是一个socket</p></td>
-<td><p>-k</p></td>
-<td><p>设置了”粘贴位”</p></td>
+<tr class="row-even"><td>-S</td>
+<td>文件是一个socket</td>
+<td>-k</td>
+<td>设置了”粘贴位”</td>
 </tr>
-<tr class="row-odd"><td><p>-t</p></td>
-<td><p>文件与一个终端相关联</p></td>
-<td></td>
-<td></td>
+<tr class="row-odd"><td>-t</td>
+<td>文件与一个终端相关联</td>
+<td>&#160;</td>
+<td>&#160;</td>
 </tr>
-<tr class="row-even"><td><p></p></td>
-<td></td>
-<td></td>
-<td></td>
+<tr class="row-even"><td></td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
 </tr>
-<tr class="row-odd"><td><p>-N</p></td>
-<td><p>“从这个文件最后一次被读取之后, 它被修改过”</p></td>
-<td><p>F1 -nt F2</p></td>
-<td><p>文件F1比文件F2新 *</p></td>
+<tr class="row-odd"><td>-N</td>
+<td>“从这个文件最后一次被读取之后, 它被修改过”</td>
+<td>F1 -nt F2</td>
+<td>文件F1比文件F2新 *</td>
 </tr>
-<tr class="row-even"><td><p>-O</p></td>
-<td><p>这个文件的宿主是你</p></td>
-<td><p>F1 -ot F2</p></td>
-<td><p>文件F1比文件F2旧 *</p></td>
+<tr class="row-even"><td>-O</td>
+<td>这个文件的宿主是你</td>
+<td>F1 -ot F2</td>
+<td>文件F1比文件F2旧 *</td>
 </tr>
-<tr class="row-odd"><td><p>-G</p></td>
-<td><p>文件的组id与你所属的组相同</p></td>
-<td><p>F1 -ef F2</p></td>
-<td><p>文件F1和文件F2都是同一个文件的硬链接 *</p></td>
+<tr class="row-odd"><td>-G</td>
+<td>文件的组id与你所属的组相同</td>
+<td>F1 -ef F2</td>
+<td>文件F1和文件F2都是同一个文件的硬链接 *</td>
 </tr>
-<tr class="row-even"><td><p></p></td>
-<td></td>
-<td></td>
-<td></td>
+<tr class="row-even"><td></td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
 </tr>
-<tr class="row-odd"><td><p>!</p></td>
-<td><p>“非” (反转上边的测试结果)</p></td>
-<td></td>
-<td></td>
+<tr class="row-odd"><td>!</td>
+<td>“非” (反转上边的测试结果)</td>
+<td>&#160;</td>
+<td>&#160;</td>
 </tr>
 </tbody>
 </table>
@@ -1388,64 +1424,64 @@ awk <span class="s1">&#39;/^root/,/^mysql/&#39;</span> <span class="nb">test</sp
 <div class="line"><br /></div>
 </div>
 <p>表格 B-4. 参数替换和扩展</p>
-<table class="docutils align-default">
+<table border="1" class="docutils">
 <colgroup>
-<col style="width: 25%" />
-<col style="width: 75%" />
+<col width="25%" />
+<col width="75%" />
 </colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>表达式</p></th>
-<th class="head"><p>含义</p></th>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">表达式</th>
+<th class="head">含义</th>
 </tr>
 </thead>
-<tbody>
-<tr class="row-even"><td><p>${var}</p></td>
-<td><p>“变量var的值, 与$var相同”</p></td>
+<tbody valign="top">
+<tr class="row-even"><td>${var}</td>
+<td>“变量var的值, 与$var相同”</td>
 </tr>
-<tr class="row-odd"><td><p></p></td>
-<td></td>
+<tr class="row-odd"><td></td>
+<td>&#160;</td>
 </tr>
-<tr class="row-even"><td><p>${var-DEFAULT}</p></td>
-<td><p>“如果var没有被声明, 那么就以$DEFAULT作为其值*”</p></td>
+<tr class="row-even"><td>${var-DEFAULT}</td>
+<td>“如果var没有被声明, 那么就以$DEFAULT作为其值*”</td>
 </tr>
-<tr class="row-odd"><td><p>${var:-DEFAULT}</p></td>
-<td><p>“如果var没有被声明, 或者其值为空, 那么就以$DEFAULT作为其值*”</p></td>
+<tr class="row-odd"><td>${var:-DEFAULT}</td>
+<td>“如果var没有被声明, 或者其值为空, 那么就以$DEFAULT作为其值*”</td>
 </tr>
-<tr class="row-even"><td><p></p></td>
-<td></td>
+<tr class="row-even"><td></td>
+<td>&#160;</td>
 </tr>
-<tr class="row-odd"><td><p>${var=DEFAULT}</p></td>
-<td><p>“如果var没有被声明, 那么就以$DEFAULT作为其值*”</p></td>
+<tr class="row-odd"><td>${var=DEFAULT}</td>
+<td>“如果var没有被声明, 那么就以$DEFAULT作为其值*”</td>
 </tr>
-<tr class="row-even"><td><p>${var:=DEFAULT}</p></td>
-<td><p>“如果var没有被声明, 或者其值为空, 那么就以$DEFAULT作为其值*”</p></td>
+<tr class="row-even"><td>${var:=DEFAULT}</td>
+<td>“如果var没有被声明, 或者其值为空, 那么就以$DEFAULT作为其值*”</td>
 </tr>
-<tr class="row-odd"><td><p></p></td>
-<td></td>
+<tr class="row-odd"><td></td>
+<td>&#160;</td>
 </tr>
-<tr class="row-even"><td><p>${var+OTHER}</p></td>
-<td><p>“如果var声明了, 那么其值就是$OTHER, 否则就为null字符串”</p></td>
+<tr class="row-even"><td>${var+OTHER}</td>
+<td>“如果var声明了, 那么其值就是$OTHER, 否则就为null字符串”</td>
 </tr>
-<tr class="row-odd"><td><p>${var:+OTHER}</p></td>
-<td><p>“如果var被设置了, 那么其值就是$OTHER, 否则就为null字符串”</p></td>
+<tr class="row-odd"><td>${var:+OTHER}</td>
+<td>“如果var被设置了, 那么其值就是$OTHER, 否则就为null字符串”</td>
 </tr>
-<tr class="row-even"><td><p></p></td>
-<td></td>
+<tr class="row-even"><td></td>
+<td>&#160;</td>
 </tr>
-<tr class="row-odd"><td><p>${var?ERR_MSG}</p></td>
-<td><p>“如果var没被声明, 那么就打印$ERR_MSG*”</p></td>
+<tr class="row-odd"><td>${var?ERR_MSG}</td>
+<td>“如果var没被声明, 那么就打印$ERR_MSG*”</td>
 </tr>
-<tr class="row-even"><td><p>${var:?ERR_MSG}</p></td>
-<td><p>“如果var没被设置, 那么就打印$ERR_MSG*”</p></td>
+<tr class="row-even"><td>${var:?ERR_MSG}</td>
+<td>“如果var没被设置, 那么就打印$ERR_MSG*”</td>
 </tr>
-<tr class="row-odd"><td><p></p></td>
-<td></td>
+<tr class="row-odd"><td></td>
+<td>&#160;</td>
 </tr>
-<tr class="row-even"><td><p>${!varprefix*}</p></td>
-<td><p>匹配之前所有以varprefix开头进行声明的变量</p></td>
+<tr class="row-even"><td>${!varprefix*}</td>
+<td>匹配之前所有以varprefix开头进行声明的变量</td>
 </tr>
-<tr class="row-odd"><td><p>${!varprefix&#64;}</p></td>
-<td><p>匹配之前所有以varprefix开头进行声明的变量</p></td>
+<tr class="row-odd"><td>${!varprefix&#64;}</td>
+<td>匹配之前所有以varprefix开头进行声明的变量</td>
 </tr>
 </tbody>
 </table>
@@ -1454,85 +1490,85 @@ awk <span class="s1">&#39;/^root/,/^mysql/&#39;</span> <span class="nb">test</sp
 <div class="line"><br /></div>
 </div>
 <p>表格 B-5. 字符串操作</p>
-<table class="docutils align-default">
+<table border="1" class="docutils">
 <colgroup>
-<col style="width: 36%" />
-<col style="width: 64%" />
+<col width="36%" />
+<col width="64%" />
 </colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>表达式</p></th>
-<th class="head"><p>含义</p></th>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">表达式</th>
+<th class="head">含义</th>
 </tr>
 </thead>
-<tbody>
-<tr class="row-even"><td><p>${#string}</p></td>
-<td><p>$string的长度</p></td>
+<tbody valign="top">
+<tr class="row-even"><td>${#string}</td>
+<td>$string的长度</td>
 </tr>
-<tr class="row-odd"><td><p></p></td>
-<td></td>
+<tr class="row-odd"><td></td>
+<td>&#160;</td>
 </tr>
-<tr class="row-even"><td><p>${string:position}</p></td>
-<td><p>“在$string中, 从位置$position开始提取子串”</p></td>
+<tr class="row-even"><td>${string:position}</td>
+<td>“在$string中, 从位置$position开始提取子串”</td>
 </tr>
-<tr class="row-odd"><td><p>${string:position:length}</p></td>
-<td><p>“在$string中, 从位置$position开始提取长度为$length的子串”</p></td>
+<tr class="row-odd"><td>${string:position:length}</td>
+<td>“在$string中, 从位置$position开始提取长度为$length的子串”</td>
 </tr>
-<tr class="row-even"><td><p></p></td>
-<td></td>
+<tr class="row-even"><td></td>
+<td>&#160;</td>
 </tr>
-<tr class="row-odd"><td><p>${string#substring}</p></td>
-<td><p>“从变量$string的开头, 删除最短匹配$substring的子串”</p></td>
+<tr class="row-odd"><td>${string#substring}</td>
+<td>“从变量$string的开头, 删除最短匹配$substring的子串”</td>
 </tr>
-<tr class="row-even"><td><p>${string##substring}</p></td>
-<td><p>“从变量$string的开头, 删除最长匹配$substring的子串”</p></td>
+<tr class="row-even"><td>${string##substring}</td>
+<td>“从变量$string的开头, 删除最长匹配$substring的子串”</td>
 </tr>
-<tr class="row-odd"><td><p>${string%substring}</p></td>
-<td><p>“从变量$string的结尾, 删除最短匹配$substring的子串”</p></td>
+<tr class="row-odd"><td>${string%substring}</td>
+<td>“从变量$string的结尾, 删除最短匹配$substring的子串”</td>
 </tr>
-<tr class="row-even"><td><p>${string%%substring}</p></td>
-<td><p>“从变量$string的结尾, 删除最长匹配$substring的子串”</p></td>
+<tr class="row-even"><td>${string%%substring}</td>
+<td>“从变量$string的结尾, 删除最长匹配$substring的子串”</td>
 </tr>
-<tr class="row-odd"><td><p></p></td>
-<td></td>
+<tr class="row-odd"><td></td>
+<td>&#160;</td>
 </tr>
-<tr class="row-even"><td><p>${string/substring/replacement}</p></td>
-<td><p>“使用$replacement, 来代替第一个匹配的$substring”</p></td>
+<tr class="row-even"><td>${string/substring/replacement}</td>
+<td>“使用$replacement, 来代替第一个匹配的$substring”</td>
 </tr>
-<tr class="row-odd"><td><p>${string//substring/replacement}</p></td>
-<td><p>“使用$replacement, 代替所有匹配的$substring”</p></td>
+<tr class="row-odd"><td>${string//substring/replacement}</td>
+<td>“使用$replacement, 代替所有匹配的$substring”</td>
 </tr>
-<tr class="row-even"><td><p>${string/#substring/replacement}</p></td>
-<td><p>“如果$string的前缀匹配$substring, 那么就用$replacement来代替匹配到的$substring”</p></td>
+<tr class="row-even"><td>${string/#substring/replacement}</td>
+<td>“如果$string的前缀匹配$substring, 那么就用$replacement来代替匹配到的$substring”</td>
 </tr>
-<tr class="row-odd"><td><p>${string/%substring/replacement}</p></td>
-<td><p>“如果$string的后缀匹配$substring, 那么就用$replacement来代替匹配到的$substring”</p></td>
+<tr class="row-odd"><td>${string/%substring/replacement}</td>
+<td>“如果$string的后缀匹配$substring, 那么就用$replacement来代替匹配到的$substring”</td>
 </tr>
-<tr class="row-even"><td><p></p></td>
-<td></td>
+<tr class="row-even"><td></td>
+<td>&#160;</td>
 </tr>
-<tr class="row-odd"><td><p>“expr match “”$string”” ‘$substring’”</p></td>
-<td><p>匹配$string开头的$substring*的长度</p></td>
+<tr class="row-odd"><td>“expr match “”$string”” ‘$substring’”</td>
+<td>匹配$string开头的$substring*的长度</td>
 </tr>
-<tr class="row-even"><td><p>“expr “”$string”” : ‘$substring’”</p></td>
-<td><p>匹配$string开头的$substring*的长度</p></td>
+<tr class="row-even"><td>“expr “”$string”” : ‘$substring’”</td>
+<td>匹配$string开头的$substring*的长度</td>
 </tr>
-<tr class="row-odd"><td><p>“expr index “”$string”” $substring”</p></td>
-<td><p>在$string中匹配到的$substring的第一个字符出现的位置</p></td>
+<tr class="row-odd"><td>“expr index “”$string”” $substring”</td>
+<td>在$string中匹配到的$substring的第一个字符出现的位置</td>
 </tr>
-<tr class="row-even"><td><p>expr substr $string $position $length,</p></td>
-<td><p>在$string中从位置$position开始提取长度为$length的子串</p></td>
+<tr class="row-even"><td>expr substr $string $position $length,</td>
+<td>在$string中从位置$position开始提取长度为$length的子串</td>
 </tr>
-<tr class="row-odd"><td><p>“expr match “”$string”” ‘($substring)’”</p></td>
-<td><p>从$string的开头位置提取$substring*</p></td>
+<tr class="row-odd"><td>“expr match “”$string”” ‘($substring)’”</td>
+<td>从$string的开头位置提取$substring*</td>
 </tr>
-<tr class="row-even"><td><p>“expr “”$string”” : ‘($substring)’”</p></td>
-<td><p>从$string的开头位置提取$substring*</p></td>
+<tr class="row-even"><td>“expr “”$string”” : ‘($substring)’”</td>
+<td>从$string的开头位置提取$substring*</td>
 </tr>
-<tr class="row-odd"><td><p>“expr match “”$string”” ‘.*($substring)’”</p></td>
-<td><p>从$string的结尾提取$substring*</p></td>
+<tr class="row-odd"><td>“expr match “”$string”” ‘.*($substring)’”</td>
+<td>从$string的结尾提取$substring*</td>
 </tr>
-<tr class="row-even"><td><p>“expr “”$string”” : ‘.*($substring)’”</p></td>
-<td><p>从$string的结尾提取$substring*</p></td>
+<tr class="row-even"><td>“expr “”$string”” : ‘.*($substring)’”</td>
+<td>从$string的结尾提取$substring*</td>
 </tr>
 </tbody>
 </table>
@@ -1541,88 +1577,88 @@ awk <span class="s1">&#39;/^root/,/^mysql/&#39;</span> <span class="nb">test</sp
 <div class="line"><br /></div>
 </div>
 <p>表格 B-6. 一些结构的汇总</p>
-<table class="docutils align-default">
+<table border="1" class="docutils">
 <colgroup>
-<col style="width: 42%" />
-<col style="width: 58%" />
+<col width="42%" />
+<col width="58%" />
 </colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>表达式</p></th>
-<th class="head"><p>含义</p></th>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">表达式</th>
+<th class="head">含义</th>
 </tr>
 </thead>
-<tbody>
-<tr class="row-even"><td><p><strong>中括号</strong></p></td>
-<td></td>
+<tbody valign="top">
+<tr class="row-even"><td><strong>中括号</strong></td>
+<td>&#160;</td>
 </tr>
-<tr class="row-odd"><td><p>if [ CONDITION ]</p></td>
-<td><p>测试结构</p></td>
+<tr class="row-odd"><td>if [ CONDITION ]</td>
+<td>测试结构</td>
 </tr>
-<tr class="row-even"><td><p>if [[ CONDITION ]]</p></td>
-<td><p>扩展的测试结构</p></td>
+<tr class="row-even"><td>if [[ CONDITION ]]</td>
+<td>扩展的测试结构</td>
 </tr>
-<tr class="row-odd"><td><p>Array[1]=element1</p></td>
-<td><p>数组初始化</p></td>
+<tr class="row-odd"><td>Array[1]=element1</td>
+<td>数组初始化</td>
 </tr>
-<tr class="row-even"><td><p>[a-z]</p></td>
-<td><p>正则表达式的字符范围</p></td>
+<tr class="row-even"><td>[a-z]</td>
+<td>正则表达式的字符范围</td>
 </tr>
-<tr class="row-odd"><td><p><strong>大括号</strong></p></td>
-<td></td>
+<tr class="row-odd"><td><strong>大括号</strong></td>
+<td>&#160;</td>
 </tr>
-<tr class="row-even"><td><p>${variable}</p></td>
-<td><p>参数替换</p></td>
+<tr class="row-even"><td>${variable}</td>
+<td>参数替换</td>
 </tr>
-<tr class="row-odd"><td><p>${!variable}</p></td>
-<td><p>间接变量引用</p></td>
+<tr class="row-odd"><td>${!variable}</td>
+<td>间接变量引用</td>
 </tr>
-<tr class="row-even"><td><p>{ command1; command2; … commandN; }</p></td>
-<td><p>代码块</p></td>
+<tr class="row-even"><td>{ command1; command2; … commandN; }</td>
+<td>代码块</td>
 </tr>
-<tr class="row-odd"><td><p>“{string1,string2,string3,…}”</p></td>
-<td><p>大括号扩展</p></td>
+<tr class="row-odd"><td>“{string1,string2,string3,…}”</td>
+<td>大括号扩展</td>
 </tr>
-<tr class="row-even"><td><p><strong>圆括号</strong></p></td>
-<td></td>
+<tr class="row-even"><td><strong>圆括号</strong></td>
+<td>&#160;</td>
 </tr>
-<tr class="row-odd"><td><p>( command1; command2 )</p></td>
-<td><p>子shell中执行的命令组</p></td>
+<tr class="row-odd"><td>( command1; command2 )</td>
+<td>子shell中执行的命令组</td>
 </tr>
-<tr class="row-even"><td><p>Array=(element1 element2 element3)</p></td>
-<td><p>数组初始化</p></td>
+<tr class="row-even"><td>Array=(element1 element2 element3)</td>
+<td>数组初始化</td>
 </tr>
-<tr class="row-odd"><td><p>result=$(COMMAND)</p></td>
-<td><p>“在子shell中执行命令并将结果赋值给变量”</p></td>
+<tr class="row-odd"><td>result=$(COMMAND)</td>
+<td>“在子shell中执行命令并将结果赋值给变量”</td>
 </tr>
-<tr class="row-even"><td><p>&gt;(COMMAND)</p></td>
-<td><p>进程替换</p></td>
+<tr class="row-even"><td>&gt;(COMMAND)</td>
+<td>进程替换</td>
 </tr>
-<tr class="row-odd"><td><p>&lt;(COMMAND)</p></td>
-<td><p>进程替换</p></td>
+<tr class="row-odd"><td>&lt;(COMMAND)</td>
+<td>进程替换</td>
 </tr>
-<tr class="row-even"><td><p><strong>双圆括号</strong></p></td>
-<td></td>
+<tr class="row-even"><td><strong>双圆括号</strong></td>
+<td>&#160;</td>
 </tr>
-<tr class="row-odd"><td><p>(( var = 78 ))</p></td>
-<td><p>整型运算</p></td>
+<tr class="row-odd"><td>(( var = 78 ))</td>
+<td>整型运算</td>
 </tr>
-<tr class="row-even"><td><p>var=$(( 20 + 5 ))</p></td>
-<td><p>“整型运算并将结果赋值给变量”</p></td>
+<tr class="row-even"><td>var=$(( 20 + 5 ))</td>
+<td>“整型运算并将结果赋值给变量”</td>
 </tr>
-<tr class="row-odd"><td><p><strong>引号</strong></p></td>
-<td></td>
+<tr class="row-odd"><td><strong>引号</strong></td>
+<td>&#160;</td>
 </tr>
-<tr class="row-even"><td><p>“$variable”</p></td>
-<td><p>“弱”引用</p></td>
+<tr class="row-even"><td>“$variable”</td>
+<td>“弱”引用</td>
 </tr>
-<tr class="row-odd"><td><p>‘string’</p></td>
-<td><p>“强”引用</p></td>
+<tr class="row-odd"><td>‘string’</td>
+<td>“强”引用</td>
 </tr>
-<tr class="row-even"><td><p><strong>后置引用</strong></p></td>
-<td></td>
+<tr class="row-even"><td><strong>后置引用</strong></td>
+<td>&#160;</td>
 </tr>
-<tr class="row-odd"><td><p>result=`COMMAND`</p></td>
-<td><p>“在子shell中运行命令并将结果赋值给变量”</p></td>
+<tr class="row-odd"><td>result=`COMMAND`</td>
+<td>“在子shell中运行命令并将结果赋值给变量”</td>
 </tr>
 </tbody>
 </table>
@@ -1666,7 +1702,7 @@ awk <span class="s1">&#39;/^root/,/^mysql/&#39;</span> <span class="nb">test</sp
           <a href="../tools/vim.html" title="Vim"
              >下一页</a> |</li>
         <li class="right" >
-          <a href="python/expert_python.html" title="Python高级编程"
+          <a href="python/python_notes/others.html" title="其它"
              >上一页</a> |</li>
         <!--<li><a href="../index.html">首页</a>&#160;|</li>-->
         <!--<li><a href="../contents.html">Documentation</a> &#187;</li>-->
@@ -1675,7 +1711,7 @@ awk <span class="s1">&#39;/^root/,/^mysql/&#39;</span> <span class="nb">test</sp
     </div>
     <div class="footer" role="contentinfo">
         &#169; 版权所有 CC BY 2.5.
-      由 <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2 创建。
+      由 <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.1 创建。
     </div>
   </body>
 </html>

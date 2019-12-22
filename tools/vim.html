@@ -1,9 +1,11 @@
 
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml" lang="zh_CN">
   <head>
-    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Vim &#8212; Chuanqi 的技术文档</title>
     <link rel="stylesheet" href="../_static/sphinx13.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -11,9 +13,8 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/language_data.js"></script>
     <script type="text/javascript" src="../_static/translations.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
@@ -92,7 +93,7 @@
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="../index.html">目录</a></h3>
+  <h3><a href="../index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Vim</a><ul>
 <li><a class="reference internal" href="#id1">Vim 学习笔记</a><ul>
@@ -125,11 +126,13 @@
   <p class="topless"><a href="eclipse.html"
                         title="下一章">Eclipse</a></p>
 <div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">快速搜索</h3>
+  <h3>快速搜索</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" />
       <input type="submit" value="转向" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
@@ -143,12 +146,12 @@
         <div class="body" role="main">
           
   <div class="admonition note" id="vim-notes-use-vi">
-<p class="admonition-title">注解</p>
-<p><strong>工欲善其事，必先利其器。</strong></p>
+<p class="first admonition-title">注解</p>
+<p class="last"><strong>工欲善其事，必先利其器。</strong></p>
 </div>
 <div class="admonition note">
-<p class="admonition-title">注解</p>
-<div class="line-block">
+<p class="first admonition-title">注解</p>
+<div class="last line-block">
 <div class="line">我的 IDE 定为Eclipse+Vim，前者用于大规模的项目，后者用于除大规模项目外的所有情况。</div>
 <div class="line">我选择IDE的标准为：”开源、跨平台、近乎标准工具、好用”，Eclipse+Vim 足以满足我的需求。</div>
 </div>
@@ -160,130 +163,108 @@
 <div class="section" id="id2">
 <h3>基础操作<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h3>
 <ul class="simple">
-<li><p>下面记一些常用的命令，都是必须要会的：</p>
-<dl class="field-list simple">
-<dt class="field-odd">.</dt>
-<dd class="field-odd"><p>首要就是要记住神奇的.，重复上一次的协作，熟练使用能实现很多方便的操作</p>
-</dd>
-<dt class="field-even">u</dt>
-<dd class="field-even"><p>撤销上一次操作</p>
-</dd>
-<dt class="field-odd">U</dt>
-<dd class="field-odd"><p>撤销当前行的所有操作</p>
-</dd>
-<dt class="field-even">&lt;C-R&gt;</dt>
-<dd class="field-even"><p>重做一次撤销的操作</p>
-</dd>
-<dt class="field-odd">:set path+=xxx</dt>
-<dd class="field-odd"><p>设置项目的path，非常多的功能依赖于path</p>
-</dd>
-</dl>
+<li>下面记一些常用的命令，都是必须要会的：<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">.:</th><td class="field-body">首要就是要记住神奇的.，重复上一次的协作，熟练使用能实现很多方便的操作</td>
+</tr>
+<tr class="field-even field"><th class="field-name">u:</th><td class="field-body">撤销上一次操作</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">U:</th><td class="field-body">撤销当前行的所有操作</td>
+</tr>
+<tr class="field-even field"><th class="field-name">&lt;C-R&gt;:</th><td class="field-body">重做一次撤销的操作</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">:set path+=xxx:</th><td class="field-body">设置项目的path，非常多的功能依赖于path</td>
+</tr>
+</tbody>
+</table>
 </li>
 </ul>
 </div>
 <div class="section" id="id3">
 <h3>移动<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h3>
 <ul class="simple">
-<li><p>移动命令：</p>
-<dl class="field-list simple">
-<dt class="field-odd">f F t T</dt>
-<dd class="field-odd"><p>f移动光标到当前行的下一个 x 处; F往回找; 对应的t,T是光标跳到相应字母的后一个、前一个字母</p>
-</dd>
-<dt class="field-even">; ,</dt>
-<dd class="field-even"><p>;重复f,F,t,T的搜索  ,与;反方向的重复f,F,t,T的搜索</p>
-</dd>
-<dt class="field-odd">w b e</dt>
-<dd class="field-odd"><p>w光标往前移动一个词; b向前移动一个词; e移动到当前单词的结尾处</p>
-</dd>
-<dt class="field-even">0 ^ $</dt>
-<dd class="field-even"><p>0移动光标到当前行首; ^移动光标到当前行的第一个字母位置; $移动光标到行尾。</p>
-</dd>
-<dt class="field-odd">)(</dt>
-<dd class="field-odd"><p>下一个或当前句子的开头</p>
-</dd>
-<dt class="field-even">}{</dt>
-<dd class="field-even"><p>下一个或当前段落的开关</p>
-</dd>
-<dt class="field-odd">&lt;C-F&gt; &lt;C-B&gt;</dt>
-<dd class="field-odd"><p>向下(上)移动一屏。  （先输入:到命令行中，再使用&lt;C-F&gt;，显示所有输入过的ex命令的历史列表）</p>
-</dd>
-<dt class="field-even">&lt;C-E&gt; &lt;C-Y&gt;</dt>
-<dd class="field-even"><p>向下(上)滚动一行，同时光标的位置不变。</p>
-</dd>
-<dt class="field-odd">G xG gg</dt>
-<dd class="field-odd"><p>到文件尾; 到指定的x行; 到文件头</p>
-</dd>
-<dt class="field-even">H M L</dt>
-<dd class="field-even"><p>移动光标到屏幕上方；中间；下方</p>
-</dd>
-<dt class="field-odd">/xx ?xx</dt>
-<dd class="field-odd"><p>/向后搜索字符串xx; ?向前搜索；如果想重复上次的搜索的话，按 n/N</p>
-</dd>
-<dt class="field-even">z&lt;cr&gt; z. z-</dt>
-<dd class="field-even"><p>把当前行置到屏幕的顶端;中央;低端</p>
-</dd>
-<dt class="field-odd">&lt;C-左右&gt;</dt>
-<dd class="field-odd"><p>按单词移动光标，与b,w类似，但是可以在插入模式下使用。</p>
-</dd>
-<dt class="field-even">gt gT</dt>
-<dd class="field-even"><p>跳转到后(前)一个Tab页</p>
-</dd>
-</dl>
+<li>移动命令：<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">f F t T:</th><td class="field-body">f移动光标到当前行的下一个 x 处; F往回找; 对应的t,T是光标跳到相应字母的后一个、前一个字母</td>
+</tr>
+<tr class="field-even field"><th class="field-name">; ,:</th><td class="field-body">;重复f,F,t,T的搜索  ,与;反方向的重复f,F,t,T的搜索</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">w b e:</th><td class="field-body">w光标往前移动一个词; b向前移动一个词; e移动到当前单词的结尾处</td>
+</tr>
+<tr class="field-even field"><th class="field-name">0 ^ $:</th><td class="field-body">0移动光标到当前行首; ^移动光标到当前行的第一个字母位置; $移动光标到行尾。</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">)(:</th><td class="field-body">下一个或当前句子的开头</td>
+</tr>
+<tr class="field-even field"><th class="field-name">}{:</th><td class="field-body">下一个或当前段落的开关</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">&lt;C-F&gt; &lt;C-B&gt;:</th><td class="field-body">向下(上)移动一屏。  （先输入:到命令行中，再使用&lt;C-F&gt;，显示所有输入过的ex命令的历史列表）</td>
+</tr>
+<tr class="field-even field"><th class="field-name">&lt;C-E&gt; &lt;C-Y&gt;:</th><td class="field-body">向下(上)滚动一行，同时光标的位置不变。</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">G xG gg:</th><td class="field-body">到文件尾; 到指定的x行; 到文件头</td>
+</tr>
+<tr class="field-even field"><th class="field-name">H M L:</th><td class="field-body">移动光标到屏幕上方；中间；下方</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">/xx ?xx:</th><td class="field-body">/向后搜索字符串xx; ?向前搜索；如果想重复上次的搜索的话，按 n/N</td>
+</tr>
+<tr class="field-even field"><th class="field-name">z&lt;cr&gt; z. z-:</th><td class="field-body">把当前行置到屏幕的顶端;中央;低端</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">&lt;C-左右&gt;:</th><td class="field-body">按单词移动光标，与b,w类似，但是可以在插入模式下使用。</td>
+</tr>
+<tr class="field-even field"><th class="field-name">gt gT:</th><td class="field-body">跳转到后(前)一个Tab页</td>
+</tr>
+</tbody>
+</table>
 </li>
 </ul>
 </div>
 <div class="section" id="id4">
 <h3>跳转<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
 <blockquote>
-<div><dl class="field-list simple">
-<dt class="field-odd">&lt;C-I&gt;</dt>
-<dd class="field-odd"><p>跳转到历史记录中的上一个位置（注意与&lt;C-T&gt;的区别在于是否基于tag堆栈）</p>
-</dd>
-<dt class="field-even">&lt;C-O&gt;</dt>
-<dd class="field-even"><p>跳转到历史记录中的下一个位置</p>
-</dd>
-<dt class="field-odd">%</dt>
-<dd class="field-odd"><p>匹配花括号、方括号、括号等。在一个括号的上面，然后按 %，鼠标就会出现在匹配的另外一半括号处。</p>
-</dd>
-<dt class="field-even">[{ ]}</dt>
-<dd class="field-even"><p>跳转到上一个、下一个{}号处</p>
-</dd>
-<dt class="field-odd">[( ])</dt>
-<dd class="field-odd"><p>跳转到上一个、下一个()号处</p>
-</dd>
-<dt class="field-even">&gt;} &lt;}</dt>
-<dd class="field-even"><p>从本行起，下面的N行（至段落结尾）向右(左)移动</p>
-</dd>
-<dt class="field-odd">&gt;% &lt;%</dt>
-<dd class="field-odd"><p>从本行起，至成对的（圆、花、方）括号为止，向右(左)移动</p>
-</dd>
-<dt class="field-even">gd gD</dt>
-<dd class="field-even"><p>查找局部(全局)标识符</p>
-</dd>
-<dt class="field-odd"># *</dt>
-<dd class="field-odd"><p>与gd类似，但是会直接跳到上(下)一个定义处</p>
-</dd>
-<dt class="field-even">[I</dt>
-<dd class="field-even"><p>强大的“查找全局标识符”，不仅在当前文件内查找，还会在所有包含文件中查找（依赖于:set path）</p>
-</dd>
-<dt class="field-odd">3[&lt;Tab&gt;</dt>
-<dd class="field-odd"><p>在[I的查找结果中跳转到第3项，默认为第1项，&lt;C+o&gt;返回原处。</p>
-</dd>
-<dt class="field-even">K</dt>
-<dd class="field-even"><p>在 Man 里面查找光标当前所在处的词。</p>
-</dd>
-</dl>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">&lt;C-I&gt;:</th><td class="field-body">跳转到历史记录中的上一个位置（注意与&lt;C-T&gt;的区别在于是否基于tag堆栈）</td>
+</tr>
+<tr class="field-even field"><th class="field-name">&lt;C-O&gt;:</th><td class="field-body">跳转到历史记录中的下一个位置</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">%:</th><td class="field-body">匹配花括号、方括号、括号等。在一个括号的上面，然后按 %，鼠标就会出现在匹配的另外一半括号处。</td>
+</tr>
+<tr class="field-even field"><th class="field-name">[{ ]}:</th><td class="field-body">跳转到上一个、下一个{}号处</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">[( ]):</th><td class="field-body">跳转到上一个、下一个()号处</td>
+</tr>
+<tr class="field-even field"><th class="field-name">&gt;} &lt;}:</th><td class="field-body">从本行起，下面的N行（至段落结尾）向右(左)移动</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">&gt;% &lt;%:</th><td class="field-body">从本行起，至成对的（圆、花、方）括号为止，向右(左)移动</td>
+</tr>
+<tr class="field-even field"><th class="field-name">gd gD:</th><td class="field-body">查找局部(全局)标识符</td>
+</tr>
+<tr class="field-odd field"><th class="field-name"># *:</th><td class="field-body">与gd类似，但是会直接跳到上(下)一个定义处</td>
+</tr>
+<tr class="field-even field"><th class="field-name">[I:</th><td class="field-body">强大的“查找全局标识符”，不仅在当前文件内查找，还会在所有包含文件中查找（依赖于:set path）</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">3[&lt;Tab&gt;:</th><td class="field-body">在[I的查找结果中跳转到第3项，默认为第1项，&lt;C+o&gt;返回原处。</td>
+</tr>
+<tr class="field-even field"><th class="field-name">K:</th><td class="field-body">在 Man 里面查找光标当前所在处的词。</td>
+</tr>
+</tbody>
+</table>
 </div></blockquote>
 <ul class="simple">
-<li><p>我们经常用到的tag跳转命令见下:</p>
-<ul>
-<li><p>:tag {ident}      “跳转到指定的标签</p></li>
-<li><p>:tags             “显示标签栈</p></li>
-<li><p>&lt;C-]&gt;             “跳转到当前光标下的标签</p></li>
-<li><p>&lt;C-T&gt;             “跳到标签栈中较早的标签</p></li>
-<li><p>&lt;C+W ]&gt;           “在新窗口中打开当前光标下的标签</p></li>
-<li><p>&lt;C+W }&gt;           “在预览窗口中打开当前光标下的标签</p></li>
-<li><p>:pclose           “关闭预览窗口，以及一系列的预览窗口命令:pedit xxx, :psearch popen</p></li>
+<li>我们经常用到的tag跳转命令见下:<ul>
+<li>:tag {ident}      “跳转到指定的标签</li>
+<li>:tags             “显示标签栈</li>
+<li>&lt;C-]&gt;             “跳转到当前光标下的标签</li>
+<li>&lt;C-T&gt;             “跳到标签栈中较早的标签</li>
+<li>&lt;C+W ]&gt;           “在新窗口中打开当前光标下的标签</li>
+<li>&lt;C+W }&gt;           “在预览窗口中打开当前光标下的标签</li>
+<li>:pclose           “关闭预览窗口，以及一系列的预览窗口命令:pedit xxx, :psearch popen</li>
 </ul>
 </li>
 </ul>
@@ -291,102 +272,103 @@
 <div class="section" id="id5">
 <h3>编辑<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
 <ul>
-<li><p>常用的进入插入模式的方法：</p>
+<li><p class="first">常用的进入插入模式的方法：</p>
 <ul class="simple">
-<li><p>i:在当前字符的左边插入</p></li>
-<li><p>I:在当前行首插入</p></li>
-<li><p>a:在当前字符的右边插入</p></li>
-<li><p>A:在当前行尾插入</p></li>
-<li><p>r:覆盖当前字母</p></li>
-<li><p>R:开始覆盖多个文本</p></li>
-<li><p>o:在当前行下面插入一个新行</p></li>
-<li><p>O:在当前行上面插入一个新行</p></li>
-<li><p>c{motion}:删除 motion 命令跨过的字符，并且进入插入模式。</p></li>
-<li><p>C:相当于c$，改变从当前位置到行尾的文本（这个很方便啊）</p></li>
-<li><p>d{motion}:和上面差不多，但是不进入插入模式。</p></li>
-<li><p>D:相当于d$，删除当前位置到行尾的文本</p></li>
-<li><p>s:替换一个字符并进入插入模式（相当于xi）</p></li>
-<li><p>S:替换整行并进入插入模式（相当于dd O或cc）</p></li>
+<li>i:在当前字符的左边插入</li>
+<li>I:在当前行首插入</li>
+<li>a:在当前字符的右边插入</li>
+<li>A:在当前行尾插入</li>
+<li>r:覆盖当前字母</li>
+<li>R:开始覆盖多个文本</li>
+<li>o:在当前行下面插入一个新行</li>
+<li>O:在当前行上面插入一个新行</li>
+<li>c{motion}:删除 motion 命令跨过的字符，并且进入插入模式。</li>
+<li>C:相当于c$，改变从当前位置到行尾的文本（这个很方便啊）</li>
+<li>d{motion}:和上面差不多，但是不进入插入模式。</li>
+<li>D:相当于d$，删除当前位置到行尾的文本</li>
+<li>s:替换一个字符并进入插入模式（相当于xi）</li>
+<li>S:替换整行并进入插入模式（相当于dd O或cc）</li>
 </ul>
 </li>
-<li><p>三种可视选择模式：</p>
+<li><p class="first">三种可视选择模式：</p>
 <ul class="simple">
-<li><p>v:按字符选择。经常使用的模式，所以亲自尝试一下它。</p></li>
-<li><p>V:按行选择。这在你想拷贝或者移动很多行的文本的时候特别有用。</p></li>
-<li><p>&lt;C-V&gt;:按块选择。非常强大，只在很少的编辑器中才有这样的功能。你可以选择一个矩形块，并且在这个矩形里面的文本会被高亮。</p></li>
-<li><p>gv:  选中前一次可视化模式时选择的文本</p></li>
-<li><p>o:   光标移动到选中文本的对角线</p></li>
-<li><p>O:   光标移动到选中文本的的另一侧（同一行的）</p></li>
+<li>v:按字符选择。经常使用的模式，所以亲自尝试一下它。</li>
+<li>V:按行选择。这在你想拷贝或者移动很多行的文本的时候特别有用。</li>
+<li>&lt;C-V&gt;:按块选择。非常强大，只在很少的编辑器中才有这样的功能。你可以选择一个矩形块，并且在这个矩形里面的文本会被高亮。</li>
+<li>gv:  选中前一次可视化模式时选择的文本</li>
+<li>o:   光标移动到选中文本的对角线</li>
+<li>O:   光标移动到选中文本的的另一侧（同一行的）</li>
 </ul>
 </li>
-<li><p>复制&amp;拷贝&amp;粘贴 操作：</p>
+<li><p class="first">复制&amp;拷贝&amp;粘贴 操作：</p>
 <ul class="simple">
-<li><p>d:剪贴选择的内容到剪贴板。</p></li>
-<li><p>y:拷贝选择的内容到剪贴板。</p></li>
-<li><p>c:剪贴选择的内容到剪贴板并且进入插入模式。</p></li>
-<li><p>在非可视选择模式下剪切和拷贝</p>
+<li>d:剪贴选择的内容到剪贴板。</li>
+<li>y:拷贝选择的内容到剪贴板。</li>
+<li>c:剪贴选择的内容到剪贴板并且进入插入模式。</li>
+<li>在非可视选择模式下剪切和拷贝<ul>
+<li>d{motion}：剪切 motion 命令跨过的字符到剪贴板。比如，dw 会剪切一个词而 dfS 会将从当前光标到下一个 S 之间的字符剪切至剪贴板。</li>
+<li>y{motion}：和上面类似，不过是拷贝。</li>
+<li>c{motion}：和 d{motion} 类似，不过最后进入插入模式。</li>
+<li>dd：剪切当前行。</li>
+<li>yy：拷贝当前行。</li>
+<li>cc：剪切当前行并且进入插入模式。</li>
+<li>D：剪切从光标位置到行尾到剪贴板。</li>
+<li>Y：拷贝当前行。</li>
+<li>C：和 D 类似，最后进入插入模式。</li>
+<li>x：剪切当前字符到剪贴板。</li>
+<li>s：和x类似，不过最后进入插入模式。</li>
+<li>p：粘贴到光标后（P粘贴到当前光标位置）</li>
+<li>]p: 和 p 的功能差不多，但是它会自动调整被粘贴的文本的缩进去适应当前代码的位置。试一下！</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p class="first">替换操作</p>
 <ul>
-<li><p>d{motion}：剪切 motion 命令跨过的字符到剪贴板。比如，dw 会剪切一个词而 dfS 会将从当前光标到下一个 S 之间的字符剪切至剪贴板。</p></li>
-<li><p>y{motion}：和上面类似，不过是拷贝。</p></li>
-<li><p>c{motion}：和 d{motion} 类似，不过最后进入插入模式。</p></li>
-<li><p>dd：剪切当前行。</p></li>
-<li><p>yy：拷贝当前行。</p></li>
-<li><p>cc：剪切当前行并且进入插入模式。</p></li>
-<li><p>D：剪切从光标位置到行尾到剪贴板。</p></li>
-<li><p>Y：拷贝当前行。</p></li>
-<li><p>C：和 D 类似，最后进入插入模式。</p></li>
-<li><p>x：剪切当前字符到剪贴板。</p></li>
-<li><p>s：和x类似，不过最后进入插入模式。</p></li>
-<li><p>p：粘贴到光标后（P粘贴到当前光标位置）</p></li>
-<li><p>]p: 和 p 的功能差不多，但是它会自动调整被粘贴的文本的缩进去适应当前代码的位置。试一下！</p></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>替换操作</p>
-<ul>
-<li><dl class="simple">
-<dt>:%s/old/new/gc   在全局查找old并替换为new，每次替换之前需要确认。</dt><dd><p>%表示范围，可以使用所有表示范围的符号代替，不写范围表示为当前行
+<li><dl class="first docutils">
+<dt>:%s/old/new/gc   在全局查找old并替换为new，每次替换之前需要确认。</dt>
+<dd><p class="first last">%表示范围，可以使用所有表示范围的符号代替，不写范围表示为当前行
 s表示substitute替换；c表示confirm每次替换时需要进行确认
 g表示global全局（但是指前面范围符号所表示的所有内容，没有g则表示仅仅是第一次匹配进行替换）</p>
 </dd>
 </dl>
 </li>
-<li><dl class="simple">
-<dt>:g/{pattern}     :g是VIM中最强大的命令之一（:h :g）, Usage: :[range]g[lobal]/{pattern}/[cmd]</dt><dd><p>选取{pattern}的行，来执行cmd命令。 Eg:
+<li><dl class="first docutils">
+<dt>:g/{pattern}     :g是VIM中最强大的命令之一（:h :g）, Usage: :[range]g[lobal]/{pattern}/[cmd]</dt>
+<dd><p class="first last">选取{pattern}的行，来执行cmd命令。 Eg:
 <code class="docutils literal notranslate"><span class="pre">:g/{pattern}/s/old/new/g</span></code> 在包含{pattern}的行进行old-&gt;new的替换
 <code class="docutils literal notranslate"><span class="pre">:g/text/d</span></code> 删除包含text的行</p>
 </dd>
 </dl>
 </li>
-<li><dl class="simple">
-<dt>正则表达式       替换和查找操作的{old}{pattern}都支持正则表达式，注意{new}中不是正则表达式，但是也支持与匹配相关的元字符。</dt><dd><p>{old}{pattern}中的常用元字符：</p>
+<li><dl class="first docutils">
+<dt>正则表达式       替换和查找操作的{old}{pattern}都支持正则表达式，注意{new}中不是正则表达式，但是也支持与匹配相关的元字符。</dt>
+<dd><p class="first last">{old}{pattern}中的常用元字符：</p>
 </dd>
 </dl>
 <ul class="simple">
-<li><p>( )      模式组，其中的匹配会被保存到特殊的缓存区中</p></li>
-<li><p>&lt; &gt;      单词的开始与结束</p></li>
-<li><p>~          上一次使用的正则表达式</p></li>
-<li><p>[:alnum:]  字母与数字字符（还有一堆这样的POSIX字符类型）</p></li>
-<li><p>{new}中的特殊字符：</p>
-<ul>
-<li><p>n       表示匹配时利用(.)存储的第n段匹配</p></li>
-<li><p>&amp;        会被替换成搜索模式匹配出的完整文本</p></li>
-<li><p>ul     使替换的下一个字符变成大写或小写，类似的还有U,L,e,E</p></li>
+<li>( )      模式组，其中的匹配会被保存到特殊的缓存区中</li>
+<li>&lt; &gt;      单词的开始与结束</li>
+<li>~          上一次使用的正则表达式</li>
+<li>[:alnum:]  字母与数字字符（还有一堆这样的POSIX字符类型）</li>
+<li>{new}中的特殊字符：<ul>
+<li>n       表示匹配时利用(.)存储的第n段匹配</li>
+<li>&amp;        会被替换成搜索模式匹配出的完整文本</li>
+<li>ul     使替换的下一个字符变成大写或小写，类似的还有U,L,e,E</li>
 </ul>
 </li>
-<li><p>除了/字符外，分隔符还可以是任何非字母、非数值、非空格的字符，但是反斜线、双引号”、竖线|除外（更改路径名时非常有用）</p></li>
+<li>除了/字符外，分隔符还可以是任何非字母、非数值、非空格的字符，但是反斜线、双引号”、竖线|除外（更改路径名时非常有用）</li>
 </ul>
 </li>
 </ul>
 </li>
-<li><p>使用命名寄存器＝＝</p>
+<li><p class="first">使用命名寄存器＝＝</p>
 <ul class="simple">
-<li><p>:reg:列出所有寄存器，命名寄存器的使用方法为双引号 “</p></li>
-<li><p>” x yy:复制当前行到寄存器x</p></li>
-<li><p>” x dd:删除当前行到寄存器x</p></li>
-<li><p>” x p :粘贴寄存器x的内容</p></li>
-<li><p>系统剪贴板是命名寄存器+，所以”+y复制到系统剪贴板、”+p从系统剪贴板粘贴（也可以Ctrl+Shift+V键）</p></li>
+<li>:reg:列出所有寄存器，命名寄存器的使用方法为双引号 “</li>
+<li>” x yy:复制当前行到寄存器x</li>
+<li>” x dd:删除当前行到寄存器x</li>
+<li>” x p :粘贴寄存器x的内容</li>
+<li>系统剪贴板是命名寄存器+，所以”+y复制到系统剪贴板、”+p从系统剪贴板粘贴（也可以Ctrl+Shift+V键）</li>
 </ul>
 </li>
 </ul>
@@ -394,64 +376,60 @@ g表示global全局（但是指前面范围符号所表示的所有内容，没�
 <div class="section" id="id6">
 <h3>排版<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h3>
 <blockquote>
-<div><dl class="field-list simple">
-<dt class="field-odd">]I,]i,[i</dt>
-<dd class="field-odd"><p>[I的系列命令，]打头的表示列出当前文件后面查找出的当前单词,i结尾的表示只显示一条</p>
-</dd>
-<dt class="field-even">&gt;&gt;</dt>
-<dd class="field-even"><p>缩进所有选择的代码</p>
-</dd>
-<dt class="field-odd">&lt;&lt;</dt>
-<dd class="field-odd"><p>和上面类似，但是反缩进</p>
-</dd>
-<dt class="field-even">&lt;C-T&gt;</dt>
-<dd class="field-even"><p>在插入模式把当前行向后移动一个缩排 （类型插入模式时使用的&lt;&lt;）</p>
-</dd>
-<dt class="field-odd">&lt;C-D&gt;</dt>
-<dd class="field-odd"><p>与上面类似，但是向后移动           （类型插入模式时使用的&gt;&gt;）</p>
-</dd>
-<dt class="field-even">==</dt>
-<dd class="field-even"><p>以C语言的风格缩排文本</p>
-</dd>
-<dt class="field-odd">&lt;C-i&gt;</dt>
-<dd class="field-odd"><p>插入一个Tab（Tab被映射为补全后需要用到）</p>
-</dd>
-</dl>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">]I,]i,[i:</th><td class="field-body">[I的系列命令，]打头的表示列出当前文件后面查找出的当前单词,i结尾的表示只显示一条</td>
+</tr>
+<tr class="field-even field"><th class="field-name">&gt;&gt;:</th><td class="field-body">缩进所有选择的代码</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">&lt;&lt;:</th><td class="field-body">和上面类似，但是反缩进</td>
+</tr>
+<tr class="field-even field"><th class="field-name">&lt;C-T&gt;:</th><td class="field-body">在插入模式把当前行向后移动一个缩排 （类型插入模式时使用的&lt;&lt;）</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">&lt;C-D&gt;:</th><td class="field-body">与上面类似，但是向后移动           （类型插入模式时使用的&gt;&gt;）</td>
+</tr>
+<tr class="field-even field"><th class="field-name">==:</th><td class="field-body">以C语言的风格缩排文本</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">&lt;C-i&gt;:</th><td class="field-body">插入一个Tab（Tab被映射为补全后需要用到）</td>
+</tr>
+</tbody>
+</table>
 </div></blockquote>
 </div>
 <div class="section" id="id7">
 <h3>折叠<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h3>
 <blockquote>
-<div><dl class="field-list simple">
-<dt class="field-odd">zi</dt>
-<dd class="field-odd"><p>启用/关闭 折叠  （注:针对折叠下达的命令会循环应用于折叠里的每一行）</p>
-</dd>
-<dt class="field-even">zo</dt>
-<dd class="field-even"><p>打开一处折叠</p>
-</dd>
-<dt class="field-odd">zc</dt>
-<dd class="field-odd"><p>关闭一处折叠</p>
-</dd>
-<dt class="field-even">za</dt>
-<dd class="field-even"><p>Toggle当前的折叠状态</p>
-</dd>
-</dl>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">zi:</th><td class="field-body">启用/关闭 折叠  （注:针对折叠下达的命令会循环应用于折叠里的每一行）</td>
+</tr>
+<tr class="field-even field"><th class="field-name">zo:</th><td class="field-body">打开一处折叠</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">zc:</th><td class="field-body">关闭一处折叠</td>
+</tr>
+<tr class="field-even field"><th class="field-name">za:</th><td class="field-body">Toggle当前的折叠状态</td>
+</tr>
+</tbody>
+</table>
 </div></blockquote>
 </div>
 <div class="section" id="id8">
 <h3>补全<a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h3>
 <ul class="simple">
-<li><p>自动补全（所有的补全命令均以&lt;C-X&gt;开始）:</p>
-<ul>
-<li><p>&lt;C-P&gt;             向前补全</p></li>
-<li><p>&lt;C-N&gt;             向后补全</p></li>
-<li><p>&lt;C-X,C-L&gt;         以行进行补全</p></li>
-<li><p>&lt;C-X,C-F&gt;         以文件名进行补全</p></li>
-<li><p>&lt;C-X,C-D&gt;         以字典进行补全 :set dictionary=”file”</p></li>
-<li><p>&lt;C-X,C-T&gt;         以词典进行补全 :set thesaurus=”file”</p></li>
-<li><p>&lt;C-X,C-O&gt;         全能补全</p></li>
-<li><p>&lt;C-E&gt;             取消补全</p></li>
-<li><p>&lt;C-Y&gt;             结束补全，接受当前的选择</p></li>
+<li>自动补全（所有的补全命令均以&lt;C-X&gt;开始）:<ul>
+<li>&lt;C-P&gt;             向前补全</li>
+<li>&lt;C-N&gt;             向后补全</li>
+<li>&lt;C-X,C-L&gt;         以行进行补全</li>
+<li>&lt;C-X,C-F&gt;         以文件名进行补全</li>
+<li>&lt;C-X,C-D&gt;         以字典进行补全 :set dictionary=”file”</li>
+<li>&lt;C-X,C-T&gt;         以词典进行补全 :set thesaurus=”file”</li>
+<li>&lt;C-X,C-O&gt;         全能补全</li>
+<li>&lt;C-E&gt;             取消补全</li>
+<li>&lt;C-Y&gt;             结束补全，接受当前的选择</li>
 </ul>
 </li>
 </ul>
@@ -459,39 +437,37 @@ g表示global全局（但是指前面范围符号所表示的所有内容，没�
 <div class="section" id="id9">
 <h3>系统交互<a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h3>
 <ul class="simple">
-<li><p>与系统交互：</p>
-<ul>
-<li><p>:r file                在光标后读取file文件的内容</p></li>
-<li><p>:[num] r !command      运行command命令，将输出放在num行后，默认为当前行后</p></li>
-<li><p>:![motion] command     把motion覆盖的文本给command,并用输出替换之</p></li>
-<li><p>:n,m|command           把第n - m行的文本传递给command并用输出替换之，例如:96,99|sort</p></li>
-<li><p>:num!!command          把第num行的文本传递给command并用输出替换之（num为空时表示当前行）</p></li>
-<li><p>&lt;C-Z&gt;                  把vim暂时置于后端运行并回到shell，使用fg命令返回vim</p></li>
+<li>与系统交互：<ul>
+<li>:r file                在光标后读取file文件的内容</li>
+<li>:[num] r !command      运行command命令，将输出放在num行后，默认为当前行后</li>
+<li>:![motion] command     把motion覆盖的文本给command,并用输出替换之</li>
+<li>:n,m|command           把第n - m行的文本传递给command并用输出替换之，例如:96,99|sort</li>
+<li>:num!!command          把第num行的文本传递给command并用输出替换之（num为空时表示当前行）</li>
+<li>&lt;C-Z&gt;                  把vim暂时置于后端运行并回到shell，使用fg命令返回vim</li>
 </ul>
 </li>
-<li><p>quickfix:</p>
-<dl class="field-list simple">
-<dt class="field-odd">cw</dt>
-<dd class="field-odd"><p>如有错误打开quickfix窗口</p>
-</dd>
-<dt class="field-even">make</dt>
-<dd class="field-even"><p>调用make</p>
-</dd>
-<dt class="field-odd">cnext</dt>
-<dd class="field-odd"><p>移动光标到下一个编译错误 （类似的有cprevious）缩写为cp, cn</p>
-</dd>
-</dl>
+<li>quickfix:<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">cw:</th><td class="field-body">如有错误打开quickfix窗口</td>
+</tr>
+<tr class="field-even field"><th class="field-name">make:</th><td class="field-body">调用make</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">cnext:</th><td class="field-body">移动光标到下一个编译错误 （类似的有cprevious）缩写为cp, cn</td>
+</tr>
+</tbody>
+</table>
 </li>
 </ul>
 </div>
 <div class="section" id="id10">
 <h3>记录<a class="headerlink" href="#id10" title="永久链接至标题">¶</a></h3>
 <ul class="simple">
-<li><p>VIM的记录功能</p>
-<ul>
-<li><p>命令模式下按q，接下来需要按一个小写字母，表示该记录的名字，eg: qa</p></li>
-<li><p>进行记录模式后，用户所有的操作都会被记录下来，直到再次按q键会退出记录模式</p></li>
-<li><p>回放：在命令模式中按&#64;a，可以&#64;前加数字表示回放次数</p></li>
+<li>VIM的记录功能<ul>
+<li>命令模式下按q，接下来需要按一个小写字母，表示该记录的名字，eg: qa</li>
+<li>进行记录模式后，用户所有的操作都会被记录下来，直到再次按q键会退出记录模式</li>
+<li>回放：在命令模式中按&#64;a，可以&#64;前加数字表示回放次数</li>
 </ul>
 </li>
 </ul>
@@ -499,19 +475,18 @@ g表示global全局（但是指前面范围符号所表示的所有内容，没�
 <div class="section" id="id11">
 <h3>标记<a class="headerlink" href="#id11" title="永久链接至标题">¶</a></h3>
 <ul class="simple">
-<li><p>标记的使用＝＝＝＝＝</p>
-<ul>
-<li><p>marks:     列出所有的标签，都可以使用`{x}进行跳转</p></li>
-<li><dl class="simple">
-<dt>ma:        在当前光标的位置标记一个书签，名字为 a。你看不见书签的存在(:tags)，但它确实已经在那里了。</dt><dd><p>书签名只能是单个的字母：小写字母(a-z)意味着当前文件有效；而大写字母(A-Z)意味着全局生效。</p>
-</dd>
+<li>标记的使用＝＝＝＝＝<ul>
+<li>marks:     列出所有的标签，都可以使用`{x}进行跳转</li>
+<li><dl class="first docutils">
+<dt>ma:        在当前光标的位置标记一个书签，名字为 a。你看不见书签的存在(:tags)，但它确实已经在那里了。</dt>
+<dd>书签名只能是单个的字母：小写字母(a-z)意味着当前文件有效；而大写字母(A-Z)意味着全局生效。</dd>
 </dl>
 </li>
-<li><p>`a:       反引号）到书签 a 处。</p></li>
-<li><p>`.:       反引号）到你上次编辑文件的地方。这个命令很有用，而且你不用自己去标记它。 ===记住是上次“编辑”的地方！===</p></li>
-<li><dl class="simple">
-<dt>``:      反引号）回到最近一次移动前的位置。</dt><dd><p>上面几条以（反引号）开始的命令都可以把反引号替换为单引号’，跳到目标行的开头去</p>
-</dd>
+<li>`a:       反引号）到书签 a 处。</li>
+<li>`.:       反引号）到你上次编辑文件的地方。这个命令很有用，而且你不用自己去标记它。 ===记住是上次“编辑”的地方！===</li>
+<li><dl class="first docutils">
+<dt>``:      反引号）回到最近一次移动前的位置。</dt>
+<dd>上面几条以（反引号）开始的命令都可以把反引号替换为单引号’，跳到目标行的开头去</dd>
 </dl>
 </li>
 </ul>
@@ -521,8 +496,9 @@ g表示global全局（但是指前面范围符号所表示的所有内容，没�
 <div class="section" id="id12">
 <h3>杂项<a class="headerlink" href="#id12" title="永久链接至标题">¶</a></h3>
 <ul>
-<li><p>VIM的假死：按下Ctrl + s后，你会发现不能输入任何东西了，像死掉了一般，其实vim并没有死掉，这时vim只是停止向终端输出而已，要想退出这种状态，只需按Ctrl + q 即可恢复正常。</p></li>
-<li><div class="line-block">
+<li><p class="first">VIM的假死：按下Ctrl + s后，你会发现不能输入任何东西了，像死掉了一般，其实vim并没有死掉，这时vim只是停止向终端输出而已，要想退出这种状态，只需按Ctrl + q 即可恢复正常。</p>
+</li>
+<li><div class="first line-block">
 <div class="line">输入希腊字母：</div>
 <div class="line">希腊字母的输入非常常见，尤其是在数学公式中，因此知道这个技巧非常有用！</div>
 <div class="line">希腊字母能用相对应的拉丁字母后接星号来创建：</div>
@@ -534,20 +510,21 @@ g表示global全局（但是指前面范围符号所表示的所有内容，没�
 <div class="section" id="vimide">
 <h3>把Vim打造成IDE<a class="headerlink" href="#vimide" title="永久链接至标题">¶</a></h3>
 <ul>
-<li><p>把VIM配置成IDE <a class="reference external" href="http://blog.csdn.net/wooin/article/details/1858917">参考</a> ：</p>
+<li><p class="first">把VIM配置成IDE <a class="reference external" href="http://blog.csdn.net/wooin/article/details/1858917">参考</a> ：</p>
 <ul>
-<li><p>先给VIM安装中文帮助：从这里 <a class="reference external" href="http://vimcdoc.sourceforge.net">http://vimcdoc.sourceforge.net</a> 下载vim_cdoc_x.x.x.tar.gz，解压后$sudo ./vimcdoc.sh -i 就完成了，如果默认没有启动，就要.vimrc中添加:</p>
+<li><p class="first">先给VIM安装中文帮助：从这里 <a class="reference external" href="http://vimcdoc.sourceforge.net">http://vimcdoc.sourceforge.net</a> 下载vim_cdoc_x.x.x.tar.gz，解压后$sudo ./vimcdoc.sh -i 就完成了，如果默认没有启动，就要.vimrc中添加:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>set helplang=cn
 set encoding=utf-8   “因为中文帮助文件是uft-8编码的
 </pre></div>
 </div>
 </li>
-<li><dl class="simple">
-<dt>然后第一步就是要先安装上ctags，然后给代码目录生成相应的ctags -R，再在vim中用:set tags=./xxx/tags加载进来，就可以使用&lt;C+]&gt;,&lt;C+w ]&gt;进行函数定义的跳转了，当然用&lt;C+t&gt;可以返回原处。</dt><dd><p>:help usr_29里有详细的介绍</p>
+<li><dl class="first docutils">
+<dt>然后第一步就是要先安装上ctags，然后给代码目录生成相应的ctags -R，再在vim中用:set tags=./xxx/tags加载进来，就可以使用&lt;C+]&gt;,&lt;C+w ]&gt;进行函数定义的跳转了，当然用&lt;C+t&gt;可以返回原处。</dt>
+<dd><p class="first last">:help usr_29里有详细的介绍</p>
 </dd>
 </dl>
 </li>
-<li><p>omnicppcomplete的自动补全需要用ctags生成cpp格式的tags文件，命令如下：</p>
+<li><p class="first">omnicppcomplete的自动补全需要用ctags生成cpp格式的tags文件，命令如下：</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ctags</span> <span class="o">-</span><span class="n">R</span> <span class="o">--</span><span class="n">c</span><span class="o">++-</span><span class="n">kinds</span><span class="o">=+</span><span class="n">p</span> <span class="o">--</span><span class="n">fields</span><span class="o">=+</span><span class="n">iaS</span> <span class="o">--</span><span class="n">extra</span><span class="o">=+</span><span class="n">q</span>
 </pre></div>
 </div>
@@ -564,9 +541,9 @@ set encoding=utf-8   “因为中文帮助文件是uft-8编码的
 <p>常用功能：</p>
 <blockquote>
 <div><ul class="simple">
-<li><p>\cc 加逐行注释</p></li>
-<li><p>\cu 取消注释</p></li>
-<li><p>\cm 添加块注释</p></li>
+<li>\cc 加逐行注释</li>
+<li>\cu 取消注释</li>
+<li>\cm 添加块注释</li>
 </ul>
 </div></blockquote>
 </div>
@@ -619,7 +596,7 @@ set encoding=utf-8   “因为中文帮助文件是uft-8编码的
     </div>
     <div class="footer" role="contentinfo">
         &#169; 版权所有 CC BY 2.5.
-      由 <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2 创建。
+      由 <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.1 创建。
     </div>
   </body>
 </html>

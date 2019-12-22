@@ -1,9 +1,11 @@
 
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml" lang="zh_CN">
   <head>
-    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Eclipse &#8212; Chuanqi 的技术文档</title>
     <link rel="stylesheet" href="../_static/sphinx13.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -11,9 +13,8 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/language_data.js"></script>
     <script type="text/javascript" src="../_static/translations.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
@@ -99,11 +100,13 @@
   <p class="topless"><a href="regex.html"
                         title="下一章">正则表达式（Regular Expression）</a></p>
 <div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">快速搜索</h3>
+  <h3>快速搜索</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" />
       <input type="submit" value="转向" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
@@ -117,12 +120,12 @@
         <div class="body" role="main">
           
   <div class="admonition note">
-<p class="admonition-title">注解</p>
-<p><strong>工欲善其事，必先利其器。</strong></p>
+<p class="first admonition-title">注解</p>
+<p class="last"><strong>工欲善其事，必先利其器。</strong></p>
 </div>
 <div class="admonition note">
-<p class="admonition-title">注解</p>
-<div class="line-block">
+<p class="first admonition-title">注解</p>
+<div class="last line-block">
 <div class="line">我的 IDE 定为Eclipse+Vim，前者用于大规模的项目，后者用于除大规模项目外的所有情况。</div>
 <div class="line">我选择IDE的标准为：”开源、跨平台、近乎标准工具、好用”，Eclipse+Vim 足以满足我的需求。</div>
 </div>
@@ -130,321 +133,276 @@
 <div class="section" id="eclipse">
 <h1>Eclipse<a class="headerlink" href="#eclipse" title="永久链接至标题">¶</a></h1>
 <ul>
-<li><p>Eclipse CDT 常用的快捷键：</p>
+<li><p class="first">Eclipse CDT 常用的快捷键：</p>
 <ul class="simple">
-<li><p>基本</p>
-<dl class="field-list simple">
-<dt class="field-odd">Ctrl+Shift+L</dt>
-<dd class="field-odd"><p>显示所有的快捷键(万物之源啊，不记得的时候随手看一看)</p>
-</dd>
-<dt class="field-even">Ctrl+3</dt>
-<dd class="field-even"><p>Quick Access，右上角的文本框，快速搜索所有的命令</p>
-</dd>
-</dl>
+<li>基本<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Ctrl+Shift+L:</th><td class="field-body">显示所有的快捷键(万物之源啊，不记得的时候随手看一看)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Ctrl+3:</th><td class="field-body">Quick Access，右上角的文本框，快速搜索所有的命令</td>
+</tr>
+</tbody>
+</table>
 </li>
-<li><p>窗口导航</p>
-<dl class="field-list simple">
-<dt class="field-odd">F12</dt>
-<dd class="field-odd"><p>Active Editor（非常重要，在如Ctrl+G等弹出其它窗口之后迅速的回到编辑窗口）</p>
-</dd>
-<dt class="field-even">Ctrl+Alt+T</dt>
-<dd class="field-even"><p>排名第一的快捷键，快速打开类型，支持通配符</p>
-</dd>
-<dt class="field-odd">Ctrl+Alt+R</dt>
-<dd class="field-odd"><p>排名第二的快捷键，快速寻找整个workspace里的所有资源，支持通配符</p>
-</dd>
-<dt class="field-even">Ctrl+O</dt>
-<dd class="field-even"><p>Outline</p>
-</dd>
-<dt class="field-odd">Ctrl+E</dt>
-<dd class="field-odd"><p>快速切换已打开的文件(类似的还有Ctrl+F6直接切换,和Ctrl+Shift+E)</p>
-</dd>
-<dt class="field-even">Ctrl+M</dt>
-<dd class="field-even"><p>编辑器窗口最大最小化</p>
-</dd>
-<dt class="field-odd">Ctrl+T</dt>
-<dd class="field-odd"><p>查看类继承关系图</p>
-</dd>
-<dt class="field-even">Ctrl+Alt+H</dt>
-<dd class="field-even"><p>在Workspace范围内查找函数被调用的关系树</p>
-</dd>
-<dt class="field-odd">Ctrl+G</dt>
-<dd class="field-odd"><p>查找一个符号的声明和定义，这个类似于工具栏的Mark Occurrences，但是可以显示在其它文件中定义的符号</p>
-</dd>
-<dt class="field-even">Ctrl+Shift+G</dt>
-<dd class="field-even"><p>查找一个符号在当前workspace被引用的所有位置</p>
-</dd>
-<dt class="field-odd">Ctrl+W</dt>
-<dd class="field-odd"><p>关闭当前窗口</p>
-</dd>
-<dt class="field-even">Ctrl+Shift+W</dt>
-<dd class="field-even"><p>关闭所有窗口</p>
-</dd>
-<dt class="field-odd">Alt+Enter</dt>
-<dd class="field-odd"><p>显示当前选择资源(工程,or 文件 or文件)的属性</p>
-</dd>
-<dt class="field-even">Alt+Shift+Q</dt>
-<dd class="field-even"><p>再接一个字符选择打开一个窗口（按完Alt+Shift+Q后会弹出提示框）</p>
-</dd>
-</dl>
+<li>窗口导航<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">F12:</th><td class="field-body">Active Editor（非常重要，在如Ctrl+G等弹出其它窗口之后迅速的回到编辑窗口）</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Ctrl+Alt+T:</th><td class="field-body">排名第一的快捷键，快速打开类型，支持通配符</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Ctrl+Alt+R:</th><td class="field-body">排名第二的快捷键，快速寻找整个workspace里的所有资源，支持通配符</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Ctrl+O:</th><td class="field-body">Outline</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Ctrl+E:</th><td class="field-body">快速切换已打开的文件(类似的还有Ctrl+F6直接切换,和Ctrl+Shift+E)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Ctrl+M:</th><td class="field-body">编辑器窗口最大最小化</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Ctrl+T:</th><td class="field-body">查看类继承关系图</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Ctrl+Alt+H:</th><td class="field-body">在Workspace范围内查找函数被调用的关系树</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Ctrl+G:</th><td class="field-body">查找一个符号的声明和定义，这个类似于工具栏的Mark Occurrences，但是可以显示在其它文件中定义的符号</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Ctrl+Shift+G:</th><td class="field-body">查找一个符号在当前workspace被引用的所有位置</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Ctrl+W:</th><td class="field-body">关闭当前窗口</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Ctrl+Shift+W:</th><td class="field-body">关闭所有窗口</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Alt+Enter:</th><td class="field-body">显示当前选择资源(工程,or 文件 or文件)的属性</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Alt+Shift+Q:</th><td class="field-body">再接一个字符选择打开一个窗口（按完Alt+Shift+Q后会弹出提示框）</td>
+</tr>
+</tbody>
+</table>
 </li>
-<li><p>编辑</p>
-<dl class="field-list simple">
-<dt class="field-odd">Alt+Shift+A</dt>
-<dd class="field-odd"><p>进入块选择模式</p>
-</dd>
-<dt class="field-even">Shift+Enter</dt>
-<dd class="field-even"><p>快速在下方创建一行并切换过去</p>
-</dd>
-<dt class="field-odd">Ctrl+Shift+Enter</dt>
-<dd class="field-odd"><p>快速在上方创建一行并切换过去</p>
-</dd>
-<dt class="field-even">Alt+上/下</dt>
-<dd class="field-even"><p>快速将当前行上下移一行</p>
-</dd>
-<dt class="field-odd">Alt+左/右</dt>
-<dd class="field-odd"><p>移动到上次（下）光标所在的位置</p>
-</dd>
-<dt class="field-even">Ctrl+,/.</dt>
-<dd class="field-even"><p>移动到上/下一个错误处</p>
-</dd>
-<dt class="field-odd">Ctrl+1</dt>
-<dd class="field-odd"><p>Quick Fix</p>
-</dd>
-<dt class="field-even">Ctrl+Q</dt>
-<dd class="field-even"><p>回到上一次编辑的位置(Vim: ``)</p>
-</dd>
-<dt class="field-odd">Ctrl+D</dt>
-<dd class="field-odd"><p>删除一整行</p>
-</dd>
-<dt class="field-even">Alt+/</dt>
-<dd class="field-even"><p>Code Assent!!!</p>
-</dd>
-<dt class="field-odd">Alt+?</dt>
-<dd class="field-odd"><p>参数提示</p>
-</dd>
-<dt class="field-even">Ctrl+Alt+/</dt>
-<dd class="field-even"><p>按文本补全</p>
-</dd>
-<dt class="field-odd">Ctrl+/</dt>
-<dd class="field-odd"><p>切换注释</p>
-</dd>
-<dt class="field-even">Ctrl+Shift+/</dt>
-<dd class="field-even"><p>添加块注释</p>
-</dd>
-<dt class="field-odd">Ctrl+Shift+\</dt>
-<dd class="field-odd"><p>删除块注释</p>
-</dd>
-<dt class="field-even">Ctrl+Tab</dt>
-<dd class="field-even"><p>头文件和源文件切换</p>
-</dd>
-<dt class="field-odd">Ctrl+Shift+F</dt>
-<dd class="field-odd"><p>根据Code Style格式化代码</p>
-</dd>
-<dt class="field-even">Ctrl+H</dt>
-<dd class="field-even"><p>查找字段C/C++ Search</p>
-</dd>
-<dt class="field-odd">F2</dt>
-<dd class="field-odd"><p>显示Tooltip，相当于鼠标悬停</p>
-</dd>
-<dt class="field-even">F3</dt>
-<dd class="field-even"><p>转到声明，相当于Ctrl+鼠标单击</p>
-</dd>
-<dt class="field-odd">Ctrl+F</dt>
-<dd class="field-odd"><p>查找/替换窗口</p>
-</dd>
-<dt class="field-even">Ctrl+J</dt>
-<dd class="field-even"><p>增量查找</p>
-</dd>
-<dt class="field-odd">Ctrl+K</dt>
-<dd class="field-odd"><p>查找结果的下一个</p>
-</dd>
-<dt class="field-even">Ctrl+Shift+K</dt>
-<dd class="field-even"><p>查找结果的上一个</p>
-</dd>
-<dt class="field-odd">Alt+Shift+方向</dt>
-<dd class="field-odd"><p>根据语法进行整块选择</p>
-</dd>
-<dt class="field-even">Ctrl+L</dt>
-<dd class="field-even"><p>定位在某行</p>
-</dd>
-<dt class="field-odd">Ctrl+ /</dt>
-<dd class="field-odd"><p>打开/关闭折叠功能 ( <strong>所有与折叠相关的都是小键盘上的键</strong> )</p>
-</dd>
-<dt class="field-even">Ctrl+ *</dt>
-<dd class="field-even"><p>展开所有的块</p>
-</dd>
-<dt class="field-odd">Ctrl+Shift+/</dt>
-<dd class="field-odd"><p>折叠所有的块</p>
-</dd>
-<dt class="field-even">Ctrl+ -</dt>
-<dd class="field-even"><p>折叠当前元素</p>
-</dd>
-<dt class="field-odd">Ctrl+ +</dt>
-<dd class="field-odd"><p>展开当前元素</p>
-</dd>
-<dt class="field-even">Ctrl+Shift+P</dt>
-<dd class="field-even"><p>定位到对于的匹配符(譬如{})</p>
-</dd>
-<dt class="field-odd">Ctrl+Z</dt>
-<dd class="field-odd"><p>撤销</p>
-</dd>
-<dt class="field-even">Ctrl+Shift+Z</dt>
-<dd class="field-even"><p>重做</p>
-</dd>
-<dt class="field-odd">Ctrl+上/下</dt>
-<dd class="field-odd"><p>保持光标位置不变的向上/下滚动</p>
-</dd>
-<dt class="field-even">Ctrl+左/右</dt>
-<dd class="field-even"><p>按单词的移动（一定要多用）</p>
-</dd>
-<dt class="field-odd">Ctrl+Shift+N</dt>
-<dd class="field-odd"><p>快速添加缺失的头文件</p>
-</dd>
-<dt class="field-even">Ctrl+Shift+上</dt>
-<dd class="field-even"><p>转至当前文件的上一个成员</p>
-</dd>
-<dt class="field-odd">Ctrl+Shift+下</dt>
-<dd class="field-odd"><p>转至当前文件的下一个成员</p>
-</dd>
-</dl>
+<li>编辑<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Alt+Shift+A:</th><td class="field-body">进入块选择模式</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Shift+Enter:</th><td class="field-body">快速在下方创建一行并切换过去</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">Ctrl+Shift+Enter:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">快速在上方创建一行并切换过去</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Alt+上/下:</th><td class="field-body">快速将当前行上下移一行</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Alt+左/右:</th><td class="field-body">移动到上次（下）光标所在的位置</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Ctrl+,/.:</th><td class="field-body">移动到上/下一个错误处</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Ctrl+1:</th><td class="field-body">Quick Fix</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Ctrl+Q:</th><td class="field-body">回到上一次编辑的位置(Vim: ``)</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Ctrl+D:</th><td class="field-body">删除一整行</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Alt+/:</th><td class="field-body">Code Assent!!!</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Alt+?:</th><td class="field-body">参数提示</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Ctrl+Alt+/:</th><td class="field-body">按文本补全</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Ctrl+/:</th><td class="field-body">切换注释</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Ctrl+Shift+/:</th><td class="field-body">添加块注释</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Ctrl+Shift+\:</th><td class="field-body">删除块注释</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Ctrl+Tab:</th><td class="field-body">头文件和源文件切换</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Ctrl+Shift+F:</th><td class="field-body">根据Code Style格式化代码</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Ctrl+H:</th><td class="field-body">查找字段C/C++ Search</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">F2:</th><td class="field-body">显示Tooltip，相当于鼠标悬停</td>
+</tr>
+<tr class="field-even field"><th class="field-name">F3:</th><td class="field-body">转到声明，相当于Ctrl+鼠标单击</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Ctrl+F:</th><td class="field-body">查找/替换窗口</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Ctrl+J:</th><td class="field-body">增量查找</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Ctrl+K:</th><td class="field-body">查找结果的下一个</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Ctrl+Shift+K:</th><td class="field-body">查找结果的上一个</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Alt+Shift+方向:</th><td class="field-body">根据语法进行整块选择</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Ctrl+L:</th><td class="field-body">定位在某行</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Ctrl+ /:</th><td class="field-body">打开/关闭折叠功能 ( <strong>所有与折叠相关的都是小键盘上的键</strong> )</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Ctrl+ *:</th><td class="field-body">展开所有的块</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Ctrl+Shift+/:</th><td class="field-body">折叠所有的块</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Ctrl+ -:</th><td class="field-body">折叠当前元素</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Ctrl+ +:</th><td class="field-body">展开当前元素</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Ctrl+Shift+P:</th><td class="field-body">定位到对于的匹配符(譬如{})</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Ctrl+Z:</th><td class="field-body">撤销</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Ctrl+Shift+Z:</th><td class="field-body">重做</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Ctrl+上/下:</th><td class="field-body">保持光标位置不变的向上/下滚动</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Ctrl+左/右:</th><td class="field-body">按单词的移动（一定要多用）</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Ctrl+Shift+N:</th><td class="field-body">快速添加缺失的头文件</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Ctrl+Shift+上:</th><td class="field-body">转至当前文件的上一个成员</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Ctrl+Shift+下:</th><td class="field-body">转至当前文件的下一个成员</td>
+</tr>
+</tbody>
+</table>
 </li>
-<li><p>重构</p>
-<dl class="field-list simple">
-<dt class="field-odd">Alt+Shift+R</dt>
-<dd class="field-odd"><p>重构 - 重命名</p>
-</dd>
-<dt class="field-even">Alt+Shift+L</dt>
-<dd class="field-even"><p>重构 - 提取本地变量</p>
-</dd>
-<dt class="field-odd">Alt+Shift+M</dt>
-<dd class="field-odd"><p>重构 - 提取本地方法</p>
-</dd>
-<dt class="field-even">Alt+C</dt>
-<dd class="field-even"><p>重构 - 提取一个字面值为常量</p>
-</dd>
-<dt class="field-odd">Alt+Shift+T</dt>
-<dd class="field-odd"><p>重构 - 把函数体在头文件和头文件之间进行切换</p>
-</dd>
-</dl>
+<li>重构<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Alt+Shift+R:</th><td class="field-body">重构 - 重命名</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Alt+Shift+L:</th><td class="field-body">重构 - 提取本地变量</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Alt+Shift+M:</th><td class="field-body">重构 - 提取本地方法</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Alt+C:</th><td class="field-body">重构 - 提取一个字面值为常量</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Alt+Shift+T:</th><td class="field-body">重构 - 把函数体在头文件和头文件之间进行切换</td>
+</tr>
+</tbody>
+</table>
 </li>
-<li><p>构建、运行、调试：</p>
-<dl class="field-list simple">
-<dt class="field-odd">Ctrl+B</dt>
-<dd class="field-odd"><p>全部构建Build</p>
-</dd>
-<dt class="field-even">Ctrl+Shift+B</dt>
-<dd class="field-even"><p>切换断点</p>
-</dd>
-<dt class="field-odd">F5</dt>
-<dd class="field-odd"><p>单步跳入</p>
-</dd>
-<dt class="field-even">F6</dt>
-<dd class="field-even"><p>单步跳过</p>
-</dd>
-<dt class="field-odd">F7</dt>
-<dd class="field-odd"><p>单步返回</p>
-</dd>
-<dt class="field-even">F8</dt>
-<dd class="field-even"><p>继续</p>
-</dd>
-<dt class="field-odd">F9</dt>
-<dd class="field-odd"><p>Make 最近的 Target</p>
-</dd>
-<dt class="field-even">Shift+F9</dt>
-<dd class="field-even"><p>选择Make Target</p>
-</dd>
-<dt class="field-odd">F11</dt>
-<dd class="field-odd"><p>Debug</p>
-</dd>
-<dt class="field-even">Ctrl+F11</dt>
-<dd class="field-even"><p>Run</p>
-</dd>
-</dl>
+<li>构建、运行、调试：<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Ctrl+B:</th><td class="field-body">全部构建Build</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Ctrl+Shift+B:</th><td class="field-body">切换断点</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">F5:</th><td class="field-body">单步跳入</td>
+</tr>
+<tr class="field-even field"><th class="field-name">F6:</th><td class="field-body">单步跳过</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">F7:</th><td class="field-body">单步返回</td>
+</tr>
+<tr class="field-even field"><th class="field-name">F8:</th><td class="field-body">继续</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">F9:</th><td class="field-body">Make 最近的 Target</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Shift+F9:</th><td class="field-body">选择Make Target</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">F11:</th><td class="field-body">Debug</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Ctrl+F11:</th><td class="field-body">Run</td>
+</tr>
+</tbody>
+</table>
 </li>
-<li><p>自定义</p>
-<dl class="field-list simple">
-<dt class="field-odd">Alt+J</dt>
-<dd class="field-odd"><p>下移一行</p>
-</dd>
-<dt class="field-even">Alt+K</dt>
-<dd class="field-even"><p>上移一行</p>
-</dd>
-<dt class="field-odd">Alt+H</dt>
-<dd class="field-odd"><p>左移一列</p>
-</dd>
-<dt class="field-even">Alt+L</dt>
-<dd class="field-even"><p>右移一列</p>
-</dd>
-</dl>
+<li>自定义<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Alt+J:</th><td class="field-body">下移一行</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Alt+K:</th><td class="field-body">上移一行</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Alt+H:</th><td class="field-body">左移一列</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Alt+L:</th><td class="field-body">右移一列</td>
+</tr>
+</tbody>
+</table>
 </li>
 </ul>
 </li>
-<li><p>安装Eclipse汉化包</p>
+<li><p class="first">安装Eclipse汉化包</p>
 <ul>
-<li><p>Eclipse的语言包是由Babel项目来提供的，首先到 <a class="reference external" href="http://www.eclipse.org/babel/downloads.php">http://www.eclipse.org/babel/downloads.php</a> 找到当前Eclipse版本对应的中文包</p></li>
-<li><p>然后下载对应的组件的汉化包，一般来说我下载eclipse-zh和cdt-zh两个包就可以了</p></li>
-<li><p>Eclipse的语言包也是用插件的形式安装，所以这2个语言包也使用links安装插件的方式安装</p>
+<li><p class="first">Eclipse的语言包是由Babel项目来提供的，首先到 <a class="reference external" href="http://www.eclipse.org/babel/downloads.php">http://www.eclipse.org/babel/downloads.php</a> 找到当前Eclipse版本对应的中文包</p>
+</li>
+<li><p class="first">然后下载对应的组件的汉化包，一般来说我下载eclipse-zh和cdt-zh两个包就可以了</p>
+</li>
+<li><p class="first">Eclipse的语言包也是用插件的形式安装，所以这2个语言包也使用links安装插件的方式安装</p>
 <ul>
-<li><p>在eclipse目录下创建languages目录，再把下载的2个语言包分别解压到language/eclipse-platform, language/cdt目录下</p></li>
-<li><p>再在eclipse目录下创建links目录，在其中创建任何名称的文本文件如languages.link，写入如下内容:</p>
+<li><p class="first">在eclipse目录下创建languages目录，再把下载的2个语言包分别解压到language/eclipse-platform, language/cdt目录下</p>
+</li>
+<li><p class="first">再在eclipse目录下创建links目录，在其中创建任何名称的文本文件如languages.link，写入如下内容:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">path</span><span class="o">=</span><span class="n">languages</span><span class="o">/</span><span class="n">eclipse</span><span class="o">-</span><span class="n">platform</span>
 <span class="n">path</span><span class="o">=</span><span class="n">languages</span><span class="o">/</span><span class="n">cdt</span>
 </pre></div>
 </div>
 </li>
-<li><p>如果还有部分内容没有更新成中文，那是因为以前的缓存，解决办法如下：</p>
+<li><p class="first">如果还有部分内容没有更新成中文，那是因为以前的缓存，解决办法如下：</p>
 <ul class="simple">
-<li><p>把 configuration 目录中除了 config.ini 之外的目录全部删除，运行eclipse会重新建立</p></li>
-<li><p>以 -clean 参数启动eclipse</p></li>
+<li>把 configuration 目录中除了 config.ini 之外的目录全部删除，运行eclipse会重新建立</li>
+<li>以 -clean 参数启动eclipse</li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
 </li>
-<li><p>比较值得安装的插件:</p>
+<li><p class="first">比较值得安装的插件:</p>
 <ul class="simple">
-<li><p><a class="reference external" href="http://code.google.com/p/elt/">elt</a> (Terminal plug-in for Eclipse) 给Eclipse添加一个命令行功能，这样就可以完全不用离开eclipse做所有的事情了.</p></li>
-<li><p><a class="reference external" href="http://vrapper.sourceforge.net/home/">vrapper</a> 模仿VIM编辑器的插件</p></li>
+<li><a class="reference external" href="http://code.google.com/p/elt/">elt</a> (Terminal plug-in for Eclipse) 给Eclipse添加一个命令行功能，这样就可以完全不用离开eclipse做所有的事情了.</li>
+<li><a class="reference external" href="http://vrapper.sourceforge.net/home/">vrapper</a> 模仿VIM编辑器的插件</li>
 </ul>
 </li>
-<li><p>Eclipse CDT 常用设置</p>
+<li><p class="first">Eclipse CDT 常用设置</p>
 <ul>
-<li><dl class="simple">
-<dt>编辑器选项：General &gt; Editors &gt; Text Editors</dt><dd><p>选中Insert spaces for tabs, tab 宽度设置为2；
+<li><dl class="first docutils">
+<dt>编辑器选项：General &gt; Editors &gt; Text Editors</dt>
+<dd><p class="first last">选中Insert spaces for tabs, tab 宽度设置为2；
 选中Show print margin，并设置Print margin column = 100；
 选中Show line numbers</p>
 </dd>
 </dl>
 </li>
-<li><dl class="simple">
-<dt>工作空间设置 General &gt; Workspace</dt><dd><p>选中Save automatically before build、Always close unrelated projects without prompt、设置Workspace Name。</p>
+<li><dl class="first docutils">
+<dt>工作空间设置 General &gt; Workspace</dt>
+<dd><p class="first last">选中Save automatically before build、Always close unrelated projects without prompt、设置Workspace Name。</p>
 </dd>
 </dl>
 </li>
-<li><dl class="simple">
-<dt>重构前自动保存 C/C++</dt><dd><p>选中Save all modified resources automatically prior to refactoring</p>
+<li><dl class="first docutils">
+<dt>重构前自动保存 C/C++</dt>
+<dd><p class="first last">选中Save all modified resources automatically prior to refactoring</p>
 </dd>
 </dl>
 </li>
-<li><dl class="simple">
-<dt>群组归类显示 C/C++ &gt; Appearance</dt><dd><p>选中所有Group选项</p>
+<li><dl class="first docutils">
+<dt>群组归类显示 C/C++ &gt; Appearance</dt>
+<dd><p class="first last">选中所有Group选项</p>
 </dd>
 </dl>
 </li>
-<li><dl class="simple">
-<dt>只构建有修改的项目 C/C++ &gt; Build</dt><dd><p>选中Build configurations only when there are Eclipse resource changes within the project and its references</p>
+<li><dl class="first docutils">
+<dt>只构建有修改的项目 C/C++ &gt; Build</dt>
+<dd><p class="first last">选中Build configurations only when there are Eclipse resource changes within the project and its references</p>
 </dd>
 </dl>
 </li>
-<li><dl class="simple">
-<dt>加快提示速度 C/C++ &gt; Editor &gt; Content Assist</dt><dd><p>选中所有的自动激活，并把延时设置为1ms</p>
+<li><dl class="first docutils">
+<dt>加快提示速度 C/C++ &gt; Editor &gt; Content Assist</dt>
+<dd><p class="first last">选中所有的自动激活，并把延时设置为1ms</p>
 </dd>
 </dl>
 </li>
-<li><dl>
-<dt>自动代码折叠：C/C++ &gt; Editor &gt; Folding</dt><dd><div class="line-block">
+<li><dl class="first docutils">
+<dt>自动代码折叠：C/C++ &gt; Editor &gt; Folding</dt>
+<dd><div class="first last line-block">
 <div class="line">选中Enable folding when opening a new editor</div>
 <div class="line">选中Enable folding of preprocessor branches</div>
 <div class="line">选中Enable folding of control flow statements</div>
@@ -453,48 +411,55 @@
 </dd>
 </dl>
 </li>
-<li><dl class="simple">
-<dt>保存时删除所有行的末尾空格：C/C++ &gt; Editor &gt; Save Actions</dt><dd><p>Remove trailing whitespace &gt; 选中In all lines</p>
+<li><dl class="first docutils">
+<dt>保存时删除所有行的末尾空格：C/C++ &gt; Editor &gt; Save Actions</dt>
+<dd><p class="first last">Remove trailing whitespace &gt; 选中In all lines</p>
 </dd>
 </dl>
 </li>
-<li><dl class="simple">
-<dt>单文件最大解析数目：</dt><dd><p>C/C++ &gt; Editor &gt; Scalability，从5000改成50000</p>
+<li><dl class="first docutils">
+<dt>单文件最大解析数目：</dt>
+<dd><p class="first last">C/C++ &gt; Editor &gt; Scalability，从5000改成50000</p>
 </dd>
 </dl>
 </li>
-<li><dl class="simple">
-<dt>模板应用自定义代码风格：C/C++ &gt; Editor &gt; Templates</dt><dd><p>选中Use code formatter</p>
+<li><dl class="first docutils">
+<dt>模板应用自定义代码风格：C/C++ &gt; Editor &gt; Templates</dt>
+<dd><p class="first last">选中Use code formatter</p>
 </dd>
 </dl>
 </li>
-<li><dl class="simple">
-<dt>解析器：C/C++ &gt; Indexer</dt><dd><p>选中Index unused headers；
+<li><dl class="first docutils">
+<dt>解析器：C/C++ &gt; Indexer</dt>
+<dd><p class="first last">选中Index unused headers；
 选中Index source and header files opened in editor；
 尽量加大Cache limits的值，例如：50%, 512MB, 256MB</p>
 </dd>
 </dl>
 </li>
-<li><dl class="simple">
-<dt>代码格式化</dt><dd><p>C/C++ &gt; Code Style &gt; Formater 导入google-cpp-style-for-eclipse.xml</p>
+<li><dl class="first docutils">
+<dt>代码格式化</dt>
+<dd><p class="first last">C/C++ &gt; Code Style &gt; Formater 导入google-cpp-style-for-eclipse.xml</p>
 </dd>
 </dl>
 </li>
-<li><dl class="simple">
-<dt>设置豆沙色背景以保护眼睛</dt><dd><p>常规 &gt; 编辑器 &gt; 文本编辑器 &gt; 外观颜色选项 &gt; 背景色 设置RGB为 <code class="docutils literal notranslate"><span class="pre">R:204</span>&#160; <span class="pre">G:232</span>&#160; <span class="pre">B:207</span></code> 就OK了。</p>
+<li><dl class="first docutils">
+<dt>设置豆沙色背景以保护眼睛</dt>
+<dd><p class="first last">常规 &gt; 编辑器 &gt; 文本编辑器 &gt; 外观颜色选项 &gt; 背景色 设置RGB为 <code class="docutils literal notranslate"><span class="pre">R:204</span>&#160; <span class="pre">G:232</span>&#160; <span class="pre">B:207</span></code> 就OK了。</p>
 </dd>
 </dl>
 </li>
-<li><dl class="simple">
-<dt>过滤不想要的文件：</dt><dd><p>右键想要隐藏文件的project or folder-&gt;Properties-&gt;Resource-&gt;Resource Filters-&gt;Add “Exclude all”</p>
+<li><dl class="first docutils">
+<dt>过滤不想要的文件：</dt>
+<dd><p class="first last">右键想要隐藏文件的project or folder-&gt;Properties-&gt;Resource-&gt;Resource Filters-&gt;Add “Exclude all”</p>
 </dd>
 </dl>
 </li>
 </ul>
 </li>
-<li><p>Windows下常见问题</p>
+<li><p class="first">Windows下常见问题</p>
 <ul class="simple">
-<li><p>windows下中文字体太小：因为默认使用的Consolas字体的原因，切换为Courier New字体，在Windows-&gt;Preferences-&gt;General-&gt;Appearance-&gt;Color and Font-&gt;Basic-&gt;Text Font-&gt;显示更多字体-&gt;右键显示激活</p></li>
+<li>windows下中文字体太小：因为默认使用的Consolas字体的原因，切换为Courier New字体，在Windows-&gt;Preferences-&gt;General-&gt;Appearance-&gt;Color and Font-&gt;Basic-&gt;Text Font-&gt;显示更多字体-&gt;右键显示激活</li>
 </ul>
 </li>
 </ul>
@@ -546,7 +511,7 @@
     </div>
     <div class="footer" role="contentinfo">
         &#169; 版权所有 CC BY 2.5.
-      由 <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2 创建。
+      由 <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.1 创建。
     </div>
   </body>
 </html>

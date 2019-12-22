@@ -1,0 +1,4752 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh_CN">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>迭代器 &#8212; Chuanqi 的技术文档</title>
+    <link rel="stylesheet" href="../../../_static/sphinx13.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/translations.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    <link rel="index" title="索引" href="../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../search.html" />
+    <link rel="canonical" href="http://www.sphinx-doc.org/en/master/language/python/python_notes/python.html" />
+
+    <!--<link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'-->
+          <!--rel='stylesheet' type='text/css' />-->
+ 
+    <style type="text/css">
+      table.right { float: right; margin-left: 20px; }
+      table.right td { border: 1px solid #ccc; }
+      
+      .injected { display:none; }
+    </style>
+    <script type="text/javascript">
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+
+  </head><body>
+<div class="pageheader">
+  <ul>
+    <li><a href="../../../index.html">笔记首页</a></li>
+    <li><a href="http://blog.tanchuanqi.com">博客首页</a></li>
+    <li><a href="https://tanchuanqi.com">个人主页</a></li>
+  </ul>
+  <div>
+    <a href="../../../index.html">
+      <img src="../../../_static/sphinxheader.png" alt="SPHINX" />
+    </a>
+  </div>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="总目录"
+             accesskey="I">索引</a></li>
+        <!--<li><a href="../../../index.html">首页</a>&#160;|</li>-->
+        <!--<li><a href="../../../contents.html">Documentation</a> &#187;</li>-->
+ 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">迭代器</a></li>
+<li><a class="reference internal" href="#id6">生成器</a><ul>
+<li><a class="reference internal" href="#id19">列表解析与函数式编程</a></li>
+<li><a class="reference internal" href="#python2py3nolocal">python2中的闭包缺陷与py3中的nolocal关键字</a></li>
+<li><a class="reference internal" href="#pipe">一个有趣的库：pipe</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id24">数据结构：</a></li>
+<li><a class="reference internal" href="#id27">算法：</a></li>
+<li><a class="reference internal" href="#logging">logging</a><ul>
+<li><a class="reference internal" href="#id28">logging是线程安全的</a></li>
+<li><a class="reference internal" href="#id29">简单的将日志打印到屏幕</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#warning-root-this-is-warning-message">WARNING:root:This is warning message</a><ul>
+<li><a class="reference internal" href="#logging-basicconfig">通过logging.basicConfig函数对日志的输出格式及方式做相关配置</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#sun-24-may-2009-21-48-54-demo2-py-line-13-warning-this-is-warning-message">Sun, 24 May 2009 21:48:54 demo2.py[line:13] WARNING This is warning message</a><ul>
+<li><a class="reference internal" href="#id30">将日志同时输出到文件和屏幕</a></li>
+<li><a class="reference internal" href="#id31">logging之日志回滚</a></li>
+<li><a class="reference internal" href="#handler">Handler</a></li>
+<li><a class="reference internal" href="#id32">配置日志</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#argparse">argparse 模块</a></li>
+<li><a class="reference internal" href="#gflags">gflags 模块</a></li>
+<li><a class="reference internal" href="#getopt">getopt 模块</a><ul>
+<li><a class="reference internal" href="#id33">数据类型</a></li>
+<li><a class="reference internal" href="#ndarray">ndarray对象常用属性和方法</a></li>
+<li><a class="reference internal" href="#id34">创建：</a></li>
+<li><a class="reference internal" href="#id35">访问</a></li>
+<li><a class="reference internal" href="#id36">广播</a></li>
+<li><a class="reference internal" href="#id37">迭代</a></li>
+<li><a class="reference internal" href="#id42">副本和视图</a></li>
+<li><a class="reference internal" href="#numpy-matlib">numpy.matlib 库</a></li>
+<li><a class="reference internal" href="#numpy-linalg">numpy.linalg 线性代数</a></li>
+<li><a class="reference internal" href="#numpy-io">Numpy IO</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#python">PYTHON-进阶-编码处理小结</a></li>
+<li><a class="reference internal" href="#mac-os-x-10-5-keymap">Mac OS X 10.5+ 的 Keymap 方案：</a></li>
+</ul>
+
+<div id="searchbox" style="display: none" role="search">
+  <h3>快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="转向" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+    <div class="documentwrapper">
+      <div class="bodywrapper">
+        <div class="body" role="main">
+          
+  <p>Python</p>
+<p>Friday, 18 November 2016</p>
+<p>10:30</p>
+<p>一个编程语言的学习分为三部分：语言本身、标准库、工具链</p>
+<p>Python 语言</p>
+<ul class="simple">
+<li>基础语法<ul>
+<li>常用数据结构<ul>
+<li>string</li>
+<li>tuple, list, dict, set</li>
+</ul>
+</li>
+<li>函数<ul>
+<li>常用内置函数</li>
+<li>闭包</li>
+<li>函数式编程</li>
+</ul>
+</li>
+<li>迭代器与生成器</li>
+<li>异常</li>
+</ul>
+</li>
+<li>类与对象<ul>
+<li>属性与描述符</li>
+<li>多重继承</li>
+<li>操作符重载</li>
+<li>上下文管理器</li>
+</ul>
+</li>
+<li>元编程<ul>
+<li>修饰器</li>
+<li>元类</li>
+</ul>
+</li>
+<li>并发<ul>
+<li>协程</li>
+<li>async 异步编程</li>
+</ul>
+</li>
+<li>库<ul>
+<li>包与模块</li>
+<li>PIP</li>
+<li>C语言扩展</li>
+</ul>
+</li>
+<li>工具<ul>
+<li>ipython</li>
+<li>ipython notebook</li>
+<li>VirtualEnv</li>
+<li>pdb</li>
+</ul>
+</li>
+<li>其它<ul>
+<li>编码风格</li>
+<li>PEP</li>
+<li>exec &amp; eval</li>
+</ul>
+</li>
+</ul>
+<p>Python的官方文档有以下几个:</p>
+<ul class="simple">
+<li>Tutorial 快速入门</li>
+<li>Library Reference 标准库手册</li>
+<li>Language Reference 语言参考</li>
+</ul>
+<p>好书：</p>
+<ul class="simple">
+<li>[STRIKEOUT:Python 核心编程]</li>
+<li>[STRIKEOUT:Effective Python]</li>
+<li>流畅的Python</li>
+<li>Python Cookbook</li>
+<li>Python源码剖析</li>
+<li>Python机器学习</li>
+</ul>
+<p>Google Python Style</p>
+<p>2017年8月9日</p>
+<p>23:45</p>
+<p>Google Python 的编码风格相对于C++真是简洁太多了，python的简洁性和一致性真是好。</p>
+<p>Google Python Style：</p>
+<ul class="simple">
+<li>PEP8：必须符合 PEP8 规范，使用 pylint + yapf</li>
+<li>编码：使用 Unix \n 风格的换行 + UTF8 编码 + 4空格缩进</li>
+<li>长度：折行以确保其不会超过 79 个字符，超长的不要用反斜杠连行，而是使用括号连接。</li>
+<li>空行：顶级定义空2行， 其它情况空1行</li>
+<li>空格：把空格放到操作符两边，以及逗号后面。不滥用空格。</li>
+<li>注释：<ul>
+<li>每个文件包括一个统一的头</li>
+<li>可能的话注释独占一行，同行注释至少要在代码后空2个空格。</li>
+<li>TODO 注释是个好习惯，但是记得在TODO后写上自己的名字。</li>
+<li>规范的注释格式：（Summary -&gt; Detail -&gt; Sections 三步曲）</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<div><p>“”“Summary</p>
+<p>Longer information….</p>
+<p>Detail information….</p>
+<p>(Attributes for class; Args, Returns, Raise for function)</p>
+<p>Attributes:</p>
+<p>likes_spam: A boolean indicating if we like SPAM or not.</p>
+<p>eggs: An integer count of the eggs we have laid.</p>
+<p>“”“</p>
+</div></blockquote>
+<ul class="simple">
+<li>命名：<ul>
+<li>类名用ClassName驼峰式，const常量全大写，其余全小写+下划线。</li>
+<li>枚举始终加 Enum后缀；异常始终加Exception后缀；mixin始终加Mixin后缀。</li>
+</ul>
+</li>
+<li>类：<ul>
+<li>显式继承自object，可以同时适用python2和python3</li>
+<li>单下划线(_)表示protected；双下划线(__)表示private。</li>
+</ul>
+</li>
+<li>限制：<ul>
+<li>使用列表推导式（或生成式推导式）替代 map, reduce, filter。</li>
+<li>不要使用那些威力过大的奇技淫巧。</li>
+</ul>
+</li>
+</ul>
+<p>基础语法</p>
+<p>Friday, 25 November 2016</p>
+<p>16:25</p>
+<p>启动解释器：</p>
+<ul class="simple">
+<li>python -c command [arg] … ，这种方法可以在 命令行 执行 Python 语句，类似于 shell 中的 -c 选项。</li>
+<li>python -m module [arg] … ，有一些 Python 模块也可以当作脚本使用，这类似在命令行中键入完整的路径名执行 模块 源文件一样。</li>
+<li>python -i file.py 运行脚本然后进入交互模式，交互中会保留file.py中的符号。</li>
+<li>为了减少一个编译模块的大小，你可以在 Python 命令行中使用 -O 或者 -OO。-O 参数删除了断言语句，-OO 参数删除了断言语句和 __doc__ 字符串。</li>
+</ul>
+<p>广泛应用的else:</p>
+<blockquote>
+<div><p>基础控制语句中 else 不仅仅可以跟 if 一起使用，还可以跟 for, while, try 一同使用：</p>
+<p>while n &lt; 10:</p>
+<p>print(n)</p>
+<p>else:</p>
+<p>print(“else”, n)</p>
+<p>for i in range(5):</p>
+<p>print(i)</p>
+<p>else:</p>
+<p>print(“else”, i)</p>
+<p>try:</p>
+<p>raise Exception(“ERROR”)</p>
+<p>except Exception as e:</p>
+<p>pass</p>
+<p>else:</p>
+<p>print(“Else”)</p>
+</div></blockquote>
+<p>比较操作可以传递</p>
+<blockquote>
+<div>例如 a &lt; b == c 审核是否 a 小于 b 并且 b 等于 c。</div></blockquote>
+<p>输出：</p>
+<blockquote>
+<div><p>rpr() ： 适合于解释器的字符串表示，一般可以从这个字符串重构对象，即 eval(rpr(a)) == a</p>
+<p>str()： 合适于人阅读的字符串表示。某对象没有适于人阅读的解释形式的话，str() 会返回与 repr() 等同的值。</p>
+<p>str.format()： ‘We are the {} who say “{}!”’.format(‘knights’, ‘Ni’)</p>
+</div></blockquote>
+<p>switch语句</p>
+<blockquote>
+<div><p>python中没有switch语句，取代的方案是使用字典。</p>
+<p>s = {1: call_a(), 2: call_b()}</p>
+<p>s[case]()</p>
+</div></blockquote>
+<p>字符串</p>
+<p>2017年8月9日</p>
+<p>23:52</p>
+<p>字符串类型：</p>
+<ul class="simple">
+<li>普通字符串：使用单引号或双引号包括起来；</li>
+<li>多行字符串：使用三引号 ‘’’ 或 “”” 包括起来；</li>
+<li>原始字符串： r’myname’ 没有换行，而 ‘my**\n**ame’ 包括一个换行；</li>
+<li>文档字符串：紧跟在符号定义后面的多行字符串。第一行应该是关于对象用途的简介，并且如果文档字符串有多行，<strong>第二行应该空出来</strong>，与接下来的详细描述明确分隔。</li>
+</ul>
+<p>字符串操作：</p>
+<ul class="simple">
+<li>相邻的两个字符串文本自动连接在一起： ‘Py’ ‘thon’ =&gt; ‘Python’；</li>
+<li>字符串切片： s[a:b] 在数学符号上的意义等同于 s[a, b)；</li>
+</ul>
+<p>format操作</p>
+<blockquote>
+<div>“{:.2f}”.format(3.1415926) –&gt; 3.14</div></blockquote>
+<p>tuple &amp; list &amp; dict</p>
+<p>2014年7月3日</p>
+<p>15:43</p>
+<p>tuple: ()</p>
+<p>list: []</p>
+<p>dict: {}</p>
+<p>分别对应小括号、中括号、大括号。</p>
+<p>tuple 实际上是由逗号来组成的，而不是圆括号，圆括号只是为了书写漂亮。</p>
+<p>这就是下面两个奇怪行为的原因：</p>
+<ul class="simple">
+<li>return 1,2,3 返回的是一个元组；</li>
+<li>单个元素的元组要这么写， a = (1, )</li>
+</ul>
+<p>清空list</p>
+<p>直接清空一个list的方法是del l[:]，一般偷懒用的l = []在函数内部会是个陷阱，因为函数名的符号指向着这个list，所以它的内存不会被释放。</p>
+<p>函数</p>
+<p>2017年8月7日</p>
+<p>23:28</p>
+<p>理解Python中的参数:</p>
+<blockquote>
+<div><p>参数的顺序是: <strong>位置参数、任意位置参数、关键字参数、任意关键字参数</strong>。</p>
+<p>所以： <strong>non-keyword arg after keyword arg 是错误语法，会引发 SyntaxError</strong></p>
+<p>且：如果有默认参数，一定出现在相应位置的最后。</p>
+</div></blockquote>
+<p>*和**在参数中的应用:</p>
+<blockquote>
+<div><p>*和**用在<strong>形参</strong>时，是<strong>可变参数</strong>：</p>
+<p>问题：</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Python的函数定义中有两种特殊的情况，即出现*，<a href="#id1"><span class="problematic" id="id2">**</span></a>的形式。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如：def myfun1(username, *keys)或def myfun2(username, **keys)等。</p>
+<p>解释：</p>
+<p>&nbsp;&nbsp;* 用来传递<strong>任意个无名字参数</strong>，这些参数会一个Tuple的形式访问。</p>
+<p>&nbsp;&nbsp;<strong>用来处理传递**任意个有名字的参数</strong>，这些参数用dict来访问。</p>
+<p>应用：</p>
+<p># “*” 的应用</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">fun1</span><span class="p">(</span><span class="o">*</span><span class="n">keys</span><span class="p">):</span>
+</pre></div>
+</div>
+<p>…&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print “keys type=%s” % type(keys)</p>
+<p>…&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print “keys=%s” % str(keys)</p>
+<p>…&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for i in range(0, len(keys)):</p>
+<p>…&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print “keys[” + str(i) + “]=%s” % str(keys[i])</p>
+<p>…</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fun1</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>输出以下结果：</p>
+<p>keys type=</p>
+<p>keys=(2, 3, 4, 5)</p>
+<p>keys[0]=2</p>
+<p>keys[1]=3</p>
+<p>keys[2]=4</p>
+<p>keys[3]=5</p>
+<p># “**” 的应用</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">fun2</span><span class="p">(</span><span class="o">**</span><span class="n">keys</span><span class="p">):</span>
+</pre></div>
+</div>
+<p>…&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print “keys type=%s” % type(keys)</p>
+<p>…&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print “keys=%s” % str(keys)</p>
+<p>…&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print “name=%s” % str(keys[‘name’])</p>
+<p>…</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="go">&gt;&gt;&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fun2</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;vp&quot;</span><span class="p">,</span> <span class="n">age</span><span class="o">=</span><span class="mi">19</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>输出以下结果：</p>
+<p>keys type=</p>
+<p>keys={‘age’: 19, ‘name’: ‘vp’}</p>
+<p>name=vp</p>
+<p>*和**用在<strong>实参</strong>中时，是<strong>解包符号</strong>：</p>
+<p>a={‘a’:1, ‘b’:3}</p>
+<p>“{a}, {b}”.format(<a href="#id3"><span class="problematic" id="id4">**</span></a>a)</p>
+</div></blockquote>
+<p>函数注解</p>
+<blockquote>
+<div><p>是关于用户自定义的函数的完全可选的、随意的元数据信息。无论 Python 本身或者标准库中都没有使用函数注解；</p>
+<p>def int_add(x:int, y:int) -&gt; int:</p>
+<p>return x+y</p>
+</div></blockquote>
+<p>默认值只在函数<strong>定义</strong>时<strong>绑定一次</strong>，这是个很大的坑！</p>
+<blockquote>
+<div><p>注意这里的关键词：在定义时绑定、且只绑定一次。</p>
+<p>函数<strong>默认参数值只被赋值一次</strong>。这使得当默认值是可变对象时会有所不同，比如列表、字典或者大多数类的实例。这是一个坑！</p>
+<p>def f(a, L=[]):</p>
+<p>L.append(a)</p>
+<p>return L</p>
+<p>print(f(1))</p>
+<p>print(f(2))</p>
+<p>print(f(3))</p>
+<p>这将输出:</p>
+<p>[1]</p>
+<p>[1, 2]</p>
+<p>[1, 2, 3]</p>
+<p>如果你不想让默认值在后续调用中累积，你可以像下面一样定义函数:</p>
+<p>def f(a, L=None):</p>
+<p>if L is None:</p>
+<p>L = []</p>
+<p>L.append(a)</p>
+<p>return L</p>
+</div></blockquote>
+<p>区分定义时绑定和运行时绑定</p>
+<blockquote>
+<div><p>lambda 函数中的自由变量是运行时进行绑定的，也就是说python中的闭包的变量是在运行时进行绑定的；</p>
+<p>而函数默认参数是在定义时绑定的；</p>
+</div></blockquote>
+<p>偏函数</p>
+<blockquote>
+<div>functools.partial() 是一个非常好用的偏函数工具，可以固定一些参数从而形成一个新的函数。</div></blockquote>
+<p>迭代器与生成器</p>
+<p>2017年8月7日</p>
+<p>23:27</p>
+<div class="section" id="id5">
+<h1>迭代器<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h1>
+<p>迭代器协议：</p>
+<blockquote>
+<div>首先用iter()调用 __iter__() 。该函数返回一个定义了 __next__() 方法的迭代器对象，用内建的 next() 函数调用 __next__() 方法在容器中逐一访问元素。没有后续的元素时， __next__() 抛出一个 StopIteration 异常。</div></blockquote>
+<p>反向迭代</p>
+<blockquote>
+<div>内建函数 reversed() 可以实现反向迭代，但只有在待处理的对象拥有可确定的大小，或者实现了 __reversed()__ 特殊方法时，才能奏效。</div></blockquote>
+<p>以索引-值对的形式迭代：</p>
+<blockquote>
+<div><p>这是非常常见的需求，尤其是从C系转过来的程序员，内建的 enumerate() 可以漂亮的解决</p>
+<p>for idx, val in enumerate(my_list):</p>
+<p>print(idx, val)</p>
+</div></blockquote>
+<p>切片操作：</p>
+<blockquote>
+<div><p>迭代器和生成器都无法执行普通的切片操作，因为长度是未知的。可以通过 itertools.islice() 来曲线实现。</p>
+<p>很符合逻辑的是 itertools.islice() 能工作的原理是正常执行了迭代，并丢弃了不需要的元素。</p>
+<p>同时， itertools.dropwhile() 也是一个方便的函数，它丢弃前面几个不符合要求的元素。</p>
+</div></blockquote>
+<p>itertools 模块：</p>
+<blockquote>
+<div><p>如上所述， itertools.islice(), itertools.dropwhile() 都非常有用。</p>
+<p>还有很多其它的有用的功能，如排列 permutations() 组合 combinations() 等等，基本上，如果面对任何复杂的<strong>迭代问题</strong>，itertools 都能找到合理的解决方案。</p>
+</div></blockquote>
+<p>迭代多个序列：</p>
+<blockquote>
+<div><p>很明显用 zip() 来解决，注意 zip() 返回的序列与最短输入序列长度相同。</p>
+<p>itertools.zip_longest() 可以替代为返回与最长输入序列长度相同的序列，很明显空缺的元素为None。</p>
+<p>如果想序列的对多个容器进行水平迭代，可以使用 itertools.chain() ，非常漂亮。</p>
+</div></blockquote>
+<p>哨兵迭代：</p>
+<blockquote>
+<div><p>内建函数 iter() 可以接受一个无参的可调用对象和一个哨兵，它会创建迭代器，重复调用可调用对象直接它返回哨兵为止。这也是一个常见的语法糖。</p>
+<p>for v in iter(lambda: s.receive(), “END”)</p>
+<p>print(v)</p>
+<p>一直调用 s.receive() 并输出，直到它返回 END 为止。</p>
+</div></blockquote>
+</div>
+<div class="section" id="id6">
+<h1>生成器<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h1>
+<p>生成器：</p>
+<blockquote>
+<div><p>生成器最核心的就是理解：它不用预先产生完整的迭代对象，从而节省内存。</p>
+<p>它的工作原理是在每次yield时，把当前的运行堆栈保存起来，在下次迭代中再恢复这个堆栈。</p>
+<p>生成器常用函数直接实现，但是生成器也可以轻易的实现为一个类，把生成器函数的代码放到 __iter__() 方法中即可。</p>
+</div></blockquote>
+<p>yield from 语法糖：</p>
+<blockquote>
+<div><p>yield from x 可以视为下面的展开</p>
+<p>for v in x:</p>
+<p>yield v</p>
+<p>用 yield from 明显更紧凑更清晰。</p>
+</div></blockquote>
+<p>异常</p>
+<p>2017年8月7日</p>
+<p>23:29</p>
+<p>基础异常语法：</p>
+<blockquote>
+<div><p>try:</p>
+<p>f = open(‘abc.csv’)</p>
+<p>raise Exception(“ERROR”)</p>
+<p>except Exception as e:</p>
+<p>print(e)</p>
+<p><strong>else</strong>:</p>
+<p>print(“no exception”)</p>
+<p>f.close()</p>
+<p>finally:</p>
+<p>print(“executing finally clause”)</p>
+</div></blockquote>
+<p>with 语句：</p>
+<blockquote>
+<div><p>with 用在提供了预定义清理行为的对象上，逻辑上可以理解为try…finally的简写。</p>
+<p><strong>with</strong> open(“myfile.txt”) <strong>as</strong> f:</p>
+<p>for line in f:</p>
+<p>print(line)</p>
+</div></blockquote>
+<p>库目录查找</p>
+<p>2016年7月7日</p>
+<p>18:38</p>
+<p>python模块导入时按优先级高低的搜索路径如下：</p>
+<ol class="arabic simple">
+<li>程序主目录，执行程序则包含执行代码文件的目录，如：python sub/a.py，交互模式(如输入python)下为当前工作目录</li>
+<li>PYTHONPATH中的目录</li>
+<li>python安装目录,UNIX下，默认路径一般为/usr/local/lib/python3.5/site-packages</li>
+<li>3.x 中还会加载 site-packages 目录下的 *.pth&nbsp;文件内容，这个文件一行一个目录。</li>
+</ol>
+<p>这4项，共同构成了sys.path。模块存储路径在sys.path 里面就可以import。 由于搜索路径有先后顺序，所以前面同名的模块容易“挡住”后面的模块。程序运行期间，sys.path 中还可以动态修改。</p>
+<p>各种修改sys.path的方法区别在于：</p>
+<ul class="simple">
+<li>动态修改sys.path列表：动态添加，灵活但是每一个脚本都需要把sys.path加上；</li>
+<li>site-packages &amp; *.pth ：为<strong>某一个版本</strong>的python固定添加上搜索目录；</li>
+<li>PYTHONPATH：跨<strong>所有版本</strong>都会添加；</li>
+</ul>
+<p>Python中有各种模块的目录，大致可以这么理解</p>
+<ul class="simple">
+<li>标准库一般直接会在：/usr/lib/pythonX.Y/</li>
+<li>使用系统软件管理器安装的包会在：/usr/lib/pythonX.Y/site-packages/</li>
+<li>使用easy_install或pip安装的包会在：/usr/local/lib/pythonX.Y/site-packages/</li>
+<li>非root使用安装的包会在：~/.local/lib/pythonX.Y/site-packages/</li>
+<li>为什么会有dist-packages：<ul>
+<li>在Debian系列的Linux上，系统软件管理器安装的包在 dist-packages 而不是采用 site-packages 目录。这是为了减少系统自带python 和 你手动安装的python 之间的冲突，只是一种命名技巧。</li>
+</ul>
+</li>
+</ul>
+<p>其实最关键的是知道：模块的安装路径一定要在 sys.path 这个List中，才能在脚本中可以正常地 import 进来。</p>
+<p>包和模块</p>
+<p>Friday, 18 November 2016</p>
+<p>10:06</p>
+<p>from mypackage import *</p>
+<blockquote>
+<div>导入的是 __init__.py 中的 __ALL__ 变量里指出的所有符号。如果没有 __ALL__ 变量，则默认导入所有<strong>不以下划线开头的符号</strong></div></blockquote>
+<p>import mypackage</p>
+<blockquote>
+<div><p>导入 mypackage 目录下的 __init__.py，<strong>所谓的导入就是把这个文件执行一遍</strong>。所以，在这个文件中显式引入的符号也会被放到 mypackage 命名空间下。</p>
+<p>示例：</p>
+<p>mypackage/__init__.py</p>
+<p>from extend_package import extend_name # 导入了外部符号</p>
+<div class="line-block">
+<div class="line">在其它文件中就可以访问到这个符号：</div>
+<div class="line">import mypackage</div>
+</div>
+<p>print(mypackage.extend_name) #可以通过 mypackage 访问这个外部符号了</p>
+</div></blockquote>
+<p>import a/b/c</p>
+<blockquote>
+<div>会依次执行 a/__init.py, a/b/__init__.py, a/b/c/__init__.py</div></blockquote>
+<p>import中的 . 和 .. 语法</p>
+<blockquote>
+<div><p>from . import a ：从当前目录查找 a</p>
+<p>from ..a import b ：从../a 目录查找 b</p>
+</div></blockquote>
+<p>命名空间包</p>
+<blockquote>
+<div><p>一种特殊的包，设计出来在<strong>大型项目中合并不同目录下的代码</strong>，并合并在统一的命名空间之下。</p>
+<p>关键之处在于统一的命名空间的顶层目录中不包含 __init__.py 文件。导入这样的包时，解析器会创建一个列表，并把所有恰好包含在这个包名的目录（通过sys.path来控制）都囊括在内。</p>
+</div></blockquote>
+<p>用 python 执行目录或 zip 文件</p>
+<blockquote>
+<div><p>1：python mydir 时，实际上执行的是 python mydir/__main__.py</p>
+<p>2：zip文件可以视为一个目录来处理</p>
+</div></blockquote>
+<p>sys.path</p>
+<blockquote>
+<div><p>通过 PYTHONPATH 环境变量和 .pth 文件影响 sys.path</p>
+<p>.pth文件需放在某一个 site-packages 目录中，site-packages 目录通常是第三方模块和包的安装目录</p>
+<p>一般有一个用户级的安装目录，一般在 .local/lib/python3.5/site-packages</p>
+</div></blockquote>
+<p>通过字符串加载</p>
+<blockquote>
+<div>当包名或模块包是通过字符串给出时，可以使用 importlib.import_module()函数来手动导入这个模块</div></blockquote>
+<p>import 钩子机制</p>
+<blockquote>
+<div>import 有强大的钩子机制，可以细致的自定义 import 时的各种行为。比如实现自动从远程加载，加载时自动打补丁等等。</div></blockquote>
+<p>发布包</p>
+<blockquote>
+<div><p>使用标准库的 distutils 库来创建可发布的包非常简单，一般只需要 setup.py 和 MANIFEST.in 文件即可。</p>
+<p>发布涉及到 C 语言扩展的包时，就会比较复杂了，因为要编译C代码。</p>
+</div></blockquote>
+<p>模块也可以包含可执行语句。这些语句一般用来初始化模块。他们仅在 <strong>第一次</strong> 被导入的地方执行<strong>一次</strong>。</p>
+<p>包内引用</p>
+<blockquote>
+<div><p>如果包中使用了子包结构，可以按绝对位置从相邻的包中引入子模块。例如，如果 sound.filters.vocoder 包需要使用 sound.effects 包中的 echo 模块，它可以 from sound.Effects import echo。</p>
+<p>你可以用这样的形式 from module import name 来写显式的相对位置导入。那些显式相对导入用点号标明关联导入当前和上级包。以 surround 模块为例，你可以这样用:</p>
+<p>from . import echo</p>
+<p>from .. import formats</p>
+<p>from ..filters import equalizer</p>
+<p>需要注意的是显式或隐式相对位置导入都基于当前模块的命名。因为主模块的名字总是 “__main__”，Python 应用程序的主模块应该总是用绝对导入。</p>
+</div></blockquote>
+<p>site-packages目录下四种包的形式:</p>
+<ul>
+<li><div class="first line-block">
+<div class="line">1.
+| site-packages/pylab.py
+| 这种是最好理解的, 因为单个.py文件就可以作为module被引用.</div>
+</div>
+</li>
+<li><div class="first line-block">
+<div class="line">2.
+| site-packages/toolz
+| site-packages/toolz-0.8.0-py2.7.egg-info
+| 这种包有两个目录, 一个目录以包名命名, 因为含有__init__.py的目录, 可以作为module被引用.
+| 另一个egg-info目录是一些metadata, 没什么大用, 有些包也没有这个目录.</div>
+</div>
+</li>
+<li><div class="first line-block">
+<div class="line">3.
+| site-packages/fasttext-0.7.6-py2.7-Linux-x86_64.egg
+| 单独一个.egg文件. 这种包是把模块都打进了一个egg压缩包里. 这个压缩包可以视为一个目录, 模块文件在这里:&nbsp;site-packages/fasttext-0.7.6-py2.7-linux-x86_64.egg/fasttext</div>
+</div>
+</li>
+<li><div class="first line-block">
+<div class="line">4.
+| site-packages/titlectr-0.1-py2.7.egg
+| 虽然文件名跟3相同, 但是这是一个目录, 可以视为是3解压后的样子. 模块文件在这个目录里:&nbsp;site-packages/titlectr</div>
+</div>
+</li>
+</ul>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们知道, site-packages是在模块搜索的path(sys.path)里的, 所以1和2这两种存放包的方式, 可以直接被搜索到, 可以直接import, 但是3和4这两种方式, 包是在子目录中, 所以无法直接import. 于是安装的时候, 安装工具会将.egg目录加入到path中(.pth文件). 比如将site-packages/fasttext-0.7.6-py2.7-linux-x86_64.egg和site-packages/titlectr-0.1-py2.7.egg写入到site-packages/easy_install.pth中. 也可以写在其他的site-packages/<a href="#id7"><span class="problematic" id="id8">*</span></a>.pth中, 比如给每个package单独建一个.pth文件.</p>
+<p>Python有两个setup工具, 一个是setuptools(from setuptools import setup), 另一个是distutil(from distutil import setup).</p>
+<ul class="simple">
+<li>setuptools安装的包, 会形如3和4的样子. 这个工具有完善的打egg包的功能, 也倾向于把模块的功能部分和metadata打成一个整体(egg), 方便管理. 使用python setup.py bdist_egg命令, 可以将module打成egg包, 方便部署.</li>
+<li>distutil会直接把源码包复制到site-pacakages下， 并创建一个和模块并列的metadata. 如果package中有个大文件比如字典(当然很不推荐将大字典封装作为package的一部分, 一般外挂), 使用setuptools, 会耗费极大的时间在打包egg上, 而distutil可以直接拷贝安装.</li>
+<li>除此之外, wheel是一种新的格式. 更类似于java的jar包.&nbsp;python setup.py bdist_wheel可以打包成wheel包.</li>
+</ul>
+<p>源码、Eggs、Wheel 三种常见的 python 包格式</p>
+<blockquote>
+<div><p>源码包就不用说了，tar.gz 或类似的压缩包，安装的时候直接copy到site-packages目录下就行</p>
+<p>Eggs，由setuptools引入的一种文件格式，setuptools可以创建，识别，解析并安装这种格式。本质就是一种压缩包，有句话“Eggs are to Pythons as Jars are to Java”，跟Java中的Jar包一样。</p>
+<p>Wheel 本质是一个zip包，只是使用了whl扩展名。是一种比egg更新更好的打包格式，它的出现就是为了替代Eggs的。可以理解为一种更好的Jar包。</p>
+</div></blockquote>
+<p>修饰器</p>
+<p>Saturday, 29 October 2016</p>
+<p>11:15</p>
+<p>首先，最基本的一点，修饰器是修饰函数的！</p>
+<p>NO，类也是可以用修饰器的！</p>
+<p>我觉得，关于python的函数修饰器，最关键的在于理解以下两点：</p>
+<p>1：</p>
+<blockquote>
+<div><p><strong>def</strong> decorator(func):</p>
+<p><strong>def</strong> inner(<a href="#id9"><span class="problematic" id="id10">*</span></a>args,**kwargs):</p>
+<p><strong>print “Before”</strong>+func.__name__</p>
+<p>func(<a href="#id11"><span class="problematic" id="id12">*</span></a>args,**kwargs)</p>
+<p><strong>print “After”</strong>+func.__name__</p>
+<p><strong>return</strong> inner</p>
+<p>&#64;decorator</p>
+<p><strong>def</strong> f(a, b, c):</p>
+<p>pass</p>
+<p>意味着 <strong>f = decorator(f)</strong>，f 这个<strong>标识符</strong>实际上指向了一个另外的函数（decorator的内部函数inner），直接print f.__name__就可以看出来。</p>
+<p>所以说，函数修饰器的本质就是“<strong>标识符的替换</strong>”！这种标识符的替换并不仅限于函数修饰，甚至可以近似理解为是“<strong>C语言中的宏替换</strong>”。</p>
+<p>理解了 f 这个标识符被替换了之后，就明白 a,b,c参数会被传递到哪里了，肯定是inner啊，因为 f这个标识符被替换为了inner，视为 f(a,b,c)===inner(a,b,c)。</p>
+</div></blockquote>
+<p>2：</p>
+<blockquote>
+<div><p><strong>def</strong> with_arg_decorator(<a href="#id13"><span class="problematic" id="id14">**</span></a>desc_kwargs):</p>
+<p><strong>def</strong> real_decorator(func):</p>
+<p><strong>def</strong> inner(<a href="#id15"><span class="problematic" id="id16">*</span></a>args,**kwargs):</p>
+<p><strong>print “%scall%sbegin”</strong>%(desc_kwargs[<strong>‘caller’</strong>],func.__name__)</p>
+<p>func(<a href="#id17"><span class="problematic" id="id18">*</span></a>args,**kwargs)</p>
+<p><strong>print “%scall%send”</strong>%(desc_kwargs[<strong>‘caller’</strong>],func.__name__)</p>
+<p><strong>return</strong> inner</p>
+<p><strong>return</strong> real_decorator</p>
+<div class="line-block">
+<div class="line">&#64;with_arg_decorator(caller=<strong>”TCQ”</strong>)</div>
+<div class="line"><strong>def</strong> f2():</div>
+<div class="line">pass</div>
+</div>
+<div class="line-block">
+<div class="line">带参数的修饰器关键在于理解这里实际上这已经发生了一次函数调用,因为已经有了一个<strong>()，即每个()意味着一次函数调用</strong>。</div>
+<div class="line">with_arg_decorator(caller=<strong>”TCQ”</strong>)返回了real_decorator,real_decorator就已经是一个无参数的普通修饰器了。再使用 &#64;real_decorator应用到f2上。知道内部机制就彻底明白了！</div>
+</div>
+</div></blockquote>
+<p>函数式编程</p>
+<p>2017年4月14日 星期五</p>
+<p>10:53</p>
+<p>函数式的风格通常被认为有如下优点：</p>
+<ul class="simple">
+<li>逻辑可证</li>
+<li>模块化</li>
+<li>组件化</li>
+<li>易于调试</li>
+<li>易于测试</li>
+<li>更高的生产率</li>
+</ul>
+<p>支持函数式编程的语言通常具有如下特征，大量使用这些特征的代码即可被认为是函数式的：</p>
+<ul class="simple">
+<li>函数是一等公民</li>
+<li>匿名函数(lambda)&nbsp;；</li>
+<li>封装控制结构的内置模板函数&nbsp;（如map, reduce, zip, filter等等）；</li>
+<li>闭包(closure)&nbsp;；</li>
+<li>内置的不可变数据结构&nbsp;（如tuple）；</li>
+<li>递归&nbsp;；</li>
+</ul>
+<p>常用的函数式内建函数：</p>
+<ul class="simple">
+<li>map(function, iterable, …)&nbsp;：为每一次迭代应用一个函数</li>
+<li>reduce(function, iterable[, initializer])&nbsp;：归约，将所有的迭代归约为一个最终的结果</li>
+<li>filter(function, iterable)&nbsp;：过滤</li>
+<li>zip(iterable1, iterable2, …)：打包。返回一个列表，每个元素都是一个元组</li>
+<li>sorted(iterable, function)：排序</li>
+</ul>
+<div class="section" id="id19">
+<h2>列表解析与函数式编程<a class="headerlink" href="#id19" title="永久链接至标题">¶</a></h2>
+<p>列表解析可以替代绝大多数需要用到map和filter的场合，可能正因为此，著名的静态检查工具pylint将map和filter的使用列为了警告。</p>
+<p>[ x+1 for x in lst if x &gt; 0] 这基本能全部替代map和filter的。</p>
+<p>而且，“生成器表达式”还能更好的迭代巨大的数组，更好的利用内存：</p>
+<blockquote>
+<div><p>(x+1&nbsp;for&nbsp;x in&nbsp;lst) #生成器表达式，返回迭代器。外部的括号可在用于参数时省略。</p>
+<p>[x+1&nbsp;for&nbsp;x in&nbsp;lst] #列表解析，返回list</p>
+</div></blockquote>
+<p>当包含2个以上的推导时，会从左到右来解析，这与直觉是相反的：</p>
+<blockquote>
+<div><p>[x for row in matrix for x in row] # 这是正确写法</p>
+<p>[STRIKEOUT:[x for x in row for row in matrix] # 这是我的直觉写法，但是是错的！]</p>
+</div></blockquote>
+<p>其它：</p>
+<ul class="simple">
+<li>使用 functools.partial() 来方便的创建偏函数，如 functools.partial(int, base=2) 创建一个二进制转换的偏函数。</li>
+<li>sorted() 也是函数式编程中常用的辅助函数。</li>
+<li>pypi上有一个名为functional的模块，除了这些内建函数外，还额外提供了更多的有意思的函数。</li>
+</ul>
+</div>
+<div class="section" id="python2py3nolocal">
+<h2>python2中的闭包缺陷与py3中的nolocal关键字<a class="headerlink" href="#python2py3nolocal" title="永久链接至标题">¶</a></h2>
+<p>py2中的闭包无法修改外部变量，只能读取外部变量，这是python2的一个硬伤。任何试图修改外部变量都将声明一个新的同名内部变量，并覆盖相应的外部变量。</p>
+<p>def counter():</p>
+<blockquote>
+<div><p>num = 0</p>
+<p>def add_one():</p>
+<p>num += 1</p>
+<p>print(num)</p>
+<p>return add_one</p>
+</div></blockquote>
+<p>con = counter()</p>
+<p>con()</p>
+<p>这段代码在2.x中运行会报错: UnboundLocalError: local variable ‘num’ referenced before assignment.</p>
+<p>python2中要修改外部变量只能使用global来引用全局变量，这当然是很不好的风格。当然还有一些Trick，比如使用容器对象，但是这样代码可读性低，不友好。</p>
+<p>所以，在python3中引入了nolocal关键字来引用外部变量，解决了这个问题。至此，python3中的闭包才是完备的了！</p>
+<p>def counter():</p>
+<blockquote>
+<div><p>num = 0</p>
+<p>def add_one():</p>
+<p>nonlocal num</p>
+<p>num += 1</p>
+<p>print(num)</p>
+<p>return add_one</p>
+</div></blockquote>
+<p>con = counter()</p>
+<p>con()</p>
+<p>完全正常运行！</p>
+</div>
+<div class="section" id="pipe">
+<h2>一个有趣的库：pipe<a class="headerlink" href="#pipe" title="永久链接至标题">¶</a></h2>
+<p>pipe展示了一种很有新意的使用迭代器和生成器的方式：流。</p>
+<p>pipe将可迭代的数据看成是流，类似于linux，pipe使用 ‘|’ 传递数据流，并且定义了一系列的“流处理”函数用于接受并处理数据流，并最终再次输出数据流或者是将数据流归纳得到一个结果。</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pipe</span> <span class="k">import</span> \<span class="o">*</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> \<span class="o">|</span> <span class="n">add</span>
+</pre></div>
+</div>
+<p>10</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> \<span class="o">|</span> <span class="n">where</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> \<span class="o">|</span> <span class="n">add</span>
+</pre></div>
+</div>
+<p>6</p>
+</div></blockquote>
+<p>pipe中还包括了更多的流处理函数。你甚至可以自己定义流处理函数，只需要定义一个生成器函数并加上修饰器Pipe。如下定义了一个获取元素直到索引不符合条件的流处理函数：</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@Pipe</span>
+</pre></div>
+</div>
+<p>… def&nbsp;take_while_idx(iterable, predicate):</p>
+<p>…&nbsp;&nbsp; for&nbsp;idx, x in&nbsp;enumerate(iterable):</p>
+<p>…&nbsp;&nbsp;&nbsp;&nbsp; if&nbsp;predicate(idx): yield&nbsp;x</p>
+<p>…&nbsp;&nbsp;&nbsp;&nbsp; else: return</p>
+</div></blockquote>
+<p>调试与测试</p>
+<p>2019年11月1日 星期五</p>
+<p>10:41</p>
+<p>快速的调试有几种方法：</p>
+<ol class="arabic simple">
+<li>print 大法当然是最基本的。</li>
+<li>使用 -i 参数进行交互式调试， python -i a.py 时，如果发生异常，那么就会在异常处中断并进入交互模式，这时可以查看一下当前的各种变量。</li>
+<li>使用 pdb 进行交互式调试，在需要断点的行写下 import pdb; pdb.set_trace()。这便会在这点停下，并可以使用一些高级命令查看当前变量。<ol class="loweralpha">
+<li>bt 打印堆栈</li>
+<li>up 向上移一层，查看更高级次的函数的变量值</li>
+<li>down 向下移一层</li>
+<li>step 步进，会进入函数</li>
+<li>next 步进，不会进入函数，把函数当成一行</li>
+<li>return 继续运行到return语句</li>
+<li>continue 继续运行到下一个断点</li>
+</ol>
+</li>
+</ol>
+<p>类与面向对象</p>
+<p>2017年8月7日</p>
+<p>23:20</p>
+<p>Python 的类机制通过最小的新语法和语义在语言中实现了类。它是 C++ 或者 Modula-3 语言中类机制的混合。</p>
+<p>用 C++ 术语来讲，所有的类成员（包括数据成员）都是公有（ public ）的（其它情况见下文 私有变量），所有的成员函数都是虚（ virtual ）的。</p>
+<p>命名空间</p>
+<blockquote>
+<div>从命名到对象的映射。当前命名空间主要是通过 Python 字典实现的，不过通常不关心具体的实现方式（除非出于性能考虑），以后也有可能会改变其实现方式。</div></blockquote>
+<p>nolocal &amp; global</p>
+<blockquote>
+<div><p>如果一个命名声明为全局的，那么对它的所有引用和赋值会直接搜索包含这个模块全局命名的作用域。如果要重新绑定最里层作用域之外的变量，可以使用 nonlocal 语句；如果不声明为 nonlocal，这些变量将是<strong>只读的</strong>（对这样的变量赋值会在最里面的作用域创建一个新的局部变量，外部具有相同命名的那个变量不会改变）。</p>
+<p>global 语句用以指明某个特定的变量为全局作用域，并重新绑定它。</p>
+<p>nonlocal 语句用以指明某个特定的变量为封闭作用域，并重新绑定它。</p>
+</div></blockquote>
+<p>__new__ () &amp; __init__()</p>
+<blockquote>
+<div><p>__new__() 一般生成一个没有初始状态的对象</p>
+<p>__init__() 一般生成一个带初始状态的对象</p>
+</div></blockquote>
+<p>__str__() &amp; __repr__() &amp; __format__()</p>
+<blockquote>
+<div><p>__str__()返回的是“字符串表示”；</p>
+<p>__repr__()返回的是“代码表示”，即： eval(repr(obj)) == obj；</p>
+<p>__format__()是留给 ” xxx {:abc}”.format(d) 的钩子；</p>
+</div></blockquote>
+<p>方法的工作原理</p>
+<blockquote>
+<div><p>x.f(…) 相当于 MyClass.f(x, …)</p>
+<p>引用非数据属性的实例属性时，会搜索它的类。如果这个命名确认为一个有效的函数对象类属性，就会将实例对象和函数对象封装进一个抽象对象：这就是方法对象。以一个参数列表调用方法对象时，它被重新拆封，用实例对象和原始的参数列表构造一个新的参数列表，然后函数对象调用这个新的参数列表。</p>
+<p>下面这段很长的话，就是对上面那个简短语句转换的描述。</p>
+</div></blockquote>
+<p>命名约定：</p>
+<blockquote>
+<div><p>大写方法名称的首字母</p>
+<p>使用一个唯一的小字符串（也许只是一个下划线）作为数据属性名称的前缀</p>
+<p>方法使用动词而数据属性使用名词。</p>
+</div></blockquote>
+<p>Python 有两个用于继承的函数：</p>
+<ul class="simple">
+<li>函数 isinstance() 用于检查实例类型： isinstance(obj, int) 只有在 obj.__class__ 是 int 或其它从 int 继承的类型</li>
+<li>函数 issubclass() 用于检查类继承： issubclass(bool, int) 为 True，因为 bool 是 int 的子类。然而， issubclass(float, int) 为 False，因为 float 不是 int 的子类。</li>
+</ul>
+<p>私有变量</p>
+<blockquote>
+<div><p>以一个下划线开头的命名（例如 _spam ）会被处理为 API 的非公开部分（无论它是一个函数、方法或数据成员）。它会被视为一个实现细节，无需公开。</p>
+<p>前面至少两个下划线，后面至多一个下划线（形如 __spam ）的标识符，会应用name mangling （命名编码）替代为 _classname__spam 。</p>
+<p>一个下划线类型于protected，二个下划线类似于private。</p>
+<p>二个下划线的 name mangling 也不能绝对私有变量，实际上他是为了避免子类无意中覆盖掉父类中的符号。</p>
+</div></blockquote>
+<p>新式类与旧式类</p>
+<p>2016年9月23日 星期五</p>
+<p>17:49</p>
+<p>在2.x中才有新式类与旧式类，在3.x中只有新式类。</p>
+<p><strong>Python 2.x中默认都是经典类，只有显式继承了object才是新式类</strong></p>
+<p><strong>Python 3.x中默认都是新式类，不必显式的继承object</strong></p>
+<p>新式类与经典类的差别并不大，所以在实际中很可能感觉不到差别。它们的区别在于：</p>
+<ol class="arabic simple">
+<li>首先，写法不一样：</li>
+</ol>
+<blockquote>
+<div><div class="line-block">
+<div class="line"><strong>class A</strong>:</div>
+<div class="line"><strong>pass</strong></div>
+</div>
+<div class="line-block">
+<div class="line"><strong>class B</strong>(object):</div>
+<div class="line"><strong>pass</strong></div>
+</div>
+</div></blockquote>
+<ol class="arabic simple">
+<li>在多继承中搜索MRO时，新式类采用广度优先搜索，而旧式类是采用深度优先搜索。</li>
+<li>新式类更符合OOP编程思想，统一了python中的类型机制（不再区别类和类型）。</li>
+</ol>
+<ol class="arabic">
+<li><p class="first">新式类对象可以直接通过__class__属性获取自身类型:type</p>
+</li>
+<li><div class="first line-block">
+<div class="line">新式类增加了__slots__内置属性, 可以把实例属性的种类锁定到__slots__规定的范围之中。
+| class A(object):</div>
+</div>
+</li>
+</ol>
+<blockquote>
+<div><p>__slots__ = (‘name’, ‘age’)</p>
+<p>a = A()</p>
+<p>a.name1 = “a”</p>
+<p>AttributeError: ‘A’ object has no attribute ‘name1’</p>
+<p>经典类__slots__ 属性没用，A是新式类添加了__slots__ 属性,所以只允许添加 name age，所以a.name是会出错的</p>
+</div></blockquote>
+<ol class="arabic simple">
+<li>新式类增加了__getattribute__方法，每次通过实例访问属性，都会经过__getattribute__函数。</li>
+</ol>
+<p><strong>类的各种属性和方法的使用与区别</strong></p>
+<p>2016年5月7日 星期六</p>
+<p>11:32</p>
+<p>代码示例：</p>
+<p><strong>class</strong>A(object):</p>
+<blockquote>
+<div><p>instance_and_class_prop=1</p>
+<p>class_prop=1</p>
+<p>_private_instance_prop1=2<em>#君子协议,只是告诉别人这是私有属性，外部依然可以访问更改</em></p>
+<p>__private_instance_prop2=3<em>#稍微混淆了一下,外部不可通过instancename.propertyname来访问或者更改,实际将其转化为了_classname__propertyname</em></p>
+<p><strong>def</strong> __init__(self):</p>
+<p>self.instance_and_class_prop=100</p>
+<p>self.instance_prop=101</p>
+<p><strong>def</strong> foo(self,x):</p>
+<p><em>#类实例方法</em></p>
+<p><strong>print “executingfoo(%s,%s)”</strong>%(self,x)</p>
+<p>&#64;classmethod</p>
+<p><strong>def</strong> class_foo(cls,x):</p>
+<p><em>#类方法</em></p>
+<p><strong>print “executingclass_foo(%s,%s)”</strong>%(cls,x)</p>
+<p>&#64;staticmethod</p>
+<p><strong>def</strong> static_foo(x):</p>
+<p><em>#静态方法</em></p>
+<p><strong>print “executingstatic_foo(%s)”</strong>%x</p>
+</div></blockquote>
+<p>a=A()</p>
+<p><strong>print</strong> a.instance_and_class_prop<em>#instance.propname优先选择实例属性</em></p>
+<p><strong>print</strong> A.instance_and_class_prop<em>#classname.propname始终指向类属性</em></p>
+<p><strong>print</strong> a.class_prop<em>#instance.propname找不到实例属性时就指向类属性</em></p>
+<p><strong>print</strong> A.class_prop<em>#classname.propname始终指向类属性</em></p>
+<p><strong>print</strong> a.instance_prop<em>#instance.propname优先选择实例属性</em></p>
+<p><strong>try</strong>:</p>
+<blockquote>
+<div><strong>print</strong> A.instance_prop<em>#classname.propname始终指向类属性,无法找到实例属性,抛出AttrbuteError异常</em></div></blockquote>
+<p><strong>except</strong> AttributeError:</p>
+<blockquote>
+<div><strong>pass</strong></div></blockquote>
+<p><strong>print</strong> A._private_instance_prop1<em>#一般不要像这样打破君子协议</em></p>
+<p><strong>print</strong> A._A__private_instance_prop2<em>#强制访问,更不好了</em></p>
+<p>a.foo(1)<em>#print:executingfoo(&lt;__main__.Aobjectat0xb77d67ec&gt;,1)</em></p>
+<p>a.class_foo(1)<em>#executingclass_foo(&lt;class’__main__.A’&gt;,1)</em></p>
+<p>A.class_foo(1)<em>#executingclass_foo(&lt;class’__main__.A’&gt;,1)</em></p>
+<p>a.static_foo(1)<em>#executingstatic_foo(1)</em></p>
+<p>A.static_foo(1)<em>#executingstatic_foo(1)</em></p>
+<p>实例属性、类属性、私有属性 的区别：</p>
+<p>1：实例属性：</p>
+<blockquote>
+<div><p>最好在__init__(self,…)中初始化</p>
+<p>内部调用时都需要加上self.</p>
+<p>外部调用时用instancename.propertyname</p>
+</div></blockquote>
+<p>2:类属性：</p>
+<blockquote>
+<div><p>在__init__()外初始化</p>
+<p>在内部用classname.类属性名调用</p>
+<p>外部既可以用classname.类属性名又可以用instancename.类属性名来调用</p>
+</div></blockquote>
+<p>3：私有属性：</p>
+<blockquote>
+<div><p>1）：单下划线_开头：只是告诉别人这是私有属性，外部依然可以访问更改</p>
+<p>2）：双下划线__开头：外部不可通过instancename.propertyname来访问或者更改，实际将其转化为了_classname__propertyname</p>
+</div></blockquote>
+<p><strong>实例方法、类方法、静态方法 的区别：&nbsp;</strong></p>
+<ul class="simple">
+<li>类方法和静态方法都可以被类和类实例调用，类实例方法仅可以被类实例调用<ul>
+<li>因此，类方法可以实现类级别的多态，就是因为他有个cls参数可以区分当前不同的类，从而实现类级别的多态。</li>
+<li>静态方法没有cls参数，无法做到类级别的多态。</li>
+</ul>
+</li>
+<li>类方法的隐含调用参数是类，而类实例方法的隐含调用参数是类的实例，静态方法没有隐含调用参数。</li>
+<li>类方法和静态方法在低版本的python中都是用外部函数来实现的，引入了这2个函数修饰器后让所有与类相关的代码都集中到了类的内部，形式上更漂亮了而已。</li>
+</ul>
+<p>初始化</p>
+<p>2017年8月7日</p>
+<p>23:24</p>
+<p>super() &amp; MRO</p>
+<p>2017年8月7日</p>
+<p>23:20</p>
+<p>__MRO__ 定义了多重继承，菱形继承时类之间的顺序，通过 super() 来调用可以确保每个祖先类只被调用一次。</p>
+<p>python 2.2 开始，就已经提供了 super() 函数，只是在python3中可以不带参数的调用 super()了。</p>
+<blockquote>
+<div><p>super(MyClass, self).__init__() # python 2.2+</p>
+<p>super().__init__() # python 3+，默认参数是 super(__class__, self).__init__()</p>
+</div></blockquote>
+<p>property</p>
+<p>2017年8月7日</p>
+<p>23:24</p>
+<p>通过 &#64;prperty 修饰符实现。</p>
+<p>class MyClass(object):</p>
+<blockquote>
+<div><p>def __init__(self):</p>
+<p>self.v = 0</p>
+<p>&#64;property</p>
+<p>def value(self):</p>
+<p>return self.v</p>
+<p>&#64;value.setter</p>
+<p>def value(self, v):</p>
+<p>if 0 &lt;= v &lt;= 100:</p>
+<p>self.v = v</p>
+</div></blockquote>
+<p>m = MyClass()</p>
+<p>m.value = 99</p>
+<p>print(m.value)</p>
+<p>Mixin</p>
+<p>2017年8月7日</p>
+<p>23:17</p>
+<p>Mixin 是不是可以视为C++中的抽象类？</p>
+<p>Mixin与interface最大的区别在于它是包括实现的，而interface仅仅包含声明。</p>
+<p>Mixin强调的是 I Can，而interface强调的是 I Am。</p>
+<p>使用Mixin类实现多重继承要非常小心</p>
+<ul class="simple">
+<li>首先它必须表示某一种功能，而不是某个物品，如同Java中的Runnable，Callable等</li>
+<li>其次它必须责任单一，如果有多个功能，那就写多个Mixin类</li>
+<li>然后，<strong>它不依赖于子类的实现</strong></li>
+<li>最后，子类即便没有继承这个Mixin类，也照样可以工作，就是缺少了某个功能。（比如飞机照样可以载客，就是不能飞了^_^）</li>
+</ul>
+<p>描述符</p>
+<p>2017年8月7日</p>
+<p>23:17</p>
+<p>class Grade(object):</p>
+<blockquote>
+<div><p>def __get__(<a href="#id20"><span class="problematic" id="id21">*</span></a>args, **kwargs):</p>
+<p>pass</p>
+<p>def __set__(<a href="#id22"><span class="problematic" id="id23">*</span></a>args, **kwargs):</p>
+<p>pass</p>
+</div></blockquote>
+<p>class Exam(object):</p>
+<blockquote>
+<div><p>math_grade = Grade()</p>
+<p>writing_grade = Grade()</p>
+</div></blockquote>
+<p>原理：</p>
+<blockquote>
+<div><p>在为访问属性时，python会对代码进行转译：</p>
+<p>exam = Exam()</p>
+<p>exam.math_grade = 40</p>
+<p>print(exam.math_grade)</p>
+<p>会转译成：</p>
+<p>Exam.__dict__[‘math_grade’].__set__(exam, 40)</p>
+<p>print(Exam.__dict__[‘math_grade’].__get__(exam, Exam)</p>
+<p>背后的逻辑是：</p>
+<p>如果 Exam 的实例 exam 没有定义math_grade属性，那么就会在Exam类中查找同名的类属性。这个类属性，如果是实现了__get__, __set__的对象，那么python解析器就会认定此对象尊从描述符协议。</p>
+</div></blockquote>
+<p>元编程</p>
+<p>2017年9月24日 星期日</p>
+<p>20:34</p>
+<p>元类 Metaclass</p>
+<p>2017年8月7日</p>
+<p>23:22</p>
+<p><a class="reference external" href="https://lotabout.me/2018/Understanding-Python-MetaClass/">https://lotabout.me/2018/Understanding-Python-MetaClass/</a> 这篇文章讲的非常清楚，一看就懂。</p>
+<p>知道了《类也是对象，3的类型是int，int的类型是type》 和 《Python类的创建过程》之后，就彻底明白了元类，再也不神秘了。</p>
+<p>首先明白几个基本概念：</p>
+<blockquote>
+<div><p><a href="#id55"><span class="problematic" id="id56">|Python
+type&#64;bj)
+type(IO)
+#&gt; int
+#&gt; list
+type({'a':
+#&gt; dict
+class DoNothing:
+pass
+x = DoNothing()
+type(x)
+—main_. DoNothing
+type(int), type(list), type(dict)
+#&gt; (type, type, type)
+type(DoNothing)
+#&gt; type
+type(type)
+type
+type type
+Python|</span></a></p>
+<p>对象的类型叫作类(class)，<strong>类的类型就称作元类&nbsp;meta-class</strong>。也就是说，继承自type的类就叫元类。</p>
+</div></blockquote>
+<p>再清楚类的创建过程：</p>
+<blockquote>
+<div><p>所有的类都是通过 type(name, bases, dict) 函数来创建的！</p>
+<p>class Base:</p>
+<p>counter = 10</p>
+<p>class Derived(Base):</p>
+<p>def get_counter(self):</p>
+<p>return self.counter</p>
+<p>x = Derived()</p>
+<p>x.get_counter()</p>
+<p>#&gt; 10</p>
+<p>我们可以调用&nbsp;type(…)&nbsp;来动态创建这两个类，完全等价：</p>
+<p>Base = type(‘Base’, (), {‘counter’: 10})</p>
+<p>Derived = type(‘Derived’, (Base,), dict(get_counter=lambda self: self.counter))</p>
+<p>x = Derived()</p>
+<p>x.get_counter()</p>
+<p>#&gt; 10</p>
+<p>原理就是：Python 在遇到&nbsp;class …&nbsp;关键字时会一步步解析类的内容，最终调用&nbsp;type(…)&nbsp;（准确说是指定的元类）的构造函数来创建类。</p>
+<p><a class="reference internal" href="media/image2.png"><img alt="image1" src="media/image2.png" style="width: 7.39583in; height: 5.02083in;" /></a></p>
+</div></blockquote>
+<p>元类的常见的三个应用：</p>
+<ul class="simple">
+<li>验证子类。比如强制子类实现某个方法，在创建时就报错，而不是运行进报错。</li>
+<li>注册子类。可以知道哪些类继承了当前类。</li>
+<li>注解类的属性。</li>
+</ul>
+<p>库</p>
+<p>Friday, 18 November 2016</p>
+<p>10:30</p>
+<p><a href="#id57"><span class="problematic" id="id58">|itertools
+为 高 效 循 环 而 创 建 迭 代 器 的 函 数 。 itertools 库 也 是 经 常 需 要 用 到 ， 当 我 们 要 对 某 些 数 进 行 for-in
+时 就 需 要 先 将 其 处 理 成 一 个 可 迭 代 对 象 ， 之 后 我 们 才 能 进 行 遍 历 操 作 。
+collections
+容 器 数 据 类 型 库 。 c 酬 ections 库 提 供 了 对 所 有 容 器 数 据 类 型 的 支 持 ，
+们 可 以 用 此 库 对 不 同 数 据 类 型 进 行 操 作 ， 常 有 的 函 数 方 法 有 这 些 ．
+· namedtuple() 创 建 命 名 元 组 子 类 的 工 厂 函 数
+包 括 dict, list, set 和 tuple.
+我
+· deque 类 似 列 表 伟 st ） 的 容 器 ， 实 现 了 在 两 端 快 速 添 加 (append) 和 弹 出 (pop)
+· ChainMap 类 似 字 典 (dict) 的 容 器 类 ， 将 多 个 映 射 集 合 到 一 个 视 图 里 面
+· Counter 字 典 的 子 类 ， 提 供 了 可 哈 希 对 象 的 计 数 功 能
+· OrderedDict 字 典 的 子 类 ， 保 存 了 他 们 被 添 加 的 顺 序
+· defaultdict 字 典 的 子 类 ， 提 供 了 一 个 工 厂 函 数 ， 为 字 典 查 询 提 供 一 个 默 认 值
+· UserDict 封 装 了 字 典 对 象 ， 简 化 了 字 典 子 类 化
+· UserList 封 装 了 列 表 对 象 ， 简 化 了 列 表 子 类 化
+· UserString 封 装 了 列 表 对 象 ， 简 化 了 字 符 串 子 类 化|</span></a></p>
+<p><a href="#id59"><span class="problematic" id="id60">|functools
+•
+•
+•
+•
+•
+•
+•
+•
+•
+cmp_to_key
+Iru_cache
+total_ordering
+partial
+partialmethod
+reduce
+singledispatch
+update_wrapper
+wraps|</span></a></p>
+<p><a href="#id61"><span class="problematic" id="id62">|operator
+标 准 运 算 符 替 代 函 数 库 。 此 库 是 将 python 自 有 的 运 算 符 作 为 有 效 函 数 ， 比 如 表 达 式 )(+Y 可 以 用 函
+数
+表 示 ； 比 如 表 达 式 a*b 可 以 用 函 数 tor.mul(), b) 表 示 ， 等
+operator.add(), y)
+ope ra
+等 。
+enum
+枚 举 库 。 enum 库 支 持 创 建 枚 举 类 来 存 储 大 量 同 类 型 的 不 可 变 常 量 ， 以 便 其 他 函 数 调 用 。 创 建 出 来
+的 枚 举 类 是 可 迭 代 对 象 ， 所 以 可 以 用 for-in 枚 举 出 所 有 常 量 。|</span></a></p>
+<p><a href="#id63"><span class="problematic" id="id64">|unitest
+单 元 测 试 框 架 。 u est 库 常 用 于 单 元 测 试 ， 受 到 JUnit 和 其 他 主 流 测 试 库 的 启 发 ，
+的 功 能 和 函 数 与 它 们 有 着 相 似 的 风 格 。
+unitest|</span></a></p>
+<p><a href="#id65"><span class="problematic" id="id66">|logging
+日 志 记 录 工 具 。 这 个 库 提 供 了 对 应 用 程 序 和 库 函 数 的 日 志 记 录 ， 日 常 开 发 中 我 们 经 常 需 要 通 过 日 志
+打 印 出 当 前 程 序 的 运 行 状 态 ， 实 时 查 看 可 能 出 现 的 堆 栈 异 常 和 错 误 信 息 。|</span></a></p>
+<p><a href="#id67"><span class="problematic" id="id68">|JSOn
+Json 编 码 和 解 码 器 。 json 库 提 供 了 对 json 数 据 的 支 持 ， 日 常 开 发 中 我 们 做 前 后 端 分 离 需 要 对 传 输
+数 据 json 进 行 序 列 化 和 反 序 列 化 操 作 ， 以 保 证 对 数 据 的 完 整 性 和 有 效 性 ， 而 序 列 化 和 反 序 列 化 其 实
+就 是 编 码 和 解 码 的 过 程 。
+pickle
+Python 对 象 序 列 化 库 。 pickle 库 支 持 对 python 对 象 进 行 序 列 化 和 反 序 列 化 操 作 ， 当 我 们 需 要 将 处
+理 好 的 对 象 保 存 到 文 件 或 数 据 库 中 时 ， 就 可 以 将 其 序 列 化 成 二 进 制 数 据 ， 从 而 更 好 的 保 存 起 来 。|</span></a></p>
+<p><a href="#id69"><span class="problematic" id="id70">|datetime
+基 本 日 期 和 时 间 类 型 库 。 该 库 提 供 了 各 种 简 单 和 复 杂 的 方 式 处 理 日 期 和 时 间 ， 日 常 我 们 会 用 时 间 测
+算 时 间 消 耗 、 复 杂 度 ， 对 存 储 的 创 建 时 间 和 修 改 时 间 也 需 要 进 一 步 说 明 ， 对 计 时 器 的 描 述 和 控 制 也
+需 要 用 到 该 库 。|</span></a></p>
+<p><a href="#id71"><span class="problematic" id="id72">|configparser
+配 置 文 件 解 析 器 。 configparser 库 可 以 轻 松 定 制 配 置 文 件 ， 通 过 解 析 配 置 文 件 的 信 息 我 们 就 可 以 全
+局 访 问 相 关 配 置 。|</span></a></p>
+<p>标准库的数据结构和算法</p>
+<p>2019年12月21日 星期六</p>
+<p>15:44</p>
+</div>
+</div>
+<div class="section" id="id24">
+<h1>数据结构：<a class="headerlink" href="#id24" title="永久链接至标题">¶</a></h1>
+<table border="1" class="docutils">
+<colgroup>
+<col width="13%" />
+<col width="27%" />
+<col width="42%" />
+<col width="18%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>包</strong></td>
+<td><strong>数据结构</strong></td>
+<td><strong>示例 &amp; 常用方法</strong></td>
+<td><strong>说明</strong></td>
+</tr>
+</tbody>
+</table>
+<table border="1" class="docutils">
+<colgroup>
+<col width="6%" />
+<col width="94%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">内置</th>
+<th class="head"><table border="1" class="first last docutils">
+<colgroup>
+<col width="12%" />
+<col width="25%" />
+<col width="63%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">tuple, list, set, dict</th>
+<th class="head">&#160;</th>
+<th class="head">内置的最常用的数据结构</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>str</td>
+<td>&#160;</td>
+<td>str其实是含有Unicode 字符的不可变数组</td>
+</tr>
+<tr class="row-odd"><td>bytes, bytearray</td>
+<td>&#160;</td>
+<td><p class="first">含有单字节的不可变数组</p>
+<p class="last">含有单字节的可变数组</p>
+</td>
+</tr>
+<tr class="row-even"><td>frozenset 不可变集合</td>
+<td><p class="first">vowels = frozenset({‘a’, ‘e’, ‘i’, ‘o’, ‘u’})</p>
+<p class="last">d = { frozenset({1, 2, 3}): ‘hello’ }</p>
+</td>
+<td>不可变集合是静态的，只能查询其中的元素（无法插入或删除）。因为不可变集合是静态的且可散列的，所以可以用作字典的键</td>
+</tr>
+</tbody>
+</table>
+</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-odd"><td>collections</td>
+<td><p class="first"><a href="#id73"><span class="problematic" id="id74">|· namedtuple() 创 建 命 名 元 组 子 类 的 工 厂 函 数
+· deque 类 似 列 表 (list) 的 容 器 ， 实 现 了 在 两 端 快 速 添 加 （ append ） 和 弹 出 （ pop ）
+· ChainMap 类 似 字 典 (dict) 的 容 器 类 ， 将 多 个 映 射 集 合 到 一 个 视 图 里 面
+． Counter 字 典 的 子 类 ， 提 供 了 可 哈 希 对 象 的 计 数 功 能
+· OrderedDict 字 典 的 子 类 ， 保 存 了 他 们 被 添 加 的 顺 序
+· defaultdict 字 典 的 子 类 ， 提 供 了 一 个 工 厂 函 数 ， 为 字 典 查 询 提 供 一 个 默 认 值
+· 了 字 典 对 象 ， 简 化 了 字 典 子 类 化
+· UserList 對 装 了 列 表 对 象 ， 简 化 了 列 表 子 类 化
+· UserString 圭 寸 装 了 列 表 对 象 ， 简 化 了 字 符 串 子 类 化|</span></a></p>
+<table border="1" class="last docutils">
+<colgroup>
+<col width="12%" />
+<col width="22%" />
+<col width="67%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">deque 双端队列</th>
+<th class="head"><ul class="first last simple">
+<li>append，添加到末尾</li>
+<li>appendleft, 添加到开头</li>
+<li>pop, 剔除末尾</li>
+<li>popleft，移除开头</li>
+</ul>
+</th>
+<th class="head">链表的双向队列，从该队列的头部或尾部插入或者删除一个元素，时间复杂度是O(1).</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>OrderedDict 有序字典</td>
+<td>&#160;</td>
+<td><p class="first">能够按照键的插入顺序保留键值对在字典中的次序。</p>
+<p class="last">python 3.6+ 之后默认的dict实现也保证有序了，这个类在后续版本中没有意义了。</p>
+</td>
+</tr>
+<tr class="row-odd"><td>defaultdict 带默认值的字典</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>ChainMap 字典链表</td>
+<td>chain = ChainMap(dict1, dict2)</td>
+<td>将多个字典分组到一个映射中，在查找时逐个搜索底层映射，直到找到一个符合条件的键。对ChainMap 进行插入、更新和删除操作，只会作用于其中的第一个字典。</td>
+</tr>
+<tr class="row-odd"><td>namedtuple()</td>
+<td>p1 = namedtuple(‘Point’, ‘x y z’)(1, 2, 3)</td>
+<td><p class="first">namedtuple 是不可变的。这意味着在创建namedtuple 实例之后就不能再添加新字段或修改现有字段。</p>
+<p class="last">除此之外，namedtuple 就相当于具有名称的元组。</p>
+</td>
+</tr>
+<tr class="row-even"><td>Counter 多重集合</td>
+<td><div class="first line-block">
+<div class="line">&gt;&gt;&gt; from collections import Counter</div>
+<div class="line">&gt;&gt;&gt; inventory = Counter()</div>
+</div>
+<div class="line-block">
+<div class="line">&gt;&gt;&gt; loot = {‘sword’: 1, ‘bread’: 3}</div>
+<div class="line">&gt;&gt;&gt; inventory.update(loot)</div>
+<div class="line">&gt;&gt;&gt; inventory</div>
+<div class="line">Counter({‘bread’: 3, ‘sword’: 1})</div>
+</div>
+<div class="last line-block">
+<div class="line">&gt;&gt;&gt; more_loot = {‘sword’: 1, ‘apple’: 1}</div>
+<div class="line">&gt;&gt;&gt; inventory.update(more_loot)</div>
+<div class="line">&gt;&gt;&gt; inventory</div>
+<div class="line">Counter({‘bread’: 3, ‘sword’: 2, ‘apple’: 1})</div>
+</div>
+</td>
+<td>如果既要检查元素是否为集合的一部分，又要记录元素在集合中出现的次数，那么就需要用到这个类型。</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr class="row-odd"><td>heapq</td>
+<td><table border="1" class="first last docutils">
+<colgroup>
+<col width="2%" />
+<col width="98%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>堆</td>
+<td><table border="1" class="first last docutils">
+<colgroup>
+<col width="38%" />
+<col width="62%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">heapq.heappush(heap, item)</th>
+<th class="head">把item添加到heap中（heap是一个列表）</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>heapq.heappop(heap)</td>
+<td>把堆顶元素弹出，返回的就是堆顶</td>
+</tr>
+<tr class="row-odd"><td>heapq.heappushpop(heap, item)</td>
+<td>先把item加入到堆中，然后再pop，比heappush()再heappop()要快得多</td>
+</tr>
+<tr class="row-even"><td>heapq.heapreplace(heap, item)</td>
+<td>先pop，然后再把item加入到堆中，比heappop()再heappush()要快得多</td>
+</tr>
+<tr class="row-odd"><td>heapq.heapify(x)</td>
+<td>将列表x进行堆调整，默认的是小顶堆</td>
+</tr>
+<tr class="row-even"><td>heapq.merge(<a href="#id25"><span class="problematic" id="id26">*</span></a>iterables)</td>
+<td>将多个列表合并，并进行堆调整，返回的是合并后的列表的迭代器</td>
+</tr>
+<tr class="row-odd"><td>heapq.nlargest(n, iterable, key=None)</td>
+<td>返回最大的n个元素（Top-K问题）</td>
+</tr>
+<tr class="row-even"><td>heapq.nsmallest(n, iterable, key=None)</td>
+<td>返回最小的n个元素（Top-K问题）</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr class="row-odd"><td>types</td>
+<td><table border="1" class="first last docutils">
+<colgroup>
+<col width="10%" />
+<col width="29%" />
+<col width="61%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">MappingProxyType 只读字典</th>
+<th class="head">read_only = MappingProxyType(writable)</th>
+<th class="head"><p class="first">python 3.3+ 才有</p>
+<p class="last">如果希望返回一个字典来表示类或模块的内部状态，同时禁止向该对象写入内容，此时MappingProxyType 就能派上用场。使用MappingProxyType 无须创建完整的字典副本。</p>
+</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>NamedTuple</td>
+<td><p class="first">from typing import NamedTuple</p>
+<div class="last line-block">
+<div class="line">class Car(NamedTuple):</div>
+<div class="line">color: str</div>
+<div class="line">mileage: float</div>
+<div class="line">automatic: bool</div>
+</div>
+</td>
+<td><p class="first">python3.6+ 的改进版namedtuple</p>
+<p class="last">主要区别在于用新语法来定义记录类型并支持类型注解（type hint）。</p>
+</td>
+</tr>
+<tr class="row-odd"><td>SimpleNamespace</td>
+<td><div class="first line-block">
+<div class="line">&gt;&gt;&gt; from types import SimpleNamespace</div>
+<div class="line">&gt;&gt;&gt; car1 = SimpleNamespace(color=’red’,mileage=3812.4,automatic=True)</div>
+</div>
+<div class="line-block">
+<div class="line"># 默认的__repr__效果：</div>
+<div class="line">&gt;&gt;&gt; car1</div>
+<div class="line">namespace(automatic=True, color=’red’, mileage=3812.4)</div>
+</div>
+<div class="last line-block">
+<div class="line"># 实例支持属性访问并且是可变的：</div>
+<div class="line">&gt;&gt;&gt; car1.mileage = 12</div>
+<div class="line">&gt;&gt;&gt; car1.windshield = ‘broken’</div>
+<div class="line">&gt;&gt;&gt; del car1.automatic</div>
+<div class="line">&gt;&gt;&gt; car1</div>
+<div class="line">namespace(color=’red’, mileage=12, windshield=’broken’)</div>
+</div>
+</td>
+<td><p class="first">python 3.3+ 主要就是支持a.b的语法</p>
+<p class="last">正如其名，SimpleNamespace 很简单，基本上就是扩展版的字典，能够很好地访问属性并以字符串打印出来，还能自由地添加、修改和删除属性。</p>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr class="row-even"><td>array</td>
+<td><table border="1" class="first last docutils">
+<colgroup>
+<col width="10%" />
+<col width="26%" />
+<col width="64%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>array 基本类型数组</td>
+<td>arr = array.array(‘f’, (1.0, 1.5, 2.0, 2.5))</td>
+<td><p class="first">Python 的array 模块占用的空间较少，用于存储C 语言风格的基本数据类型（如字节、32位整数，以及浮点数等）。</p>
+<p class="last">使用array.array 类创建的数组是可变的，行为与列表类似。但有一个重要的区别：这种数组是单一数据类型的“类型数组”。</p>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr class="row-even"><td>struct</td>
+<td><table border="1" class="first last docutils">
+<colgroup>
+<col width="20%" />
+<col width="1%" />
+<col width="79%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>Struct 序列化C 结构体</td>
+<td>&#160;</td>
+<td>struct.Struct 类用于在Python 值和C 结构体之间转换，并将其序列化为Python 字节对象。</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr class="row-even"><td>queue</td>
+<td><table border="1" class="first last docutils">
+<colgroup>
+<col width="21%" />
+<col width="1%" />
+<col width="78%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">LifoQueue 后进先出栈</th>
+<th class="head">&#160;</th>
+<th class="head">栈实现是同步的，提供了锁语义来支持多个并发的生产者和消费者。</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Queue</td>
+<td>&#160;</td>
+<td>queue.Queue 在Python 标准库中以同步的方式实现，提供了锁语义来支持多个并发的生产者和消费者。</td>
+</tr>
+<tr class="row-odd"><td>PriorityQueue 优先级队列</td>
+<td>&#160;</td>
+<td>自带优先级队列，不需要自己用堆去模拟了。</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr class="row-even"><td>multiprocessing</td>
+<td><table border="1" class="first last docutils">
+<colgroup>
+<col width="25%" />
+<col width="1%" />
+<col width="74%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>Queue 共享作业队列</td>
+<td>&#160;</td>
+<td><p class="first">多进程传递数据专用</p>
+<p class="last">这种类型的队列可以跨进程存储和传输任何可pickle 的对象</p>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id27">
+<h1>算法：<a class="headerlink" href="#id27" title="永久链接至标题">¶</a></h1>
+<table border="1" class="docutils">
+<colgroup>
+<col width="18%" />
+<col width="24%" />
+<col width="58%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>包</strong></td>
+<td><strong>算法</strong></td>
+<td><strong>示例 &amp; 常用方法</strong></td>
+</tr>
+</tbody>
+</table>
+<table border="1" class="docutils">
+<colgroup>
+<col width="5%" />
+<col width="95%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">bisect</th>
+<th class="head"><table border="1" class="first last docutils">
+<colgroup>
+<col width="5%" />
+<col width="95%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>二分查找</td>
+<td><table border="1" class="first last docutils">
+<colgroup>
+<col width="22%" />
+<col width="78%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">bisect_left(a,x, lo=0, hi=len(a))</th>
+<th class="head">查找在有序列表a中插入x的index。lo和hi用于指定列表的区间，默认是使用整个列表</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>bisect_right(a,x, lo=0, hi=len(a))</td>
+<td>这2个和bisect_left类似，但如果x已经存在，在其右边插入。</td>
+</tr>
+<tr class="row-odd"><td>bisect(a, x,lo=0, hi=len(a))</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>insort_left(a,x, lo=0, hi=len(a))</td>
+<td>在有序列表a中插入x。如果x已经存在，在其左边插入。返回值为index。 和a.insert(bisect.bisect_left(a,x, lo, hi), x) 的效果相同。</td>
+</tr>
+<tr class="row-odd"><td>insort_right(a,x, lo=0, hi=len(a))</td>
+<td>和insort_left类似，但如果x已经存在，在其右边插入。</td>
+</tr>
+<tr class="row-even"><td>insort(a, x,lo=0, hi=len(a))</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-odd"><td>itertools</td>
+<td><table border="1" class="first last docutils">
+<colgroup>
+<col width="13%" />
+<col width="87%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">有限循环</th>
+<th class="head"><a href="#id75"><span class="problematic" id="id76">|Iterators terminating on the shortest input sequence:
+it, n
+Iterator
+accumulate ( )
+chain( )
+chain. from_iterable ( )
+compress ( )
+dropwhile( )
+filterfalse( )
+groupby( )
+islice( )
+starmap( )
+takewhile( )
+tee( )
+zip \_ longest ( )
+Arguments
+p [,func]
+iterable
+data,
+selectors
+pred, seq
+pred, seq
+iterable[,
+keyfunc]
+seq, [start,]
+stop [, step]
+func, seq
+pred, seq
+Results
+PO, p0+p1,
+pO+p1+p2,
+PO, PI,
+. plast, qO
+ql,
+PO, PI,
+. plast, qO
+ql,
+(d[0] if s[0]), (d[l] if
+seq[n], seq[n+l],
+starting when pred
+fails
+elements of seq
+where pred(elem) is
+false
+sub-iterators grouped
+by value of keyfunc(v)
+elements from
+seq[start:stop:step]
+func(*seq[0]),
+func(*seq[l]),
+seq[0], seq[l], until
+pred fails
+, itn splits
+itl, it2
+one iterator into n
+(p[0], q[0]), (PCI],
+Example
+13 6 10 15
+chain( ' ABC ' ,
+'DEF') --&gt; A B
+chain. [ ' ABC' ,
+'DEF' I)
+compress ( ' ABCDEF ' ,
+dropwhile( lambda x:
+filterfalse ( lambda
+range (10) )
+ACE F
+468
+islice( 'ABCDEFG', 2, None)
+starmap(pow, [ (2, 5) ,
+(10,3)]) --&gt; 32 9 1000
+takewhile( lambda x: x&lt;5,
+z ip_longest (
+' ABCD '
+fillvalue— — '
+) --&gt; Ax By C-|</span></a></th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>无限循环</td>
+<td><a href="#id77"><span class="problematic" id="id78">|Infinite Iterators:
+Iterator
+count ( )
+cycle( )
+repeat ( )
+Arguments
+start, [step]
+p
+elem [,n]
+Results
+start, start+step, start+2*step,
+. plast, PO, PI,
+PO, PI,
+elem, elem, elem, ... endlessly or up
+to n times
+Example
+count(10) 10 11 12 13
+14 .
+cycle( 'ABCD' )
+ABCD.
+repeat ( 10, 3)
+10 10 10|</span></a></td>
+</tr>
+<tr class="row-odd"><td>排列组合</td>
+<td><a href="#id79"><span class="problematic" id="id80">|Combinatoric generators:
+Iterator
+product ( )
+permutations ( )
+combinations ( )
+product( ' ABCD' , repeat=2)
+permutations ( ' ABCD ' ,
+2)
+combinations ( ' ABCD' ,
+2)
+( ' ABCD
+2)
+Arguments
+[repeat= 1]
+Results
+cartesian product, equivalent to a
+nested for—loop
+r—length tuples, all possible
+orderings, no repeated elements
+r—length tuples, in sorted order, no
+repeated elements
+r—length tuples, in sorted order, with
+repeated elements
+AA AB AC AD BA BB BC BD CA CB CC
+CD DA DB DC DD
+AB AC AD BA BC BD CA CB CD DA DB
+AB AC AD BC BD CD
+AA AB AC AD BB BC BD CC CD DD|</span></a></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<p>urlencode与urldecode</p>
+<p>2014年5月19日</p>
+<p>17:12</p>
+<p>python中的urlencode与urldecode</p>
+<p>撰写于&nbsp;2012-07-11&nbsp;分类:&nbsp;<a class="reference external" href="http://luchanghong.com/category.html#python">python</a>&nbsp;标签:&nbsp;<a class="reference external" href="http://luchanghong.com/tags.html#python">python</a>&nbsp;<a class="reference external" href="http://luchanghong.com/tags.html#urlencode">urlencode</a>&nbsp;<a class="reference external" href="http://luchanghong.com/tags.html#urldecode">urldecode</a></p>
+<p><strong>概要：python 通过 HTTP 交互处理数据的时候，url 里面的中文以及特殊字符要做处理的，来学习一下 urlencode 与 urldecode 之间相互转换的方法。</strong></p>
+<p>当url地址含有中文，或者参数有中文的时候，这个算是很正常了，但是把这样的url作为参数传递的时候（最常见的callback），需要把一些中文甚至’/’做一下编码转换。</p>
+<p>一、urlencode</p>
+<p>urllib库里面有个urlencode函数，可以把key-value这样的键值对转换成我们想要的格式，返回的是a=1&amp;b=2这样的字符串，比如：</p>
+<div class="line-block">
+<div class="line">&gt;&gt;&gt; from urllib import urlencode</div>
+<div class="line">&gt;&gt;&gt; data = {… ‘a’: ‘test’,… ‘name’: ‘魔兽’… }</div>
+<div class="line">&gt;&gt;&gt; print urlencode(data)</div>
+<div class="line">a=test&amp;amp;name=%C4%A7%CA%DE</div>
+</div>
+<p>如果只想对一个字符串进行urlencode转换，怎么办？urllib提供另外一个函数：quote()</p>
+<div class="line-block">
+<div class="line">&gt;&gt;&gt; from urllib import quote</div>
+<div class="line">&gt;&gt;&gt; quote(‘魔兽’)’</div>
+<div class="line">%C4%A7%CA%DE’</div>
+</div>
+<p>二、urldecode</p>
+<p>当urlencode之后的字符串传递过来之后，接受完毕就要解码了——urldecode。urllib提供了unquote()这个函数，可没有urldecode()！</p>
+<div class="line-block">
+<div class="line">&gt;&gt;&gt; from urllib import unquote</div>
+<div class="line">&gt;&gt;&gt; unquote(‘%C4%A7%CA%DE’)’xc4xa7xcaxde’</div>
+<div class="line">&gt;&gt;&gt; print unquote(‘%C4%A7%CA%DE’)</div>
+<div class="line">魔兽</div>
+</div>
+<p>三、讨论</p>
+<p>在做urldecode的时候，看unquote()这个函数的输出，是对应中文在gbk下的编码，在对比一下quote()的结果不难发现，所谓的urlencode就是把字符串转车gbk编码，然后把x替换成%。如果你的终端是utf8编码的，那么要把结果再转成utf8输出，否则就乱码。</p>
+<p>可以根据实际情况，自定义或者重写urlencode()、urldecode()等函数。</p>
+<p><em>来自 &lt;</em><a class="reference external" href="http://luchanghong.com/python/2012/07/11/python-urlencode-and-urldecode.html">http://luchanghong.com/python/2012/07/11/python-urlencode-and-urldecode.html</a><em>&gt;</em></p>
+<p>正则表达式</p>
+<p>2017年8月10日</p>
+<p>9:41</p>
+<p><strong>时间日期处理小结</strong></p>
+<p>2016年4月8日 星期五</p>
+<p>17:44</p>
+<ul class="simple">
+<li><a class="reference external" href="http://www.wklken.me/posts/2015/03/03/python-base-datetime.html">Python-基础-时间日期处理小结</a></li>
+<li><a class="reference external" href="http://www.wklken.me/posts/2015/03/03/python-base-datetime.html#_1">涉及对象</a></li>
+<li><a class="reference external" href="http://www.wklken.me/posts/2015/03/03/python-base-datetime.html#1-datetime">1. datetime</a></li>
+<li><a class="reference external" href="http://www.wklken.me/posts/2015/03/03/python-base-datetime.html#2-timestamp">2. timestamp</a></li>
+<li><a class="reference external" href="http://www.wklken.me/posts/2015/03/03/python-base-datetime.html#3-time-tuple">3. time tuple</a></li>
+<li><a class="reference external" href="http://www.wklken.me/posts/2015/03/03/python-base-datetime.html#4-string">4. string</a></li>
+<li><a class="reference external" href="http://www.wklken.me/posts/2015/03/03/python-base-datetime.html#5-date">5. date</a></li>
+<li><a class="reference external" href="http://www.wklken.me/posts/2015/03/03/python-base-datetime.html#datetime_1">datetime基本操作</a></li>
+<li><a class="reference external" href="http://www.wklken.me/posts/2015/03/03/python-base-datetime.html#1-datetime_1">1. 获取当前datetime</a></li>
+<li><a class="reference external" href="http://www.wklken.me/posts/2015/03/03/python-base-datetime.html#2-date">2. 获取当天date</a></li>
+<li><a class="reference external" href="http://www.wklken.me/posts/2015/03/03/python-base-datetime.html#3-n">3. 获取明天/前N天</a></li>
+<li><a class="reference external" href="http://www.wklken.me/posts/2015/03/03/python-base-datetime.html#4-000000-235959">4. 获取当天开始和结束时间(00:00:00 23:59:59)</a></li>
+<li><a class="reference external" href="http://www.wklken.me/posts/2015/03/03/python-base-datetime.html#5-datetime">5. 获取两个datetime的时间差</a></li>
+<li><a class="reference external" href="http://www.wklken.me/posts/2015/03/03/python-base-datetime.html#6">6. 获取本周/本月/上月最后一天</a></li>
+<li><a class="reference external" href="http://www.wklken.me/posts/2015/03/03/python-base-datetime.html#_3">关系转换</a></li>
+<li><a class="reference external" href="http://www.wklken.me/posts/2015/03/03/python-base-datetime.html#_4">关系转换例子</a></li>
+<li><a class="reference external" href="http://www.wklken.me/posts/2015/03/03/python-base-datetime.html#datetime-string">datetime &lt;=&gt; string</a></li>
+<li><a class="reference external" href="http://www.wklken.me/posts/2015/03/03/python-base-datetime.html#datetime-timetuple">datetime &lt;=&gt; timetuple</a></li>
+<li><a class="reference external" href="http://www.wklken.me/posts/2015/03/03/python-base-datetime.html#datetime-date">datetime &lt;=&gt; date</a></li>
+<li><a class="reference external" href="http://www.wklken.me/posts/2015/03/03/python-base-datetime.html#datetime-timestamp">datetime &lt;=&gt; timestamp</a></li>
+</ul>
+<blockquote>
+<div><p>好久没写文了, 继续清理笔记, 都是一些小结之类的, 源码分析以及在做系统中一些细节难点等, 后续逐步发</p>
+<p>另外打个广告,&nbsp;<a class="reference external" href="http://www.itianpin.com/join">甜品礼物</a>, 坐标深圳, 有兴趣的同学可以给我发邮件, 非python职位会转到对应同事:)</p>
+<div class="line-block">
+<div class="line">_ _ _ _</div>
+<div class="line">| | | | | | (_)</div>
+<div class="line">__| | __ _| |_ ___| |_ _ _ __ ___ ___</div>
+<div class="line">/ _` |/ _` | __/ _ \ __| | ‘_ ` _ \ / _ \</div>
+<div class="line">| (_| | (_| | || __/ |_| | | | | | | __/</div>
+<div class="line">\__,_|__,_|_____|__|_|_| |_| |_|___|</div>
+</div>
+<p>原则, 以datetime为中心, 起点或中转, 转化为目标对象, 涵盖了大多数业务场景中需要的日期转换处理</p>
+<p>步骤:</p>
+<div class="line-block">
+<div class="line">1. 掌握几种对象及其关系</div>
+<div class="line">2. 了解每类对象的基本操作方法</div>
+<div class="line">3. 通过转化关系转化</div>
+</div>
+<p><strong>涉及对象</strong></p>
+<p><strong>1. datetime</strong></p>
+<div class="line-block">
+<div class="line">&gt;&gt;&gt; <strong>import</strong> datetime</div>
+<div class="line">&gt;&gt;&gt; now = datetime.datetime.now()</div>
+<div class="line">&gt;&gt;&gt; now</div>
+<div class="line">datetime.datetime(2015, 1, 12, 23, 9, 12, 946118)</div>
+<div class="line">&gt;&gt;&gt; type(now)</div>
+<div class="line">&lt;type ‘datetime.datetime’&gt;</div>
+</div>
+<p><strong>2. timestamp</strong></p>
+<div class="line-block">
+<div class="line">&gt;&gt;&gt; <strong>import</strong> time</div>
+<div class="line">&gt;&gt;&gt; time.time()</div>
+<div class="line">1421075455.568243</div>
+</div>
+<p><strong>3. time tuple</strong></p>
+<div class="line-block">
+<div class="line">&gt;&gt;&gt; <strong>import</strong> time</div>
+<div class="line">&gt;&gt;&gt; time.localtime()</div>
+<div class="line">time.struct_time(tm_year=2015, tm_mon=1, tm_mday=12, tm_hour=23, tm_min=10, tm_sec=30, tm_wday=0, tm_yday=12, tm_isdst=0)</div>
+</div>
+<p><strong>4. string</strong></p>
+<div class="line-block">
+<div class="line">&gt;&gt;&gt; <strong>import</strong> datetime</div>
+<div class="line">&gt;&gt;&gt; datetime.datetime.now().strftime(“%Y-%m-%d %H:%M:%S”)</div>
+<div class="line">‘2015-01-12 23:13:08’</div>
+</div>
+<p><strong>5. date</strong></p>
+<div class="line-block">
+<div class="line">&gt;&gt;&gt; <strong>import</strong> datetime</div>
+<div class="line">&gt;&gt;&gt; datetime.datetime.now().date()</div>
+<div class="line">datetime.date(2015, 1, 12)</div>
+</div>
+<p><strong>datetime基本操作</strong></p>
+<p><strong>1. 获取当前datetime</strong></p>
+<div class="line-block">
+<div class="line">&gt;&gt;&gt; <strong>import</strong> datetime</div>
+<div class="line">&gt;&gt;&gt; datetime.datetime.now()</div>
+<div class="line">datetime.datetime(2015, 1, 12, 23, 26, 24, 475680)</div>
+</div>
+<p><strong>2. 获取当天date</strong></p>
+<div class="line-block">
+<div class="line">&gt;&gt;&gt; datetime.date.today()</div>
+<div class="line">datetime.date(2015, 1, 12)</div>
+</div>
+<p><strong>3. 获取明天/前N天</strong></p>
+<p>明天</p>
+<div class="line-block">
+<div class="line">&gt;&gt;&gt; datetime.date.today() + datetime.timedelta(days=1)</div>
+<div class="line">datetime.date(2015, 1, 13)</div>
+</div>
+<p>三天前</p>
+<div class="line-block">
+<div class="line">&gt;&gt;&gt; datetime.datetime.now()</div>
+<div class="line">datetime.datetime(2015, 1, 12, 23, 38, 55, 492226)</div>
+<div class="line">&gt;&gt;&gt; datetime.datetime.now() - datetime.timedelta(days=3)</div>
+<div class="line">datetime.datetime(2015, 1, 9, 23, 38, 57, 59363)</div>
+</div>
+<p><strong>4. 获取当天开始和结束时间(00:00:00 23:59:59)</strong></p>
+<div class="line-block">
+<div class="line">&gt;&gt;&gt; datetime.datetime.combine(datetime.date.today(), datetime.time.min)</div>
+<div class="line">datetime.datetime(2015, 1, 12, 0, 0)</div>
+<div class="line">&gt;&gt;&gt; datetime.datetime.combine(datetime.date.today(), datetime.time.max)</div>
+<div class="line">datetime.datetime(2015, 1, 12, 23, 59, 59, 999999)</div>
+</div>
+<p><strong>5. 获取两个datetime的时间差</strong></p>
+<div class="line-block">
+<div class="line">&gt;&gt;&gt; (datetime.datetime(2015,1,13,12,0,0) - datetime.datetime.now()).total_seconds()</div>
+<div class="line">44747.768075</div>
+</div>
+<p><strong>6. 获取本周/本月/上月最后一天</strong></p>
+<p>本周</p>
+<div class="line-block">
+<div class="line">&gt;&gt;&gt; today = datetime.date.today()</div>
+<div class="line">&gt;&gt;&gt; today</div>
+<div class="line">datetime.date(2015, 1, 12)</div>
+<div class="line">&gt;&gt;&gt; sunday = today + datetime.timedelta(6 - today.weekday())</div>
+<div class="line">&gt;&gt;&gt; sunday</div>
+<div class="line">datetime.date(2015, 1, 18)</div>
+</div>
+<p>本月</p>
+<div class="line-block">
+<div class="line">&gt;&gt;&gt; <strong>import</strong> calendar</div>
+<div class="line">&gt;&gt;&gt; today = datetime.date.today()</div>
+<div class="line">&gt;&gt;&gt; _, last_day_num = calendar.monthrange(today.year, today.month)</div>
+<div class="line">&gt;&gt;&gt; last_day = datetime.date(today.year, today.month, last_day_num)</div>
+<div class="line">&gt;&gt;&gt; last_day</div>
+<div class="line">datetime.date(2015, 1, 31)</div>
+</div>
+<p>获取上个月的最后一天(可能跨年)</p>
+<div class="line-block">
+<div class="line">&gt;&gt;&gt; <strong>import</strong> datetime</div>
+<div class="line">&gt;&gt;&gt; today = datetime.date.today()</div>
+<div class="line">&gt;&gt;&gt; first = datetime.date(day=1, month=today.month, year=today.year)</div>
+<div class="line">&gt;&gt;&gt; lastMonth = first - datetime.timedelta(days=1)</div>
+</div>
+<p><strong>关系转换</strong></p>
+<p>几个关系之间的转化</p>
+<p>Datetime Object / String / timestamp / time tuple</p>
+<p><strong>关系转换例子</strong></p>
+<p><strong>datetime &lt;=&gt; string</strong></p>
+<p>datetime -&gt; string</p>
+<div class="line-block">
+<div class="line">&gt;&gt;&gt; <strong>import</strong> datetime</div>
+<div class="line">&gt;&gt;&gt; datetime.datetime.now().strftime(“%Y-%m-%d %H:%M:%S”)</div>
+<div class="line">‘2015-01-12 23:13:08’</div>
+</div>
+<p>string -&gt; datetime</p>
+<div class="line-block">
+<div class="line">&gt;&gt;&gt; <strong>import</strong> datetime</div>
+<div class="line">&gt;&gt;&gt; datetime.datetime.strptime(“2014-12-31 18:20:10”, “%Y-%m-%d %H:%M:%S”)</div>
+<div class="line">datetime.datetime(2014, 12, 31, 18, 20, 10)</div>
+</div>
+<p><strong>datetime &lt;=&gt; timetuple</strong></p>
+<p>datetime -&gt; timetuple</p>
+<div class="line-block">
+<div class="line">&gt;&gt;&gt; <strong>import</strong> datetime</div>
+<div class="line">&gt;&gt;&gt; datetime.datetime.now().timetuple()</div>
+<div class="line">time.struct_time(tm_year=2015, tm_mon=1, tm_mday=12, tm_hour=23, tm_min=17, tm_sec=59, tm_wday=0, tm_yday=12, tm_isdst=-1)</div>
+</div>
+<p>timetuple -&gt; datetime</p>
+<p>timetuple =&gt; timestamp =&gt; datetime [看后面datetime&lt;=&gt;timestamp]</p>
+<p><strong>datetime &lt;=&gt; date</strong></p>
+<p>datetime -&gt; date</p>
+<div class="line-block">
+<div class="line">&gt;&gt;&gt; <strong>import</strong> datetime</div>
+<div class="line">&gt;&gt;&gt; datetime.datetime.now().date()</div>
+<div class="line">datetime.date(2015, 1, 12)</div>
+</div>
+<p>date -&gt; datetime</p>
+<div class="line-block">
+<div class="line">&gt;&gt;&gt; datetime.date.today()</div>
+<div class="line">datetime.date(2015, 1, 12)</div>
+<div class="line">&gt;&gt;&gt; today = datetime.date.today()</div>
+<div class="line">&gt;&gt;&gt; datetime.datetime.combine(today, datetime.time())</div>
+<div class="line">datetime.datetime(2015, 1, 12, 0, 0)</div>
+<div class="line">&gt;&gt;&gt; datetime.datetime.combine(today, datetime.time.min)</div>
+<div class="line">datetime.datetime(2015, 1, 12, 0, 0)</div>
+</div>
+<p><strong>datetime &lt;=&gt; timestamp</strong></p>
+<p>datetime -&gt; timestamp</p>
+<div class="line-block">
+<div class="line">&gt;&gt;&gt; now = datetime.datetime.now()</div>
+<div class="line">&gt;&gt;&gt; timestamp = time.mktime(now.timetuple())</div>
+<div class="line">&gt;&gt;&gt; timestamp</div>
+<div class="line">1421077403.0</div>
+</div>
+<p>timestamp -&gt; datetime</p>
+<div class="line-block">
+<div class="line">&gt;&gt;&gt; datetime.datetime.fromtimestamp(1421077403.0)</div>
+<div class="line">datetime.datetime(2015, 1, 12, 23, 43, 23)</div>
+</div>
+</div></blockquote>
+<p>logging</p>
+<p>2017年8月17日 星期四</p>
+<p>13:31</p>
+</div>
+<div class="section" id="logging">
+<h1>logging<a class="headerlink" href="#logging" title="永久链接至标题">¶</a></h1>
+<div class="section" id="id28">
+<h2>logging是线程安全的<a class="headerlink" href="#id28" title="永久链接至标题">¶</a></h2>
+<p><strong>日志级别</strong></p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="9%" />
+<col width="91%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"><strong>级别</strong></th>
+<th class="head"><strong>何时使用</strong></th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>DEBUG</td>
+<td>详细信息，典型地调试问题时会感兴趣。</td>
+</tr>
+<tr class="row-odd"><td>INFO</td>
+<td>证明事情按预期工作。</td>
+</tr>
+<tr class="row-even"><td>WARNING</td>
+<td>表明发生了一些意外，或者不久的将来会发生问题（如‘磁盘满了’）。软件还是在正常工作。</td>
+</tr>
+<tr class="row-odd"><td>ERROR</td>
+<td>由于更严重的问题，软件已不能执行一些功能了。</td>
+</tr>
+<tr class="row-even"><td>CRITICAL</td>
+<td>严重错误，表明软件已不能继续运行了。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id29">
+<h2>简单的将日志打印到屏幕<a class="headerlink" href="#id29" title="永久链接至标题">¶</a></h2>
+<p>logging.debug(‘This is debug message’)</p>
+<p>logging.info(‘This is info message’)</p>
+<p>logging.warning(‘This is warning message’)</p>
+<p><strong>屏幕上打印:</strong></p>
+</div>
+</div>
+<div class="section" id="warning-root-this-is-warning-message">
+<h1>WARNING:root:This is warning message<a class="headerlink" href="#warning-root-this-is-warning-message" title="永久链接至标题">¶</a></h1>
+<p>默认情况下，logging将日志打印到屏幕，日志级别为WARNING；</p>
+<p>logging的几个静态方法 logging.info(“”) 自动转发到 root 记录器，即 logging.info =&gt; logging.getLogger().info(“”)</p>
+<div class="section" id="logging-basicconfig">
+<h2>通过logging.basicConfig函数对日志的输出格式及方式做相关配置<a class="headerlink" href="#logging-basicconfig" title="永久链接至标题">¶</a></h2>
+<p>logging.basicConfig(level=logging.DEBUG,</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;format=’%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s’,</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;datefmt=’%a, %d %b %Y %H:%M:%S’,</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;filename=’myapp.log’,</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;filemode=’w’)</p>
+<p>logging.debug(‘This is debug message’)</p>
+<p>logging.info(‘This is info message’)</p>
+<p>logging.warning(‘This is warning message’)</p>
+<p><strong>./myapp.log文件中内容为:</strong></p>
+<p>Sun, 24 May 2009 21:48:54 demo2.py[line:11] DEBUG This is debug message</p>
+<p>Sun, 24 May 2009 21:48:54 demo2.py[line:12] INFO This is info message</p>
+</div>
+</div>
+<div class="section" id="sun-24-may-2009-21-48-54-demo2-py-line-13-warning-this-is-warning-message">
+<h1>Sun, 24 May 2009 21:48:54 demo2.py[line:13] WARNING This is warning message<a class="headerlink" href="#sun-24-may-2009-21-48-54-demo2-py-line-13-warning-this-is-warning-message" title="永久链接至标题">¶</a></h1>
+<p><strong>basicConfig关键字参数</strong></p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"><strong>关键字</strong></th>
+<th class="head"><strong>描述</strong></th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>filename</td>
+<td>创建一个FileHandler，使用指定的文件名，而不是使用StreamHandler。</td>
+</tr>
+<tr class="row-odd"><td>filemode</td>
+<td>如果指明了文件名，指明打开文件的模式（如果没有指明filemode，默认为’a’）。</td>
+</tr>
+<tr class="row-even"><td>format</td>
+<td>handler使用指明的格式化字符串。</td>
+</tr>
+<tr class="row-odd"><td>datefmt</td>
+<td>使用指明的日期／时间格式。</td>
+</tr>
+<tr class="row-even"><td>level</td>
+<td>指明根logger的级别。</td>
+</tr>
+<tr class="row-odd"><td>stream</td>
+<td>使用指明的流来初始化StreamHandler。该参数与’filename’不兼容，如果两个都有，’stream’被忽略。</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="id30">
+<h2>将日志同时输出到文件和屏幕<a class="headerlink" href="#id30" title="永久链接至标题">¶</a></h2>
+<p>logging.basicConfig(level=logging.DEBUG,</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;format=’%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s’,</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;datefmt=’%a, %d %b %Y %H:%M:%S’,</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;filename=’myapp.log’,</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;filemode=’w’)</p>
+<hr class="docutils" />
+<p>#定义一个StreamHandler，将INFO级别或更高的日志信息打印到标准错误，并将其添加到当前的日志处理对象#</p>
+<p>console&nbsp;=&nbsp;logging.StreamHandler()</p>
+<p>console.setLevel(logging.INFO)</p>
+<p>formatter&nbsp;=&nbsp;logging.Formatter(‘%(name)-12s: %(levelname)-8s %(message)s’)</p>
+<p>console.setFormatter(formatter)</p>
+<p>logging.getLogger(‘’).addHandler(console)</p>
+</div>
+<div class="section" id="id31">
+<h2>logging之日志回滚<a class="headerlink" href="#id31" title="永久链接至标题">¶</a></h2>
+<p>from&nbsp;logging.handlers&nbsp;import&nbsp;RotatingFileHandler</p>
+<hr class="docutils" />
+<p>#定义一个RotatingFileHandler，最多备份5个日志文件，每个日志文件最大10M</p>
+<p>Rthandler&nbsp;=&nbsp;RotatingFileHandler(‘myapp.log’,&nbsp;maxBytes=10*1024*1024,backupCount=5)</p>
+<p>Rthandler.setLevel(logging.INFO)</p>
+<p>formatter&nbsp;=&nbsp;logging.Formatter(‘%(name)-12s: %(levelname)-8s %(message)s’)</p>
+<p>Rthandler.setFormatter(formatter)</p>
+<p>logging.getLogger(‘’).addHandler(Rthandler)</p>
+</div>
+<div class="section" id="handler">
+<h2>Handler<a class="headerlink" href="#handler" title="永久链接至标题">¶</a></h2>
+<p>logging有一个日志处理的主对象，其它处理方式都是通过addHandler添加进去的。</p>
+<p>logging的几种handle方式如下：</p>
+<blockquote>
+<div><p>logging.StreamHandler: 日志输出到流，可以是sys.stderr、sys.stdout或者文件</p>
+<p>logging.FileHandler: 日志输出到文件</p>
+<p>日志回滚方式，实际使用时用RotatingFileHandler和TimedRotatingFileHandler</p>
+<p>logging.handlers.BaseRotatingHandler</p>
+<p>logging.handlers.RotatingFileHandler</p>
+<p>logging.handlers.TimedRotatingFileHandler</p>
+<p>logging.handlers.SocketHandler: 远程输出日志到TCP/IP sockets</p>
+<p>logging.handlers.DatagramHandler:&nbsp;&nbsp;远程输出日志到UDP sockets</p>
+<p>logging.handlers.SMTPHandler:&nbsp;&nbsp;远程输出日志到邮件地址</p>
+<p>logging.handlers.SysLogHandler: 日志输出到syslog</p>
+<p>logging.handlers.NTEventLogHandler: 远程输出日志到Windows NT/2000/XP的事件日志</p>
+<p>logging.handlers.MemoryHandler: 日志输出到内存中的制定buffer</p>
+<p>logging.handlers.HTTPHandler: 通过”GET”或”POST”远程输出到HTTP服务器</p>
+</div></blockquote>
+<p>由于StreamHandler和FileHandler是常用的日志处理方式，所以直接包含在logging模块中，而其他方式则包含在logging.handlers模块中，</p>
+</div>
+<div class="section" id="id32">
+<h2>配置日志<a class="headerlink" href="#id32" title="永久链接至标题">¶</a></h2>
+<p>配置日志至少有以下三种方式：</p>
+<ul class="simple">
+<li>使用INI格式文件：<ul>
+<li><strong>优点</strong>: 使用&nbsp;<a class="reference external" href="http://docs.python.org/library/logging.config.html#logging.config.listen">logging.config.listen()</a>&nbsp;函数监听socket，可在运行过程中更新配置</li>
+<li><strong>缺点</strong>: 通过源码控制日志配置较少（&nbsp;<em>例如</em>&nbsp;子类化定制的过滤器或记录器）。</li>
+</ul>
+</li>
+<li>使用字典或JSON格式文件：<ul>
+<li><strong>优点</strong>: 除了可在运行时动态更新，在Python 2.6之后，还可通过&nbsp;<a class="reference external" href="http://docs.python.org/library/json.html#module-json">json</a>&nbsp;模块从其它文件中导入配置。</li>
+<li><strong>缺点</strong>: 很难通过源码控制日志配置。</li>
+</ul>
+</li>
+<li>使用源码：<ul>
+<li><strong>优点</strong>: 对配置绝对的控制。</li>
+<li><strong>缺点</strong>: 对配置的更改需要对源码进行修改。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<div><p>通过INI文件进行配置的例子</p>
+<p>我们假设文件名为&nbsp;logging_config.ini&nbsp;。关于文件格式的更多细节，请参见&nbsp;<a class="reference external" href="http://docs.python.org/howto/logging.html">日志指南</a>中的&nbsp;<a class="reference external" href="https://docs.python.org/howto/logging.html#configuring-logging">日志配置</a>&nbsp;部分。</p>
+<div class="line-block">
+<div class="line"><strong>[loggers]</strong></div>
+<div class="line">keys=root</div>
+</div>
+<div class="line-block">
+<div class="line"><strong>[handlers]</strong></div>
+<div class="line">keys=stream_handler</div>
+</div>
+<div class="line-block">
+<div class="line"><strong>[formatters]</strong></div>
+<div class="line">keys=formatter</div>
+</div>
+<div class="line-block">
+<div class="line"><strong>[logger_root]</strong></div>
+<div class="line">level=DEBUG</div>
+<div class="line">handlers=stream_handler</div>
+</div>
+<div class="line-block">
+<div class="line"><strong>[handler_stream_handler]</strong></div>
+<div class="line">class=StreamHandler</div>
+<div class="line">level=DEBUG</div>
+<div class="line">formatter=formatter</div>
+<div class="line">args=(sys.stderr,)</div>
+</div>
+<div class="line-block">
+<div class="line"><strong>[formatter_formatter]</strong></div>
+<div class="line">format=%(asctime)s %(name)-12s %(levelname)-8s %(message)s</div>
+</div>
+<p>然后在源码中调用&nbsp;<strong>logging.config.fileConfig()</strong>&nbsp;方法：</p>
+<div class="line-block">
+<div class="line"><strong>import</strong> logging</div>
+<div class="line"><strong>from</strong> logging.config <strong>import</strong> fileConfig</div>
+</div>
+<div class="line-block">
+<div class="line">fileConfig<strong>(</strong>‘logging_config.ini’<strong>)</strong></div>
+<div class="line">logger = logging.getLogger<strong>()</strong></div>
+<div class="line">logger.debug<strong>(</strong>‘often makes a very good meal of %s’<strong>,</strong> ‘visiting tourists’<strong>)</strong></div>
+</div>
+<p>通过字典进行配置的例子</p>
+<p>Python 2.7中，你可以使用字典实现详细配置。<a class="reference external" href="https://www.python.org/dev/peps/pep-0391">PEP 391</a>&nbsp;包含了一系列字典配置的强制和 非强制的元素。</p>
+<div class="line-block">
+<div class="line"><strong>import</strong> logging</div>
+<div class="line"><strong>from</strong> logging.config <strong>import</strong> dictConfig</div>
+</div>
+<div class="line-block">
+<div class="line">logging_config = dict<strong>(</strong></div>
+<div class="line">version = 1<strong>,</strong></div>
+<div class="line">formatters = <strong>{</strong></div>
+<div class="line">‘f’<strong>: {</strong>‘format’<strong>:</strong></div>
+<div class="line">‘%(asctime)s %(name)-12s %(levelname)-8s %(message)s’<strong>}</strong></div>
+<div class="line"><strong>},</strong></div>
+<div class="line">handlers = <strong>{</strong></div>
+<div class="line">‘h’<strong>: {</strong>‘class’<strong>:</strong> ‘logging.StreamHandler’<strong>,</strong></div>
+<div class="line">‘formatter’<strong>:</strong> ‘f’<strong>,</strong></div>
+<div class="line">‘level’<strong>:</strong> logging.DEBUG<strong>}</strong></div>
+<div class="line"><strong>},</strong></div>
+<div class="line">root = <strong>{</strong></div>
+<div class="line">‘handlers’<strong>: [</strong>‘h’<strong>],</strong></div>
+<div class="line">‘level’<strong>:</strong> logging.DEBUG<strong>,</strong></div>
+<div class="line"><strong>},</strong></div>
+<div class="line"><strong>)</strong></div>
+</div>
+<p>dictConfig<strong>(</strong>logging_config<strong>)</strong></p>
+<div class="line-block">
+<div class="line">logger = logging.getLogger<strong>()</strong></div>
+<div class="line">logger.debug<strong>(</strong>‘often makes a very good meal of %s’<strong>,</strong> ‘visiting tourists’<strong>)</strong></div>
+</div>
+<p>通过源码直接配置的例子</p>
+<p><strong>import</strong> logging</p>
+<div class="line-block">
+<div class="line">logger = logging.getLogger<strong>()</strong></div>
+<div class="line">handler = logging.StreamHandler<strong>()</strong></div>
+<div class="line">formatter = logging.Formatter<strong>(</strong></div>
+<div class="line">‘%(asctime)s %(name)-12s %(levelname)-8s %(message)s’<strong>)</strong></div>
+<div class="line">handler.setFormatter<strong>(</strong>formatter<strong>)</strong></div>
+<div class="line">logger.addHandler<strong>(</strong>handler<strong>)</strong></div>
+<div class="line">logger.setLevel<strong>(</strong>logging.DEBUG<strong>)</strong></div>
+</div>
+<p>logger.debug<strong>(</strong>‘often makes a very good meal of %s’<strong>,</strong> ‘visiting tourists’<strong>)</strong></p>
+</div></blockquote>
+<p>argparse &amp; gflags &amp; [STRIKEOUT:getopt] &amp; ConfigParser</p>
+<p>2017年8月22日 星期二</p>
+<p>20:19</p>
+<p>总之：命令行参数优先使用 argparse，如果需要分布式就使用 gflags。读取ini配置文件就用 ConfigParser。</p>
+<p>=</p>
+<p id="section-1">=</p>
+</div>
+</div>
+<div class="section" id="argparse">
+<h1>argparse 模块<a class="headerlink" href="#argparse" title="永久链接至标题">¶</a></h1>
+<p>argparse是标准库，在一般的情况下应该最优先使用，不过它不是分布式的，所以还无法取代gflags。在不需要分布式的情况下，argparse实现的确实非常优秀，值得进入标准库。</p>
+<p>帮助文档： <a class="reference external" href="http://python.usyiyi.cn/translate/python_278/library/argparse.html">http://python.usyiyi.cn/translate/python_278/library/argparse.html</a></p>
+<p>基础用法：</p>
+<blockquote>
+<div><div class="line-block">
+<div class="line">parser = argparse.ArgumentParser(description=’Process some integers.’)</div>
+<div class="line">parser.add_argument(‘integers’, metavar=’N’, type=int, nargs=’+’,</div>
+<div class="line">help=’an integer for the accumulator’)</div>
+<div class="line">parser.add_argument(‘–sum’, dest=’accumulate’, action=’store_const’,</div>
+<div class="line">const=sum, default=max,</div>
+<div class="line">help=’sum the integers (default: find the max)’)</div>
+</div>
+<p>args = parser.parse_args()</p>
+</div></blockquote>
+<p>最重要的 add_argument() 方法：</p>
+<blockquote>
+<div>定义应该如何解析一个命令行参数。下面每个参数有它们自己详细的描述，简单地讲它们是：</div></blockquote>
+<ul class="simple">
+<li><a class="reference external" href="http://python.usyiyi.cn/documents/python_278/library/argparse.html#name-or-flags">name or flags</a>&nbsp;-&nbsp;选项字符串的名字或者列表，例如foo&nbsp;或者-f,&nbsp;–foo。</li>
+<li><a class="reference external" href="http://python.usyiyi.cn/documents/python_278/library/argparse.html#action">action</a>&nbsp;-&nbsp;在命令行遇到该参数时采取的基本动作类型。</li>
+<li><a class="reference external" href="http://python.usyiyi.cn/documents/python_278/library/argparse.html#nargs">nargs</a>&nbsp;-&nbsp;应该读取的命令行参数数目。</li>
+<li><a class="reference external" href="http://python.usyiyi.cn/documents/python_278/library/argparse.html#const">const</a>&nbsp;-&nbsp;某些`action &lt;<a class="reference external" href="http://python.usyiyi.cn/documents/python_278/library/argparse.html#action">http://python.usyiyi.cn/documents/python_278/library/argparse.html#action</a>&gt;`__和<a class="reference external" href="http://python.usyiyi.cn/documents/python_278/library/argparse.html#nargs">nargs</a>选项要求的常数值。</li>
+<li><a class="reference external" href="http://python.usyiyi.cn/documents/python_278/library/argparse.html#default">default</a>&nbsp;-&nbsp;如果命令行中没有出现该参数时的默认值。</li>
+<li><a class="reference external" href="http://python.usyiyi.cn/documents/python_278/library/argparse.html#type">type</a>&nbsp;-&nbsp;命令行参数应该被转换成的类型。</li>
+<li><a class="reference external" href="http://python.usyiyi.cn/documents/python_278/library/argparse.html#choices">choices</a>&nbsp;-&nbsp;参数可允许的值的一个容器。</li>
+<li><a class="reference external" href="http://python.usyiyi.cn/documents/python_278/library/argparse.html#required">required</a>&nbsp;-&nbsp;该命令行选项是否可以省略（只针对可选参数）。</li>
+<li><a class="reference external" href="http://python.usyiyi.cn/documents/python_278/library/argparse.html#help">help</a>&nbsp;-&nbsp;参数的简短描述。</li>
+<li><a class="reference external" href="http://python.usyiyi.cn/documents/python_278/library/argparse.html#metavar">metavar</a>&nbsp;-&nbsp;参数在帮助信息中的名字。</li>
+<li><a class="reference external" href="http://python.usyiyi.cn/documents/python_278/library/argparse.html#dest">dest</a>&nbsp;-&nbsp;给`parse_args() &lt;<a class="reference external" href="http://python.usyiyi.cn/documents/python_278/library/argparse.html#argparse.ArgumentParser.parse_args">http://python.usyiyi.cn/documents/python_278/library/argparse.html#argparse.ArgumentParser.parse_args</a>&gt;`__返回的对象要添加的属性名称。</li>
+</ul>
+<blockquote>
+<div>三种参数：</div></blockquote>
+<ul class="simple">
+<li>可选参数 ：parser.add_argument(‘–foo’,type=int,help=”foohelp”)</li>
+<li>必选参数： parser.add_argument(‘–foo’,type=int,help=”foohelp”<strong>,required=True</strong>)</li>
+<li>位置参数： parser.add_argument(‘bar’,help=”barhelp”)</li>
+</ul>
+<blockquote>
+<div>理解 action 类型就理解了 add_argument （action类型还可以自定义，通过继承Api基类）：</div></blockquote>
+<ul>
+<li><div class="first line-block">
+<div class="line">‘store’&nbsp;- 只是保存参数的值。这是默认的动作。例如：
+| <strong>&gt;&gt;&gt;</strong> parser = argparse.ArgumentParser()
+| <strong>&gt;&gt;&gt;</strong> parser.add_argument(‘–foo’)
+| <strong>&gt;&gt;&gt;</strong> parser.parse_args(‘–foo 1’.split())
+| Namespace(foo=‘1’)</div>
+</div>
+</li>
+<li><div class="first line-block">
+<div class="line">‘store_const’&nbsp;- 保存由<a class="reference external" href="http://python.usyiyi.cn/documents/python_278/library/argparse.html#const">const</a>关键字参数指出的值。（注意<a class="reference external" href="http://python.usyiyi.cn/documents/python_278/library/argparse.html#const">const</a>关键字参数默认是几乎没有帮助的<strong>None</strong>。）’store_const’动作最常用于指定某种标记的可选参数。例如：
+| <strong>&gt;&gt;&gt;</strong> parser = argparse.ArgumentParser()
+| <strong>&gt;&gt;&gt;</strong> parser.add_argument(‘–foo’, action=’store_const’, const=42)
+| <strong>&gt;&gt;&gt;</strong> parser.parse_args(‘–foo’.split())
+| Namespace(foo=42)</div>
+</div>
+</li>
+<li><div class="first line-block">
+<div class="line">‘store_true’和’store_false’&nbsp;- 它们是’store_const’&nbsp;的特殊情形，分别用于保存值<strong>True</strong>和<strong>False</strong>。另外，它们分别会创建默认值<strong>False</strong>&nbsp;和**True**。例如：
+| <strong>&gt;&gt;&gt;</strong> parser = argparse.ArgumentParser()
+| <strong>&gt;&gt;&gt;</strong> parser.add_argument(‘–foo’, action=’store_true’)
+| <strong>&gt;&gt;&gt;</strong> parser.add_argument(‘–bar’, action=’store_false’)
+| <strong>&gt;&gt;&gt;</strong> parser.add_argument(‘–baz’, action=’store_false’)
+| <strong>&gt;&gt;&gt;</strong> parser.parse_args(‘–foo –bar’.split())
+| Namespace(bar=False, baz=True, foo=True)</div>
+</div>
+</li>
+<li><div class="first line-block">
+<div class="line">‘append’&nbsp;- 保存一个列表，并将每个参数值附加在列表的后面。这对于允许指定多次的选项很有帮助。示例用法：
+| <strong>&gt;&gt;&gt;</strong> parser = argparse.ArgumentParser()
+| <strong>&gt;&gt;&gt;</strong> parser.add_argument(‘–foo’, action=’append’)
+| <strong>&gt;&gt;&gt;</strong> parser.parse_args(‘–foo 1 –foo 2’.split())
+| Namespace(foo=[‘1’, ‘2’])</div>
+</div>
+</li>
+<li><div class="first line-block">
+<div class="line">‘append_const’&nbsp;- 保存一个列表，并将<a class="reference external" href="http://python.usyiyi.cn/documents/python_278/library/argparse.html#const">const</a>关键字参数指出的值附加在列表的后面。（注意<a class="reference external" href="http://python.usyiyi.cn/documents/python_278/library/argparse.html#const">const</a>关键字参数默认是<strong>None</strong>。）’append_const’&nbsp;动作在多个参数需要保存常量到相同的列表时特别有用。例如：
+| <strong>&gt;&gt;&gt;</strong> parser = argparse.ArgumentParser()
+| <strong>&gt;&gt;&gt;</strong> parser.add_argument(‘–str’, dest=’types’, action=’append_const’, const=str)
+| <strong>&gt;&gt;&gt;</strong> parser.add_argument(‘–int’, dest=’types’, action=’append_const’, const=int)
+| <strong>&gt;&gt;&gt;</strong> parser.parse_args(‘–str –int’.split())
+| Namespace(types=[&lt;type ‘str’&gt;, &lt;type ‘int’&gt;])</div>
+</div>
+</li>
+<li><div class="first line-block">
+<div class="line">‘count’&nbsp;- 计算关键字参数出现的次数。例如，这可用于增加详细的级别：
+| <strong>&gt;&gt;&gt;</strong> parser = argparse.ArgumentParser()
+| <strong>&gt;&gt;&gt;</strong> parser.add_argument(‘–verbose’, ‘-v’, action=’count’)
+| <strong>&gt;&gt;&gt;</strong> parser.parse_args(‘-vvv’.split())
+| Namespace(verbose=3)</div>
+</div>
+</li>
+<li><p class="first">‘help’&nbsp;- 打印当前解析器中所有选项的完整的帮助信息然后退出。默认情况下，help动作会自动添加到解析器中。参见<a class="reference external" href="http://python.usyiyi.cn/documents/python_278/library/argparse.html#argparse.ArgumentParser">ArgumentParser</a>以得到如何生成输出信息。</p>
+</li>
+<li><p class="first">‘version’&nbsp;- 它期待version=参数出现在<a class="reference external" href="http://python.usyiyi.cn/documents/python_278/library/argparse.html#argparse.ArgumentParser.add_argument">add_argument()</a>调用中，在调用时打印出版本信息并退出：</p>
+</li>
+</ul>
+<blockquote>
+<div><div class="line-block">
+<div class="line"><strong>&gt;&gt;&gt; import argparse</strong></div>
+<div class="line"><strong>&gt;&gt;&gt;</strong> parser = argparse.ArgumentParser(prog=’PROG’)</div>
+<div class="line"><strong>&gt;&gt;&gt;</strong> parser.add_argument(‘–version’, action=’version’, version=’<em>%(prog)s</em> 2.0’)</div>
+<div class="line"><strong>&gt;&gt;&gt;</strong> parser.parse_args([‘–version’])</div>
+<div class="line">PROG 2.0</div>
+</div>
+</div></blockquote>
+<p>其它值得留意的部分：</p>
+<ul class="simple">
+<li>部分解析 ArgumentParser.<strong>parse_known_args</strong>(<strong>args=None</strong>,&nbsp;<strong>namespace=None</strong>)</li>
+</ul>
+<blockquote>
+<div><p>有些时候，脚本可能只会解析命令行参数一部分并将剩余的参数传递给另外一个脚本或程序。除了在出现多余的参数时不会产生错误信息以外，它工作的方式与<a class="reference external" href="http://python.usyiyi.cn/documents/python_278/library/argparse.html#argparse.ArgumentParser.parse_args">parse_args()</a>非常类似。相反，它返回一个两个元素的元组，包含构造的namespace和剩余的参数字符串的列表。</p>
+<div class="line-block">
+<div class="line"><strong>&gt;&gt;&gt;</strong> parser = argparse.ArgumentParser()</div>
+<div class="line"><strong>&gt;&gt;&gt;</strong> parser.add_argument(‘–foo’, action=’store_true’)</div>
+<div class="line"><strong>&gt;&gt;&gt;</strong> parser.add_argument(‘bar’)</div>
+<div class="line"><strong>&gt;&gt;&gt;</strong> parser.parse_known_args([‘–foo’, ‘–badger’, ‘BAR’, ‘spam’])</div>
+<div class="line">(Namespace(bar=’BAR’, foo=True), [‘–badger’, ‘spam’])</div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>Namespace 对象 <strong>class&nbsp;</strong>argparse.<strong>Namespace</strong></li>
+</ul>
+<blockquote>
+<div><p><a class="reference external" href="http://python.usyiyi.cn/documents/python_278/library/argparse.html#argparse.ArgumentParser.parse_args">parse_args()</a>&nbsp;默认使用的简单的类，用于创建一个保存属性的对象并返回该对象。</p>
+<p>有时可能需要让<a class="reference external" href="http://python.usyiyi.cn/documents/python_278/library/argparse.html#argparse.ArgumentParser">ArgumentParser</a>分配属性给一个已经存在的对象而不是一个新的<a class="reference external" href="http://python.usyiyi.cn/documents/python_278/library/argparse.html#argparse.Namespace">Namespace</a>对象。这可以通过指定namespace=关键字参数达到：</p>
+<div class="line-block">
+<div class="line"><strong>&gt;&gt;&gt; class C</strong>(object):</div>
+<div class="line"><strong>…</strong> <strong>pass</strong></div>
+<div class="line"><strong>…</strong></div>
+<div class="line"><strong>&gt;&gt;&gt;</strong> c = C()</div>
+<div class="line"><strong>&gt;&gt;&gt;</strong> parser = argparse.ArgumentParser()</div>
+<div class="line"><strong>&gt;&gt;&gt;</strong> parser.add_argument(‘–foo’)</div>
+<div class="line"><strong>&gt;&gt;&gt;</strong> parser.parse_args(args=[‘–foo’, ‘BAR’], <strong>namespace=c</strong>)</div>
+<div class="line"><strong>&gt;&gt;&gt;</strong> c.foo</div>
+<div class="line">‘BAR’</div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>还有很多高级的特性，如：<ul>
+<li>子命令：大型程序生成像 git status, git commit 之类</li>
+<li>参数组：在 help 时分组显示</li>
+<li>互斥分组</li>
+<li>支持短参数的连写实现 tar -zxf 及缩写 –abcd =&gt; -ab</li>
+</ul>
+</li>
+<li>总之，argparse 几乎可以实现非分布式参数的所有情况，非常强大的！</li>
+</ul>
+</div>
+<div class="section" id="gflags">
+<h1>gflags 模块<a class="headerlink" href="#gflags" title="永久链接至标题">¶</a></h1>
+<p>GFlags defines a *distributed* command line system, replacing systems like getopt(), optparse and manual argument processing. Rather than an application having to define all flags in or near main(), each python module defines flags that are useful to it. When one python module imports another, it gains access to the other’s flags.</p>
+<p>从官方介绍中也可以看出来， gflags 跟其它命令行参数最大的不同在于，它是分布式的，不需要把所有的参数定义都放在 main 函数附近。分布式非常有用！</p>
+<p>这是Google C++ 版 gflags 的python版本，使用pip安装 pip install python-gflags</p>
+<p>基本跟 C++版的gflags一样，可以视为C++的简化版，一些不同如下：</p>
+<ul class="simple">
+<li>gflags::ParseCommandLineFlags(&amp;argc, &amp;argv, true); 变成了 gflags.FLAGS(sys.argv)</li>
+<li>一些类似于 gflags::SetVersionString的辅助函数没有了</li>
+<li>取消了诸如 –help, –version 之类的预定义参数</li>
+</ul>
+<p>基础用法：</p>
+<blockquote>
+<div><p><strong>import</strong> gflags</p>
+<p>FLAGS=gflags.FLAGS</p>
+<p>gflags.DEFINE_bool(‘debug’,<strong>False</strong>, ‘show debug info’)</p>
+<p>gflags.DEFINE_string(‘name’,’tanchuanqi’, ‘your name’)</p>
+<p>gflags.DEFINE_integer(‘age’,17, ‘your age’)</p>
+<p><strong>try</strong>:</p>
+<p>FLAGS(sys.argv) # FLAGS(sys.argv, True) True指示对未知参数原封不动返回，而不是报错</p>
+<p><strong>except</strong> gflags.FlagsError<strong>as</strong>e:</p>
+<p>print(e)</p>
+<p>sys.exit(1)</p>
+</div></blockquote>
+</div>
+<div class="section" id="getopt">
+<h1>getopt 模块<a class="headerlink" href="#getopt" title="永久链接至标题">¶</a></h1>
+<p><strong>官方 Note 说明 getopt 应该被 argparse 所替代&nbsp;，getopt 应该被弃用！</strong></p>
+<p>The&nbsp;<a class="reference external" href="https://docs.python.org/2/library/getopt.html#module-getopt">getopt</a>&nbsp;module is a parser for command line options whose API is designed to be familiar to users of the C&nbsp;<strong>getopt()</strong>&nbsp;function. Users who are unfamiliar with the C&nbsp;<strong>getopt()</strong>&nbsp;function or who would like to write less code and get better help and error messages should consider using the&nbsp;<a class="reference external" href="https://docs.python.org/2/library/argparse.html#module-argparse">argparse</a>&nbsp;module instead.</p>
+<p><strong>函数原型：</strong></p>
+<blockquote>
+<div>getopt.getopt(args, shortopts, longopts=[])</div></blockquote>
+<p><strong>参数解释：</strong></p>
+<ul class="simple">
+<li>args：args为需要解析的参数列表。一般使用sys.argv[1:],这样可以过滤掉第一个参数（ps：第一个参数是脚本的名称，它不应该作为参数进行解析）</li>
+<li>shortopts：简写参数列表<ul>
+<li>使用短格式分析串”ho:” 。当一个选项只是表示开关状态时，即后面不带附加参数时，在分析串中写入选项字符。当选项后面是带一个附加参数时，在分析串中写入选项字符同时后面加一个”:” 号 。所以”ho:” 就表示”h” 是一个开关选项；”o:” 则表示后面应该带一个参数。</li>
+</ul>
+</li>
+<li>longopts：长参数列表</li>
+</ul>
+<blockquote>
+<div>使用长格式分析串列表：[“help”, “output=”] 。长格式串也可以有开关状态，即后面不跟”=” 号。如果跟一个等号则表示后面还应有一个参数 。这个长格式表示”help” 是一个开关选项；”output=” 则表示后面应该带一个参数。</div></blockquote>
+<p><strong>返回值：</strong></p>
+<ul class="simple">
+<li>opts：分析出的(option, value)列表对。</li>
+<li>args：不属于格式信息的剩余命令行参数列表。</li>
+</ul>
+<p><strong>使用例子：</strong></p>
+<ol class="arabic simple">
+<li><strong>try</strong>:</li>
+</ol>
+<ol class="arabic simple">
+<li>&nbsp;&nbsp;&nbsp;&nbsp;opts,&nbsp;args&nbsp;=&nbsp;getopt.getopt(sys.argv[1:],&nbsp;“ho:”,&nbsp;[“help”,&nbsp;“output=”])</li>
+</ol>
+<ol class="arabic simple">
+<li><strong>except</strong>&nbsp;getopt.GetoptError:</li>
+</ol>
+<ol class="arabic simple">
+<li>&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;print&nbsp;help&nbsp;information&nbsp;and&nbsp;exit:</li>
+</ol>
+<blockquote>
+<div><p>‘-h -o file –help –output=out file1 file2’</p>
+<p>在分析完成后，opts 应该是：</p>
+<p>[(‘-h’, ‘’), (‘-o’, ‘file’), (‘–help’, ‘’), (‘–output’, ‘out’)]</p>
+<p>而args 则为：</p>
+<p>[‘file1’, ‘file2’]</p>
+</div></blockquote>
+<p>科学计算生态</p>
+<p>2017年4月24日 星期一</p>
+<p>14:56</p>
+<p>发行版：Python(x,y), WinPython, Anaconda</p>
+<p>包管理：conda, pip</p>
+<p>交互工具：Spyder, ipython, Jupyter(ipython notebook)</p>
+<p>基础库：numpy, SciPy, Matplotlib, Pandas</p>
+<p>深度学习库：TensorFlow, Keras, Theano</p>
+<p>其它科学库：Sympy, Scikit-image, Traits, TraitsUI, Chaco, TVTK, Mayavi, Scikit-learn,</p>
+<p>OpenCV</p>
+<blockquote>
+<div>conda install -c <a class="reference external" href="https://conda.binstar.org/menpo">https://conda.binstar.org/menpo</a> opencv</div></blockquote>
+<p>优质教程和书：</p>
+<ul class="simple">
+<li>用Python做科学计算： <a class="reference external" href="http://bigsec.net/b52/scipydoc/index.html">http://bigsec.net/b52/scipydoc/index.html</a></li>
+</ul>
+<p>Anaconda</p>
+<p>2018年5月24日 星期四</p>
+<p>11:03</p>
+<p>Anaconda主要是有三个功能：自带了许多科学计算的库、支持隔离环境、更好的库管理功能</p>
+<p>Anaconda支持类似于virtualenv的隔离环境功能（默认环境名为root）</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="37%" />
+<col width="63%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">conda create -n test python=3.5 numpy pandas</th>
+<th class="head">创建名为 test 的隔离环境，使用3.5版本的python，同时添加 numpy, pandas 两个包</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>conda create -n dst –clone srt</td>
+<td>从srt克隆一个新的名为dst的隔离环境</td>
+</tr>
+<tr class="row-odd"><td>source activate test</td>
+<td>激活隔离环境</td>
+</tr>
+<tr class="row-even"><td>source deactivate</td>
+<td>退出隔离环境</td>
+</tr>
+<tr class="row-odd"><td>conda env list</td>
+<td>列出所有隔离环境</td>
+</tr>
+<tr class="row-even"><td>conda env remove –name test –all</td>
+<td>删除隔离环境</td>
+</tr>
+</tbody>
+</table>
+<p>Anaconda还支持类似于PIP的包管理功能</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="60%" />
+<col width="40%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">conda search</th>
+<th class="head">搜索包</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>conda list</td>
+<td>列出安装的包</td>
+</tr>
+<tr class="row-odd"><td>conda install –name env package_name</td>
+<td>安装包</td>
+</tr>
+<tr class="row-even"><td>conda remove –name env package_name</td>
+<td>卸载包 alias -&gt; uninstall</td>
+</tr>
+<tr class="row-odd"><td>conda update package_name</td>
+<td>更新包 alias -&gt; upgrade</td>
+</tr>
+</tbody>
+</table>
+<p>conda 安装包与PIP的区别和联系</p>
+<ol class="arabic simple">
+<li>pip只是包管理器，无法对环境进行管理。因此如果想在指定环境中使用pip进行安装包，则需要先切换到指定环境中，再使用pip命令安装包。</li>
+<li>pip无法更新python，因为pip并不将python视为包。</li>
+<li>pip可以安装一些conda无法安装的包；conda也可以安装一些pip无法安装的包。因此当使用一种命令无法安装包时，可以尝试用另一种命令。</li>
+</ol>
+<p>据我观察，在conda中使用PIP安装的包应该是在</p>
+<p>~/anaconda3/lib/python3.5/site-packages/pip/_vendor 目录下</p>
+<p>也支持类似于PIP的freeze功能</p>
+<blockquote>
+<div><p>conda env export &gt; environment.yaml</p>
+<p>conda env update -f=/path/to/environment.yaml</p>
+</div></blockquote>
+<p>conda将conda、python等都视为package，因此，完全可以使用conda来管理conda和python的版本，例如</p>
+<blockquote>
+<div><p># 更新conda，保持conda最新</p>
+<p>conda update conda</p>
+<p># 更新anaconda</p>
+<p>conda update anaconda</p>
+<p># 更新python conda</p>
+<p>update python</p>
+<p># 假设当前环境是python 3.4, conda会将python升级为3.4.x系列的当前最新版本</p>
+</div></blockquote>
+<p>区分conda和anaconda的概念</p>
+<blockquote>
+<div><p>conda是包管理工具。</p>
+<p>anaconda是用来做科学计算的这些包的集合，也就是所谓的发行版。</p>
+<p>软件发行版是在系统上提前编译和配置好的软件包集合， 装好了后就可以直接用。</p>
+<p>包管理器是自动化软件安装，更新，卸载的一种工具。</p>
+</div></blockquote>
+<p>设置国内源</p>
+<blockquote>
+<div><div class="line-block">
+<div class="line"># 添加Anaconda的TUNA镜像</div>
+<div class="line">conda config –add channels <a class="reference external" href="https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/">https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/</a></div>
+<div class="line"># TUNA的help中镜像地址加有引号，需要去掉</div>
+</div>
+</div></blockquote>
+<p>NumPy</p>
+<p>2017年4月13日</p>
+<p>13:10</p>
+<p>Numpy主要的功能有：数组运算、线性代数运算</p>
+<p>基本名词：随着<strong>数组</strong>维度的增加，依次被称为：<strong>标量、向量、矩阵、张量</strong></p>
+<p>NumPy 通常与 SciPy（Scientific Python） 和 Matplotlib（绘图库） 一起使用。 这种组合广泛用于替代 MatLab，是一个流行的技术计算平台。</p>
+<ul class="simple">
+<li>Python 作为MatLab 的替代方案，现在被视为一种更加现代和完整的编程语言。</li>
+<li>NumPy 是开源的，这是它的一个额外的优势。</li>
+</ul>
+<p>NumPy 中定义的<strong>最重要的对象是称为 ndarray 的 N 维数组类型</strong>。 它描述<strong>相同类型的元素集合</strong>。 可以使用基于零的索引访问集合中的项目。</p>
+<p>内存结构如下图所示：</p>
+<p><a href="#id81"><span class="problematic" id="id82">|- ty
+scalar|</span></a></p>
+<div class="section" id="id33">
+<h2>数据类型<a class="headerlink" href="#id33" title="永久链接至标题">¶</a></h2>
+<p>NumPy 数字类型是 dtype （数据类型） 对象的实例，数据类型对象描述了对应于数组的固定内存块的解释。</p>
+<p>numpy内置定义了很多数据类型，如np.int8, np,float32 等</p>
+<blockquote>
+<div><p>构造方法：numpy.dtype(object, align, copy)</p>
+<p>使用示例：np.dtype(np.int8)、 np.dtype(‘i4’)</p>
+</div></blockquote>
+<p>下面的用法相当于python里快捷创建一个命名tuple：</p>
+<blockquote>
+<div><p>student = np.dtype([(‘name’,’S20’), (‘age’, ‘i1’), (‘marks’, ‘f4’)])</p>
+<p>a = np.array([(‘abc’, 21, 50),(‘xyz’, 18, 75)], dtype = student)</p>
+<p>print a</p>
+<p>OUTPUT:</p>
+<p>[(‘abc’, 21, 50.0), (‘xyz’, 18, 75.0)]</p>
+</div></blockquote>
+</div>
+<div class="section" id="ndarray">
+<h2>ndarray对象常用属性和方法<a class="headerlink" href="#ndarray" title="永久链接至标题">¶</a></h2>
+<p>属性：</p>
+<ul class="simple">
+<li>shape</li>
+<li>ndim</li>
+<li>itemsize</li>
+<li>flags：标识一些对齐、行优先或列优先之类的元信息；</li>
+</ul>
+<p>方法：</p>
+<ul class="simple">
+<li>reshape()</li>
+</ul>
+</div>
+<div class="section" id="id34">
+<h2>创建：<a class="headerlink" href="#id34" title="永久链接至标题">¶</a></h2>
+<p>构造方法：numpy.ndarray([1,2,3])</p>
+<ul class="simple">
+<li>直接创建一个shape=(1,2,3)的ndarray，这里传入的只是ndarray的shape，跟上面传入数组的内容要区分开。</li>
+</ul>
+<p>常用的创建数组的工厂方法：</p>
+<ul class="simple">
+<li>empty()：创建指定形状和 dtype 的未初始化数组</li>
+<li>zeros()：返回特定大小，以 0 填充的新数组</li>
+<li>ones()：返回特定大小，以 1 填充的新数组</li>
+<li>eye()：创建单位数组</li>
+</ul>
+<p>从现在数据构建：</p>
+<ul class="simple">
+<li>numpy.array(object, dtype = None, copy = True, order = None, subook = False, ndmin = 0)<ul>
+<li>一般通过这个方法直接创建，这里传入的object是一个python的list，表明了将来创建的ndarray的实际内容。</li>
+</ul>
+</li>
+<li>numpy.asarray(a, dtype = None, order = None)<ul>
+<li>此函数类似于 numpy.array ，除了它有较少的参数。</li>
+</ul>
+</li>
+<li>numpy.frombuffer()</li>
+<li>numpy.fromiter()</li>
+</ul>
+<p>从数值范围创建：</p>
+<ul class="simple">
+<li>numpy.arange(start, stop, step, dtype)</li>
+<li>numpy.linspace(start, stop, num, endpoint, retstep, dtype) 类似于arange()，从一个范围里创建指定数量的均匀分布的元素</li>
+<li>numpy.logscale(start, stop, num, endpoint, base, dtype) 上面类似，对数刻度上的均匀分布</li>
+</ul>
+</div>
+<div class="section" id="id35">
+<h2>访问<a class="headerlink" href="#id35" title="永久链接至标题">¶</a></h2>
+<p>ndarray对象中的元素遵循基于零的索引。 有三种可用的索引方法类型：</p>
+<ul class="simple">
+<li><strong>字段访问</strong>：使用从0开始的下标访问</li>
+<li><strong>基本切片</strong>：Python 中基本切片概念到 n 维的扩展，将 start ， stop 和 step 参数提供给内置的 slice 函数来构造一个 Python slice 对象。</li>
+<li><strong>高级索引</strong>：<ul>
+<li>整数索引：x[[0,1,2], [0,1,0]] 的结果是数组中 (0,0) ， (1,1) 和 (2,0) 位置处的元素。</li>
+<li>布尔索引：非常神奇，print x[x &gt; 5] 会打印出“大于5的元素”。</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id36">
+<h2>广播<a class="headerlink" href="#id36" title="永久链接至标题">¶</a></h2>
+<p>术语广播是指 NumPy 在算术运算期间处理不同形状的数组的能力。</p>
+<p>因为一些操作对两个数组的维数有要求，广播功能会将较小的数组广播到较大数组的大小，以便使它们的形状可兼容。</p>
+<p>基本上，就是会对一些<strong>长度为1的纬度进行复制扩展</strong>，使得这些长度为1的维度符合运算的要求。</p>
+</div>
+<div class="section" id="id37">
+<h2>迭代<a class="headerlink" href="#id37" title="永久链接至标题">¶</a></h2>
+<p>NumPy 包包含一个迭代器对象 numpy.nditer 。 它是一个有效的多维迭代器对象，可以用于在数组上进行迭代。 迭代的顺序匹配数组的内容布局，而不考虑特定的排序。</p>
+<p>nditer 对象有另一个可选参数 op_flags 。 其默认值为只读，但可以设置为读写或只写模式。 这将允许使用此迭代器修改数组元素。</p>
+<p>如果两个数组是可广播的， nditer 组合对象能够同时迭代它们。</p>
+<p>np.nditer([a,b])</p>
+<p>数组操作</p>
+<ul class="simple">
+<li>reshape</li>
+<li>flat：返回数组上的一维迭代器</li>
+<li>flatten：返回折叠为一维的数组副本</li>
+<li>ravel：返回展开的一维数组，并且按需生成副本</li>
+<li>transpose：翻转给定数组的维度。如果可能的话它会返回一个视图</li>
+<li>T：数组的转置，transpose的特殊情况</li>
+<li>rollaxis：向后滚动特定的轴，直到一个特定位置</li>
+<li>swapaxes：交换数组的两个轴</li>
+<li>broadcast：返回将一个数组广播到另一个数组的结果</li>
+<li>boardcast：广播到特定的形状，返回只读视图</li>
+<li>expand_dims：在指定位置插入新的轴来扩展数组形状</li>
+<li>squeeze：从给定数组的形状中删除一维条目</li>
+<li>数组的连接：<ul>
+<li>concatenate：沿现存的轴连接</li>
+<li>stack：沿新轴进行连接</li>
+<li>hstack：水平堆叠，stack的特殊调用</li>
+<li>vstack：垂直堆叠，stack的特殊调用</li>
+</ul>
+</li>
+<li>数组分割：<ul>
+<li>split</li>
+<li>hsplit</li>
+<li>vsplit</li>
+</ul>
+</li>
+<li>添加删除元素：<ul>
+<li>resize 返回指定形状的新数组，如果新大小大于原始大小，则包含原始数组中的元素的重复副本。</li>
+<li>append 将值添加到数组末尾， 附加操作不是原地的，而是分配新的数组。</li>
+<li>insert 沿指定轴将值插入到指定下标之前，插入没有原地的，函数会返回一个新数组。</li>
+<li>delete 返回删掉某个轴的子数组的新数组</li>
+<li>unique 寻找数组内的唯一元素</li>
+</ul>
+</li>
+<li>位操作：<ul>
+<li><dl class="first docutils">
+<dt><a href="#id38"><span class="problematic" id="id39">|</span></a>bitwise</dt>
+<dd>bitwise
+invert
+and
+or
+left shift
+right _ shift|</dd>
+</dl>
+</li>
+</ul>
+</li>
+<li>字符串函数（对 dtype 为 numpy.string_ 或 numpy.unicode_ 的数组执行向量</li>
+</ul>
+<blockquote>
+<div>化字符串操作）：</div></blockquote>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt><a href="#id40"><span class="problematic" id="id41">|</span></a>add() 返 回 两 个 str 或 uniC0de 数 组 的 逐 个 字 符 串 连 接</dt>
+<dd>mult1P1y() 返 回 按 元 素 多 重 连 接 后 的 字 符 串
+center() 返 回 给 定 字 符 串 的 副 本 ， 其 中 元 素 位 于 特 定 字 符 串 的 中 央
+capltallze() 返 回 给 定 字 符 串 的 副 本 ， 其 中 只 有 第 一 个 字 符 串 大 写
+title() 返 回 字 符 串 或 Unicode 的 按 元 素 标 转 换 版 本
+10 er() 返 回 一 个 数 组 ， 其 元 素 转 换 为 小 写
+upper() 返 回 一 个 数 组 ， 其 元 素 转 换 为 大 写
+SP11t() 返 回 字 符 串 中 的 单 词 列 表 ， 并 使 用 分 隔 符 来 分 割
+SP11t1ines() 返 回 元 素 中 的 行 列 表 ， 以 换 行 符 分 割
+str1P() 返 回 数 组 副 本 ， 其 中 元 素 移 除 了 开 头 或 者 结 尾 处 的 特 定 字 符
+j01‘1() 返 回 一 个 字 符 串 ， 它 是 序 列 中 字 符 串 的 连 接
+replace() 返 回 字 符 串 的 副 本 ， 其 中 所 有 子 字 符 串 的 出 现 位 置 都 被 新
+字 符 串 取 代
+decode() 按 元 素 调 用 str.decode
+encode() 按 元 素 调 用 str.encode|</dd>
+</dl>
+</li>
+<li>数值运算：<ul>
+<li>三角函数：sin, cos, tan 等等</li>
+<li>四舍五入：around(), floor(), ceil()</li>
+<li>加减乘除：add() ， subtract() ， multiply() 和 divide()</li>
+<li>倒数：reciprocal()、幂 pow()、 取余 mod()</li>
+</ul>
+</li>
+<li>统计：<ul>
+<li>amin() 极小, amax() 极大, median()中间值, ptp() 取值范围</li>
+<li>mean()算术平均值、average()加权平均值</li>
+<li>std()标准差、var()方差</li>
+</ul>
+</li>
+<li>排序、搜索、计数<ul>
+<li>排序：sort(), argsort(), lexsort()</li>
+<li>搜索：argmax(), argmin(), nonzero(),</li>
+<li>高级搜索：<ul>
+<li>where()： where(x&gt;5)，类似于高级索引</li>
+<li>extract()：用任何条件进行过滤</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id42">
+<h2>副本和视图<a class="headerlink" href="#id42" title="永久链接至标题">¶</a></h2>
+<p>很明显，副本是深度复制，而视图只是复制了元信息。</p>
+<ul class="simple">
+<li>NumPy 拥有 ndarray.view() 方法，它是一个新的数组对象，并可查看原始数组的相同数据。</li>
+<li>ndarray.copy() 函数创建一个深层副本。</li>
+</ul>
+</div>
+<div class="section" id="numpy-matlib">
+<h2>numpy.matlib 库<a class="headerlink" href="#numpy-matlib" title="永久链接至标题">¶</a></h2>
+<p>numpy里还有一个矩阵库，这里的类型是 matrix 类型。</p>
+<p>里面提供了很多与ndarray类似的操作，不明白为什么要存在这个 matrix 类型？</p>
+</div>
+<div class="section" id="numpy-linalg">
+<h2>numpy.linalg 线性代数<a class="headerlink" href="#numpy-linalg" title="永久链接至标题">¶</a></h2>
+<blockquote>
+<div><a href="#id83"><span class="problematic" id="id84">|dot 两 个 数 组 的 点
+vd0t 两 个 向 量 的 点
+inner 两 个 数 组 的 内 积
+matmul 两 个 数 组 的 矩 阵 頽
+determinant 数 组 的 行 列 式
+solve 求 解 线 性 矩 阵 方 程
+inv 寻 找 矩 阵 的 乘 法 逆 矩 阵|</span></a></div></blockquote>
+</div>
+<div class="section" id="numpy-io">
+<h2>Numpy IO<a class="headerlink" href="#numpy-io" title="永久链接至标题">¶</a></h2>
+<p>NumPy 为 ndarray 对象引入了一个简单的文件格式。 这个 npy 文件在磁盘文件中，存储重建 ndarray 所需的数据、图形、 dtype 和其他信息，以便正确获取数组，即使该文件在具有<strong>不同架构</strong>的另一台机器上。</p>
+<p>ndarray 对象可以保存到磁盘文件并从磁盘文件加载。 可用的 IO 功能有：</p>
+<ul class="simple">
+<li>np.tofile() &amp; np.fromfile()：二进制 raw 格式</li>
+<li>np.save() &amp; np.load() &amp; np.savez() ：这是最常用的IO方法。load()和save()用Numpy专用的二进制格式保存数据，它们会自动处理元素类型和形状等信息。savez()提供了将多个数组存储至一个文件的能力，调用load()方法返回的对象，可以使用数组名对各个数组进行读取。</li>
+<li>savetxt() &amp; loadtxt()：文本格式</li>
+</ul>
+<p><a href="#id85"><span class="problematic" id="id86">|DATAQUEST
+911
+win all
+INSPECTING PROPERTIES
+IMPORTS
+ELEMENTS
+TING
+an
+LEARN DATA SCIENCE ONLINE
+Data Science Cheat Sheet
+VECTOR MATH
+each
+with
+than s
+LEARN DArA ONLINE|</span></a></p>
+<p>SciPy</p>
+<p>2017年8月11日</p>
+<p>21:34</p>
+<p>Matplotlib</p>
+<p>2017年8月11日</p>
+<p>21:32</p>
+<p><a class="reference external" href="https://liam0205.me/2014/09/11/matplotlib-tutorial-zh-cn/">https://liam0205.me/2014/09/11/matplotlib-tutorial-zh-cn/</a></p>
+<p><a class="reference external" href="http://matplotlib.org/gallery.html">http://matplotlib.org/gallery.html</a></p>
+<p>Panda</p>
+<p>2018年5月24日 星期四</p>
+<p>15:34</p>
+<p>主要的就是 pd.DataFrame 这种数据结构，组织了异构的多维数组，与numpy的同构多维数组作为对比。</p>
+<p>然后在DataFrame的基础上，提供了许多方便的数据分析工具和统计学工具。</p>
+<p>scikit-learn</p>
+<p>2018年5月24日 星期四</p>
+<p>18:25</p>
+<p>其它</p>
+<p>Friday, 25 November 2016</p>
+<p>16:25</p>
+<p>一些看着很爽的技巧：</p>
+<blockquote>
+<div><p>列表赋值： b = a[:]</p>
+<p>屏幕输出到文件：sys.stdout = open(‘log.txt’,’w’)</p>
+<p>三元符号表示法： [STRIKEOUT:(“no”, “yes”)[x == y]]，不要用，用 “yes” if True else “No”</p>
+<p>链式比较：x &lt; 10 &lt; x*10 &lt; 100</p>
+<p>enumerate： for index, item in enumerate(a, 1)</p>
+<p>iter()可接收callable参数:</p>
+<p>iter()内建函数接收的参数分为两种，第一种是：</p>
+<p>iter(collection)—&gt; iterator</p>
+<p>参数collection必须是可迭代对象或者是序列 ，第二种是：</p>
+<p>iter（callable， sentinel) –&gt; iterator</p>
+<p>callable函数会一直被调用，直到它的返回结果等于sentinel</p>
+<p>列表步长： [::2]步长为2，[::-1] 列表反转</p>
+<p>For..else: 不break的话就执行else</p>
+<p>Try..else: 没有异常执行else里的语句</p>
+<p>合并列表： sum([[1, 2, 3], [4, 5, 6], [7, 8, 9]], [])</p>
+<p>内建模块： python -m http.server, python -m json.tool</p>
+<p>内建装饰器：</p>
+</div></blockquote>
+<ul class="simple">
+<li>偏函数： from functools import partial</li>
+<li>classmethod装饰器, 类方法(给人感觉非常类似于OC中的类方法), 其中第一个隐式参数为类</li>
+<li>staticmethod装饰器, 没有任何隐式参数.&nbsp;python中的静态方法类似与C++中的静态方法</li>
+<li>property装饰器</li>
+</ul>
+<blockquote>
+<div><p>函数式编程：map, reduce, filter</p>
+<p>内置函数：</p>
+<p>zip() 组合等长的可迭代对象</p>
+<p>定义枚举量：</p>
+<p>from <strong>enum import</strong> Enum</p>
+<p>Month = Enum(‘Month’, (‘Jan’, ‘Feb’, ‘Mar’, ‘Apr’, ‘May’, ‘Jun’, ‘Jul’, ‘Aug’, ‘Sep’, ‘Oct’, ‘Nov’, ‘Dec’))</p>
+<p>使用slots减少内存开支</p>
+<p>漂亮的打印json: jons.dumps(j, indent=4)</p>
+</div></blockquote>
+<p>坑：</p>
+<blockquote>
+<div>默认值陷阱：</div></blockquote>
+<p>常用的标准库：</p>
+<blockquote>
+<div><p>pdb: 一般调试</p>
+<p>functools</p>
+<p>collections</p>
+<p>itertools</p>
+<p>ConfigParser</p>
+</div></blockquote>
+<p>好用的第三方基础库：</p>
+<blockquote>
+<div><p>PySnooper: 调试神器</p>
+<p>Tqdm：画进度条</p>
+<p>PrettyPrinter：美观的打印表格</p>
+<p>requests：简单网络请求</p>
+</div></blockquote>
+<p>工具：</p>
+<blockquote>
+<div>Yapf：Google出的格式化代码的工具</div></blockquote>
+<p>让 Python 代码更易维护的七种武器</p>
+<p>2019年11月21日 星期四</p>
+<p>下午7:36</p>
+<p>检查你的代码的质量，通过这些外部库使其更易维护。</p>
+<p>可读性很重要。</p>
+<p>—&nbsp;<a class="reference external" href="https://link.zhihu.com/?target=https%3A//www.python.org/dev/peps/pep-0020/">Python 之禅</a><em>(The Zen of Python)</em>，Tim Peters</p>
+<p>随着软件项目进入“维护模式”，对可读性和编码标准的要求很容易落空（甚至从一开始就没有建立过那些标准）。然而，在代码库中保持一致的代码风格和测试标准能够显著减轻维护的压力，也能确保新的开发者能够快速了解项目的情况，同时能更好地全程保持应用程序的质量。</p>
+<p>使用外部库来检查代码的质量不失为保护项目未来可维护性的一个好方法。以下会推荐一些我们最喜爱的<a class="reference external" href="https://link.zhihu.com/?target=https%3A//en.wikipedia.org/wiki/Lint_%28software%29">检查代码</a>（包括检查 PEP 8 和其它代码风格错误）的库，用它们来强制保持代码风格一致，并确保在项目成熟时有一个可接受的测试覆盖率。</p>
+<p>检查你的代码风格</p>
+<p><a class="reference external" href="https://link.zhihu.com/?target=https%3A//www.python.org/dev/peps/pep-0008/">PEP 8</a>&nbsp;是 Python 代码风格规范，它规定了类似行长度、缩进、多行表达式、变量命名约定等内容。尽管你的团队自身可能也会有稍微不同于 PEP 8 的代码风格规范，但任何代码风格规范的目标都是在代码库中强制实施一致的标准，使代码的可读性更强、更易于维护。下面三个库就可以用来帮助你美化代码。</p>
+<p>1、 Pylint</p>
+<p><a class="reference external" href="https://link.zhihu.com/?target=https%3A//www.pylint.org/">Pylint</a>&nbsp;是一个检查违反 PEP 8 规范和常见错误的库。它在一些流行的<a class="reference external" href="https://link.zhihu.com/?target=https%3A//pylint.readthedocs.io/en/latest/user_guide/ide-integration.html">编辑器和 IDE</a>&nbsp;中都有集成，也可以单独从命令行运行。</p>
+<p>执行&nbsp;pip install pylint&nbsp;安装 Pylint 。然后运行&nbsp;pylint [options] path/to/dir&nbsp;或者&nbsp;pylint [options] path/to/module.py&nbsp;就可以在命令行中使用 Pylint，它会向控制台输出代码中违反规范和出现错误的地方。</p>
+<p>你还可以使用&nbsp;pylintrc&nbsp;<a class="reference external" href="https://link.zhihu.com/?target=https%3A//pylint.readthedocs.io/en/latest/user_guide/run.html%23command-line-options">配置文件</a>来自定义 Pylint 对哪些代码错误进行检查。</p>
+<p>2、 Flake8</p>
+<p><a class="reference external" href="https://link.zhihu.com/?target=http%3A//flake8.pycqa.org/en/latest/">Flake8</a>&nbsp;是“将 PEP 8、Pyflakes（类似 Pylint）、McCabe（代码复杂性检查器）和第三方插件整合到一起，以检查 Python 代码风格和质量的一个 Python 工具”。</p>
+<p>执行&nbsp;pip install flake8&nbsp;安装 flake8 ，然后执行&nbsp;flake8 [options] path/to/dir&nbsp;或者&nbsp;flake8 [options] path/to/module.py&nbsp;可以查看报出的错误和警告。</p>
+<p>和 Pylint 类似，Flake8 允许通过<a class="reference external" href="https://link.zhihu.com/?target=http%3A//flake8.pycqa.org/en/latest/user/configuration.html%23configuration-locations">配置文件</a>来自定义检查的内容。它有非常清晰的文档，包括一些有用的<a class="reference external" href="https://link.zhihu.com/?target=http%3A//flake8.pycqa.org/en/latest/user/using-hooks.html">提交钩子</a>，可以将自动检查代码纳入到开发工作流程之中。</p>
+<p>Flake8 也可以集成到一些流行的编辑器和 IDE 当中，但在文档中并没有详细说明。要将 Flake8 集成到喜欢的编辑器或 IDE 中，可以搜索插件（例如&nbsp;<a class="reference external" href="https://link.zhihu.com/?target=https%3A//github.com/SublimeLinter/SublimeLinter-flake8">Sublime Text 的 Flake8 插件</a>）。</p>
+<p>3、 Isort</p>
+<p><a class="reference external" href="https://link.zhihu.com/?target=https%3A//github.com/timothycrosley/isort">Isort</a>&nbsp;这个库能将你在项目中导入的库按字母顺序排序，并将其`正确划分为不同部分 &lt;<a class="reference external" href="https://link.zhihu.com/?target=https%3A//github.com/timothycrosley/isort%23how-does-isort-work">https://link.zhihu.com/?target=https%3A//github.com/timothycrosley/isort%23how-does-isort-work</a>&gt;`__（例如标准库、第三方库、自建的库等）。这样提高了代码的可读性，并且可以在导入的库较多的时候轻松找到各个库。</p>
+<p>执行&nbsp;pip install isort&nbsp;安装 isort，然后执行&nbsp;isort path/to/module.py&nbsp;就可以运行了。<a class="reference external" href="https://link.zhihu.com/?target=https%3A//github.com/timothycrosley/isort%23using-isort">文档</a>中还提供了更多的配置项，例如通过<a class="reference external" href="https://link.zhihu.com/?target=https%3A//github.com/timothycrosley/isort%23configuring-isort">配置</a>&nbsp;.isort.cfg&nbsp;文件来决定 isort 如何处理一个库的多行导入。</p>
+<p>和 Flake8、Pylint 一样，isort 也提供了将其与流行的<a class="reference external" href="https://link.zhihu.com/?target=https%3A//github.com/timothycrosley/isort/wiki/isort-Plugins">编辑器和 IDE</a>&nbsp;集成的插件。</p>
+<p>分享你的代码风格</p>
+<p>每次文件发生变动之后都用命令行手动检查代码是一件痛苦的事，你可能也不太喜欢通过运行 IDE 中某个插件来实现这个功能。同样地，你的同事可能会用不同的代码检查方式，也许他们的编辑器中也没有那种插件，甚至你自己可能也不会严格检查代码和按照警告来更正代码。总之，你分享出来的代码库将会逐渐地变得混乱且难以阅读。</p>
+<p>一个很好的解决方案是使用一个库，自动将代码按照 PEP 8 规范进行格式化。我们推荐的三个库都有不同的自定义级别来控制如何格式化代码。其中有一些设置较为特殊，例如 Pylint 和 Flake8 ，你需要先行测试，看看是否有你无法忍受但又不能修改的默认配置。</p>
+<p>4、 Autopep8</p>
+<p><a class="reference external" href="https://link.zhihu.com/?target=https%3A//github.com/hhatto/autopep8">Autopep8</a>&nbsp;可以自动格式化指定的模块中的代码，包括重新缩进行、修复缩进、删除多余的空格，并重构常见的比较错误（例如布尔值和&nbsp;None&nbsp;值）。你可以查看文档中完整的`更正列表 &lt;<a class="reference external" href="https://link.zhihu.com/?target=https%3A//github.com/hhatto/autopep8%23id4">https://link.zhihu.com/?target=https%3A//github.com/hhatto/autopep8%23id4</a>&gt;`__。</p>
+<p>运行&nbsp;pip install –upgrade autopep8&nbsp;安装 Autopep8。然后执行&nbsp;autopep8 –in-place –aggressive –aggressive &lt;filename&gt;&nbsp;就可以重新格式化你的代码。aggressive&nbsp;选项的数量表示 Auotopep8 在代码风格控制上有多少控制权。在这里可以详细了解&nbsp;<a class="reference external" href="https://link.zhihu.com/?target=https%3A//github.com/hhatto/autopep8%23id5">aggressive</a>&nbsp;选项。</p>
+<p>5、 Yapf</p>
+<p><a class="reference external" href="https://link.zhihu.com/?target=https%3A//github.com/google/yapf">Yapf</a>&nbsp;是另一种有自己的`配置项 &lt;<a class="reference external" href="https://link.zhihu.com/?target=https%3A//github.com/google/yapf%23usage">https://link.zhihu.com/?target=https%3A//github.com/google/yapf%23usage</a>&gt;`__列表的重新格式化代码的工具。它与 Autopep8 的不同之处在于它不仅会指出代码中违反 PEP 8 规范的地方，还会对没有违反 PEP 8 但代码风格不一致的地方重新格式化，旨在令代码的可读性更强。</p>
+<p>执行&nbsp;pip install yapf&nbsp;安装 Yapf，然后执行&nbsp;yapf [options] path/to/dir&nbsp;或&nbsp;yapf [options] path/to/module.py&nbsp;可以对代码重新格式化。<a class="reference external" href="https://link.zhihu.com/?target=https%3A//github.com/google/yapf%23usage">定制选项</a>的完整列表在这里。</p>
+<p>6、 Black</p>
+<p><a class="reference external" href="https://link.zhihu.com/?target=https%3A//github.com/ambv/black">Black</a>&nbsp;在代码检查工具当中算是比较新的一个。它与 Autopep8 和 Yapf 类似，但限制较多，没有太多的自定义选项。这样的好处是你不需要去决定使用怎么样的代码风格，让 Black 来给你做决定就好。你可以在这里查阅 Black&nbsp;<a class="reference external" href="https://link.zhihu.com/?target=https%3A//github.com/ambv/black%23command-line-options">有限的自定义选项</a>以及<a class="reference external" href="https://link.zhihu.com/?target=https%3A//github.com/ambv/black%23pyprojecttoml">如何在配置文件中对其进行设置</a>。</p>
+<p>Black 依赖于 Python 3.6+，但它可以格式化用 Python 2 编写的代码。执行&nbsp;pip install black&nbsp;安装 Black，然后执行&nbsp;black path/to/dir&nbsp;或&nbsp;black path/to/module.py&nbsp;就可以使用 Black 优化你的代码。</p>
+<p>检查你的测试覆盖率</p>
+<p>如果你正在进行编写测试，你需要确保提交到代码库的新代码都已经测试通过，并且不会降低测试覆盖率。虽然测试覆盖率不是衡量测试有效性和充分性的唯一指标，但它是确保项目遵循基本测试标准的一种方法。对于计算测试覆盖率，我们推荐使用 Coverage 这个库。</p>
+<p>7、 Coverage</p>
+<p><a class="reference external" href="https://link.zhihu.com/?target=https%3A//coverage.readthedocs.io/en/latest/">Coverage</a>&nbsp;有数种显示测试覆盖率的方式，包括将结果输出到控制台或 HTML 页面，并指出哪些具体哪些地方没有被覆盖到。你可以通过<a class="reference external" href="https://link.zhihu.com/?target=https%3A//coverage.readthedocs.io/en/latest/config.html">配置文件</a>自定义 Coverage 检查的内容，让你更方便使用。</p>
+<p>执行&nbsp;pip install coverage&nbsp;安装 Converage 。然后执行&nbsp;coverage [path/to/module.py] [args]&nbsp;可以运行程序并查看输出结果。如果要查看哪些代码行没有被覆盖，执行&nbsp;coverage report -m&nbsp;即可。</p>
+<p>持续集成工具</p>
+<p><em>持续集成(Continuous integration)</em>（CI）是在合并和部署代码之前自动检查代码风格错误和测试覆盖率最小值的过程。很多免费或付费的工具都可以用于执行这项工作，具体的过程不在本文中赘述，但 CI 过程是令代码更易读和更易维护的重要步骤，关于这一部分可以参考&nbsp;<a class="reference external" href="https://link.zhihu.com/?target=https%3A//travis-ci.org/">Travis CI</a>&nbsp;和&nbsp;<a class="reference external" href="https://link.zhihu.com/?target=https%3A//jenkins.io/">Jenkins</a>。</p>
+<p>以上这些只是用于检查 Python 代码的各种工具中的其中几个。如果你有其它喜爱的工具，欢迎在评论中分享。</p>
+<p>编译成so</p>
+<p>2019年9月12日 星期四</p>
+<p>下午7:21</p>
+<p><strong>把python源文件编译成so文件</strong></p>
+<p><strong>亲测可用</strong></p>
+<p><strong>前言</strong></p>
+<p>实际上属于一种代码混淆/加密的技术，大家知道python的源文件放在那里，大家是都可以看的，不像C语言编译出来可以拿编译后的东西去运行，所以就出现了这种需求。原理相当于将python编译成c，然后再转成.so文件</p>
+<p>.so文件为动态连结库，可以在程序运行时动态链接，类似于windows的dll文件。</p>
+<p>在网上搜了一下，常用的有2种方法：</p>
+<ul class="simple">
+<li>通过gcc（make）来操作</li>
+<li>使用python来操作 我用python来直接生成就够了，没有特殊需要别去折腾GCC</li>
+</ul>
+<p><strong>准备工作</strong></p>
+<ul class="simple">
+<li>在目录下创建__init__.py和hello.py</li>
+<li>hello.py&nbsp;内容为：</li>
+</ul>
+<blockquote>
+<div><div class="line-block">
+<div class="line">def hello():</div>
+<div class="line">print “hello”</div>
+</div>
+</div></blockquote>
+<p><strong>使用python来操作</strong></p>
+<ul class="simple">
+<li>安装所需库CPython，命令如下：</li>
+</ul>
+<blockquote>
+<div>pip install cython</div></blockquote>
+<ul class="simple">
+<li>创建文件setup.py，内容如下：</li>
+</ul>
+<blockquote>
+<div><div class="line-block">
+<div class="line">from distutils.core import setup</div>
+<div class="line">from Cython.Build import cythonize</div>
+<div class="line">setup(</div>
+<div class="line">ext_modules = cythonize(“hello.py”)</div>
+<div class="line">)</div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>执行setup.py文件 python setup.py build_ext –inplace</li>
+<li>在当前目录下就生成了和当前目录同名的一个目录，进入目录即可看见so文件，打开so文件可见一些乱码，达到了加密的目的</li>
+</ul>
+<p>Pip</p>
+<p>2016年7月7日</p>
+<p>18:36</p>
+<p>名称来源于递归缩写：Pip installs Packages（PIP）</p>
+<p>查看pip的安装目录：</p>
+<blockquote>
+<div><p>[<a class="reference external" href="mailto:chuanqi&#37;&#52;&#48;iZu1v8f9z8gZ">chuanqi<span>&#64;</span>iZu1v8f9z8gZ</a> nginx]$ pip -V</p>
+<p>pip 8.1.2 from /usr/lib/python2.7/site-packages (python 2.7)</p>
+</div></blockquote>
+<p>在虚拟环境中使用一下命令可以生成一个虚拟环境的安装包版本文件</p>
+<blockquote>
+<div><p>pip freeze &gt; requirements.txt</p>
+<p>pip install -r requirements.txt</p>
+</div></blockquote>
+<p><a href="#id87"><span class="problematic" id="id88">|# pip --help
+Usage :
+pip &lt;comand&gt; [options]
+Comands :
+install
+uninstall
+freeze
+list
+show
+search
+wheel
+zip
+unzip
+bundle
+help
+General Options:
+-h, --help
+-v, --verbose
+arg, &quot;yum*fisearch.
+Build wheels from your requirements.
+Zip individual packages.
+Unzip individual packages.
+Create pybundles.
+Rise.|</span></a></p>
+<p>virtualenv</p>
+<p>2018年5月24日 星期四</p>
+<p>09:17</p>
+<p>virtualenv的使用极其简单，2分钟就足够完全掌握了，基本上明白这些概念就足够了：</p>
+<blockquote>
+<div><p>virtualenv是提供完全隔离环境的库</p>
+<p>virtualenv 命令用来创建一个新的隔离环境</p>
+<p>virtualenv research # 创建名为research的隔离环境</p>
+<p class="attribution">&mdash;no-site-packages 不包括site-packages里的包</p>
+</div></blockquote>
+<blockquote>
+<div><p>–system-packages 包括system-packages里的包</p>
+<p class="attribution">&mdash;python 选择python版本</p>
+</div></blockquote>
+<blockquote>
+<div><p>cd research &amp;&amp; source ./bin/active 激活隔离环境</p>
+<p>deactivate 退出隔离环境</p>
+</div></blockquote>
+<p>virtualwrapper</p>
+<blockquote>
+<div><p>有一个virtualenvwrapper 是一个 virtualenv 虚拟环境的管理库，这个库可以更加方便的管理所有的虚拟环境。它的原理是把所有的虚拟环境都装在 WORKON_HOME 这个环境变量指定的目录下，这样就不用到处去找虚拟环境目录了，有一个统一的地方可以管理、查看。就这么简单的原理。</p>
+<p>用virtualenv，新建目录 ~/.virtualenv 然后把所有的隔离环境都放在这个目录下其实是一个道理。</p>
+<p>pip install virtualenvwrapper</p>
+<p>export WORKON_HOME=$HOME/.virtualenvs &amp;&amp; source /usr/local/bin/virtualenvwrapper.sh</p>
+<p>lsvirtualenv -b # 列出虚拟环境</p>
+<p>workon [虚拟环境名称] # 切换虚拟环境</p>
+<p>lssitepackages # 查看环境里安装了哪些包</p>
+<p>cdvirtualenv [子目录名] # 进入当前环境的目录</p>
+<p>cpvirtualenv [source] [dest] # 复制虚拟环境</p>
+<p>deactivate # 退出虚拟环境</p>
+<p>rmvirtualenv [虚拟环境名称] # 删除虚拟环境</p>
+</div></blockquote>
+<p>virtualenv 与 Anaconda 的冲突</p>
+<blockquote>
+<div><p>Anaconda 有自己的包管理方式，直接用pip安装virtualenv会出错，需要用conda安装virtualenv</p>
+<p>pip uninstall virtualenv</p>
+<p>conda install virtualenv</p>
+</div></blockquote>
+<p>py2 vs py3</p>
+<p>2019年9月9日</p>
+<p>23:07</p>
+<blockquote>
+<div><p><strong>Python2.x与3​​.x版本区别</strong></p>
+<p>Python的3​​.0版本，常被称为Python 3000，或简称Py3k。相对于Python的早期版本，这是一个较大的升级。</p>
+<p>为了不带入过多的累赘，Python 3.0在设计的时候没有考虑向下相容。</p>
+<p>许多针对早期Python版本设计的程式都无法在Python 3.0上正常执行。</p>
+<p>为了照顾现有程式，Python 2.6作为一个过渡版本，基本使用了Python 2.x的语法和库，同时考虑了向Python 3.0的迁移，允许使用部分Python 3.0的语法与函数。</p>
+<p>新的Python程式建议使用Python 3.0版本的语法。</p>
+<p>除非执行环境无法安装Python 3.0或者程式本身使用了不支援Python 3.0的第三方库。目前不支援Python 3.0的第三方库有Twisted, py2exe, PIL等。</p>
+<p>大多数第三方库都正在努力地相容Python 3.0版本。即使无法立即使用Python 3.0，也建议编写相容Python 3.0版本的程式，然后使用Python 2.6, Python 2.7来执行。</p>
+<p>Python 3.0的变化主要在以下几个方面:</p>
+<p><strong>print 函数</strong></p>
+<p>print语句没有了，取而代之的是print()函数。 Python 2.6与Python 2.7部分地支持这种形式的print语法。在Python 2.6与Python 2.7里面，以下三种形式是等价的：</p>
+<div class="line-block">
+<div class="line">print “fish”</div>
+<div class="line">print (“fish”) #注意print后面有个空格</div>
+<div class="line">print(“fish”) #print()不能带有任何其它参数</div>
+</div>
+<p>然而，Python 2.6实际已经支持新的print()语法：</p>
+<div class="line-block">
+<div class="line">from __future__ import print_function</div>
+<div class="line">print(“fish”, “panda”, sep=’, ‘)</div>
+</div>
+<p><strong>Unicode</strong></p>
+<p>Python 2 有 ASCII str() 类型，unicode() 是单独的，不是 byte 类型。</p>
+<p>现在， 在 Python 3，我们最终有了 Unicode (utf-8) 字符串，以及一个字节类：byte 和 bytearrays。</p>
+<p>由于 Python3.X 源码文件默认使用utf-8编码，这就使得以下代码是合法的：</p>
+<div class="line-block">
+<div class="line">&gt;&gt;&gt; 中国 = ‘china’</div>
+<div class="line">&gt;&gt;&gt;print(中国)</div>
+<div class="line">china</div>
+</div>
+<p>Python 2.x</p>
+<div class="line-block">
+<div class="line">&gt;&gt;&gt; str = “我爱北京天安门”</div>
+<div class="line">&gt;&gt;&gt; str</div>
+<div class="line">‘xe6x88x91xe7x88xb1xe5x8cx97xe4xbaxacxe5xa4xa9xe5xaex89xe9x97xa8’</div>
+<div class="line">&gt;&gt;&gt; str = u”我爱北京天安门”</div>
+<div class="line">&gt;&gt;&gt; str</div>
+<div class="line">u’u6211u7231u5317u4eacu5929u5b89u95e8’</div>
+</div>
+<p>Python 3.x</p>
+<div class="line-block">
+<div class="line">&gt;&gt;&gt; str = “我爱北京天安门”</div>
+<div class="line">&gt;&gt;&gt; str</div>
+<div class="line">‘我爱北京天安门’</div>
+</div>
+<p><strong>除法运算</strong></p>
+<p>Python中的除法较其它语言显得非常高端，有套很复杂的规则。Python中的除法有两个运算符，/和//</p>
+<p>首先来说/除法:</p>
+<p>在python 2.x中/除法就跟我们熟悉的大多数语言，比如Java啊C啊差不多，整数相除的结果是一个整数，把小数部分完全忽略掉，浮点数除法会保留小数点的部分得到一个浮点数的结果。</p>
+<p>在python 3.x中/除法不再这么做了，对于整数之间的相除，结果也会是浮点数。</p>
+<p>Python 2.x:</p>
+<div class="line-block">
+<div class="line">&gt;&gt;&gt; 1 / 2</div>
+<div class="line">0</div>
+<div class="line">&gt;&gt;&gt; 1.0 / 2.0</div>
+<div class="line">0.5</div>
+</div>
+<p>Python 3.x:</p>
+<div class="line-block">
+<div class="line">&gt;&gt;&gt; 1/2</div>
+<div class="line">0.5</div>
+</div>
+<p>而对于//除法，这种除法叫做floor除法，会对除法的结果自动进行一个floor操作，在python 2.x和python 3.x中是一致的。</p>
+<p>python 2.x:</p>
+<div class="line-block">
+<div class="line">&gt;&gt;&gt; -1 // 2</div>
+<div class="line">-1</div>
+</div>
+<p>python 3.x:</p>
+<div class="line-block">
+<div class="line">&gt;&gt;&gt; -1 // 2</div>
+<div class="line">-1</div>
+</div>
+<p>注意的是并不是舍弃小数部分，而是执行 floor 操作，如果要截取整数部分，那么需要使用 math 模块的 trunc 函数</p>
+<p>python 3.x:</p>
+<div class="line-block">
+<div class="line">&gt;&gt;&gt; import math</div>
+<div class="line">&gt;&gt;&gt; math.trunc(1 / 2)</div>
+<div class="line">0</div>
+<div class="line">&gt;&gt;&gt; math.trunc(-1 / 2)</div>
+<div class="line">0</div>
+</div>
+<p><strong>异常</strong></p>
+<p>在 Python 3 中处理异常也轻微的改变了，在 Python 3 中我们现在使用 as 作为关键词。</p>
+<p>捕获异常的语法由&nbsp;<strong>except exc, var</strong>&nbsp;改为&nbsp;<strong>except exc as var</strong>。</p>
+<p>使用语法except (exc1, exc2) as var可以同时捕获多种类别的异常。 Python 2.6已经支持这两种语法。</p>
+</div></blockquote>
+<ul class="simple">
+<li><ol class="first arabic">
+<li>在2.x时代，所有类型的对象都是可以被直接抛出的，在3.x时代，只有继承自BaseException的对象才可以被抛出。</li>
+</ol>
+</li>
+<li><ol class="first arabic" start="2">
+<li>2.x raise语句使用逗号将抛出对象类型和参数分开，3.x取消了这种奇葩的写法，直接调用构造函数抛出对象即可。</li>
+</ol>
+</li>
+</ul>
+<blockquote>
+<div><p>在2.x时代，异常在代码中除了表示程序错误，还经常做一些普通控制结构应该做的事情，在3.x中可以看出，设计者让异常变的更加专一，只有在错误发生的情况才能去用异常捕获语句来处理。</p>
+<p><strong>xrange</strong></p>
+<p>在 Python 2 中 xrange() 创建迭代对象的用法是非常流行的。比如： for 循环或者是列表/集合/字典推导式。</p>
+<p>这个表现十分像生成器（比如。”惰性求值”）。但是这个 xrange-iterable 是无穷的，意味着你可以无限遍历。</p>
+<p>由于它的惰性求值，如果你不得仅仅不遍历它一次，xrange() 函数 比 range() 更快（比如 for 循环）。尽管如此，对比迭代一次，不建议你重复迭代多次，因为生成器每次都从头开始。</p>
+<p>在 Python 3 中，range() 是像 xrange() 那样实现以至于一个专门的 xrange() 函数都不再存在（在 Python 3 中 xrange() 会抛出命名异常）。</p>
+<p>import timeit</p>
+<div class="line-block">
+<div class="line">n = 10000</div>
+<div class="line">def test_range(n):</div>
+<div class="line">return for i in range(n):</div>
+<div class="line">pass</div>
+</div>
+<div class="line-block">
+<div class="line">def test_xrange(n):</div>
+<div class="line">for i in xrange(n):</div>
+<div class="line">pass</div>
+</div>
+<p>Python 2</p>
+<p>print ‘Python’, python_version()</p>
+<div class="line-block">
+<div class="line">print ‘ntiming range()’</div>
+<div class="line">%timeit test_range(n)</div>
+</div>
+<div class="line-block">
+<div class="line">print ‘nntiming xrange()’</div>
+<div class="line">%timeit test_xrange(n)</div>
+</div>
+<p>Python 2.7.6</p>
+<div class="line-block">
+<div class="line">timing range()</div>
+<div class="line">1000 loops, best of 3: 433 µs per loop</div>
+</div>
+<div class="line-block">
+<div class="line">timing xrange()</div>
+<div class="line">1000 loops, best of 3: 350 µs per loop</div>
+</div>
+<p>Python 3</p>
+<p>print(‘Python’, python_version())</p>
+<div class="line-block">
+<div class="line">print(‘ntiming range()’)</div>
+<div class="line">%timeit test_range(n)</div>
+</div>
+<p>Python 3.4.1</p>
+<div class="line-block">
+<div class="line">timing range()</div>
+<div class="line">1000 loops, best of 3: 520 µs per loop</div>
+</div>
+<div class="line-block">
+<div class="line">print(xrange(10))</div>
+<div class="line">—————————————————————————</div>
+<div class="line">NameError Traceback (most recent call last)</div>
+<div class="line">&lt;ipython-input-5-5d8f9b79ea70&gt; in &lt;module&gt;()</div>
+<div class="line">—-&gt; 1 print(xrange(10))</div>
+</div>
+<p>NameError: name ‘xrange’ is not defined</p>
+<p><strong>八进制字面量表示</strong></p>
+<p>八进制数必须写成0o777，原来的形式0777不能用了；二进制必须写成0b111。</p>
+<p>新增了一个bin()函数用于将一个整数转换成二进制字串。 Python 2.6已经支持这两种语法。</p>
+<p>在Python 3.x中，表示八进制字面量的方式只有一种，就是0o1000。</p>
+<p>python 2.x</p>
+<div class="line-block">
+<div class="line">&gt;&gt;&gt; 0o1000</div>
+<div class="line">512</div>
+<div class="line">&gt;&gt;&gt; 01000</div>
+<div class="line">512</div>
+</div>
+<p>python 3.x</p>
+<div class="line-block">
+<div class="line">&gt;&gt;&gt; 01000</div>
+<div class="line">File “&lt;stdin&gt;”, line 1</div>
+<div class="line">01000</div>
+<div class="line">^</div>
+<div class="line">SyntaxError: invalid token</div>
+<div class="line">&gt;&gt;&gt; 0o1000</div>
+<div class="line">512</div>
+</div>
+<p><strong>不等运算符</strong></p>
+<p>Python 2.x中不等于有两种写法 != 和 &lt;&gt;</p>
+<p>Python 3.x中去掉了&lt;&gt;, 只有!=一种写法，还好，我从来没有使用&lt;&gt;的习惯</p>
+<p><strong>去掉了repr表达式``</strong></p>
+<p>Python 2.x 中反引号``相当于repr函数的作用</p>
+<p>Python 3.x 中去掉了``这种写法，只允许使用repr函数，这样做的目的是为了使代码看上去更清晰么？不过我感觉用repr的机会很少，一般只在debug的时候才用，多数时候还是用str函数来用字符串描述对象。</p>
+<div class="line-block">
+<div class="line">def sendMail(<a href="#id93"><span class="problematic" id="id94">from_</span></a>: str, to: str, title: str, body: str) -&gt; bool:</div>
+<div class="line">pass</div>
+</div>
+<p><strong>多个模块被改名（根据PEP8）</strong></p>
+</div></blockquote>
+<table border="1" class="docutils">
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"><strong>旧的名字</strong></th>
+<th class="head"><strong>新的名字</strong></th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>_winreg</td>
+<td>winreg</td>
+</tr>
+<tr class="row-odd"><td>ConfigParser</td>
+<td>configparser</td>
+</tr>
+<tr class="row-even"><td>copy_reg</td>
+<td>copyreg</td>
+</tr>
+<tr class="row-odd"><td>Queue</td>
+<td>queue</td>
+</tr>
+<tr class="row-even"><td>SocketServer</td>
+<td>socketserver</td>
+</tr>
+<tr class="row-odd"><td>repr</td>
+<td>reprlib</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<div><p>StringIO模块现在被合并到新的io模组内。 new, md5, gopherlib等模块被删除。 Python 2.6已经支援新的io模组。</p>
+<p>httplib, BaseHTTPServer, CGIHTTPServer, SimpleHTTPServer, Cookie, cookielib被合并到http包内。</p>
+<p>取消了exec语句，只剩下exec()函数。 Python 2.6已经支援exec()函数。</p>
+<p><strong>5.数据类型</strong></p>
+<p>1）Py3.X去除了long类型，现在只有一种整型——int，但它的行为就像2.X版本的long</p>
+<p>2）新增了bytes类型，对应于2.X版本的八位串，定义一个bytes字面量的方法如下：</p>
+<div class="line-block">
+<div class="line">&gt;&gt;&gt; b = b’china’</div>
+<div class="line">&gt;&gt;&gt; type(b)</div>
+<div class="line">&lt;type ‘bytes’&gt;</div>
+</div>
+<p>str 对象和 bytes 对象可以使用 .encode() (<strong>str -&gt; bytes</strong>) 或 .decode() (<strong>bytes -&gt; str</strong>)方法相互转化。</p>
+<div class="line-block">
+<div class="line">&gt;&gt;&gt; s = b.decode()</div>
+<div class="line">&gt;&gt;&gt; s</div>
+<div class="line">‘china’</div>
+<div class="line">&gt;&gt;&gt; b1 = s.encode()</div>
+<div class="line">&gt;&gt;&gt; b1</div>
+<div class="line">b’china’</div>
+</div>
+<p>3）dict的.keys()、.items 和.values()方法返回迭代器，而之前的iterkeys()等函数都被废弃。同时去掉的还有 dict.has_key()，用 in替代它吧 。</p>
+<div class="line-block">
+<div class="line"><a href="#id43"><span class="problematic" id="id44">**</span></a>打开文件
+<a href="#id45"><span class="problematic" id="id46">**</span></a>原：</div>
+<div class="line">file( ….. )</div>
+<div class="line">或</div>
+<div class="line">open(…..)</div>
+<div class="line">改为只能用</div>
+<div class="line">open(…..)</div>
+<div class="line">从键盘录入一个字符串</div>
+<div class="line">原:</div>
+<div class="line">raw_input( “提示信息” )</div>
+<div class="line">改为:</div>
+<div class="line">input( “提示信息” )</div>
+<div class="line">在python2.x中raw_input()和input( )，两个函数都存在，其中区别为：</div>
+</div>
+</div></blockquote>
+<ul>
+<li><p class="first">&nbsp;raw_input()—将所有输入作为字符串看待，返回字符串类型</p>
+</li>
+<li><div class="first line-block">
+<div class="line">&nbsp;input()—–只能接收”数字”的输入，在对待纯数字输入时具有自己的特性，它返回所输入的数字的类型（int, float ）
+| 在python3.x中raw_input()和input( )进行了整合，去除了raw_input()，仅保留了input()函数，其接收任意任性输入，将所有输入默认为字符串处理，并返回字符串类型。</div>
+</div>
+</li>
+</ul>
+<blockquote>
+<div><div class="line-block">
+<div class="line"><a href="#id47"><span class="problematic" id="id48">**</span></a>map、filter 和 reduce
+<a href="#id49"><span class="problematic" id="id50">**</span></a>这三个函数号称是函数式编程的代表。在 Python3.x 和 Python2.x 中也有了很大的差异。</div>
+<div class="line">首先我们先简单的在 Python2.x 的交互下输入 map 和 filter,看到它们两者的类型是 built-in function(内置函数):</div>
+<div class="line">&gt;&gt;&gt; map</div>
+<div class="line">&lt;built-in function map&gt;</div>
+<div class="line">&gt;&gt;&gt; filter</div>
+<div class="line">&lt;built-in function filter&gt;</div>
+<div class="line">&gt;&gt;&gt;</div>
+<div class="line">它们输出的结果类型都是列表:</div>
+<div class="line">&gt;&gt;&gt; map(lambda x:x *2, [1,2,3])</div>
+<div class="line">[2, 4, 6]</div>
+<div class="line">&gt;&gt;&gt; filter(lambda x:x %2 ==0,range(10))</div>
+<div class="line">[0, 2, 4, 6, 8]</div>
+<div class="line">&gt;&gt;&gt;</div>
+<div class="line">但是在Python 3.x中它们却不是这个样子了：</div>
+<div class="line">&gt;&gt;&gt; map</div>
+<div class="line">&lt;class ‘map’&gt;</div>
+<div class="line">&gt;&gt;&gt; map(print,[1,2,3])</div>
+<div class="line">&lt;map object at 0x10d8bd400&gt;</div>
+<div class="line">&gt;&gt;&gt; filter</div>
+<div class="line">&lt;class ‘filter’&gt;</div>
+<div class="line">&gt;&gt;&gt; filter(lambda x:x % 2 == 0, range(10))</div>
+<div class="line">&lt;filter object at 0x10d8bd3c8&gt;</div>
+<div class="line">&gt;&gt;&gt;</div>
+<div class="line">首先它们从函数变成了类，其次，它们的返回结果也从当初的列表成了一个可迭代的对象, 我们尝试用 next 函数来进行手工迭代:</div>
+<div class="line">&gt;&gt;&gt; f =filter(lambda x:x %2 ==0, range(10))</div>
+<div class="line">&gt;&gt;&gt; next(f)</div>
+<div class="line">0</div>
+<div class="line">&gt;&gt;&gt; next(f)</div>
+<div class="line">2</div>
+<div class="line">&gt;&gt;&gt; next(f)</div>
+<div class="line">4</div>
+<div class="line">&gt;&gt;&gt; next(f)</div>
+<div class="line">6</div>
+<div class="line">&gt;&gt;&gt;</div>
+<div class="line">对于比较高端的 reduce 函数，它在 Python 3.x 中已经不属于 built-in 了，被挪到 functools 模块当中。</div>
+</div>
+<p><em>来自 &lt;</em><a class="reference external" href="https://www.runoob.com/python/python-2x-3x.html">https://www.runoob.com/python/python-2x-3x.html</a><em>&gt;</em></p>
+</div></blockquote>
+<p><strong>Python2.x中的编码问题</strong></p>
+<p>2016年3月5日 星期六</p>
+<p>01:37</p>
+<blockquote>
+<div><div class="line-block">
+<div class="line"><strong>字符串在Python内部的表示是unicode编码</strong>，因此，在做编码转换时，通常需要以unicode作为中间编码，即先<strong>将其他编码的字符串解码（decode）成unicode，再从unicode编码（encode）成另一种编码</strong>。</div>
+<div class="line">但是，<strong>Python 2.x的默认编码格式是ASCII（因为python诞生比unicode要早）</strong>，就是说，在没有指定Python源码编码格式的情况下，源码中的所有字符都会被默认为ASCII码。也因为这个根本原因，在Python 2.x中经常会遇到UnicodeDecodeError或者UnicodeEncodeError的异常。</div>
+</div>
+<div class="line-block">
+<div class="line">为了能够处理Unicode数据，同时兼容Python某些内部模块，<strong>Python 2.x中提供了Unicode这种数据类型</strong>，通过decode和encode方法可以将其它编码和Unicode编码相互转化，但同时也引入了UnicodeDecodeError和UnicodeEncodeError异常。</div>
+<div class="line"><strong>如果在文件头部没有指定文件编码类型，那么文件里的字符串字面值就是 ascii，否则就是指定的 coding 类型</strong>。</div>
+</div>
+<p>切记，unicode是python内部表示字符串的数据类型，py内部只理解unicode，所以：</p>
+</div></blockquote>
+<ul class="simple">
+<li>对于非unicode编码（py内部不能原生理解的编码），就需要进行解码，所以decode是从str 到 unicode，解码的结果就是py能理解的unicode。</li>
+<li>encode是从 unicode 到 str，编码就是从内部表示法到其它表示方法。</li>
+</ul>
+<blockquote>
+<div><p><strong>str和unicode</strong></p>
+<p><strong>str和unicode都是basestring的子类</strong>。严格意义上说，<strong>str其实是字节串</strong>，它是unicode经过编码后的字节组成的序列。对UTF-8编码的str’汉’使用len()函数时，结果是3，因为实际上，UTF-8编码的’汉’ == ‘xE6xB1x89’。</p>
+<p>unicode才是真正意义上的字符串，对字节串str使用正确的字符编码进行解码后获得，并且len(u’汉’) == 1。</p>
+<p>再来看看<strong>encode()和decode()两个basestring的实例方法</strong>，理解了str和unicode的区别后，这两个方法就不会再混淆了：</p>
+</div></blockquote>
+<table border="1" class="docutils">
+<colgroup>
+<col width="6%" />
+<col width="94%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>1</td>
+<td># coding: UTF-8</td>
+</tr>
+<tr class="row-even"><td>2</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>3</td>
+<td>u =&nbsp;u’汉’</td>
+</tr>
+<tr class="row-even"><td>4</td>
+<td>print&nbsp;repr(u) # u’u6c49’</td>
+</tr>
+<tr class="row-odd"><td>5</td>
+<td>s =&nbsp;u.encode(‘UTF-8’)</td>
+</tr>
+<tr class="row-even"><td>6</td>
+<td>print&nbsp;repr(s) # ‘xe6xb1x89’</td>
+</tr>
+<tr class="row-odd"><td>7</td>
+<td>u2 =&nbsp;s.decode(‘UTF-8’)</td>
+</tr>
+<tr class="row-even"><td>8</td>
+<td>print&nbsp;repr(u2) # u’u6c49’</td>
+</tr>
+<tr class="row-odd"><td>9</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>10</td>
+<td># 对unicode进行解码是错误的</td>
+</tr>
+<tr class="row-odd"><td>11</td>
+<td># s2 = u.decode(‘UTF-8’)</td>
+</tr>
+<tr class="row-even"><td>12</td>
+<td># 同样，对str进行编码也是错误的</td>
+</tr>
+<tr class="row-odd"><td>13</td>
+<td># u2 = s.encode(‘UTF-8’)</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<div>需要注意的是，虽然对str调用encode()方法是错误的，但实际上Python不会抛出异常，而是返回另外一个相同内容但不同id的str；对unicode调用decode()方法也是这样。很不理解为什么不把encode()和decode()分别放在unicode和str中而是都放在basestring中，但既然已经这样了，我们就小心避免犯错吧。</div></blockquote>
+</div>
+</div>
+<div class="section" id="python">
+<h1>PYTHON-进阶-编码处理小结<a class="headerlink" href="#python" title="永久链接至标题">¶</a></h1>
+<ul class="simple">
+<li><a class="reference external" href="http://wklken.me/posts/2013/08/31/python-extra-coding-intro.html">Python-进阶-编码处理小结</a></li>
+<li><a class="reference external" href="http://wklken.me/posts/2013/08/31/python-extra-coding-intro.html#_1">开始</a></li>
+<li><a class="reference external" href="http://wklken.me/posts/2013/08/31/python-extra-coding-intro.html#_2">首先</a></li>
+<li><a class="reference external" href="http://wklken.me/posts/2013/08/31/python-extra-coding-intro.html#str-unicode">str 和 unicode</a></li>
+<li><a class="reference external" href="http://wklken.me/posts/2013/08/31/python-extra-coding-intro.html#ide">文件处理,IDE和控制台</a></li>
+<li><a class="reference external" href="http://wklken.me/posts/2013/08/31/python-extra-coding-intro.html#_3">建议</a></li>
+<li><a class="reference external" href="http://wklken.me/posts/2013/08/31/python-extra-coding-intro.html#_4">相关模块及一些方法</a></li>
+</ul>
+<blockquote>
+<div><p>整理下python编码相关的内容</p>
+<p>注意: 以下讨论为Python2.x版本, Py3k的待尝试</p>
+<p><strong>开始</strong></p>
+<p>用python处理中文时，读取文件或消息，http参数等等</p>
+<p>一运行，发现乱码(字符串处理，读写文件，print)</p>
+<p>然后，大多数人的做法是，调用encode/decode进行调试，并没有明确思考为何出现乱码</p>
+<p>所以调试时最常出现的错误</p>
+<p>错误1</p>
+<div class="line-block">
+<div class="line">Traceback (most recent call last):</div>
+<div class="line">File “&lt;stdin&gt;”, line 1, in &lt;module&gt;</div>
+<div class="line">UnicodeDecodeError: ‘ascii’ codec can’t decode byte 0xe6 in position 0: ordinal not in range(128)</div>
+</div>
+<p>错误2</p>
+<div class="line-block">
+<div class="line">Traceback (most recent call last):</div>
+<div class="line">File “&lt;stdin&gt;”, line 1, in &lt;module&gt;</div>
+<div class="line">File “/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/encodings/utf_8.py”, line 16, in decode</div>
+<div class="line">return codecs.utf_8_decode(input, errors, True)</div>
+<div class="line">UnicodeEncodeError: ‘ascii’ codec can’t encode characters in position 0-1: ordinal not in range(128)</div>
+</div>
+<p><strong>首先</strong></p>
+<p>必须有大体概念，了解下字符集，<a class="reference external" href="http://zh.wikipedia.org/wiki/%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81">字符编码</a></p>
+<p><a class="reference external" href="http://zh.wikipedia.org/zh/ASCII">ASCII</a>&nbsp;<a href="#id89"><span class="problematic" id="id90">|&nbsp;`Unicode &lt;http://zh.wikipedia.org/zh/Unicode&gt;`__&nbsp;|</span></a>&nbsp;<a class="reference external" href="http://zh.wikipedia.org/zh/UTF-8">UTF-8</a>&nbsp;| 等等</p>
+<p><a class="reference external" href="http://www.ruanyifeng.com/blog/2007/10/ascii_unicode_and_utf-8.html">字符编码笔记：ASCII，Unicode和UTF-8</a></p>
+<p><a class="reference external" href="http://www.searchtb.com/2012/04/chinese_encode.html">淘宝搜索技术博客-中文编码杂谈</a></p>
+<p><strong>str 和 unicode</strong></p>
+<p>str和unicode都是basestring的子类</p>
+<p>所以有判断是否是字符串的方法</p>
+<div class="line-block">
+<div class="line"><strong>def</strong> is_str(s):</div>
+<div class="line"><strong>return</strong> isinstance(s, basestring)</div>
+</div>
+<p>str和unicode 转换</p>
+<p>decode&nbsp;<a class="reference external" href="http://www.tutorialspoint.com/python/string_decode.htm">文档</a></p>
+<p>encode&nbsp;<a class="reference external" href="http://www.tutorialspoint.com/python/string_encode.htm">文档</a></p>
+<div class="line-block">
+<div class="line">str -&gt; decode(‘the_coding_of_str’) -&gt; unicode</div>
+<div class="line">unicode -&gt; encode(‘the_coding_you_want’) -&gt; str</div>
+</div>
+<p>区别</p>
+<p>str是字节串，由unicode经过编码(encode)后的字节组成的</p>
+<p>声明方式</p>
+<div class="line-block">
+<div class="line">s = ‘中文’</div>
+<div class="line">s = u’中文’.encode(‘utf-8’)</div>
+</div>
+<div class="line-block">
+<div class="line">&gt;&gt;&gt; type(‘中文’)</div>
+<div class="line">&lt;type ‘str’&gt;</div>
+</div>
+<p>求长度(返回字节数)</p>
+<div class="line-block">
+<div class="line">&gt;&gt;&gt; u’中文’.encode(‘utf-8’)</div>
+<div class="line">‘xe4xb8xadxe6x96x87’</div>
+<div class="line">&gt;&gt;&gt; len(u’中文’.encode(‘utf-8’))</div>
+<div class="line">6</div>
+</div>
+<p>unicode才是真正意义上的字符串，由字符组成</p>
+<p>声明方式</p>
+<div class="line-block">
+<div class="line">s = u’中文’</div>
+<div class="line">s = ‘中文’.decode(‘utf-8’)</div>
+<div class="line">s = unicode(‘中文’, ‘utf-8’)</div>
+</div>
+<div class="line-block">
+<div class="line">&gt;&gt;&gt; type(u’中文’)</div>
+<div class="line">&lt;type ‘unicode’&gt;</div>
+</div>
+<p>求长度(返回字符数),在逻辑中真正想要用的</p>
+<div class="line-block">
+<div class="line">&gt;&gt;&gt; u’中文’</div>
+<div class="line">u’u4e2du6587’</div>
+<div class="line">&gt;&gt;&gt; len(u’中文’)</div>
+<div class="line">2</div>
+</div>
+<p>结论</p>
+<p>搞明白要处理的是str还是unicode, 使用对的处理方法(str.decode/unicode.encode)</p>
+<p>下面是判断是否为unicode/str的方法</p>
+<div class="line-block">
+<div class="line">&gt;&gt;&gt; isinstance(u’中文’, unicode)</div>
+<div class="line">True</div>
+<div class="line">&gt;&gt;&gt; isinstance(‘中文’, unicode)</div>
+<div class="line">False</div>
+</div>
+<div class="line-block">
+<div class="line">&gt;&gt;&gt; isinstance(‘中文’, str)</div>
+<div class="line">True</div>
+<div class="line">&gt;&gt;&gt; isinstance(u’中文’, str)</div>
+<div class="line">False</div>
+</div>
+<p>简单原则：不要对str使用encode，不要对unicode使用decode (事实上可以对str进行encode的，具体见最后，为了保证简单，不建议)</p>
+<div class="line-block">
+<div class="line">&gt;&gt;&gt; ‘中文’.encode(‘utf-8’)</div>
+<div class="line">Traceback (most recent call last):</div>
+<div class="line">File “&lt;stdin&gt;”, line 1, in &lt;module&gt;</div>
+<div class="line">UnicodeDecodeError: ‘ascii’ codec can’t decode byte 0xe4 in position 0: ordinal not in range(128)</div>
+</div>
+<div class="line-block">
+<div class="line">&gt;&gt;&gt; u’中文’.decode(‘utf-8’)</div>
+<div class="line">Traceback (most recent call last):</div>
+<div class="line">File “&lt;stdin&gt;”, line 1, in &lt;module&gt;</div>
+<div class="line">File “/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/encodings/utf_8.py”, line 16, in decode</div>
+<div class="line">return codecs.utf_8_decode(input, errors, True)</div>
+<div class="line">UnicodeEncodeError: ‘ascii’ codec can’t encode characters in position 0-1: ordinal not in range(128)</div>
+</div>
+<p>不同编码转换,使用unicode作为中间编码</p>
+<div class="line-block">
+<div class="line"><em>#s是code_A的str</em></div>
+<div class="line">s.decode(‘code_A’).encode(‘code_B’)</div>
+</div>
+<p><strong>文件处理,IDE和控制台</strong></p>
+<p>处理流程，可以这么使用，把python看做一个水池，一个入口，一个出口</p>
+<p>入口处，全部转成unicode, 池里全部使用unicode处理，出口处，再转成目标编码(当然，有例外，处理逻辑中要用到具体编码的情况)</p>
+<p>读文件</p>
+<p>外部输入编码，decode转成unicode</p>
+<p>处理(内部编码，统一unicode)</p>
+<p>encode转成需要的目标编码</p>
+<p>写到目标输出(文件或控制台)</p>
+<p>IDE和控制台报错，原因是print时，编码和IDE自身编码不一致导致</p>
+<p>输出时将编码转换成一致的就可以正常输出</p>
+<div class="line-block">
+<div class="line">&gt;&gt;&gt; print u’中文’.encode(‘gbk’)</div>
+<div class="line">&gt;&gt;&gt; print u’中文’.encode(‘utf-8’)</div>
+<div class="line">中文</div>
+</div>
+<p><strong>建议</strong></p>
+<p>规范编码</p>
+<p>统一编码，防止由于某个环节产生的乱码</p>
+<p>环境编码，IDE/文本编辑器, 文件编码，数据库数据表编码</p>
+<p>保证代码源文件编码</p>
+<p>这个很重要</p>
+<p>py文件默认编码是ASCII, 在源代码文件中，如果用到非ASCII字符，需要在文件头部进行编码声明&nbsp;<a class="reference external" href="http://www.python.org/dev/peps/pep-0263/">文档</a></p>
+<p>不声明的话，输入非ASCII会遇到的错误,必须放在文件第一行或第二行</p>
+<div class="line-block">
+<div class="line"><strong>File</strong> “XXX.py”, <strong>line 3</strong></div>
+<div class="line"><strong>SyntaxError</strong>: <strong>Non-ASCII character</strong> ‘xd6’ <strong>in file c</strong>.py <strong>on line 3</strong>, <strong>but no encoding declared</strong>; <strong>see</strong> <a class="reference external" href="http://www.python.org/peps/pep-0263.html">http://www.python.org/peps/pep-0263.html</a> <strong>for details</strong></div>
+</div>
+<p>声明方法</p>
+<div class="line-block">
+<div class="line"># -<em>- coding: utf-8 -</em>-</div>
+<div class="line">或者</div>
+<div class="line">#coding=utf-8</div>
+</div>
+<p>若头部声明coding=utf-8, a = ‘中文’ 其编码为utf-8</p>
+<p>若头部声明coding=gb2312, a = ‘中文’ 其编码为gbk</p>
+<p>so, 同一项目中所有源文件头部统一一个编码,并且声明的编码要和源文件保存的编码一致(编辑器相关)</p>
+<p>在源代码用作处理的硬编码字符串，统一用unicode</p>
+<p>将其类型和源文件本身的编码隔离开, 独立无依赖方便流程中各个位置处理</p>
+<div class="line-block">
+<div class="line"><strong>if</strong> s == u’中文’: <em>#而不是 s == ‘中文’</em></div>
+<div class="line"><strong>pass</strong></div>
+<div class="line"><em>#注意这里 s到这里时，确保转为unicode</em></div>
+</div>
+<p>以上几步搞定后，你只需要关注两个 unicode和 你设定的编码(一般使用utf-8)</p>
+<p>处理顺序</p>
+<div class="line-block">
+<div class="line">1. Decode early</div>
+<div class="line">2. Unicode everywhere</div>
+<div class="line">3. Encode later</div>
+</div>
+<p><strong>相关模块及一些方法</strong></p>
+<p>获得和设置系统默认编码</p>
+<div class="line-block">
+<div class="line">&gt;&gt;&gt; <strong>import</strong> sys</div>
+<div class="line">&gt;&gt;&gt; sys.getdefaultencoding()</div>
+<div class="line">‘ascii’</div>
+</div>
+<div class="line-block">
+<div class="line">&gt;&gt;&gt; reload(sys)</div>
+<div class="line">&lt;module ‘sys’ (built-<strong>in</strong>)&gt;</div>
+<div class="line">&gt;&gt;&gt; sys.setdefaultencoding(‘utf-8’)</div>
+<div class="line">&gt;&gt;&gt; sys.getdefaultencoding()</div>
+<div class="line">‘utf-8’</div>
+</div>
+<p>str.encode(‘other_coding’)</p>
+<p>在python中，直接将某种编码的str进行encode成另一种编码str</p>
+<div class="line-block">
+<div class="line"><em>#str_A为utf-8</em></div>
+<div class="line">str_A.encode(‘gbk’)</div>
+</div>
+<div class="line-block">
+<div class="line">执行的操作是</div>
+<div class="line">str_A.decode(‘sys_codec’).encode(‘gbk’)</div>
+<div class="line">这里sys_codec即为上一步 sys.getdefaultencoding() 的编码</div>
+</div>
+<p>‘获得和设置系统默认编码’和这里的str.encode是相关的，但我一般很少这么用，主要是觉得复杂不可控,还是输入明确decode，输出明确encode来得简单些(个人观点)</p>
+<p>chardet</p>
+<p>文件编码检测，<a class="reference external" href="https://pypi.python.org/pypi/chardet">下载</a></p>
+<div class="line-block">
+<div class="line">&gt;&gt;&gt; <strong>import</strong> chardet</div>
+<div class="line">&gt;&gt;&gt; f = open(‘test.txt’,’r’)</div>
+<div class="line">&gt;&gt;&gt; result = chardet.detect(f.read())</div>
+<div class="line">&gt;&gt;&gt; result</div>
+<div class="line">{‘confidence’: 0.99, ‘encoding’: ‘utf-8’}</div>
+</div>
+<p>\u字符串转对应unicode字符串</p>
+<div class="line-block">
+<div class="line">&gt;&gt;&gt; u’中’</div>
+<div class="line">u’u4e2d’</div>
+</div>
+<div class="line-block">
+<div class="line">&gt;&gt;&gt; s = ‘u4e2d’</div>
+<div class="line">&gt;&gt;&gt; print s.decode(‘unicode_escape’)</div>
+<div class="line">中</div>
+</div>
+<div class="line-block">
+<div class="line">&gt;&gt;&gt; a = ‘<a class="reference external" href="file://u4fee/u6539/u8282/u70b9/u72b6/u6001/u6210/u529f">\u4fee\u6539\u8282\u70b9\u72b6\u6001\u6210\u529f</a>’</div>
+<div class="line">&gt;&gt;&gt; a.decode(‘unicode_escape’)</div>
+<div class="line">u’u4feeu6539u8282u70b9u72b6u6001u6210u529f’</div>
+</div>
+<p>python unicode文档</p>
+<p><a class="reference external" href="http://docs.python.org/2/tutorial/introduction.html#unicode-strings">入口</a></p>
+<p>好了，暂时就这么多，希望讲清楚了</p>
+<p>thx</p>
+<p>wklken</p>
+<p>2013-08-31 于深圳</p>
+<p><a class="reference external" href="https://segmentfault.com/a/1190000002412924">Python的中文编码问题</a></p>
+<p>字符串是Python中最常用的数据类型，而且很多时候你会用到一些不属于标准ASCII字符集的字符，这时候代码就很可能抛出UnicodeDecodeError: ‘ascii’ codec can’t decode byte 0xc4 in position 10: ordinal not in range(128)异常。这种异常在Python中很容易遇到，尤其是在Python2.x中，是一个很让初学者费解头疼的问题。不过，如果你理解了Python的Unicode，并在编码中遵循一定的原则，这种编码问题还是比较容易理解和解决的。</p>
+<p>字符串在Python内部的表示是unicode编码，因此，在做编码转换时，通常需要以unicode作为中间编码，即先将其他编码的字符串解码（decode）成unicode，再从unicode编码（encode）成另一种编码。但是，Python 2.x的默认编码格式是ASCII，就是说，在没有指定Python源码编码格式的情况下，源码中的所有字符都会被默认为ASCII码。也因为这个根本原因，在Python 2.x中经常会遇到UnicodeDecodeError或者UnicodeEncodeError的异常。</p>
+<p>关于Unicode</p>
+<p>Unicode是一种字符集，它为每一种现代或古代使用的文字系统中出现的每一个字符都提供了统一的序列号，规定了符号的二进制代码，但没有规定这个二进制代码应该如何存储。也就是说：Unicode的编码方式是固定的，但是实现方式根据不同的需要有跟多种，常见的有UTF-8、UTF-16和UTF-32等。</p>
+<p>为了能够处理Unicode数据，同时兼容Python某些内部模块，Python 2.x中提供了Unicode这种数据类型，通过decode和encode方法可以将其它编码和Unicode编码相互转化，但同时也引入了UnicodeDecodeError和UnicodeEncodeError异常。。</p>
+<p>常见的几种编码异常</p>
+<p><strong>Python中常见的几种编码异常有SyntaxError: Non-ASCII character、UnicodeDecodeError和UnicodeEncodeError等</strong>。下面依次举例说明一下：</p>
+<p>1、SyntaxError: Non-ASCII character</p>
+<p>这种异常最不容易出现，也最容易处理，主要原因是Python源码文件中有非ASCII字符，而且同时没有声明源码编码格式，例如：</p>
+<div class="line-block">
+<div class="line">s = ‘中文’</div>
+<div class="line">print s # 抛出异常</div>
+</div>
+<p>2、UnicodeDecodeError</p>
+<p>这个异常有时候会在调用decode方法时出现，原因是Python打算将其他编码的字符转化为Unicode编码，但是字符本身的编码格式和decode方法传入的编码格式不一致，例如：</p>
+<div class="line-block">
+<div class="line">#!/usr/bin/python</div>
+<div class="line"># -<em>- coding: utf-8 -</em>-</div>
+<div class="line">s = ‘中文’</div>
+<div class="line">s.decode(‘gb2312’) # UnicodeDecodeError: ‘gb2312’ codec can’t decode bytes in position 2-3: illegal multibyte sequence</div>
+<div class="line">print s</div>
+</div>
+<p>上面这段代码中字符串s的编码格式是utf-8，但是在使用decode方法转化为Unicode编码时传入的参数是‘gb2312’，因此在转化的时候抛出UnicodeDecodeError异常。还有一种情况是在encode的时候：</p>
+<div class="line-block">
+<div class="line">#!/usr/bin/python</div>
+<div class="line"># -<em>- coding: utf-8 -</em>-</div>
+<div class="line">s = ‘中文’</div>
+<div class="line">s.encode(‘gb2312’) # UnicodeDecodeError: ‘ascii’ codec can’t decode byte 0xe4 in position 0: ordinal not in range(128)</div>
+<div class="line">print s</div>
+</div>
+<p>3、UnicodeEncodeError</p>
+<p>错误的使用decode和encode方法会出现这种异常，比如：使用decode方法将Unicode字符串转化的时候：</p>
+<div class="line-block">
+<div class="line">#!/usr/bin/python</div>
+<div class="line"># -<em>- coding: utf-8 -</em>-</div>
+<div class="line">s = u’中文’</div>
+<div class="line">s.decode(‘utf-8’) # UnicodeEncodeError: ‘ascii’ codec can’t encode characters in position 0-1: ordinal not in range(128)</div>
+<div class="line">print s</div>
+</div>
+<p>当然，除了上面列出的几种出现异常的情况之外还有很多可能出现异常的例子，这里就不在一一说明了。</p>
+<p>解决方法</p>
+<p>对于以上的几个异常，有以下几个处理的方法和原则。</p>
+<p>1、遵循PEP0263原则，声明编码格式</p>
+<p>在PEP 0263 – Defining Python Source Code Encodings中提出了对Python编码问题的最基本的解决方法：在Python源码文件中声明编码格式，最常见的声明方式如下：</p>
+<div class="line-block">
+<div class="line">#!/usr/bin/python</div>
+<div class="line"># -<em>- coding: &lt;encoding name&gt; -</em>-</div>
+</div>
+<p>其中是代码所需要的编码格式，它可以是任意一种Python支持的格式，一般都会使用utf-8的编码格式。</p>
+<p>2、使用&nbsp;u’中文’&nbsp;替代&nbsp;‘中文’</p>
+<div class="line-block">
+<div class="line">str1 = ‘中文编码’</div>
+<div class="line">str2 = u’中文编码’</div>
+</div>
+<p>Python中有以上两种声明字符串变量的方式，它们的主要区别是编码格式的不同，其中，str1的编码格式和Python文件声明的编码格式一致，而str2的编码格式则是Unicode。如果你要声明的字符串变量中存在非ASCII的字符，那么最好使用str2的声明格式，这样你就可以不需要执行decode，直接对字符串进行操作，可以避免一些出现异常的情况。</p>
+<p>3、Reset默认编码</p>
+<p>Python中出现这么多编码问题的根本原因是Python 2.x的默认编码格式是ASCII，所以你也可以通过以下的方式修改默认的编码格式：</p>
+<div class="line-block">
+<div class="line">import sys</div>
+<div class="line">sys.setdefaultencoding(‘utf-8’)</div>
+</div>
+<p>这种方法是可以解决部分编码问题，但是同时也会引入很多其他问题，得不偿失，不建议使用这种方式。</p>
+<p>4、终极原则：decode early, unicode everywhere, encode late</p>
+<p>最后分享一个终极原则：decode early, unicode everywhere, encode late，即：在输入或者声明字符串的时候，尽早地使用decode方法将字符串转化成unicode编码格式；然后在程序内使用字符串的时候统一使用unicode格式进行处理，比如字符串拼接、字符串替换、获取字符串的长度等操作；最后，在输出字符串的时候（控制台/网页/文件），通过encode方法将字符串转化为你所想要的编码格式，比如utf-8等。</p>
+<p>按照这个原则处理Python的字符串，基本上可以解决所有的编码问题（只要你的代码和Python环境没有问题）。。。</p>
+<p>5、升级Python 2.x到3.x</p>
+<p>额，最后一个方法，升级Python 2.x，使用Python 3.x版本。。这样说主要是为了吐槽Python 2.x的编码设计问题。当然，升级到Python 3.x肯定可以解决大部分因为编码产生的异常问题。毕竟Python 3.x版本对字符串这部分还是做了相当大的改进的，具体的下面会说。。。。</p>
+<p>Python 3.x中的Unicode</p>
+<p>在Python 3.0之后的版本中，所有的字符串都是使用Unicode编码的字符串序列，同时还有以下几个改进：</p>
+</div></blockquote>
+<ul class="simple">
+<li>默认编码格式改为unicode</li>
+<li>所有的Python内置模块都支持unicode</li>
+<li>不再支持u’中文’的语法格式</li>
+</ul>
+<blockquote>
+<div><p>所以，对于Python 3.x来说，编码问题已经不再是个大的问题，基本上很少遇到上述的几个异常。关于Python 2.x str&amp;unicode和Python 3.x str&amp;bytes的更多说明和对比，大家可以看一下：Python中字符编码的总结和对比</p>
+<p>PS: 该文章转自我的博客：<a class="reference external" href="http://xianglong.me/article/learn-python-1-chinese-encoding/">Python的中文编码问题</a></p>
+<p>Over!</p>
+</div></blockquote>
+<p>PyCharm 快捷键</p>
+<p>2017年8月13日 星期日</p>
+<p>16:38</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="57%" />
+<col width="43%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Command:</th>
+<th class="head"><a class="reference internal" href="media/image21.png"><img alt="image20" src="media/image21.png" style="width: 0.1875in; height: 0.20833in;" /></a></th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Ctrl</td>
+<td><a class="reference internal" href="media/image22.png"><img alt="image21" src="media/image22.png" style="width: 0.17708in; height: 0.19792in;" /></a></td>
+</tr>
+<tr class="row-odd"><td>Option (alt)</td>
+<td><a class="reference internal" href="media/image23.png"><img alt="image22" src="media/image23.png" style="width: 0.1875in; height: 0.22917in;" /></a></td>
+</tr>
+<tr class="row-even"><td>Shift</td>
+<td><a class="reference internal" href="media/image24.png"><img alt="image23" src="media/image24.png" style="width: 0.1875in; height: 0.19792in;" /></a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="mac-os-x-10-5-keymap">
+<h1>Mac OS X 10.5+ 的 Keymap 方案：<a class="headerlink" href="#mac-os-x-10-5-keymap" title="永久链接至标题">¶</a></h1>
+<table border="1" class="docutils">
+<colgroup>
+<col width="6%" />
+<col width="16%" />
+<col width="36%" />
+<col width="42%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"><strong>类别</strong></th>
+<th class="head"><strong>快捷键</strong></th>
+<th class="head"><strong>操作</strong></th>
+<th class="head"><strong>备注</strong></th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>导航</td>
+<td>Cmd + B, Cmd + Alt + B
+Cmd + [, Cmd + ]
+Ctrl + Tab
+Cmd + F12
+Cmd+ L
+Cmd + Shift + Backspace
+Cmd + E
+Cmd + Shift + E</td>
+<td>跳转到声明/定义
+上/下一个位置
+NB的Tab导航窗口
+显示文件Outline
+跳到某行
+跳到上一次编辑的位置
+最近文件列表
+最近编辑文件列表</td>
+<td>Line</td>
+</tr>
+<tr class="row-odd"><td>查找</td>
+<td>Cmd+ Shift + O
+Cmd+ O
+Cmd+ Alt+ O
+双击 Shift
+Cmd + F/R
+Cmd + Shift+ F/R
+Cmd+G, Cmd+Shift+G
+Alt + F7</td>
+<td>查找文件
+查找类
+查找符号
+Search Everywhere
+当前文件搜索/替换
+全局搜索/替换
+下一个/上一个
+find usage</td>
+<td><p class="first">常用的三种查找都是O</p>
+<p class="last">大杀器</p>
+</td>
+</tr>
+<tr class="row-even"><td>编辑</td>
+<td>Cmd + /
+Cmd + Alt + L
+Cmd + Backspace
+Cmd+D
+Ctrl + Shift + J
+Cmd +C
+Cmd + Shift + 上/下
+Alt + Shift + 上/下
+Cmd+Z, Cmd+Shift+Z
+Ctrl + O</td>
+<td>注释/取消注释一行
+代码块对齐
+删除当前行
+在下一行复制本行的内容
+合并两行
+复制光标当前行,剪切同理
+移动一条语句
+移动一行代码
+撤销/重做
+重写方法</td>
+<td><p class="first">Cmd + X 也一样
+Duplicate
+Joint</p>
+<p class="last">Overwrite</p>
+</td>
+</tr>
+<tr class="row-odd"><td>智能补全</td>
+<td>Cmd + J
+Alt + Cmd + T
+Alt + /, Alt + ?
+Alt + Space
+Ctrl + J
+Shift + F1
+Cmd + P</td>
+<td>代码块智能补全
+指定代码被注释语句或者逻辑结构、函数包围
+正反向的字符串匹配补全
+快速定义
+快速文档 （直接F1好像也一样）
+打开外部文档，非常牛啊，直接在浏览器中打开库的文档
+显示参数信息</td>
+<td><p class="first">PyCharm有三种方式可以访问文档：快速定义，快速文档，外部文档</p>
+<p class="last">Patameter</p>
+</td>
+</tr>
+<tr class="row-even"><td>重构</td>
+<td>Ctrl + T
+Shift + F6
+Cmd+ F6</td>
+<td>弹出重构选择
+重命名
+重构签名</td>
+<td>好像跟 IdeaVim 冲突了</td>
+</tr>
+<tr class="row-odd"><td>折叠</td>
+<td>Cmd +
+Cmd -
+Shift Cmd +
+Shift Cmd -</td>
+<td>展开当前
+折叠当前
+展开所有
+折叠所有</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>运行调试</td>
+<td>Ctrl + R
+Ctrl + Alt + R</td>
+<td>运行当前对象
+选择一个对象并运行</td>
+<td>Run</td>
+</tr>
+<tr class="row-odd"><td>其它</td>
+<td>Alt + F12
+Alt + F1
+Cmd+ W
+Cmd+ Shift + A
+Ctrl + Shift + 8</td>
+<td>打开 Terminal
+选择一个子窗口为当前焦点
+关闭当前标签
+查找并执行一个动作
+列选择模式</td>
+<td>Action 很多动作没有直接的快捷键，按名字查找很快捷
+Alt + 鼠标选择更方便</td>
+</tr>
+</tbody>
+</table>
+<p>熟练这些快捷键，再加上 IdeaVim 插件，我几乎就可以非常行云流水了！</p>
+<p><a href="#id91"><span class="problematic" id="id92">|PyCharm 彳 or Mac
+麻 瓜 编 程
+跳 过
+查 找 当 前
+运 彳 亏 环 鳬
+^ 仓 ^ 弋 仓 ^
+會
+會
+重 命 名
+高 亮 用 法
+退 出
+文 件
+esc
+折 叠 全 部
+展 开 全 部
+F5
+F6
+换 环 境 运 行
+折 叠 代 码
+展 开 代 码
+弋 仓
+查 找 符 号
+文 件 内 替 换
+2
+3
+8
+1
+6
+7
+delete
+运 行
+查 扌 戈 文 亻 牛 名
+弋 詫 仓
+Z 詫 仓
+提 交 到
+选 代 码
+选 代 码
+切 换 窗 囗
+关 闭 标 签
+替 换
+查 找 类 名
+参 数 提 示
+注 释
+开 始 处
+结 束 处
+VCS
+R
+T
+Y
+P
+^ 仓 ^ 弋
+tab
+调 试 环 境
+当 前 行 模 板
+格 式 化 代 码
+快 速 修 正
+0
+配 置
+调 甲
+更 新 到
+查 找 动 作
+换 环 境 调 试
+插 入 模 板
+查 彳 亍 号
+智 能 换 行
+层 次 结 构
+VCS
+S
+G
+A
+D
+F
+H
+K
+L
+return
+capslock
+调 试
+文 件 内 找
+补 全 代 码
+7
+复 制 当 前 行
+查 找
+B
+Z
+N
+M
+选 申
+新 增 代 码
+shift
+shift
+剪 贴
+精 贴 缓 存
+看 声 明
+· 显 示 导 西 兰
+ctrl
+cmd
+cmd
+option
+option
+回 到
+之 前 状 态
+查 看 资 源|</span></a></p>
+<p><strong>CentOs 6.x 升级 Python 版本</strong></p>
+<p>2016年7月7日</p>
+<p>18:39</p>
+<blockquote>
+<div><strong>文章目录</strong></div></blockquote>
+<ol class="arabic simple">
+<li><a class="reference external" href="https://ruiaylin.github.io/2014/12/12/python%20update/#在CentOS_6-X_上面安装_Python_2-7-X">1.&nbsp;在CentOS 6.X 上面安装 Python 2.7.X</a></li>
+<li><a class="reference external" href="https://ruiaylin.github.io/2014/12/12/python%20update/#升级步骤">2.&nbsp;升级步骤</a></li>
+<li><a class="reference external" href="https://ruiaylin.github.io/2014/12/12/python%20update/#更新系统和开发工具集">2.1.&nbsp;更新系统和开发工具集</a></li>
+<li><a class="reference external" href="https://ruiaylin.github.io/2014/12/12/python%20update/#源码安装Python_2-7-x">2.2.&nbsp;源码安装Python 2.7.x</a></li>
+<li><a class="reference external" href="https://ruiaylin.github.io/2014/12/12/python%20update/#安装详情：">2.2.1.&nbsp;安装详情：</a></li>
+<li><a class="reference external" href="https://ruiaylin.github.io/2014/12/12/python%20update/#设置_PATH">2.2.2.&nbsp;设置 PATH</a></li>
+<li><a class="reference external" href="https://ruiaylin.github.io/2014/12/12/python%20update/#安装_setuptools">2.2.3.&nbsp;安装 setuptools</a></li>
+<li><a class="reference external" href="https://ruiaylin.github.io/2014/12/12/python%20update/#安装_PIP">2.3.&nbsp;安装 PIP</a></li>
+<li><a class="reference external" href="https://ruiaylin.github.io/2014/12/12/python%20update/#修复_yum_工具">2.4.&nbsp;修复 yum 工具</a></li>
+<li><a class="reference external" href="https://ruiaylin.github.io/2014/12/12/python%20update/#总结">3.&nbsp;总结</a></li>
+</ol>
+<blockquote>
+<div><p><strong>在CentOS 6.X 上面安装 Python 2.7.X</strong></p>
+<p>CentOS 6.X 自带的python版本是 2.6 , 由于工作需要，很多时候需要2.7版本。所以需要进行版本升级。由于一些系统工具和服务是对 Python 有依赖的，所以升级 Python 版本需要注意。</p>
+<p><strong>升级步骤</strong></p>
+<p>如何欢乐的，没有痛苦的升级python版本 ，往下看 …</p>
+<p><strong>更新系统和开发工具集</strong></p>
+<p>更新指令</p>
+<div class="line-block">
+<div class="line">yum -y update</div>
+<div class="line">yum groupinstall -y ‘development tools’</div>
+</div>
+<p>另外还需要安装 python 工具需要的额外软件包 SSL, bz2, zlib</p>
+<p>yum install -y zlib-devel bzip2-devel openssl-devel xz-libs wget</p>
+<p><strong>源码安装Python 2.7.x</strong></p>
+<div class="line-block">
+<div class="line">wget <a class="reference external" href="http://www.python.org/ftp/python/2.7.8/Python-2.7.8.tar.xz">http://www.python.org/ftp/python/2.7.8/Python-2.7.8.tar.xz</a></div>
+<div class="line">xz -d Python-2.7.8.tar.xz</div>
+<div class="line">tar -xvf Python-2.7.8.tar</div>
+</div>
+<p><strong>安装详情：</strong></p>
+<div class="line-block">
+<div class="line"># 进入目录:</div>
+<div class="line">cd Python-2.7.8</div>
+<div class="line"># 运行配置 configure:</div>
+<div class="line">./configure –prefix=/usr/local</div>
+<div class="line"># 编译安装:</div>
+<div class="line">make</div>
+<div class="line">make altinstall</div>
+<div class="line"># 检查 Python 版本:</div>
+<div class="line">[<a class="reference external" href="mailto:root&#37;&#52;&#48;dbmasterxxx">root<span>&#64;</span>dbmasterxxx</a> ~]# python2.7 -V</div>
+<div class="line">Python 2.7.8</div>
+</div>
+<p><strong>设置 PATH</strong></p>
+<p>为了我们能够方便的使用Python，我们需要设置系统变量或者建立 软连接将新版本的 Python</p>
+<p>加入到 path 对应的目录 ：</p>
+<div class="line-block">
+<div class="line">export PATH=”/usr/local/bin:$PATH”</div>
+<div class="line">or</div>
+<div class="line">ln -s /usr/local/bin/python2.7 /usr/bin/python</div>
+<div class="line"># 检查</div>
+<div class="line">[<a class="reference external" href="mailto:root&#37;&#52;&#48;dbmasterxxx">root<span>&#64;</span>dbmasterxxx</a> ~]# python -V</div>
+<div class="line">Python 2.7.8</div>
+<div class="line">[<a class="reference external" href="mailto:root&#37;&#52;&#48;dbmasterxxx">root<span>&#64;</span>dbmasterxxx</a> ~]# which python</div>
+<div class="line">/usr/bin/python</div>
+</div>
+<p><strong>安装 setuptools</strong></p>
+<div class="line-block">
+<div class="line">#获取软件包</div>
+<div class="line">wget –no-check-certificate <a class="reference external" href="https://pypi.python.org/packages/source/s/setuptools/setuptools-1.4.2.tar.gz">https://pypi.python.org/packages/source/s/setuptools/setuptools-1.4.2.tar.gz</a></div>
+<div class="line"># 解压:</div>
+<div class="line">tar -xvf setuptools-1.4.2.tar.gz</div>
+<div class="line">cd setuptools-1.4.2</div>
+<div class="line"># 使用 Python 2.7.8 安装 setuptools</div>
+<div class="line">python2.7 setup.py install</div>
+</div>
+<p><strong>安装 PIP</strong></p>
+<p>curl <a class="reference external" href="https://bootstrap.pypa.io/get-pip.py">https://bootstrap.pypa.io/get-pip.py</a> | python2.7 -</p>
+<p>这样出来的pip就默认会装到 2.7 的目录下了</p>
+<p><strong>修复 yum 工具</strong></p>
+<p>此时yum应该是失效的，因为此时默认python版本已经是2.7了。而yum需要的是2.6 所以：</p>
+<div class="line-block">
+<div class="line">[<a class="reference external" href="mailto:root&#37;&#52;&#48;dbmasterxxx">root<span>&#64;</span>dbmasterxxx</a> ~]# which yum</div>
+<div class="line">/usr/bin/yum</div>
+<div class="line">#修改 yum中的python</div>
+<div class="line">将第一行 #!/usr/bin/python 改为 #!/usr/bin/python2.6</div>
+<div class="line">此时yum就ok啦</div>
+</div>
+<p><strong>总结</strong></p>
+<p>Python 版本升级过很多遍，每次都有问题，此方法来自互联网，经过使用，没有问题，特此总结一下</p>
+<p><em>来自 &lt;</em><a class="reference external" href="https://ruiaylin.github.io/2014/12/12/python%20update/">https://ruiaylin.github.io/2014/12/12/python%20update/</a><em>&gt;</em></p>
+</div></blockquote>
+<p><a class="reference external" href="mailto:type&#37;&#52;&#48;bj">type<span>&#64;</span>bj</a>)
+type(IO)
+#&gt; int
+#&gt; list
+type({‘a’:
+#&gt; dict
+class DoNothing:
+pass
+x = DoNothing()
+type(x)
+—<a href="#id95"><span class="problematic" id="id96">main_</span></a>. DoNothing
+type(int), type(list), type(dict)
+#&gt; (type, type, type)
+type(DoNothing)
+#&gt; type
+type(type)
+type
+type type
+Python| image:: /media/image1.png</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">width:</th><td class="field-body">7.34375in</td>
+</tr>
+<tr class="field-even field"><th class="field-name">height:</th><td class="field-body">6.10417in</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<p>为 高 效 循 环 而 创 建 迭 代 器 的 函 数 。 itertools 库 也 是 经 常 需 要 用 到 ， 当 我 们 要 对 某 些 数 进 行 for-in
+时 就 需 要 先 将 其 处 理 成 一 个 可 迭 代 对 象 ， 之 后 我 们 才 能 进 行 遍 历 操 作 。
+collections
+容 器 数 据 类 型 库 。 c 酬 ections 库 提 供 了 对 所 有 容 器 数 据 类 型 的 支 持 ，
+们 可 以 用 此 库 对 不 同 数 据 类 型 进 行 操 作 ， 常 有 的 函 数 方 法 有 这 些 ．
+· namedtuple() 创 建 命 名 元 组 子 类 的 工 厂 函 数
+包 括 dict, list, set 和 tuple.
+我
+· deque 类 似 列 表 伟 st ） 的 容 器 ， 实 现 了 在 两 端 快 速 添 加 (append) 和 弹 出 (pop)
+· ChainMap 类 似 字 典 (dict) 的 容 器 类 ， 将 多 个 映 射 集 合 到 一 个 视 图 里 面
+· Counter 字 典 的 子 类 ， 提 供 了 可 哈 希 对 象 的 计 数 功 能
+· OrderedDict 字 典 的 子 类 ， 保 存 了 他 们 被 添 加 的 顺 序
+· defaultdict 字 典 的 子 类 ， 提 供 了 一 个 工 厂 函 数 ， 为 字 典 查 询 提 供 一 个 默 认 值
+· UserDict 封 装 了 字 典 对 象 ， 简 化 了 字 典 子 类 化
+· UserList 封 装 了 列 表 对 象 ， 简 化 了 列 表 子 类 化
+· UserString 封 装 了 列 表 对 象 ， 简 化 了 字 符 串 子 类 化| image:: /media/image3.png</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">width:</th><td class="field-body">7.54167in</td>
+</tr>
+<tr class="field-even field"><th class="field-name">height:</th><td class="field-body">5.67708in</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<ul class="simple">
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+</ul>
+<p>cmp_to_key
+Iru_cache
+total_ordering
+partial
+partialmethod
+reduce
+singledispatch
+update_wrapper
+wraps| image:: /media/image4.png</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">width:</th><td class="field-body">7.85417in</td>
+</tr>
+<tr class="field-even field"><th class="field-name">height:</th><td class="field-body">4.30208in</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<p>标 准 运 算 符 替 代 函 数 库 。 此 库 是 将 python 自 有 的 运 算 符 作 为 有 效 函 数 ， 比 如 表 达 式 )(+Y 可 以 用 函
+数
+表 示 ； 比 如 表 达 式 a*b 可 以 用 函 数 tor.mul(), b) 表 示 ， 等
+operator.add(), y)
+ope ra
+等 。
+enum
+枚 举 库 。 enum 库 支 持 创 建 枚 举 类 来 存 储 大 量 同 类 型 的 不 可 变 常 量 ， 以 便 其 他 函 数 调 用 。 创 建 出 来
+的 枚 举 类 是 可 迭 代 对 象 ， 所 以 可 以 用 for-in 枚 举 出 所 有 常 量 。| image:: /media/image5.png</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">width:</th><td class="field-body">7.6875in</td>
+</tr>
+<tr class="field-even field"><th class="field-name">height:</th><td class="field-body">3.16667in</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<p>单 元 测 试 框 架 。 u est 库 常 用 于 单 元 测 试 ， 受 到 JUnit 和 其 他 主 流 测 试 库 的 启 发 ，
+的 功 能 和 函 数 与 它 们 有 着 相 似 的 风 格 。
+unitest| image:: /media/image6.png</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">width:</th><td class="field-body">7.8125in</td>
+</tr>
+<tr class="field-even field"><th class="field-name">height:</th><td class="field-body">1.30208in</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<p>日 志 记 录 工 具 。 这 个 库 提 供 了 对 应 用 程 序 和 库 函 数 的 日 志 记 录 ， 日 常 开 发 中 我 们 经 常 需 要 通 过 日 志
+打 印 出 当 前 程 序 的 运 行 状 态 ， 实 时 查 看 可 能 出 现 的 堆 栈 异 常 和 错 误 信 息 。| image:: /media/image7.png</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">width:</th><td class="field-body">7.80208in</td>
+</tr>
+<tr class="field-even field"><th class="field-name">height:</th><td class="field-body">1.25in</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<p>Json 编 码 和 解 码 器 。 json 库 提 供 了 对 json 数 据 的 支 持 ， 日 常 开 发 中 我 们 做 前 后 端 分 离 需 要 对 传 输
+数 据 json 进 行 序 列 化 和 反 序 列 化 操 作 ， 以 保 证 对 数 据 的 完 整 性 和 有 效 性 ， 而 序 列 化 和 反 序 列 化 其 实
+就 是 编 码 和 解 码 的 过 程 。
+pickle
+Python 对 象 序 列 化 库 。 pickle 库 支 持 对 python 对 象 进 行 序 列 化 和 反 序 列 化 操 作 ， 当 我 们 需 要 将 处
+理 好 的 对 象 保 存 到 文 件 或 数 据 库 中 时 ， 就 可 以 将 其 序 列 化 成 二 进 制 数 据 ， 从 而 更 好 的 保 存 起 来 。| image:: /media/image8.png</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">width:</th><td class="field-body">7.6875in</td>
+</tr>
+<tr class="field-even field"><th class="field-name">height:</th><td class="field-body">3.15625in</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<p>基 本 日 期 和 时 间 类 型 库 。 该 库 提 供 了 各 种 简 单 和 复 杂 的 方 式 处 理 日 期 和 时 间 ， 日 常 我 们 会 用 时 间 测
+算 时 间 消 耗 、 复 杂 度 ， 对 存 储 的 创 建 时 间 和 修 改 时 间 也 需 要 进 一 步 说 明 ， 对 计 时 器 的 描 述 和 控 制 也
+需 要 用 到 该 库 。| image:: /media/image9.png</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">width:</th><td class="field-body">7.8125in</td>
+</tr>
+<tr class="field-even field"><th class="field-name">height:</th><td class="field-body">1.53125in</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<p>配 置 文 件 解 析 器 。 configparser 库 可 以 轻 松 定 制 配 置 文 件 ， 通 过 解 析 配 置 文 件 的 信 息 我 们 就 可 以 全
+局 访 问 相 关 配 置 。| image:: /media/image10.png</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">width:</th><td class="field-body">7.66667in</td>
+</tr>
+<tr class="field-even field"><th class="field-name">height:</th><td class="field-body">1.16667in</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<p>· deque 类 似 列 表 (list) 的 容 器 ， 实 现 了 在 两 端 快 速 添 加 （ append ） 和 弹 出 （ pop ）
+· ChainMap 类 似 字 典 (dict) 的 容 器 类 ， 将 多 个 映 射 集 合 到 一 个 视 图 里 面
+． Counter 字 典 的 子 类 ， 提 供 了 可 哈 希 对 象 的 计 数 功 能
+· OrderedDict 字 典 的 子 类 ， 保 存 了 他 们 被 添 加 的 顺 序
+· defaultdict 字 典 的 子 类 ， 提 供 了 一 个 工 厂 函 数 ， 为 字 典 查 询 提 供 一 个 默 认 值
+· 了 字 典 对 象 ， 简 化 了 字 典 子 类 化
+· UserList 對 装 了 列 表 对 象 ， 简 化 了 列 表 子 类 化
+· UserString 圭 寸 装 了 列 表 对 象 ， 简 化 了 字 符 串 子 类 化| image:: /media/image11.png</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">width:</th><td class="field-body">5.09375in</td>
+</tr>
+<tr class="field-even field"><th class="field-name">height:</th><td class="field-body">2.23958in</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<p>it, n
+Iterator
+accumulate ( )
+chain( )
+chain. from_iterable ( )
+compress ( )
+dropwhile( )
+filterfalse( )
+groupby( )
+islice( )
+starmap( )
+takewhile( )
+tee( )
+zip _ longest ( )
+Arguments
+p [,func]
+iterable
+data,
+selectors
+pred, seq
+pred, seq
+iterable[,
+keyfunc]
+seq, [start,]
+stop [, step]
+func, seq
+pred, seq
+Results
+PO, p0+p1,
+pO+p1+p2,
+PO, PI,
+. plast, qO
+ql,
+PO, PI,
+. plast, qO
+ql,
+(d[0] if s[0]), (d[l] if
+seq[n], seq[n+l],
+starting when pred
+fails
+elements of seq
+where pred(elem) is
+false
+sub-iterators grouped
+by value of keyfunc(v)
+elements from
+seq[start:stop:step]
+func(<a href="#id51"><span class="problematic" id="id52">*</span></a>seq[0]),
+func(<a href="#id53"><span class="problematic" id="id54">*</span></a>seq[l]),
+seq[0], seq[l], until
+pred fails
+, itn splits
+itl, it2
+one iterator into n
+(p[0], q[0]), (PCI],
+Example
+13 6 10 15
+chain( ‘ ABC ‘ ,
+‘DEF’) –&gt; A B
+chain. [ ‘ ABC’ ,
+‘DEF’ I)
+compress ( ‘ ABCDEF ‘ ,
+dropwhile( lambda x:
+filterfalse ( lambda
+range (10) )
+ACE F
+468
+islice( ‘ABCDEFG’, 2, None)
+starmap(pow, [ (2, 5) ,
+(10,3)]) –&gt; 32 9 1000
+takewhile( lambda x: x&lt;5,
+z ip_longest (
+‘ ABCD ‘
+fillvalue— — ‘
+) –&gt; Ax By C-| image:: /media/image12.png</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">width:</th><td class="field-body">7.66667in</td>
+</tr>
+<tr class="field-even field"><th class="field-name">height:</th><td class="field-body">6.3125in</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<p>Iterator
+count ( )
+cycle( )
+repeat ( )
+Arguments
+start, [step]
+p
+elem [,n]
+Results
+start, start+step, start+2*step,
+. plast, PO, PI,
+PO, PI,
+elem, elem, elem, … endlessly or up
+to n times
+Example
+count(10) 10 11 12 13
+14 .
+cycle( ‘ABCD’ )
+ABCD.
+repeat ( 10, 3)
+10 10 10| image:: /media/image13.png</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">width:</th><td class="field-body">7.70833in</td>
+</tr>
+<tr class="field-even field"><th class="field-name">height:</th><td class="field-body">1.95833in</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<p>Iterator
+product ( )
+permutations ( )
+combinations ( )
+product( ‘ ABCD’ , repeat=2)
+permutations ( ‘ ABCD ‘ ,
+2)
+combinations ( ‘ ABCD’ ,
+2)
+( ‘ ABCD
+2)
+Arguments
+[repeat= 1]
+Results
+cartesian product, equivalent to a
+nested for—loop
+r—length tuples, all possible
+orderings, no repeated elements
+r—length tuples, in sorted order, no
+repeated elements
+r—length tuples, in sorted order, with
+repeated elements
+AA AB AC AD BA BB BC BD CA CB CC
+CD DA DB DC DD
+AB AC AD BA BC BD CA CB CD DA DB
+AB AC AD BC BD CD
+AA AB AC AD BB BC BD CC CD DD| image:: /media/image14.png</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">width:</th><td class="field-body">7.6875in</td>
+</tr>
+<tr class="field-even field"><th class="field-name">height:</th><td class="field-body">3.90625in</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<dl class="docutils">
+<dt>scalar| image:: /media/image15.png</dt>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">width:</th><td class="field-body">4.58333in</td>
+</tr>
+<tr class="field-even field"><th class="field-name">height:</th><td class="field-body">1.80208in</td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+<p>bitwise
+invert
+and
+or
+left shift
+right _ shift| image:: /media/image16.png</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">width:</th><td class="field-body">3.32292in</td>
+</tr>
+<tr class="field-even field"><th class="field-name">height:</th><td class="field-body">1.66667in</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<p>mult1P1y() 返 回 按 元 素 多 重 连 接 后 的 字 符 串
+center() 返 回 给 定 字 符 串 的 副 本 ， 其 中 元 素 位 于 特 定 字 符 串 的 中 央
+capltallze() 返 回 给 定 字 符 串 的 副 本 ， 其 中 只 有 第 一 个 字 符 串 大 写
+title() 返 回 字 符 串 或 Unicode 的 按 元 素 标 转 换 版 本
+10 er() 返 回 一 个 数 组 ， 其 元 素 转 换 为 小 写
+upper() 返 回 一 个 数 组 ， 其 元 素 转 换 为 大 写
+SP11t() 返 回 字 符 串 中 的 单 词 列 表 ， 并 使 用 分 隔 符 来 分 割
+SP11t1ines() 返 回 元 素 中 的 行 列 表 ， 以 换 行 符 分 割
+str1P() 返 回 数 组 副 本 ， 其 中 元 素 移 除 了 开 头 或 者 结 尾 处 的 特 定 字 符
+j01‘1() 返 回 一 个 字 符 串 ， 它 是 序 列 中 字 符 串 的 连 接
+replace() 返 回 字 符 串 的 副 本 ， 其 中 所 有 子 字 符 串 的 出 现 位 置 都 被 新
+字 符 串 取 代
+decode() 按 元 素 调 用 str.decode
+encode() 按 元 素 调 用 str.encode| image:: /media/image17.png</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">width:</th><td class="field-body">5in</td>
+</tr>
+<tr class="field-even field"><th class="field-name">height:</th><td class="field-body">4.38542in</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<p>vd0t 两 个 向 量 的 点
+inner 两 个 数 组 的 内 积
+matmul 两 个 数 组 的 矩 阵 頽
+determinant 数 组 的 行 列 式
+solve 求 解 线 性 矩 阵 方 程
+inv 寻 找 矩 阵 的 乘 法 逆 矩 阵| image:: /media/image18.png</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">width:</th><td class="field-body">2.45833in</td>
+</tr>
+<tr class="field-even field"><th class="field-name">height:</th><td class="field-body">2.38542in</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<p>911
+win all
+INSPECTING PROPERTIES
+IMPORTS
+ELEMENTS
+TING
+an
+LEARN DATA SCIENCE ONLINE
+Data Science Cheat Sheet
+VECTOR MATH
+each
+with
+than s
+LEARN DArA ONLINE| image:: /media/image19.png</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">width:</th><td class="field-body">11.32292in</td>
+</tr>
+<tr class="field-even field"><th class="field-name">height:</th><td class="field-body">14.65625in</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<p>Usage :
+pip &lt;comand&gt; [options]
+Comands :
+install
+uninstall
+freeze
+list
+show
+search
+wheel
+zip
+unzip
+bundle
+help
+General Options:
+-h, –help
+-v, –verbose
+arg, “yum*fisearch.
+Build wheels from your requirements.
+Zip individual packages.
+Unzip individual packages.
+Create pybundles.
+Rise.| image:: /media/image20.png</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">width:</th><td class="field-body">8.66667in</td>
+</tr>
+<tr class="field-even field"><th class="field-name">height:</th><td class="field-body">5.19792in</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<p>麻 瓜 编 程
+跳 过
+查 找 当 前
+运 彳 亏 环 鳬
+^ 仓 ^ 弋 仓 ^
+會
+會
+重 命 名
+高 亮 用 法
+退 出
+文 件
+esc
+折 叠 全 部
+展 开 全 部
+F5
+F6
+换 环 境 运 行
+折 叠 代 码
+展 开 代 码
+弋 仓
+查 找 符 号
+文 件 内 替 换
+2
+3
+8
+1
+6
+7
+delete
+运 行
+查 扌 戈 文 亻 牛 名
+弋 詫 仓
+Z 詫 仓
+提 交 到
+选 代 码
+选 代 码
+切 换 窗 囗
+关 闭 标 签
+替 换
+查 找 类 名
+参 数 提 示
+注 释
+开 始 处
+结 束 处
+VCS
+R
+T
+Y
+P
+^ 仓 ^ 弋
+tab
+调 试 环 境
+当 前 行 模 板
+格 式 化 代 码
+快 速 修 正
+0
+配 置
+调 甲
+更 新 到
+查 找 动 作
+换 环 境 调 试
+插 入 模 板
+查 彳 亍 号
+智 能 换 行
+层 次 结 构
+VCS
+S
+G
+A
+D
+F
+H
+K
+L
+return
+capslock
+调 试
+文 件 内 找
+补 全 代 码
+7
+复 制 当 前 行
+查 找
+B
+Z
+N
+M
+选 申
+新 增 代 码
+shift
+shift
+剪 贴
+精 贴 缓 存
+看 声 明
+· 显 示 导 西 兰
+ctrl
+cmd
+cmd
+option
+option
+回 到
+之 前 状 态
+查 看 资 源| image:: /media/image25.png</p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">width:</th><td class="field-body">13.32292in</td>
+</tr>
+<tr class="field-even field"><th class="field-name">height:</th><td class="field-body">7.27083in</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+
+
+        </div>
+
+
+
+        <!-- 来必力City版安装代码 -->
+        <div id="lv-container" data-id="city" data-uid="MTAyMC80MDU4Ni8xNzExMw==">
+        <script type="text/javascript">
+           (function(d, s) {
+               var j, e = d.getElementsByTagName(s)[0];
+
+               if (typeof LivereTower === 'function') { return; }
+
+               j = d.createElement(s);
+               j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+               j.async = true;
+
+               e.parentNode.insertBefore(j, e);
+           })(document, 'script');
+        </script>
+        <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+        </div>
+        <!-- City版安装代码已完成 -->
+      </div>
+    </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="总目录"
+             >索引</a></li>
+        <!--<li><a href="../../../index.html">首页</a>&#160;|</li>-->
+        <!--<li><a href="../../../contents.html">Documentation</a> &#187;</li>-->
+ 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; 版权所有 CC BY 2.5.
+      由 <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.1 创建。
+    </div>
+  </body>
+</html>

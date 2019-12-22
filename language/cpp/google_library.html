@@ -1,9 +1,11 @@
 
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml" lang="zh_CN">
   <head>
-    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Google C++ 库 &#8212; Chuanqi 的技术文档</title>
     <link rel="stylesheet" href="../../_static/sphinx13.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -11,9 +13,8 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <script type="text/javascript" src="../../_static/language_data.js"></script>
     <script type="text/javascript" src="../../_static/translations.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
     <link rel="index" title="索引" href="../../genindex.html" />
     <link rel="search" title="搜索" href="../../search.html" />
@@ -92,7 +93,7 @@
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="../../index.html">目录</a></h3>
+  <h3><a href="../../index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Google C++ 库</a><ul>
 <li><a class="reference internal" href="#gflags">gflags</a></li>
@@ -109,11 +110,13 @@
   <p class="topless"><a href="cpp_code_style.html"
                         title="下一章">C++ 代码风格</a></p>
 <div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">快速搜索</h3>
+  <h3>快速搜索</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" />
       <input type="submit" value="转向" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
@@ -129,8 +132,8 @@
   <div class="section" id="google-c">
 <h1>Google C++ 库<a class="headerlink" href="#google-c" title="永久链接至标题">¶</a></h1>
 <div class="sidebar">
-<p class="sidebar-title">Google C++ Library</p>
-<div class="line-block">
+<p class="first sidebar-title">Google C++ Library</p>
+<div class="last line-block">
 <div class="line">Google的开源的这些C++库，几乎已经成了业界标准，再加上公司里这些库的大规模应用。</div>
 <div class="line">掌握这些库是有必要的！</div>
 </div>
@@ -138,24 +141,27 @@
 <div class="section" id="gflags">
 <h2>gflags<a class="headerlink" href="#gflags" title="永久链接至标题">¶</a></h2>
 <ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">fgrep</span> <span class="pre">-l</span> <span class="pre">-f</span> <span class="pre">/var/tmp/foo</span> <span class="pre">johannes</span> <span class="pre">brahms</span></code> 其中 <code class="docutils literal notranslate"><span class="pre">-l,</span>&#160; <span class="pre">-f</span> <span class="pre">/var/tmp/foo</span></code> 是flags，而后面的 <code class="docutils literal notranslate"><span class="pre">johannes</span> <span class="pre">brahms</span></code> 叫做命令行参数；</p></li>
-<li><p>gflags支持的几种类型（三个参数：flag_name, default_name, help_string）：</p>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">fgrep</span> <span class="pre">-l</span> <span class="pre">-f</span> <span class="pre">/var/tmp/foo</span> <span class="pre">johannes</span> <span class="pre">brahms</span></code> 其中 <code class="docutils literal notranslate"><span class="pre">-l,</span>&#160; <span class="pre">-f</span> <span class="pre">/var/tmp/foo</span></code> 是flags，而后面的 <code class="docutils literal notranslate"><span class="pre">johannes</span> <span class="pre">brahms</span></code> 叫做命令行参数；</p>
+</li>
+<li><p class="first">gflags支持的几种类型（三个参数：flag_name, default_name, help_string）：</p>
 <ul class="simple">
-<li><p>DEFINE_bool: boolean</p></li>
-<li><p>DEFINE_int32: 32-bit integer</p></li>
-<li><p>DEFINE_int64: 64-bit integer</p></li>
-<li><p>DEFINE_uint64: unsigned 64-bit integer</p></li>
-<li><p>DEFINE_double: double</p></li>
-<li><p>DEFINE_string: C++ string</p></li>
+<li>DEFINE_bool: boolean</li>
+<li>DEFINE_int32: 32-bit integer</li>
+<li>DEFINE_int64: 64-bit integer</li>
+<li>DEFINE_uint64: unsigned 64-bit integer</li>
+<li>DEFINE_double: double</li>
+<li>DEFINE_string: C++ string</li>
 </ul>
 </li>
-<li><dl class="simple">
-<dt>与DEFINE_*对应的是DECLARE_*宏，相当于一处定义，多处声明；</dt><dd><p>例如在foo.cc中进行DEFINE_string, 同时在foo.h中进行DECLARE_string，就可以像一个全局变量一样到处使用。</p>
+<li><dl class="first docutils">
+<dt>与DEFINE_*对应的是DECLARE_*宏，相当于一处定义，多处声明；</dt>
+<dd><p class="first last">例如在foo.cc中进行DEFINE_string, 同时在foo.h中进行DECLARE_string，就可以像一个全局变量一样到处使用。</p>
 </dd>
 </dl>
 </li>
-<li><p>注意DEFINE_*和DECLARE_*宏都必须在全局的命名空间，gflags中其它的符号都是在google namespace下；</p></li>
-<li><p>RegisterFlagValidator函数可以用来注册参数的有效性检查函数，使用方案如下，一看就懂:</p>
+<li><p class="first">注意DEFINE_*和DECLARE_*宏都必须在全局的命名空间，gflags中其它的符号都是在google namespace下；</p>
+</li>
+<li><p class="first">RegisterFlagValidator函数可以用来注册参数的有效性检查函数，使用方案如下，一看就懂:</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">bool</span> <span class="nf">ValidatePort</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">flagname</span><span class="p">,</span> <span class="kt">int</span> <span class="n">value</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="n">value</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">value</span> <span class="o">&lt;</span> <span class="mi">32768</span><span class="p">)</span>   <span class="c1">// value is ok</span>
     <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
@@ -167,60 +173,84 @@
 </pre></div>
 </div>
 </li>
-<li><p>google::ParseCommandLineFlags(&amp;argc, &amp;argv, true); 一般在main函数的第一行用来初始化所有的参数，最后一个参数指定是否在函数返回时从argc, argv中清除已经处理过的参数；</p></li>
-<li><p>gflags支持多种形式的参数表达方式，但是Google推荐统一为–flag=value的形式，对于bool型的参数，统一为–flag, –noflag的形式，而且不支持例如ls -la这样将2个flags组合缩写的方式；</p></li>
-<li><p>特殊的库自带的flags：</p>
+<li><p class="first">google::ParseCommandLineFlags(&amp;argc, &amp;argv, true); 一般在main函数的第一行用来初始化所有的参数，最后一个参数指定是否在函数返回时从argc, argv中清除已经处理过的参数；</p>
+</li>
+<li><p class="first">gflags支持多种形式的参数表达方式，但是Google推荐统一为–flag=value的形式，对于bool型的参数，统一为–flag, –noflag的形式，而且不支持例如ls -la这样将2个flags组合缩写的方式；</p>
+</li>
+<li><p class="first">特殊的库自带的flags：</p>
 <blockquote>
-<div><dl class="option-list">
-<dt><kbd><span class="option">--help</span></kbd></dt>
-<dd><p>shows all flags from all files</p>
-</dd>
-<dt><kbd><span class="option">--helpfull</span></kbd></dt>
-<dd><p>same as -help, but unambiguously asks for all flags (in case -help changes in the future)</p>
-</dd>
-<dt><kbd><span class="option">--helpshort</span></kbd></dt>
-<dd><p>shows only flags for the file with the same name as the executable (usually the one containing main())</p>
-</dd>
-<dt><kbd><span class="option">--helpxml</span></kbd></dt>
-<dd><p>like –help, but output is in xml for easier parsing</p>
-</dd>
-<dt><kbd><span class="option">--helpon=<var>FILE</var></span></kbd></dt>
-<dd><p>shows only flags defined in FILE.*</p>
-</dd>
-<dt><kbd><span class="option">--helpmatch=<var>S</var></span></kbd></dt>
-<dd><p>shows only flags defined in <code class="docutils literal notranslate"><span class="pre">*S*.*</span></code></p>
-</dd>
-<dt><kbd><span class="option">--helppackage</span></kbd></dt>
-<dd><p>shows flags defined in files in same directory as main()</p>
-</dd>
-<dt><kbd><span class="option">--version</span></kbd></dt>
-<dd><p>prints version info for the executable</p>
-</dd>
-<dt><kbd><span class="option">--undefok</span></kbd></dt>
-<dd><p>默认情况下传入未知的命令行参数会引起程序ERROR退出，但可以指定–undefok=flag1, flag2来允许一些未知的命令行参数；</p>
-</dd>
-</dl>
+<div><table class="docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd><span class="option">--help</span></kbd></td>
+<td><p class="first last">shows all flags from all files</p>
+</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">--helpfull</span></kbd></td>
+<td><p class="first last">same as -help, but unambiguously asks for all flags (in case -help changes in the future)</p>
+</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">--helpshort</span></kbd></td>
+<td><p class="first last">shows only flags for the file with the same name as the executable (usually the one containing main())</p>
+</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">--helpxml</span></kbd></td>
+<td><p class="first last">like –help, but output is in xml for easier parsing</p>
+</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">--helpon=<var>FILE</var></span></kbd></td>
+<td><p class="first last">shows only flags defined in FILE.*</p>
+</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">--helpmatch=<var>S</var></span></kbd></td>
+<td><p class="first last">shows only flags defined in <code class="docutils literal notranslate"><span class="pre">*S*.*</span></code></p>
+</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">--helppackage</span></kbd></td>
+<td><p class="first last">shows flags defined in files in same directory as main()</p>
+</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">--version</span></kbd></td>
+<td><p class="first last">prints version info for the executable</p>
+</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">--undefok</span></kbd></td>
+<td><p class="first last">默认情况下传入未知的命令行参数会引起程序ERROR退出，但可以指定–undefok=flag1, flag2来允许一些未知的命令行参数；</p>
+</td></tr>
+</tbody>
+</table>
 <p><code class="docutils literal notranslate"><span class="pre">--</span></code> 会结束flag prase，后面的内容会被忽略，例如： <code class="docutils literal notranslate"><span class="pre">foo</span> <span class="pre">-f1</span> <span class="pre">1</span> <span class="pre">--</span> <span class="pre">-f2</span> <span class="pre">2</span></code> 的结果是只会处理-f1</p>
 </div></blockquote>
 </li>
-<li><p>从其它地方读取参数：</p>
+<li><p class="first">从其它地方读取参数：</p>
 <blockquote>
-<div><dl class="option-list">
-<dt><kbd><span class="option">--fromenv</span></kbd></dt>
-<dd><p>从环境变量中读取flag</p>
-</dd>
-<dt><kbd><span class="option">--tryfromenv</span></kbd></dt>
-<dd><p>和–fromenv的区别在于如果环境变量中没有定义，也不会引起fatal error</p>
-</dd>
-<dt><kbd><span class="option">--flagfile</span></kbd></dt>
-<dd><p>非常好用的从文件读取flags</p>
-</dd>
-</dl>
+<div><table class="docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd><span class="option">--fromenv</span></kbd></td>
+<td><p class="first last">从环境变量中读取flag</p>
+</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">--tryfromenv</span></kbd></td>
+<td><p class="first last">和–fromenv的区别在于如果环境变量中没有定义，也不会引起fatal error</p>
+</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">--flagfile</span></kbd></td>
+<td><p class="first last">非常好用的从文件读取flags</p>
+</td></tr>
+</tbody>
+</table>
 </div></blockquote>
 </li>
-<li><p>可以通过google::SetUsageMessage(), google::SetVersionString()来设置Usage和Version信息。但是，切记这2个函数必须在google::ParseCommandLineFlags()函数之前运行，否则无效；</p></li>
-<li><dl class="simple">
-<dt>还可以在#include &lt;gflags/gflags.h&gt;之前定义宏#define STRIP_FLAG_HELP 1来删除–help的信息；</dt><dd><p>虽然gflags的官方文档这么写，但是目前的实验看来没有达到这个效果。</p>
+<li><p class="first">可以通过google::SetUsageMessage(), google::SetVersionString()来设置Usage和Version信息。但是，切记这2个函数必须在google::ParseCommandLineFlags()函数之前运行，否则无效；</p>
+</li>
+<li><dl class="first docutils">
+<dt>还可以在#include &lt;gflags/gflags.h&gt;之前定义宏#define STRIP_FLAG_HELP 1来删除–help的信息；</dt>
+<dd><p class="first last">虽然gflags的官方文档这么写，但是目前的实验看来没有达到这个效果。</p>
 </dd>
 </dl>
 </li>
@@ -229,48 +259,67 @@
 <div class="section" id="glog">
 <h2>glog<a class="headerlink" href="#glog" title="永久链接至标题">¶</a></h2>
 <ul>
-<li><p>首先glog是依赖于gflags的，常用的几个命令行参数必须要知道：</p>
+<li><p class="first">首先glog是依赖于gflags的，常用的几个命令行参数必须要知道：</p>
 <blockquote>
-<div><dl class="option-list">
-<dt><kbd><span class="option">--logtostderr</span></kbd></dt>
-<dd><p>把所有的日志信息都输出到stderr上，默认是false，在公司的ybuild里已经设置成了默认true；</p>
-</dd>
-<dt><kbd><span class="option">--stderrthreshold</span></kbd></dt>
-<dd><p>超过这个级别的日志除了输出到日志外，还输出到stderr；</p>
-</dd>
-<dt><kbd><span class="option">--minloglevel</span></kbd></dt>
-<dd><p>超过这个级别的信息才进行记录；</p>
-</dd>
-<dt><kbd><span class="option">--log_dir</span></kbd></dt>
-<dd><p>当logtostderr为false时是输出到文件，这里指定输出目录，默认是/tmp/；</p>
-</dd>
-<dt><kbd><span class="option">--v</span></kbd></dt>
-<dd><p>对于VLOG(m)型的日志，最大的输出日志级别，有可能被vmodule覆盖；</p>
-</dd>
-<dt><kbd><span class="option">--vmodule</span></kbd></dt>
-<dd><p>分模块（文件名）指定VLOG(m)的最大日志级别，以字符串 <code class="docutils literal notranslate"><span class="pre">&lt;module</span> <span class="pre">patter1&gt;=&lt;log</span> <span class="pre">level1&gt;,&lt;module</span> <span class="pre">patter2&gt;=&lt;log</span> <span class="pre">level2&gt;</span></code> 的形式指定，支持通配符；</p>
-</dd>
-</dl>
+<div><table class="docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd><span class="option">--logtostderr</span></kbd></td>
+<td><p class="first last">把所有的日志信息都输出到stderr上，默认是false，在公司的ybuild里已经设置成了默认true；</p>
+</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">--stderrthreshold</span></kbd></td>
+</tr>
+<tr><td>&#160;</td><td><p class="first last">超过这个级别的日志除了输出到日志外，还输出到stderr；</p>
+</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">--minloglevel</span></kbd></td>
+<td><p class="first last">超过这个级别的信息才进行记录；</p>
+</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">--log_dir</span></kbd></td>
+<td><p class="first last">当logtostderr为false时是输出到文件，这里指定输出目录，默认是/tmp/；</p>
+</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">--v</span></kbd></td>
+<td><p class="first last">对于VLOG(m)型的日志，最大的输出日志级别，有可能被vmodule覆盖；</p>
+</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">--vmodule</span></kbd></td>
+<td><p class="first last">分模块（文件名）指定VLOG(m)的最大日志级别，以字符串 <code class="docutils literal notranslate"><span class="pre">&lt;module</span> <span class="pre">patter1&gt;=&lt;log</span> <span class="pre">level1&gt;,&lt;module</span> <span class="pre">patter2&gt;=&lt;log</span> <span class="pre">level2&gt;</span></code> 的形式指定，支持通配符；</p>
+</td></tr>
+</tbody>
+</table>
 </div></blockquote>
 </li>
-<li><p>LOG(m)的默认4个级别：INFO、WARNING、ERROR、FATEL；</p></li>
-<li><p>常用的条件日志记录方式：LOG_IF, LOG_EVERY_N, LOG_IF_EVERY_N, LOG_FIRST_N；</p></li>
-<li><dl class="simple">
-<dt>CHECK*家族：这些CHECK*宏非常好用，在判定失败时会生成一个FATAL级别的日志，并输出调用堆栈，非常有用；</dt><dd><p>还可以用以字符串不敏感的进行字符串判等和double的判等。</p>
+<li><p class="first">LOG(m)的默认4个级别：INFO、WARNING、ERROR、FATEL；</p>
+</li>
+<li><p class="first">常用的条件日志记录方式：LOG_IF, LOG_EVERY_N, LOG_IF_EVERY_N, LOG_FIRST_N；</p>
+</li>
+<li><dl class="first docutils">
+<dt>CHECK*家族：这些CHECK*宏非常好用，在判定失败时会生成一个FATAL级别的日志，并输出调用堆栈，非常有用；</dt>
+<dd><p class="first last">还可以用以字符串不敏感的进行字符串判等和double的判等。</p>
 </dd>
 </dl>
 </li>
-<li><p>在宏名前加D可以指定只在Debug模式下生效，如DLOG、DLOG_IF、DLOG_EVERY_N等等；</p></li>
-<li><dl class="simple">
-<dt><strong>自定义级别宏VLOG(n)</strong> ：自定义日志级别，在 <code class="docutils literal notranslate"><span class="pre">--v=3</span></code> 的参数影响下，将只输出级别&lt;=3的日志。</dt><dd><p>同样，自定义级别的VLOG宏（Verbose Logging, 详细日志）也支持VLOG_IF、VLOG_EVERY_N、VLOG_IF_EVERY_N等等；</p>
+<li><p class="first">在宏名前加D可以指定只在Debug模式下生效，如DLOG、DLOG_IF、DLOG_EVERY_N等等；</p>
+</li>
+<li><dl class="first docutils">
+<dt><strong>自定义级别宏VLOG(n)</strong> ：自定义日志级别，在 <code class="docutils literal notranslate"><span class="pre">--v=3</span></code> 的参数影响下，将只输出级别&lt;=3的日志。</dt>
+<dd><p class="first last">同样，自定义级别的VLOG宏（Verbose Logging, 详细日志）也支持VLOG_IF、VLOG_EVERY_N、VLOG_IF_EVERY_N等等；</p>
 </dd>
 </dl>
 <p><strong>非常非常有用，可以分等级查看不同详细程度的日志，尤其对于程序库来说，这太重要了，库几乎只能以VLOG(n)进行日志输出！</strong></p>
 </li>
-<li><p>当需要线程安全时，使用RAW_LOG、RAW_CHECK等；</p></li>
-<li><p>系统级日志记录：使用SYSLOG、SYSLOG_IF、SYSLOG_EVERY_N宏，它们将调用syslog()函数来记录系统级别的日志；</p></li>
-<li><p>perror风格的日志，使用PLOG、PLOG_IF形式的宏能够在errno的状态及描述添加到日志中；</p></li>
-<li><p>还可以定义GOOGLE_STRIP_LOG宏来清减glog的日志信息，剔出前面的那些日志级别、所在代码行数的信息:</p>
+<li><p class="first">当需要线程安全时，使用RAW_LOG、RAW_CHECK等；</p>
+</li>
+<li><p class="first">系统级日志记录：使用SYSLOG、SYSLOG_IF、SYSLOG_EVERY_N宏，它们将调用syslog()函数来记录系统级别的日志；</p>
+</li>
+<li><p class="first">perror风格的日志，使用PLOG、PLOG_IF形式的宏能够在errno的状态及描述添加到日志中；</p>
+</li>
+<li><p class="first">还可以定义GOOGLE_STRIP_LOG宏来清减glog的日志信息，剔出前面的那些日志级别、所在代码行数的信息:</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#define GOOGLE_STRIP_LOG 1    </span><span class="c1">// this must go before the #include!</span>
 <span class="cp">#include</span> <span class="cpf">&lt;glog/logging.h&gt;</span><span class="cp"></span>
 </pre></div>
@@ -281,12 +330,12 @@
 <div class="section" id="gtest">
 <h2>gtest<a class="headerlink" href="#gtest" title="永久链接至标题">¶</a></h2>
 <ul>
-<li><p>GTEST中的 <strong>断言宏</strong> 大概分为2种：</p>
+<li><p class="first">GTEST中的 <strong>断言宏</strong> 大概分为2种：</p>
 <blockquote>
 <div><ul class="simple">
-<li><p>ASSERT_* 系列的断言，当检查点失败时，退出当前案例的执行。</p></li>
-<li><p>EXPECT_* 系列的断言，当检查点失败时，继续往下执行。</p></li>
-<li><p>还有一个 <code class="docutils literal notranslate"><span class="pre">testing::StaticAssertTypeEq&lt;int,</span> <span class="pre">T&gt;();</span></code> 可以用来检查类型T是不是int类型，否则产生一个编译时的静态断言错误。</p></li>
+<li>ASSERT_* 系列的断言，当检查点失败时，退出当前案例的执行。</li>
+<li>EXPECT_* 系列的断言，当检查点失败时，继续往下执行。</li>
+<li>还有一个 <code class="docutils literal notranslate"><span class="pre">testing::StaticAssertTypeEq&lt;int,</span> <span class="pre">T&gt;();</span></code> 可以用来检查类型T是不是int类型，否则产生一个编译时的静态断言错误。</li>
 </ul>
 </div></blockquote>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cm">/*!</span>
@@ -347,13 +396,13 @@
 </pre></div>
 </div>
 </li>
-<li><p><strong>事件机制</strong> ，参照dream/test/gtest/event.cc：</p>
+<li><p class="first"><strong>事件机制</strong> ，参照dream/test/gtest/event.cc：</p>
 <blockquote>
 <div><ul class="simple">
-<li><p>全局的，所有案例执行前后。</p></li>
-<li><p>TestSuite级别的，在 <strong>某一批案例中第一个案例前，最后一个案例执行后</strong> , 注意是 <code class="docutils literal notranslate"><span class="pre">static</span> <span class="pre">void</span> <span class="pre">SetupTestCase(){}</span></code> 。</p></li>
-<li><p>TestCae级别的， <strong>每个TestCase前后</strong> , 注意是 <code class="docutils literal notranslate"><span class="pre">virtual</span> <span class="pre">void</span> <span class="pre">Setup()</span> <span class="pre">{}</span></code> 。</p></li>
-<li><p>参数化机制可以极大的减少代码，使得代码更简洁：</p></li>
+<li>全局的，所有案例执行前后。</li>
+<li>TestSuite级别的，在 <strong>某一批案例中第一个案例前，最后一个案例执行后</strong> , 注意是 <code class="docutils literal notranslate"><span class="pre">static</span> <span class="pre">void</span> <span class="pre">SetupTestCase(){}</span></code> 。</li>
+<li>TestCae级别的， <strong>每个TestCase前后</strong> , 注意是 <code class="docutils literal notranslate"><span class="pre">virtual</span> <span class="pre">void</span> <span class="pre">Setup()</span> <span class="pre">{}</span></code> 。</li>
+<li>参数化机制可以极大的减少代码，使得代码更简洁：</li>
 </ul>
 </div></blockquote>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cm">/*!</span>
@@ -433,11 +482,11 @@
 </pre></div>
 </div>
 </li>
-<li><p><strong>参数化机制</strong> 可以极大的减少代码，使得代码更简洁，主要就是几步：</p>
+<li><p class="first"><strong>参数化机制</strong> 可以极大的减少代码，使得代码更简洁，主要就是几步：</p>
 <ul class="simple">
-<li><p>确定参数的类型，通过继承TestWithParam&lt;T&gt;来实现；</p></li>
-<li><p>GetParm()得到当前传递过来的参数；</p></li>
-<li><p>INSTANTIATE_TEST_CASE_P 宏注册test case。</p></li>
+<li>确定参数的类型，通过继承TestWithParam&lt;T&gt;来实现；</li>
+<li>GetParm()得到当前传递过来的参数；</li>
+<li>INSTANTIATE_TEST_CASE_P 宏注册test case。</li>
 </ul>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cm">/*!</span>
 <span class="cm"> * Author : chuanqi.tan@gmail.com</span>
@@ -474,7 +523,7 @@
 </pre></div>
 </div>
 </li>
-<li><p><strong>死亡测试</strong> 通常在测试过程中，我们需要考虑各种各样的输入，有的输入可能直接导致程序崩溃，这时我们就需要检查程序是否按照预期的方式挂掉，这也就是所谓的 <em>死亡测试</em> 。
+<li><p class="first"><strong>死亡测试</strong> 通常在测试过程中，我们需要考虑各种各样的输入，有的输入可能直接导致程序崩溃，这时我们就需要检查程序是否按照预期的方式挂掉，这也就是所谓的 <em>死亡测试</em> 。
 gtest的死亡测试能做到在一个安全的环境下执行崩溃的测试案例，同时又对崩溃结果进行验证，使用 <code class="docutils literal notranslate"><span class="pre">[ASSERT|EXPECT]_[DEATH|EXIT]</span></code> 宏对崩溃的方式进行测试:</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cm">/*!</span>
 <span class="cm"> * Author : chuanqi.tan@gmail.com</span>
@@ -505,61 +554,85 @@ gtest的死亡测试能做到在一个安全的环境下执行崩溃的测试案
 </pre></div>
 </div>
 <p><strong>通过死亡测试的条件是：程序以EXPECT的方式崩溃，并且输出的stderr内容能够匹配regex</strong></p>
-<dl class="simple">
-<dt>注意事项</dt><dd><ul class="simple">
-<li><p>不要在死亡测试里释放内存。</p></li>
-<li><p>在父进程里再次释放内存。</p></li>
-<li><p>不要在程序中使用内存堆检查。</p></li>
+<dl class="docutils">
+<dt>注意事项</dt>
+<dd><ul class="first last simple">
+<li>不要在死亡测试里释放内存。</li>
+<li>在父进程里再次释放内存。</li>
+<li>不要在程序中使用内存堆检查。</li>
 </ul>
 </dd>
 </dl>
 </li>
-<li><dl>
-<dt><strong>gtest的参数设置</strong> 对于运行参数，gtest提供了三种设置的途径：</dt><dd><dl class="field-list simple">
-<dt class="field-odd">系统环境变量</dt>
-<dd class="field-odd"><p>参数对应的大写，如gtest_output对应的环境变量为GTEST_OUTPUT</p>
+<li><dl class="first docutils">
+<dt><strong>gtest的参数设置</strong> 对于运行参数，gtest提供了三种设置的途径：</dt>
+<dd><table class="first last docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">系统环境变量:</th><td class="field-body">参数对应的大写，如gtest_output对应的环境变量为GTEST_OUTPUT</td>
+</tr>
+<tr class="field-even field"><th class="field-name">命令行参数:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">--output=xml</span></code></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">代码中指定FLAG:</th><td class="field-body"><code class="docutils literal notranslate"><span class="pre">testing::GTEST_FLAG(output)&nbsp;=&nbsp;&quot;xml:&quot;</span></code>
+推荐将这句放置InitGoogleTest之前，这样就可以使得对于同样的参数，命令行参数优先级高于代码中指定。</td>
+</tr>
+</tbody>
+</table>
 </dd>
-<dt class="field-even">命令行参数</dt>
-<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">--output=xml</span></code></p>
-</dd>
-<dt class="field-odd">代码中指定FLAG</dt>
-<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">testing::GTEST_FLAG(output)</span><span class="pre">=</span><span class="pre">&quot;xml:&quot;</span></code>
-推荐将这句放置InitGoogleTest之前，这样就可以使得对于同样的参数，命令行参数优先级高于代码中指定。</p>
-</dd>
-</dl>
-</dd>
-<dt>我常用的参数就是–gtest_filter, –gtest_output，完整的参数列表可以用 <code class="docutils literal notranslate"><span class="pre">--help</span></code> 得到，具体如下：</dt><dd><dl class="option-list">
-<dt><kbd><span class="option">--gtest_list_tests</span></kbd></dt>
-<dd><p>使用这个参数时，将不会执行里面的测试案例，而是输出一个案例的列表。</p>
-</dd>
-<dt><kbd><span class="option">--gtest_filter</span></kbd></dt>
-<dd><p>对执行的测试案例进行过滤，支持通配符( <code class="docutils literal notranslate"><span class="pre">?*-:</span></code> )</p>
-</dd>
-<dt><kbd><span class="option">--gtest_also_run_disabled_tests</span></kbd></dt>
-<dd><p>执行案例时，同时也执行被置为无效的测试案例。</p>
-</dd>
-<dt><kbd><span class="option">--gtest_repeat</span></kbd></dt>
-<dd><p>设置案例重复运行次数，非常棒的功能！</p>
-</dd>
-<dt><kbd><span class="option">--gtest_color</span></kbd></dt>
-<dd><p>(yes|no|auto)输出命令行时是否使用一些五颜六色的颜色，默认是auto。</p>
-</dd>
-<dt><kbd><span class="option">--gtest_print_time</span></kbd></dt>
-<dd><p>打印每个测试案例的执行时间。</p>
-</dd>
-<dt><kbd><span class="option">--gtest_output</span></kbd></dt>
-<dd><p>将测试结果输出到一个xml中</p>
-</dd>
-<dt><kbd><span class="option">--gtest_break_on_failure</span></kbd></dt>
-<dd><p>调试模式下，当案例失败时停止，方便调试</p>
-</dd>
-<dt><kbd><span class="option">--gtest_throw_on_failure</span></kbd></dt>
-<dd><p>当案例失败时以C++异常的方式抛出</p>
-</dd>
-<dt><kbd><span class="option">--gtest_catch_exceptions</span></kbd></dt>
-<dd><p>是否捕捉异常(windows下专用)</p>
-</dd>
-</dl>
+<dt>我常用的参数就是–gtest_filter, –gtest_output，完整的参数列表可以用 <code class="docutils literal notranslate"><span class="pre">--help</span></code> 得到，具体如下：</dt>
+<dd><table class="first last docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">--gtest_list_tests</span></kbd></td>
+</tr>
+<tr><td>&#160;</td><td><p class="first last">使用这个参数时，将不会执行里面的测试案例，而是输出一个案例的列表。</p>
+</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">--gtest_filter</span></kbd></td>
+<td><p class="first last">对执行的测试案例进行过滤，支持通配符( <code class="docutils literal notranslate"><span class="pre">?*-:</span></code> )</p>
+</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">--gtest_also_run_disabled_tests</span></kbd></td>
+</tr>
+<tr><td>&#160;</td><td><p class="first last">执行案例时，同时也执行被置为无效的测试案例。</p>
+</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">--gtest_repeat</span></kbd></td>
+<td><p class="first last">设置案例重复运行次数，非常棒的功能！</p>
+</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">--gtest_color</span></kbd></td>
+<td><p class="first last">(yes|no|auto)输出命令行时是否使用一些五颜六色的颜色，默认是auto。</p>
+</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">--gtest_print_time</span></kbd></td>
+</tr>
+<tr><td>&#160;</td><td><p class="first last">打印每个测试案例的执行时间。</p>
+</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">--gtest_output</span></kbd></td>
+<td><p class="first last">将测试结果输出到一个xml中</p>
+</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">--gtest_break_on_failure</span></kbd></td>
+</tr>
+<tr><td>&#160;</td><td><p class="first last">调试模式下，当案例失败时停止，方便调试</p>
+</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">--gtest_throw_on_failure</span></kbd></td>
+</tr>
+<tr><td>&#160;</td><td><p class="first last">当案例失败时以C++异常的方式抛出</p>
+</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">--gtest_catch_exceptions</span></kbd></td>
+</tr>
+<tr><td>&#160;</td><td><p class="first last">是否捕捉异常(windows下专用)</p>
+</td></tr>
+</tbody>
+</table>
 </dd>
 </dl>
 </li>
@@ -613,7 +686,7 @@ gtest的死亡测试能做到在一个安全的环境下执行崩溃的测试案
     </div>
     <div class="footer" role="contentinfo">
         &#169; 版权所有 CC BY 2.5.
-      由 <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2 创建。
+      由 <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.1 创建。
     </div>
   </body>
 </html>

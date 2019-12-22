@@ -1,0 +1,379 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh_CN">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>工具 &#8212; Chuanqi 的技术文档</title>
+    <link rel="stylesheet" href="../../../_static/sphinx13.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/translations.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    <link rel="index" title="索引" href="../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../search.html" />
+    <link rel="canonical" href="http://www.sphinx-doc.org/en/master/language/python/python_notes/tools2.html" />
+
+    <!--<link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'-->
+          <!--rel='stylesheet' type='text/css' />-->
+ 
+    <style type="text/css">
+      table.right { float: right; margin-left: 20px; }
+      table.right td { border: 1px solid #ccc; }
+      
+      .injected { display:none; }
+    </style>
+    <script type="text/javascript">
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+
+  </head><body>
+<div class="pageheader">
+  <ul>
+    <li><a href="../../../index.html">笔记首页</a></li>
+    <li><a href="http://blog.tanchuanqi.com">博客首页</a></li>
+    <li><a href="https://tanchuanqi.com">个人主页</a></li>
+  </ul>
+  <div>
+    <a href="../../../index.html">
+      <img src="../../../_static/sphinxheader.png" alt="SPHINX" />
+    </a>
+  </div>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="总目录"
+             accesskey="I">索引</a></li>
+        <!--<li><a href="../../../index.html">首页</a>&#160;|</li>-->
+        <!--<li><a href="../../../contents.html">Documentation</a> &#187;</li>-->
+ 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">工具</a><ul>
+<li><a class="reference internal" href="#id2">一些看着很爽的技巧：</a></li>
+<li><a class="reference internal" href="#python">让 Python 代码更易维护的七种武器</a></li>
+<li><a class="reference internal" href="#so">编译成so</a></li>
+<li><a class="reference internal" href="#pip">Pip</a></li>
+<li><a class="reference internal" href="#virtualenv">virtualenv</a></li>
+<li><a class="reference internal" href="#pycharm">PyCharm 快捷键</a></li>
+</ul>
+</li>
+</ul>
+
+<div id="searchbox" style="display: none" role="search">
+  <h3>快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="转向" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+    <div class="documentwrapper">
+      <div class="bodywrapper">
+        <div class="body" role="main">
+          
+  <div class="section" id="id1">
+<h1>工具<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<div class="section" id="id2">
+<h2>一些看着很爽的技巧：<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<blockquote>
+<div><p>列表赋值： b = a[:]</p>
+<p>屏幕输出到文件：sys.stdout = open(‘log.txt’,’w’)</p>
+<p>三元符号表示法： [STRIKEOUT:(“no”, “yes”)[x == y]]，不要用，用 “yes” if True else “No”</p>
+<p>链式比较：x &lt; 10 &lt; x10 &lt; 100</p>
+<p>enumerate： for index, item in enumerate(a, 1)</p>
+<p>iter()可接收callable参数:</p>
+<p>iter()内建函数接收的参数分为两种，第一种是：</p>
+<p>iter(collection)—&gt; iterator</p>
+<p>参数collection必须是可迭代对象或者是序列 ，第二种是：</p>
+<p>iter（callable， sentinel) –&gt; iterator</p>
+<p>callable函数会一直被调用，直到它的返回结果等于sentinel</p>
+<p>列表步长： [::2]步长为2，[::-1] 列表反转</p>
+<p>For..else: 不break的话就执行else</p>
+<p>Try..else: 没有异常执行else里的语句</p>
+<p>合并列表： sum([[1, 2, 3], [4, 5, 6], [7, 8, 9]], [])</p>
+<p>内建模块： python -m http.server, python -m json.tool</p>
+<p>内建装饰器：</p>
+<blockquote>
+<div><ul class="simple">
+<li>偏函数： from functools import partial</li>
+<li>classmethod装饰器, 类方法(给人感觉非常类似于OC中的类方法), 其中第一个隐式参数为类</li>
+<li>staticmethod装饰器, 没有任何隐式参数.&nbsp;python中的静态方法类似与C++中的静态方法</li>
+<li>property装饰器</li>
+</ul>
+</div></blockquote>
+<p>函数式编程：map, reduce, filter</p>
+<p>内置函数：</p>
+<blockquote>
+<div>zip() 组合等长的可迭代对象</div></blockquote>
+<p>定义枚举量:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">enum</span> <span class="k">import</span> <span class="n">Enum</span>
+<span class="n">Month</span> <span class="o">=</span> <span class="n">Enum</span><span class="p">(</span><span class="s1">&#39;Month&#39;</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;Jan&#39;</span><span class="p">,</span> <span class="s1">&#39;Feb&#39;</span><span class="p">,</span> <span class="s1">&#39;Mar&#39;</span><span class="p">,</span> <span class="s1">&#39;Apr&#39;</span><span class="p">,</span> <span class="s1">&#39;May&#39;</span><span class="p">,</span> <span class="s1">&#39;Jun&#39;</span><span class="p">,</span> <span class="s1">&#39;Jul&#39;</span><span class="p">,</span> <span class="s1">&#39;Aug&#39;</span><span class="p">,</span> <span class="s1">&#39;Sep&#39;</span><span class="p">,</span> <span class="s1">&#39;Oct&#39;</span><span class="p">,</span> <span class="s1">&#39;Nov&#39;</span><span class="p">,</span> <span class="s1">&#39;Dec&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>使用slots减少内存开支</p>
+<p>漂亮的打印json: jons.dumps(j, indent=4)</p>
+</div></blockquote>
+</div>
+<div class="section" id="python">
+<h2>让 Python 代码更易维护的七种武器<a class="headerlink" href="#python" title="永久链接至标题">¶</a></h2>
+<p>检查你的代码的质量，通过这些外部库使其更易维护。</p>
+<p>可读性很重要。</p>
+<p>—&nbsp;<a class="reference external" href="https://link.zhihu.com/?target=https%3A//www.python.org/dev/peps/pep-0020/">Python 之禅</a>(The Zen of Python)，Tim Peters</p>
+<p>随着软件项目进入“维护模式”，对可读性和编码标准的要求很容易落空（甚至从一开始就没有建立过那些标准）。然而，在代码库中保持一致的代码风格和测试标准能够显著减轻维护的压力，也能确保新的开发者能够快速了解项目的情况，同时能更好地全程保持应用程序的质量。</p>
+<p>使用外部库来检查代码的质量不失为保护项目未来可维护性的一个好方法。以下会推荐一些我们最喜爱的<a class="reference external" href="https://link.zhihu.com/?target=https%3A//en.wikipedia.org/wiki/Lint_%28software%29">检查代码</a>（包括检查 PEP 8 和其它代码风格错误）的库，用它们来强制保持代码风格一致，并确保在项目成熟时有一个可接受的测试覆盖率。</p>
+<p>检查你的代码风格</p>
+<p><a class="reference external" href="https://link.zhihu.com/?target=https%3A//www.python.org/dev/peps/pep-0008/">PEP 8</a>&nbsp;是 Python 代码风格规范，它规定了类似行长度、缩进、多行表达式、变量命名约定等内容。尽管你的团队自身可能也会有稍微不同于 PEP 8 的代码风格规范，但任何代码风格规范的目标都是在代码库中强制实施一致的标准，使代码的可读性更强、更易于维护。下面三个库就可以用来帮助你美化代码。</p>
+<p>1、 Pylint</p>
+<p><a class="reference external" href="https://link.zhihu.com/?target=https%3A//www.pylint.org/">Pylint</a>&nbsp;是一个检查违反 PEP 8 规范和常见错误的库。它在一些流行的<a class="reference external" href="https://link.zhihu.com/?target=https%3A//pylint.readthedocs.io/en/latest/user_guide/ide-integration.html">编辑器和 IDE</a>&nbsp;中都有集成，也可以单独从命令行运行。</p>
+<p>执行&nbsp;pip install pylint&nbsp;安装 Pylint 。然后运行&nbsp;pylint [options] path/to/dir&nbsp;或者&nbsp;pylint [options] path/to/module.py&nbsp;就可以在命令行中使用 Pylint，它会向控制台输出代码中违反规范和出现错误的地方。</p>
+<p>你还可以使用&nbsp;pylintrc&nbsp;<a class="reference external" href="https://link.zhihu.com/?target=https%3A//pylint.readthedocs.io/en/latest/user_guide/run.html%23command-line-options">配置文件</a>来自定义 Pylint 对哪些代码错误进行检查。</p>
+<p>2、 Flake8</p>
+<p><a class="reference external" href="https://link.zhihu.com/?target=http%3A//flake8.pycqa.org/en/latest/">Flake8</a>&nbsp;是“将 PEP 8、Pyflakes（类似 Pylint）、McCabe（代码复杂性检查器）和第三方插件整合到一起，以检查 Python 代码风格和质量的一个 Python 工具”。</p>
+<p>执行&nbsp;pip install flake8&nbsp;安装 flake8 ，然后执行&nbsp;flake8 [options] path/to/dir&nbsp;或者&nbsp;flake8 [options] path/to/module.py&nbsp;可以查看报出的错误和警告。</p>
+<p>和 Pylint 类似，Flake8 允许通过<a class="reference external" href="https://link.zhihu.com/?target=http%3A//flake8.pycqa.org/en/latest/user/configuration.html%23configuration-locations">配置文件</a>来自定义检查的内容。它有非常清晰的文档，包括一些有用的<a class="reference external" href="https://link.zhihu.com/?target=http%3A//flake8.pycqa.org/en/latest/user/using-hooks.html">提交钩子</a>，可以将自动检查代码纳入到开发工作流程之中。</p>
+<p>Flake8 也可以集成到一些流行的编辑器和 IDE 当中，但在文档中并没有详细说明。要将 Flake8 集成到喜欢的编辑器或 IDE 中，可以搜索插件（例如&nbsp;<a class="reference external" href="https://link.zhihu.com/?target=https%3A//github.com/SublimeLinter/SublimeLinter-flake8">Sublime Text 的 Flake8 插件</a>）。</p>
+<p>3、 Isort</p>
+<p><a class="reference external" href="https://link.zhihu.com/?target=https%3A//github.com/timothycrosley/isort">Isort</a>&nbsp;这个库能将你在项目中导入的库按字母顺序排序，并将其`正确划分为不同部分 &lt;<a class="reference external" href="https://link.zhihu.com/?target=https%3A//github.com/timothycrosley/isort%23how-does-isort-work">https://link.zhihu.com/?target=https%3A//github.com/timothycrosley/isort%23how-does-isort-work</a>&gt;`__（例如标准库、第三方库、自建的库等）。这样提高了代码的可读性，并且可以在导入的库较多的时候轻松找到各个库。</p>
+<p>执行&nbsp;pip install isort&nbsp;安装 isort，然后执行&nbsp;isort path/to/module.py&nbsp;就可以运行了。<a class="reference external" href="https://link.zhihu.com/?target=https%3A//github.com/timothycrosley/isort%23using-isort">文档</a>中还提供了更多的配置项，例如通过<a class="reference external" href="https://link.zhihu.com/?target=https%3A//github.com/timothycrosley/isort%23configuring-isort">配置</a>&nbsp;.isort.cfg&nbsp;文件来决定 isort 如何处理一个库的多行导入。</p>
+<p>和 Flake8、Pylint 一样，isort 也提供了将其与流行的<a class="reference external" href="https://link.zhihu.com/?target=https%3A//github.com/timothycrosley/isort/wiki/isort-Plugins">编辑器和 IDE</a>&nbsp;集成的插件。</p>
+<p>分享你的代码风格</p>
+<p>每次文件发生变动之后都用命令行手动检查代码是一件痛苦的事，你可能也不太喜欢通过运行 IDE 中某个插件来实现这个功能。同样地，你的同事可能会用不同的代码检查方式，也许他们的编辑器中也没有那种插件，甚至你自己可能也不会严格检查代码和按照警告来更正代码。总之，你分享出来的代码库将会逐渐地变得混乱且难以阅读。</p>
+<p>一个很好的解决方案是使用一个库，自动将代码按照 PEP 8 规范进行格式化。我们推荐的三个库都有不同的自定义级别来控制如何格式化代码。其中有一些设置较为特殊，例如 Pylint 和 Flake8 ，你需要先行测试，看看是否有你无法忍受但又不能修改的默认配置。</p>
+<p>4、 Autopep8</p>
+<p><a class="reference external" href="https://link.zhihu.com/?target=https%3A//github.com/hhatto/autopep8">Autopep8</a>&nbsp;可以自动格式化指定的模块中的代码，包括重新缩进行、修复缩进、删除多余的空格，并重构常见的比较错误（例如布尔值和&nbsp;None&nbsp;值）。你可以查看文档中完整的`更正列表 &lt;<a class="reference external" href="https://link.zhihu.com/?target=https%3A//github.com/hhatto/autopep8%23id4">https://link.zhihu.com/?target=https%3A//github.com/hhatto/autopep8%23id4</a>&gt;`__。</p>
+<p>运行&nbsp;pip install –upgrade autopep8&nbsp;安装 Autopep8。然后执行&nbsp;autopep8 –in-place –aggressive –aggressive &lt;filename&gt;&nbsp;就可以重新格式化你的代码。aggressive&nbsp;选项的数量表示 Auotopep8 在代码风格控制上有多少控制权。在这里可以详细了解&nbsp;<a class="reference external" href="https://link.zhihu.com/?target=https%3A//github.com/hhatto/autopep8%23id5">aggressive</a>&nbsp;选项。</p>
+<p>5、 Yapf</p>
+<p><a class="reference external" href="https://link.zhihu.com/?target=https%3A//github.com/google/yapf">Yapf</a>&nbsp;是另一种有自己的`配置项 &lt;<a class="reference external" href="https://link.zhihu.com/?target=https%3A//github.com/google/yapf%23usage">https://link.zhihu.com/?target=https%3A//github.com/google/yapf%23usage</a>&gt;`__列表的重新格式化代码的工具。它与 Autopep8 的不同之处在于它不仅会指出代码中违反 PEP 8 规范的地方，还会对没有违反 PEP 8 但代码风格不一致的地方重新格式化，旨在令代码的可读性更强。</p>
+<p>执行&nbsp;pip install yapf&nbsp;安装 Yapf，然后执行&nbsp;yapf [options] path/to/dir&nbsp;或&nbsp;yapf [options] path/to/module.py&nbsp;可以对代码重新格式化。<a class="reference external" href="https://link.zhihu.com/?target=https%3A//github.com/google/yapf%23usage">定制选项</a>的完整列表在这里。</p>
+<p>6、 Black</p>
+<p><a class="reference external" href="https://link.zhihu.com/?target=https%3A//github.com/ambv/black">Black</a>&nbsp;在代码检查工具当中算是比较新的一个。它与 Autopep8 和 Yapf 类似，但限制较多，没有太多的自定义选项。这样的好处是你不需要去决定使用怎么样的代码风格，让 Black 来给你做决定就好。你可以在这里查阅 Black&nbsp;<a class="reference external" href="https://link.zhihu.com/?target=https%3A//github.com/ambv/black%23command-line-options">有限的自定义选项</a>以及<a class="reference external" href="https://link.zhihu.com/?target=https%3A//github.com/ambv/black%23pyprojecttoml">如何在配置文件中对其进行设置</a>。</p>
+<p>Black 依赖于 Python 3.6+，但它可以格式化用 Python 2 编写的代码。执行&nbsp;pip install black&nbsp;安装 Black，然后执行&nbsp;black path/to/dir&nbsp;或&nbsp;black path/to/module.py&nbsp;就可以使用 Black 优化你的代码。</p>
+<p>检查你的测试覆盖率</p>
+<p>如果你正在进行编写测试，你需要确保提交到代码库的新代码都已经测试通过，并且不会降低测试覆盖率。虽然测试覆盖率不是衡量测试有效性和充分性的唯一指标，但它是确保项目遵循基本测试标准的一种方法。对于计算测试覆盖率，我们推荐使用 Coverage 这个库。</p>
+<p>7、 Coverage</p>
+<p><a class="reference external" href="https://link.zhihu.com/?target=https%3A//coverage.readthedocs.io/en/latest/">Coverage</a>&nbsp;有数种显示测试覆盖率的方式，包括将结果输出到控制台或 HTML 页面，并指出哪些具体哪些地方没有被覆盖到。你可以通过<a class="reference external" href="https://link.zhihu.com/?target=https%3A//coverage.readthedocs.io/en/latest/config.html">配置文件</a>自定义 Coverage 检查的内容，让你更方便使用。</p>
+<p>执行&nbsp;pip install coverage&nbsp;安装 Converage 。然后执行&nbsp;coverage [path/to/module.py] [args]&nbsp;可以运行程序并查看输出结果。如果要查看哪些代码行没有被覆盖，执行&nbsp;coverage report -m&nbsp;即可。</p>
+<p>持续集成工具</p>
+<p>持续集成(Continuous integration)（CI）是在合并和部署代码之前自动检查代码风格错误和测试覆盖率最小值的过程。很多免费或付费的工具都可以用于执行这项工作，具体的过程不在本文中赘述，但 CI 过程是令代码更易读和更易维护的重要步骤，关于这一部分可以参考&nbsp;<a class="reference external" href="https://link.zhihu.com/?target=https%3A//travis-ci.org/">Travis CI</a>&nbsp;和&nbsp;<a class="reference external" href="https://link.zhihu.com/?target=https%3A//jenkins.io/">Jenkins</a>。</p>
+<p>以上这些只是用于检查 Python 代码的各种工具中的其中几个。如果你有其它喜爱的工具，欢迎在评论中分享。</p>
+</div>
+<div class="section" id="so">
+<h2>编译成so<a class="headerlink" href="#so" title="永久链接至标题">¶</a></h2>
+<p>把python源文件编译成so文件</p>
+<p>亲测可用</p>
+<p>前言</p>
+<p>实际上属于一种代码混淆/加密的技术，大家知道python的源文件放在那里，大家是都可以看的，不像C语言编译出来可以拿编译后的东西去运行，所以就出现了这种需求。原理相当于将python编译成c，然后再转成.so文件</p>
+<p>.so文件为动态连结库，可以在程序运行时动态链接，类似于windows的dll文件。</p>
+<p>在网上搜了一下，常用的有2种方法：</p>
+<ul class="simple">
+<li>通过gcc（make）来操作</li>
+<li>使用python来操作 我用python来直接生成就够了，没有特殊需要别去折腾GCC</li>
+</ul>
+<p>准备工作</p>
+<ul class="simple">
+<li>在目录下创建__init__.py和hello.py</li>
+<li>hello.py&nbsp;内容为：</li>
+</ul>
+<blockquote>
+<div><div class="line-block">
+<div class="line">def hello():</div>
+<div class="line">print “hello”</div>
+</div>
+</div></blockquote>
+<p>使用python来操作</p>
+<ul class="simple">
+<li>安装所需库CPython，命令如下：</li>
+</ul>
+<blockquote>
+<div>pip install cython</div></blockquote>
+<ul class="simple">
+<li>创建文件setup.py，内容如下：</li>
+</ul>
+<blockquote>
+<div><div class="line-block">
+<div class="line">from distutils.core import setup</div>
+<div class="line">from Cython.Build import cythonize</div>
+<div class="line">setup(</div>
+<div class="line">ext_modules = cythonize(“hello.py”)</div>
+<div class="line">)</div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>执行setup.py文件 python setup.py build_ext –inplace</li>
+<li>在当前目录下就生成了和当前目录同名的一个目录，进入目录即可看见so文件，打开so文件可见一些乱码，达到了加密的目的</li>
+</ul>
+</div>
+<div class="section" id="pip">
+<h2>Pip<a class="headerlink" href="#pip" title="永久链接至标题">¶</a></h2>
+<p>名称来源于递归缩写：Pip installs Packages（PIP）</p>
+<p>查看pip的安装目录：</p>
+<blockquote>
+<div><p>[<a class="reference external" href="mailto:chuanqi&#37;&#52;&#48;iZu1v8f9z8gZ">chuanqi<span>&#64;</span>iZu1v8f9z8gZ</a> nginx]$ pip -V</p>
+<p>pip 8.1.2 from /usr/lib/python2.7/site-packages (python 2.7)</p>
+</div></blockquote>
+<p>在虚拟环境中使用一下命令可以生成一个虚拟环境的安装包版本文件</p>
+<blockquote>
+<div><p>pip freeze &gt; requirements.txt</p>
+<p>pip install -r requirements.txt</p>
+</div></blockquote>
+<p><a class="reference internal" href="../../../_images/image20.png"><img alt="pip_help" src="../../../_images/image20.png" style="width: 8.66667in; height: 5.19792in;" /></a></p>
+</div>
+<div class="section" id="virtualenv">
+<h2>virtualenv<a class="headerlink" href="#virtualenv" title="永久链接至标题">¶</a></h2>
+<p>virtualenv的使用极其简单，2分钟就足够完全掌握了，基本上明白这些概念就足够了：</p>
+<blockquote>
+<div><p>virtualenv是提供完全隔离环境的库</p>
+<p>virtualenv 命令用来创建一个新的隔离环境</p>
+<p>virtualenv research # 创建名为research的隔离环境</p>
+<p class="attribution">&mdash;no-site-packages 不包括site-packages里的包</p>
+</div></blockquote>
+<blockquote>
+<div><p>–system-packages 包括system-packages里的包</p>
+<p class="attribution">&mdash;python 选择python版本</p>
+</div></blockquote>
+<blockquote>
+<div><p>cd research &amp;&amp; source ./bin/active 激活隔离环境</p>
+<p>deactivate 退出隔离环境</p>
+</div></blockquote>
+<p>virtualwrapper</p>
+<blockquote>
+<div><p>有一个virtualenvwrapper 是一个 virtualenv 虚拟环境的管理库，这个库可以更加方便的管理所有的虚拟环境。它的原理是把所有的虚拟环境都装在 WORKON_HOME 这个环境变量指定的目录下，这样就不用到处去找虚拟环境目录了，有一个统一的地方可以管理、查看。就这么简单的原理。</p>
+<p>用virtualenv，新建目录 ~/.virtualenv 然后把所有的隔离环境都放在这个目录下其实是一个道理。</p>
+<p>pip install virtualenvwrapper</p>
+<p>export WORKON_HOME=$HOME/.virtualenvs &amp;&amp; source /usr/local/bin/virtualenvwrapper.sh</p>
+<p>lsvirtualenv -b # 列出虚拟环境</p>
+<p>workon [虚拟环境名称] # 切换虚拟环境</p>
+<p>lssitepackages # 查看环境里安装了哪些包</p>
+<p>cdvirtualenv [子目录名] # 进入当前环境的目录</p>
+<p>cpvirtualenv [source] [dest] # 复制虚拟环境</p>
+<p>deactivate # 退出虚拟环境</p>
+<p>rmvirtualenv [虚拟环境名称] # 删除虚拟环境</p>
+</div></blockquote>
+<p>virtualenv 与 Anaconda 的冲突</p>
+<blockquote>
+<div><p>Anaconda 有自己的包管理方式，直接用pip安装virtualenv会出错，需要用conda安装virtualenv</p>
+<p>pip uninstall virtualenv</p>
+<p>conda install virtualenv</p>
+</div></blockquote>
+</div>
+<div class="section" id="pycharm">
+<h2>PyCharm 快捷键<a class="headerlink" href="#pycharm" title="永久链接至标题">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="57%" />
+<col width="43%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Command:</th>
+<th class="head"><a class="reference internal" href="../../../_images/image21.png"><img alt="image20" src="../../../_images/image21.png" style="width: 0.1875in; height: 0.20833in;" /></a></th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Ctrl</td>
+<td><a class="reference internal" href="../../../_images/image22.png"><img alt="image21" src="../../../_images/image22.png" style="width: 0.17708in; height: 0.19792in;" /></a></td>
+</tr>
+<tr class="row-odd"><td>Option (alt)</td>
+<td><a class="reference internal" href="../../../_images/image23.png"><img alt="image22" src="../../../_images/image23.png" style="width: 0.1875in; height: 0.22917in;" /></a></td>
+</tr>
+<tr class="row-even"><td>Shift</td>
+<td><a class="reference internal" href="../../../_images/image24.png"><img alt="image23" src="../../../_images/image24.png" style="width: 0.1875in; height: 0.19792in;" /></a></td>
+</tr>
+</tbody>
+</table>
+<p>Mac OS X 10.5+ 的 Keymap 方案：</p>
+<p>熟练这些快捷键，再加上 IdeaVim 插件，我几乎就可以非常行云流水了！</p>
+<p><a class="reference internal" href="../../../_images/image25.png"><img alt="image25" src="../../../_images/image25.png" style="width: 13.32292in; height: 7.27083in;" /></a></p>
+</div>
+</div>
+
+
+        </div>
+
+
+
+        <!-- 来必力City版安装代码 -->
+        <div id="lv-container" data-id="city" data-uid="MTAyMC80MDU4Ni8xNzExMw==">
+        <script type="text/javascript">
+           (function(d, s) {
+               var j, e = d.getElementsByTagName(s)[0];
+
+               if (typeof LivereTower === 'function') { return; }
+
+               j = d.createElement(s);
+               j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+               j.async = true;
+
+               e.parentNode.insertBefore(j, e);
+           })(document, 'script');
+        </script>
+        <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+        </div>
+        <!-- City版安装代码已完成 -->
+      </div>
+    </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="总目录"
+             >索引</a></li>
+        <!--<li><a href="../../../index.html">首页</a>&#160;|</li>-->
+        <!--<li><a href="../../../contents.html">Documentation</a> &#187;</li>-->
+ 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; 版权所有 CC BY 2.5.
+      由 <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.1 创建。
+    </div>
+  </body>
+</html>

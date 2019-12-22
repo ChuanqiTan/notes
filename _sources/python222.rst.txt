@@ -1,0 +1,5403 @@
+Python
+
+Friday, 18 November 2016
+
+10:30
+
+ 
+
+一个编程语言的学习分为三部分：语言本身、标准库、工具链
+
+ 
+
+ 
+
+Python 语言
+
+-  基础语法
+
+   -  常用数据结构
+
+      -  string
+
+      -  tuple, list, dict, set
+
+   -  函数
+
+      -  常用内置函数
+
+      -  闭包
+
+      -  函数式编程
+
+   -  迭代器与生成器
+
+   -  异常
+
+-  类与对象
+
+   -  属性与描述符
+
+   -  多重继承
+
+   -  操作符重载
+
+   -  上下文管理器
+
+-  元编程
+
+   -  修饰器
+
+   -  元类
+
+-  并发
+
+   -  协程
+
+   -  async 异步编程
+
+-  库
+
+   -  包与模块
+
+   -  PIP
+
+   -  C语言扩展
+
+-  工具
+
+   -  ipython
+
+   -  ipython notebook
+
+   -  VirtualEnv
+
+   -  pdb
+
+-  其它
+
+   -  编码风格
+
+   -  PEP
+
+   -  exec & eval
+
+..
+
+    
+
+ 
+
+Python的官方文档有以下几个:
+
+-  Tutorial 快速入门
+
+-  Library Reference 标准库手册
+
+-  Language Reference 语言参考
+
+ 
+
+ 
+
+好书：
+
+-  [STRIKEOUT:Python 核心编程]
+
+-  [STRIKEOUT:Effective Python]
+
+-  流畅的Python
+
+-  Python Cookbook
+
+-  Python源码剖析
+
+-  Python机器学习
+
+ 
+
+ 
+
+Google Python Style
+
+2017年8月9日
+
+23:45
+
+ 
+
+Google Python
+的编码风格相对于C++真是简洁太多了，python的简洁性和一致性真是好。
+
+ 
+
+Google Python Style：
+
+-  PEP8：必须符合 PEP8 规范，使用 pylint + yapf
+
+-  编码：使用 Unix \\n 风格的换行 + UTF8 编码 + 4空格缩进
+
+-  长度：折行以确保其不会超过 79
+      个字符，超长的不要用反斜杠连行，而是使用括号连接。
+
+-  空行：顶级定义空2行， 其它情况空1行
+
+-  空格：把空格放到操作符两边，以及逗号后面。不滥用空格。
+
+-  注释：
+
+   -  每个文件包括一个统一的头
+
+   -  可能的话注释独占一行，同行注释至少要在代码后空2个空格。
+
+   -  TODO 注释是个好习惯，但是记得在TODO后写上自己的名字。
+
+   -  规范的注释格式：（Summary -> Detail -> Sections 三步曲）
+
+..
+
+   """Summary
+
+    
+
+   Longer information....
+
+   Detail information....
+
+    
+
+   (Attributes for class; Args, Returns, Raise for function)
+
+   Attributes:
+
+   likes_spam: A boolean indicating if we like SPAM or not.
+
+   eggs: An integer count of the eggs we have laid.
+
+   """
+
+-  命名：
+
+   -  类名用ClassName驼峰式，const常量全大写，其余全小写+下划线。
+
+   -  枚举始终加
+         Enum后缀；异常始终加Exception后缀；mixin始终加Mixin后缀。
+
+-  类：
+
+   -  显式继承自object，可以同时适用python2和python3
+
+   -  单下划线(_)表示protected；双下划线(__)表示private。
+
+-  限制：
+
+   -  使用列表推导式（或生成式推导式）替代 map, reduce, filter。
+
+   -  不要使用那些威力过大的奇技淫巧。
+
+ 
+
+基础语法
+
+Friday, 25 November 2016
+
+16:25
+
+ 
+
+启动解释器：
+
+-  python -c command [arg] … ，这种方法可以在 命令行 执行 Python
+      语句，类似于 shell 中的 -c 选项。
+
+-  python -m module [arg] … ，有一些 Python
+      模块也可以当作脚本使用，这类似在命令行中键入完整的路径名执行 模块
+      源文件一样。
+
+-  python -i file.py
+      运行脚本然后进入交互模式，交互中会保留file.py中的符号。
+
+-  为了减少一个编译模块的大小，你可以在 Python 命令行中使用 -O 或者
+      -OO。-O 参数删除了断言语句，-OO 参数删除了断言语句和 \__doc_\_
+      字符串。
+
+ 
+
+ 
+
+广泛应用的else:
+
+   基础控制语句中 else 不仅仅可以跟 if 一起使用，还可以跟 for, while,
+   try 一同使用：
+
+   while n < 10:
+
+   print(n)
+
+   else:
+
+   print("else", n)
+
+    
+
+   for i in range(5):
+
+   print(i)
+
+   else:
+
+   print("else", i)
+
+    
+
+   try:
+
+   raise Exception("ERROR")
+
+   except Exception as e:
+
+   pass
+
+   else:
+
+   print("Else")
+
+    
+
+    
+
+比较操作可以传递
+
+   例如 a < b == c 审核是否 a 小于 b 并且 b 等于 c。
+
+ 
+
+ 
+
+输出：
+
+   rpr() ： 适合于解释器的字符串表示，一般可以从这个字符串重构对象，即
+   eval(rpr(a)) == a
+
+   str()：
+   合适于人阅读的字符串表示。某对象没有适于人阅读的解释形式的话，str()
+   会返回与 repr() 等同的值。
+
+   str.format()： 'We are the {} who say "{}!"'.format('knights', 'Ni')
+
+ 
+
+ 
+
+switch语句
+
+   python中没有switch语句，取代的方案是使用字典。
+
+   s = {1: call_a(), 2: call_b()}
+
+   s[case]()
+
+    
+
+ 
+
+字符串
+
+2017年8月9日
+
+23:52
+
+ 
+
+字符串类型：
+
+-  普通字符串：使用单引号或双引号包括起来；
+
+-  多行字符串：使用三引号 ''' 或 """ 包括起来；
+
+-  原始字符串： r'my\name' 没有换行，而 'my**\\n**\ ame' 包括一个换行；
+
+-  文档字符串：紧跟在符号定义后面的多行字符串。第一行应该是关于对象用途的简介，并且如果文档字符串有多行，\ **第二行应该空出来**\ ，与接下来的详细描述明确分隔。
+
+ 
+
+ 
+
+字符串操作：
+
+-  相邻的两个字符串文本自动连接在一起： 'Py' 'thon' => 'Python'；
+
+-  字符串切片： s[a:b] 在数学符号上的意义等同于 s[a, b)；
+
+ 
+
+format操作
+
+   "{:.2f}".format(3.1415926) --> 3.14
+
+ 
+
+tuple & list & dict
+
+2014年7月3日
+
+15:43
+
+ 
+
+tuple: ()
+
+list: []
+
+dict: {}
+
+分别对应小括号、中括号、大括号。
+
+ 
+
+tuple 实际上是由逗号来组成的，而不是圆括号，圆括号只是为了书写漂亮。
+
+这就是下面两个奇怪行为的原因：
+
+-  return 1,2,3 返回的是一个元组；
+
+-  单个元素的元组要这么写， a = (1, )
+
+ 
+
+ 
+
+清空list
+
+直接清空一个list的方法是del l[:]，一般偷懒用的l =
+[]在函数内部会是个陷阱，因为函数名的符号指向着这个list，所以它的内存不会被释放。
+
+ 
+
+函数
+
+2017年8月7日
+
+23:28
+
+ 
+
+理解Python中的参数:
+
+   参数的顺序是:
+   **位置参数、任意位置参数、关键字参数、任意关键字参数**\ 。
+
+   所以： **non-keyword arg after keyword arg 是错误语法，会引发
+   SyntaxError**
+
+   且：如果有默认参数，一定出现在相应位置的最后。
+
+    
+
+ 
+
+ 
+
+\*和**在参数中的应用:
+
+   \*和**用在\ **形参**\ 时，是\ **可变参数**\ ：
+
+   问题：
+
+        Python的函数定义中有两种特殊的情况，即出现*，**的形式。
+
+        如：def myfun1(username, \*keys)或def myfun2(username,
+   \**keys)等。
+
+   解释：
+
+     \*
+   用来传递\ **任意个无名字参数**\ ，这些参数会一个Tuple的形式访问。
+
+     **用来处理传递**任意个有名字的参数**\ ，这些参数用dict来访问。
+
+    
+
+   应用：
+
+   #########################
+
+   # “*” 的应用
+
+   #########################
+
+   >>> def fun1(*keys):
+
+   ...     print "keys type=%s" % type(keys)
+
+   ...     print "keys=%s" % str(keys)
+
+   ...     for i in range(0, len(keys)):
+
+   ...             print "keys[" + str(i) + "]=%s" % str(keys[i])
+
+   ...
+
+   >>> fun1(2,3,4,5)
+
+   输出以下结果：
+
+   keys type=
+
+   keys=(2, 3, 4, 5)
+
+   keys[0]=2
+
+   keys[1]=3
+
+   keys[2]=4
+
+   keys[3]=5
+
+   #########################
+
+   # “**” 的应用
+
+   #########################
+
+   >>> def fun2(**keys):
+
+   ...     print "keys type=%s" % type(keys)
+
+   ...     print "keys=%s" % str(keys)
+
+   ...     print "name=%s" % str(keys['name'])
+
+   ...
+
+   >>>
+
+   >>> fun2(name="vp", age=19)
+
+   输出以下结果：
+
+   keys type=
+
+   keys={'age': 19, 'name': 'vp'}
+
+   name=vp
+
+    
+
+   \*和**用在\ **实参**\ 中时，是\ **解包符号**\ ：
+
+   a={'a':1, 'b':3}
+
+   "{a}, {b}".format(**a)
+
+    
+
+ 
+
+ 
+
+ 
+
+函数注解
+
+   是关于用户自定义的函数的完全可选的、随意的元数据信息。无论 Python
+   本身或者标准库中都没有使用函数注解；
+
+   def int_add(x:int, y:int) -> int:
+
+   return x+y
+
+    
+
+ 
+
+默认值只在函数\ **定义**\ 时\ **绑定一次**\ ，这是个很大的坑！
+
+   注意这里的关键词：在定义时绑定、且只绑定一次。
+
+   函数\ **默认参数值只被赋值一次**\ 。这使得当默认值是可变对象时会有所不同，比如列表、字典或者大多数类的实例。这是一个坑！
+
+   def f(a, L=[]):
+
+   L.append(a)
+
+   return L
+
+    
+
+   print(f(1))
+
+   print(f(2))
+
+   print(f(3))
+
+    
+
+   这将输出:
+
+   [1]
+
+   [1, 2]
+
+   [1, 2, 3]
+
+    
+
+   如果你不想让默认值在后续调用中累积，你可以像下面一样定义函数:
+
+   def f(a, L=None):
+
+   if L is None:
+
+   L = []
+
+   L.append(a)
+
+   return L
+
+ 
+
+ 
+
+区分定义时绑定和运行时绑定
+
+   lambda
+   函数中的自由变量是运行时进行绑定的，也就是说python中的闭包的变量是在运行时进行绑定的；
+
+   而函数默认参数是在定义时绑定的；
+
+    
+
+偏函数
+
+   functools.partial()
+   是一个非常好用的偏函数工具，可以固定一些参数从而形成一个新的函数。
+
+ 
+
+迭代器与生成器
+
+2017年8月7日
+
+23:27
+
+ 
+
+迭代器
+======
+
+ 
+
+迭代器协议：
+
+   首先用iter()调用 \__iter__() 。该函数返回一个定义了 \__next__()
+   方法的迭代器对象，用内建的 next() 函数调用 \__next__()
+   方法在容器中逐一访问元素。没有后续的元素时， \__next__() 抛出一个
+   StopIteration 异常。
+
+    
+
+反向迭代
+
+   内建函数 reversed()
+   可以实现反向迭代，但只有在待处理的对象拥有可确定的大小，或者实现了
+   \__reversed()_\_ 特殊方法时，才能奏效。
+
+    
+
+以索引-值对的形式迭代：
+
+   这是非常常见的需求，尤其是从C系转过来的程序员，内建的 enumerate()
+   可以漂亮的解决
+
+   for idx, val in enumerate(my_list):
+
+   print(idx, val)
+
+    
+
+切片操作：
+
+   迭代器和生成器都无法执行普通的切片操作，因为长度是未知的。可以通过
+   itertools.islice() 来曲线实现。
+
+   很符合逻辑的是 itertools.islice()
+   能工作的原理是正常执行了迭代，并丢弃了不需要的元素。
+
+    
+
+   同时， itertools.dropwhile()
+   也是一个方便的函数，它丢弃前面几个不符合要求的元素。
+
+    
+
+itertools 模块：
+
+   如上所述， itertools.islice(), itertools.dropwhile() 都非常有用。
+
+   还有很多其它的有用的功能，如排列 permutations() 组合 combinations()
+   等等，基本上，如果面对任何复杂的\ **迭代问题**\ ，itertools
+   都能找到合理的解决方案。
+
+ 
+
+迭代多个序列：
+
+   很明显用 zip() 来解决，注意 zip() 返回的序列与最短输入序列长度相同。
+
+   itertools.zip_longest()
+   可以替代为返回与最长输入序列长度相同的序列，很明显空缺的元素为None。
+
+    
+
+   如果想序列的对多个容器进行水平迭代，可以使用 itertools.chain()
+   ，非常漂亮。
+
+ 
+
+哨兵迭代：
+
+   内建函数 iter()
+   可以接受一个无参的可调用对象和一个哨兵，它会创建迭代器，重复调用可调用对象直接它返回哨兵为止。这也是一个常见的语法糖。
+
+   for v in iter(lambda: s.receive(), "END")
+
+   print(v)
+
+   一直调用 s.receive() 并输出，直到它返回 END 为止。
+
+ 
+
+    
+
+    
+
+生成器
+======
+
+ 
+
+生成器：
+
+   生成器最核心的就是理解：它不用预先产生完整的迭代对象，从而节省内存。
+
+   它的工作原理是在每次yield时，把当前的运行堆栈保存起来，在下次迭代中再恢复这个堆栈。
+
+    
+
+   生成器常用函数直接实现，但是生成器也可以轻易的实现为一个类，把生成器函数的代码放到
+   \__iter__() 方法中即可。
+
+    
+
+yield from 语法糖：
+
+   yield from x 可以视为下面的展开
+
+   for v in x:
+
+   yield v
+
+   用 yield from 明显更紧凑更清晰。
+
+    
+
+ 
+
+ 
+
+异常
+
+2017年8月7日
+
+23:29
+
+ 
+
+基础异常语法：
+
+   try:
+
+   f = open('abc.csv')
+
+   raise Exception("ERROR")
+
+   except Exception as e:
+
+   print(e)
+
+   **else**:
+
+   print("no exception")
+
+   f.close()
+
+   finally:
+
+   print("executing finally clause")
+
+    
+
+    
+
+with 语句：
+
+   with
+   用在提供了预定义清理行为的对象上，逻辑上可以理解为try...finally的简写。
+
+    
+
+   **with** open("myfile.txt") **as** f:
+
+   for line in f:
+
+   print(line)
+
+    
+
+ 
+
+库目录查找
+
+2016年7月7日
+
+18:38
+
+ 
+
+python模块导入时按优先级高低的搜索路径如下：
+
+1. 程序主目录，执行程序则包含执行代码文件的目录，如：python
+      sub/a.py，交互模式(如输入python)下为当前工作目录
+
+2. PYTHONPATH中的目录
+
+3. python安装目录,UNIX下，默认路径一般为/usr/local/lib/python3.5/site-packages
+
+4. 3.x 中还会加载 site-packages 目录下的
+      \*.pth 文件内容，这个文件一行一个目录。
+
+ 
+
+这4项，共同构成了sys.path。模块存储路径在sys.path 里面就可以import。
+由于搜索路径有先后顺序，所以前面同名的模块容易“挡住”后面的模块。程序运行期间，sys.path
+中还可以动态修改。
+
+ 
+
+各种修改sys.path的方法区别在于：
+
+-  动态修改sys.path列表：动态添加，灵活但是每一个脚本都需要把sys.path加上；
+
+-  site-packages & \*.pth
+      ：为\ **某一个版本**\ 的python固定添加上搜索目录；
+
+-  PYTHONPATH：跨\ **所有版本**\ 都会添加；
+
+ 
+
+ 
+
+ 
+
+Python中有各种模块的目录，大致可以这么理解
+
+-  标准库一般直接会在：/usr/lib/pythonX.Y/
+
+-  使用系统软件管理器安装的包会在：/usr/lib/pythonX.Y/site-packages/  
+
+-  使用easy_install或pip安装的包会在：/usr/local/lib/pythonX.Y/site-packages/  
+
+-  非root使用安装的包会在：~/.local/lib/pythonX.Y/site-packages/ 
+
+-  为什么会有dist-packages：
+
+   -  在Debian系列的Linux上，系统软件管理器安装的包在 dist-packages
+         而不是采用 site-packages 目录。这是为了减少系统自带python 和
+         你手动安装的python 之间的冲突，只是一种命名技巧。
+
+ 
+
+其实最关键的是知道：模块的安装路径一定要在 sys.path
+这个List中，才能在脚本中可以正常地 import 进来。
+
+ 
+
+包和模块
+
+Friday, 18 November 2016
+
+10:06
+
+ 
+
+from mypackage import \*
+
+   导入的是 \__init__.py 中的 \__ALL_\_ 变量里指出的所有符号。如果没有
+   \__ALL_\_ 变量，则默认导入所有\ **不以下划线开头的符号**
+
+    
+
+import mypackage
+
+   导入 mypackage 目录下的
+   \__init__.py，\ **所谓的导入就是把这个文件执行一遍**\ 。所以，在这个文件中显式引入的符号也会被放到
+   mypackage 命名空间下。
+
+   示例：
+
+   mypackage/__init__.py
+
+   from extend_package import extend_name # 导入了外部符号
+
+   | 在其它文件中就可以访问到这个符号：
+   | import mypackage
+
+   print(mypackage.extend_name) #可以通过 mypackage 访问这个外部符号了
+
+    
+
+import a/b/c
+
+   会依次执行 a/__init.py, a/b/__init__.py, a/b/c/__init__.py
+
+    
+
+import中的 . 和 .. 语法
+
+   from . import a ：从当前目录查找 a
+
+   from ..a import b ：从../a 目录查找 b
+
+ 
+
+命名空间包
+
+   一种特殊的包，设计出来在\ **大型项目中合并不同目录下的代码**\ ，并合并在统一的命名空间之下。
+
+   关键之处在于统一的命名空间的顶层目录中不包含 \__init__.py
+   文件。导入这样的包时，解析器会创建一个列表，并把所有恰好包含在这个包名的目录（通过sys.path来控制）都囊括在内。
+
+    
+
+用 python 执行目录或 zip 文件
+
+   1：python mydir 时，实际上执行的是 python mydir/__main__.py
+
+   2：zip文件可以视为一个目录来处理
+
+    
+
+sys.path
+
+   通过 PYTHONPATH 环境变量和 .pth 文件影响 sys.path
+
+   .pth文件需放在某一个 site-packages 目录中，site-packages
+   目录通常是第三方模块和包的安装目录
+
+   一般有一个用户级的安装目录，一般在 .local/lib/python3.5/site-packages
+
+    
+
+通过字符串加载
+
+   当包名或模块包是通过字符串给出时，可以使用
+   importlib.import_module()函数来手动导入这个模块
+
+    
+
+import 钩子机制
+
+   import 有强大的钩子机制，可以细致的自定义 import
+   时的各种行为。比如实现自动从远程加载，加载时自动打补丁等等。
+
+    
+
+发布包
+
+   使用标准库的 distutils 库来创建可发布的包非常简单，一般只需要
+   setup.py 和 MANIFEST.in 文件即可。
+
+   发布涉及到 C 语言扩展的包时，就会比较复杂了，因为要编译C代码。
+
+    
+
+    
+
+模块也可以包含可执行语句。这些语句一般用来初始化模块。他们仅在
+**第一次** 被导入的地方执行\ **一次**\ 。
+
+ 
+
+ 
+
+包内引用
+
+   如果包中使用了子包结构，可以按绝对位置从相邻的包中引入子模块。例如，如果
+   sound.filters.vocoder 包需要使用 sound.effects 包中的 echo
+   模块，它可以 from sound.Effects import echo。
+
+    
+
+   你可以用这样的形式 from module import name
+   来写显式的相对位置导入。那些显式相对导入用点号标明关联导入当前和上级包。以
+   surround 模块为例，你可以这样用:
+
+    
+
+   from . import echo
+
+   from .. import formats
+
+   from ..filters import equalizer
+
+   需要注意的是显式或隐式相对位置导入都基于当前模块的命名。因为主模块的名字总是
+   "__main__"，Python 应用程序的主模块应该总是用绝对导入。
+
+ 
+
+ 
+
+ 
+
+site-packages目录下四种包的形式:
+
+-  | 1.
+      | site-packages/pylab.py
+      | 这种是最好理解的, 因为单个.py文件就可以作为module被引用.
+
+-  | 2.
+      | site-packages/toolz
+      | site-packages/toolz-0.8.0-py2.7.egg-info
+      | 这种包有两个目录, 一个目录以包名命名, 因为含有__init__.py的目录,
+        可以作为module被引用.
+      | 另一个egg-info目录是一些metadata, 没什么大用,
+        有些包也没有这个目录.
+
+-  | 3.
+      | site-packages/fasttext-0.7.6-py2.7-Linux-x86_64.egg
+      | 单独一个.egg文件. 这种包是把模块都打进了一个egg压缩包里.
+        这个压缩包可以视为一个目录,
+        模块文件在这里: site-packages/fasttext-0.7.6-py2.7-linux-x86_64.egg/fasttext
+
+-  | 4.
+      | site-packages/titlectr-0.1-py2.7.egg
+      | 虽然文件名跟3相同, 但是这是一个目录, 可以视为是3解压后的样子.
+        模块文件在这个目录里: site-packages/titlectr
+
+      我们知道, site-packages是在模块搜索的path(sys.path)里的,
+所以1和2这两种存放包的方式, 可以直接被搜索到, 可以直接import,
+但是3和4这两种方式, 包是在子目录中, 所以无法直接import. 于是安装的时候,
+安装工具会将.egg目录加入到path中(.pth文件).
+比如将site-packages/fasttext-0.7.6-py2.7-linux-x86_64.egg和site-packages/titlectr-0.1-py2.7.egg写入到site-packages/easy_install.pth中.
+也可以写在其他的site-packages/*.pth中,
+比如给每个package单独建一个.pth文件.
+
+ 
+
+ 
+
+Python有两个setup工具, 一个是setuptools(from setuptools import setup),
+另一个是distutil(from distutil import setup).
+
+-  setuptools安装的包, 会形如3和4的样子. 这个工具有完善的打egg包的功能,
+      也倾向于把模块的功能部分和metadata打成一个整体(egg), 方便管理.
+      使用python setup.py bdist_egg命令, 可以将module打成egg包,
+      方便部署.
+
+-  distutil会直接把源码包复制到site-pacakages下，
+      并创建一个和模块并列的metadata.
+      如果package中有个大文件比如字典(当然很不推荐将大字典封装作为package的一部分,
+      一般外挂), 使用setuptools, 会耗费极大的时间在打包egg上,
+      而distutil可以直接拷贝安装.
+
+-  除此之外, wheel是一种新的格式. 更类似于java的jar包. python setup.py
+      bdist_wheel可以打包成wheel包.
+
+ 
+
+ 
+
+ 
+
+源码、Eggs、Wheel 三种常见的 python 包格式
+
+   源码包就不用说了，tar.gz
+   或类似的压缩包，安装的时候直接copy到site-packages目录下就行
+
+    
+
+   Eggs，由setuptools引入的一种文件格式，setuptools可以创建，识别，解析并安装这种格式。本质就是一种压缩包，有句话“Eggs
+   are to Pythons as Jars are to Java”，跟Java中的Jar包一样。
+
+    
+
+   Wheel
+   本质是一个zip包，只是使用了whl扩展名。是一种比egg更新更好的打包格式，它的出现就是为了替代Eggs的。可以理解为一种更好的Jar包。
+
+ 
+
+修饰器
+
+Saturday, 29 October 2016
+
+11:15
+
+ 
+
+首先，最基本的一点，修饰器是修饰函数的！
+
+NO，类也是可以用修饰器的！
+
+ 
+
+ 
+
+ 
+
+我觉得，关于python的函数修饰器，最关键的在于理解以下两点：
+
+1：
+
+   **def** decorator(func):
+
+   **def** inner(*args,**kwargs):
+
+   **print "Before"**\ +func.__name_\_
+
+   func(*args,**kwargs)
+
+   **print "After"**\ +func.__name_\_
+
+   **return** inner
+
+   @decorator
+
+   **def** f(a, b, c):
+
+   pass
+
+   意味着 **f = decorator(f)**\ ，f
+   这个\ **标识符**\ 实际上指向了一个另外的函数（decorator的内部函数inner），直接print
+   f.__name__就可以看出来。
+
+   所以说，函数修饰器的本质就是“\ **标识符的替换**\ ”！这种标识符的替换并不仅限于函数修饰，甚至可以近似理解为是“\ **C语言中的宏替换**\ ”。
+
+   理解了 f 这个标识符被替换了之后，就明白
+   a,b,c参数会被传递到哪里了，肯定是inner啊，因为
+   f这个标识符被替换为了inner，视为 f(a,b,c)===inner(a,b,c)。
+
+    
+
+2：
+
+   **def** with_arg_decorator(**desc_kwargs):
+
+   **def** real_decorator(func):
+
+   **def** inner(*args,**kwargs):
+
+   **print "%scall%sbegin"**\ %(desc_kwargs[**'caller'**],func.__name__)
+
+   func(*args,**kwargs)
+
+   **print "%scall%send"**\ %(desc_kwargs[**'caller'**],func.__name__)
+
+   **return** inner
+
+   **return** real_decorator
+
+    
+
+   | @with_arg_decorator(caller=\ **"TCQ"**)
+   | **def** f2():
+   | pass
+
+   | 带参数的修饰器关键在于理解这里实际上这已经发生了一次函数调用,因为已经有了一个\ **()，即每个()意味着一次函数调用**\ 。
+   | with_arg_decorator(caller=\ **"TCQ"**)返回了real_decorator,real_decorator就已经是一个无参数的普通修饰器了。再使用
+     @real_decorator应用到f2上。知道内部机制就彻底明白了！
+
+    
+
+ 
+
+ 
+
+函数式编程
+
+2017年4月14日 星期五
+
+10:53
+
+ 
+
+函数式的风格通常被认为有如下优点：
+
+-  逻辑可证 
+
+-  模块化 
+
+-  组件化 
+
+-  易于调试 
+
+-  易于测试 
+
+-  更高的生产率 
+
+ 
+
+支持函数式编程的语言通常具有如下特征，大量使用这些特征的代码即可被认为是函数式的：
+
+-  函数是一等公民 
+
+-  匿名函数(lambda) ；
+
+-  封装控制结构的内置模板函数 （如map, reduce, zip, filter等等）；
+
+-  闭包(closure) ；
+
+-  内置的不可变数据结构 （如tuple）；
+
+-  递归 ；
+
+ 
+
+ 
+
+常用的函数式内建函数：
+
+-  map(function, iterable, ...) ：为每一次迭代应用一个函数
+
+-  reduce(function, iterable[,
+      initializer]) ：归约，将所有的迭代归约为一个最终的结果
+
+-  filter(function, iterable) ：过滤
+
+-  zip(iterable1, iterable2,
+      ...)：打包。返回一个列表，每个元素都是一个元组
+
+-  sorted(iterable, function)：排序
+
+ 
+
+ 
+
+ 
+
+列表解析与函数式编程
+--------------------
+
+列表解析可以替代绝大多数需要用到map和filter的场合，可能正因为此，著名的静态检查工具pylint将map和filter的使用列为了警告。
+
+[ x+1 for x in lst if x > 0] 这基本能全部替代map和filter的。
+
+ 
+
+而且，“生成器表达式”还能更好的迭代巨大的数组，更好的利用内存：
+
+   (x+1 for x in lst)
+   #生成器表达式，返回迭代器。外部的括号可在用于参数时省略。
+
+   [x+1 for x in lst] #列表解析，返回list
+
+ 
+
+ 
+
+当包含2个以上的推导时，会从左到右来解析，这与直觉是相反的：
+
+   [x for row in matrix for x in row] # 这是正确写法
+
+   [STRIKEOUT:[x for x in row for row in matrix] #
+   这是我的直觉写法，但是是错的！]
+
+ 
+
+ 
+
+其它：
+
+-  使用 functools.partial() 来方便的创建偏函数，如
+      functools.partial(int, base=2) 创建一个二进制转换的偏函数。
+
+-  sorted() 也是函数式编程中常用的辅助函数。
+
+-  pypi上有一个名为functional的模块，除了这些内建函数外，还额外提供了更多的有意思的函数。
+
+ 
+
+ 
+
+python2中的闭包缺陷与py3中的nolocal关键字
+-----------------------------------------
+
+py2中的闭包无法修改外部变量，只能读取外部变量，这是python2的一个硬伤。任何试图修改外部变量都将声明一个新的同名内部变量，并覆盖相应的外部变量。
+
+def counter():
+
+   num = 0
+
+   def add_one():
+
+   num += 1
+
+   print(num)
+
+   return add_one
+
+ 
+
+con = counter()
+
+con()
+
+这段代码在2.x中运行会报错: UnboundLocalError: local variable ‘num’
+referenced before assignment.
+
+ 
+
+python2中要修改外部变量只能使用global来引用全局变量，这当然是很不好的风格。当然还有一些Trick，比如使用容器对象，但是这样代码可读性低，不友好。
+
+ 
+
+所以，在python3中引入了nolocal关键字来引用外部变量，解决了这个问题。至此，python3中的闭包才是完备的了！
+
+def counter():
+
+   num = 0
+
+   def add_one():
+
+   nonlocal num
+
+   num += 1
+
+   print(num)
+
+   return add_one
+
+ 
+
+con = counter()
+
+con()
+
+完全正常运行！
+
+ 
+
+ 
+
+ 
+
+一个有趣的库：pipe
+------------------
+
+pipe展示了一种很有新意的使用迭代器和生成器的方式：流。
+
+pipe将可迭代的数据看成是流，类似于linux，pipe使用 '|'
+传递数据流，并且定义了一系列的“流处理”函数用于接受并处理数据流，并最终再次输出数据流或者是将数据流归纳得到一个结果。
+
+   >>> from pipe import \*
+
+   >>> range(5) \| add
+
+   10
+
+   >>> range(5) \| where(lambda x: x % 2 == 0) \| add
+
+   6
+
+pipe中还包括了更多的流处理函数。你甚至可以自己定义流处理函数，只需要定义一个生成器函数并加上修饰器Pipe。如下定义了一个获取元素直到索引不符合条件的流处理函数：
+
+   >>> @Pipe
+
+   ... def take_while_idx(iterable, predicate):
+
+   ...   for idx, x in enumerate(iterable):
+
+   ...     if predicate(idx): yield x
+
+   ...     else: return
+
+    
+
+ 
+
+ 
+
+ 
+
+ 
+
+调试与测试
+
+2019年11月1日 星期五
+
+10:41
+
+ 
+
+快速的调试有几种方法：
+
+1. print 大法当然是最基本的。
+
+2. 使用 -i 参数进行交互式调试， python -i a.py
+      时，如果发生异常，那么就会在异常处中断并进入交互模式，这时可以查看一下当前的各种变量。
+
+3. 使用 pdb 进行交互式调试，在需要断点的行写下 import pdb;
+      pdb.set_trace()。这便会在这点停下，并可以使用一些高级命令查看当前变量。
+
+   a. bt 打印堆栈
+
+   b. up 向上移一层，查看更高级次的函数的变量值
+
+   c. down 向下移一层
+
+   d. step 步进，会进入函数
+
+   e. next 步进，不会进入函数，把函数当成一行
+
+   f. return 继续运行到return语句
+
+   g. continue 继续运行到下一个断点
+
+ 
+
+ 
+
+类与面向对象
+
+2017年8月7日
+
+23:20
+
+ 
+
+Python 的类机制通过最小的新语法和语义在语言中实现了类。它是 C++ 或者
+Modula-3 语言中类机制的混合。
+
+ 
+
+用 C++ 术语来讲，所有的类成员（包括数据成员）都是公有（ public
+）的（其它情况见下文 私有变量），所有的成员函数都是虚（ virtual ）的。
+
+ 
+
+命名空间
+
+   从命名到对象的映射。当前命名空间主要是通过 Python
+   字典实现的，不过通常不关心具体的实现方式（除非出于性能考虑），以后也有可能会改变其实现方式。
+
+ 
+
+nolocal & global
+
+   如果一个命名声明为全局的，那么对它的所有引用和赋值会直接搜索包含这个模块全局命名的作用域。如果要重新绑定最里层作用域之外的变量，可以使用
+   nonlocal 语句；如果不声明为
+   nonlocal，这些变量将是\ **只读的**\ （对这样的变量赋值会在最里面的作用域创建一个新的局部变量，外部具有相同命名的那个变量不会改变）。
+
+    
+
+   global 语句用以指明某个特定的变量为全局作用域，并重新绑定它。
+
+   nonlocal 语句用以指明某个特定的变量为封闭作用域，并重新绑定它。
+
+    
+
+    
+
+\__new_\_ () & \__init__()
+
+   \__new__() 一般生成一个没有初始状态的对象
+
+   \__init__() 一般生成一个带初始状态的对象
+
+    
+
+\__str__() & \__repr__() & \__format__()
+
+   \__str__()返回的是“字符串表示”；
+
+   \__repr__()返回的是“代码表示”，即： eval(repr(obj)) == obj；
+
+   \__format__()是留给 " xxx {:abc}".format(d) 的钩子；
+
+    
+
+    
+
+方法的工作原理
+
+   x.f(...) 相当于 MyClass.f(x, ...)
+
+    
+
+   引用非数据属性的实例属性时，会搜索它的类。如果这个命名确认为一个有效的函数对象类属性，就会将实例对象和函数对象封装进一个抽象对象：这就是方法对象。以一个参数列表调用方法对象时，它被重新拆封，用实例对象和原始的参数列表构造一个新的参数列表，然后函数对象调用这个新的参数列表。
+
+    
+
+   下面这段很长的话，就是对上面那个简短语句转换的描述。
+
+    
+
+ 
+
+命名约定：
+
+   大写方法名称的首字母
+
+   使用一个唯一的小字符串（也许只是一个下划线）作为数据属性名称的前缀
+
+   方法使用动词而数据属性使用名词。
+
+    
+
+    
+
+Python 有两个用于继承的函数：
+
+-  函数 isinstance() 用于检查实例类型： isinstance(obj, int) 只有在
+      obj.__class_\_ 是 int 或其它从 int 继承的类型
+
+-  函数 issubclass() 用于检查类继承： issubclass(bool, int) 为
+      True，因为 bool 是 int 的子类。然而， issubclass(float, int) 为
+      False，因为 float 不是 int 的子类。
+
+ 
+
+ 
+
+私有变量
+
+   以一个下划线开头的命名（例如 \_spam ）会被处理为 API
+   的非公开部分（无论它是一个函数、方法或数据成员）。它会被视为一个实现细节，无需公开。
+
+    
+
+   前面至少两个下划线，后面至多一个下划线（形如 \__spam
+   ）的标识符，会应用name mangling （命名编码）替代为 \_classname__spam
+   。
+
+    
+
+   一个下划线类型于protected，二个下划线类似于private。
+
+    
+
+   二个下划线的 name mangling
+   也不能绝对私有变量，实际上他是为了避免子类无意中覆盖掉父类中的符号。
+
+ 
+
+新式类与旧式类
+
+2016年9月23日 星期五
+
+17:49
+
+ 
+
+在2.x中才有新式类与旧式类，在3.x中只有新式类。
+
+**Python 2.x中默认都是经典类，只有显式继承了object才是新式类**
+
+**Python 3.x中默认都是新式类，不必显式的继承object**
+
+ 
+
+ 
+
+新式类与经典类的差别并不大，所以在实际中很可能感觉不到差别。它们的区别在于：
+
+1. 首先，写法不一样：
+
+..
+
+   | **class A**:
+   | **pass**
+
+   | **class B**\ (object):
+   | **pass**
+
+1. 在多继承中搜索MRO时，新式类采用广度优先搜索，而旧式类是采用深度优先搜索。
+
+2. 新式类更符合OOP编程思想，统一了python中的类型机制（不再区别类和类型）。
+
+1. 新式类对象可以直接通过__class__属性获取自身类型:type
+
+2. | 新式类增加了__slots__内置属性,
+        可以把实例属性的种类锁定到__slots__规定的范围之中。
+      | class A(object):
+
+..
+
+   \__slots_\_ = ('name', 'age')
+
+    
+
+   a = A()
+
+   a.name1 = "a"
+
+    
+
+   AttributeError: 'A' object has no attribute 'name1'
+
+    
+
+   经典类__slots_\_ 属性没用，A是新式类添加了__slots_\_
+   属性,所以只允许添加 name age，所以a.name是会出错的
+
+1. 新式类增加了__getattribute__方法，每次通过实例访问属性，都会经过__getattribute__函数。
+
+ 
+
+**类的各种属性和方法的使用与区别**
+
+2016年5月7日 星期六
+
+11:32
+
+ 
+
+代码示例：
+
+**class**\ A(object):
+
+   instance_and_class_prop=1
+
+   class_prop=1
+
+    
+
+   \_private_instance_prop1=2\ *#君子协议,只是告诉别人这是私有属性，外部依然可以访问更改*
+
+   \__private_instance_prop2=3\ *#稍微混淆了一下,外部不可通过instancename.propertyname来访问或者更改,实际将其转化为了_classname__propertyname*
+
+    
+
+   **def** \__init__(self):
+
+   self.instance_and_class_prop=100
+
+   self.instance_prop=101
+
+    
+
+   **def** foo(self,x):
+
+   *#类实例方法*
+
+   **print "executingfoo(%s,%s)"**\ %(self,x)
+
+    
+
+   @classmethod
+
+   **def** class_foo(cls,x):
+
+   *#类方法*
+
+   **print "executingclass_foo(%s,%s)"**\ %(cls,x)
+
+    
+
+   @staticmethod
+
+   **def** static_foo(x):
+
+   *#静态方法*
+
+   **print "executingstatic_foo(%s)"**\ %x
+
+ 
+
+ 
+
+a=A()
+
+ 
+
+**print**
+a.instance_and_class_prop\ *#instance.propname优先选择实例属性*
+
+**print** A.instance_and_class_prop\ *#classname.propname始终指向类属性*
+
+ 
+
+**print** a.class_prop\ *#instance.propname找不到实例属性时就指向类属性*
+
+**print** A.class_prop\ *#classname.propname始终指向类属性*
+
+ 
+
+**print** a.instance_prop\ *#instance.propname优先选择实例属性*
+
+**try**:
+
+   **print**
+   A.instance_prop\ *#classname.propname始终指向类属性,无法找到实例属性,抛出AttrbuteError异常*
+
+**except** AttributeError:
+
+   **pass**
+
+ 
+
+**print** A._private_instance_prop1\ *#一般不要像这样打破君子协议*
+
+**print** A._A__private_instance_prop2\ *#强制访问,更不好了*
+
+ 
+
+a.foo(1)\ *#print:executingfoo(<__main__.Aobjectat0xb77d67ec>,1)*
+
+ 
+
+a.class_foo(1)\ *#executingclass_foo(<class'__main__.A'>,1)*
+
+A.class_foo(1)\ *#executingclass_foo(<class'__main__.A'>,1)*
+
+ 
+
+a.static_foo(1)\ *#executingstatic_foo(1)*
+
+A.static_foo(1)\ *#executingstatic_foo(1)*
+
+ 
+
+ 
+
+实例属性、类属性、私有属性 的区别：
+
+1：实例属性：
+
+   最好在__init__(self,...)中初始化
+
+   内部调用时都需要加上self.
+
+   外部调用时用instancename.propertyname
+
+2:类属性：
+
+   在__init__()外初始化
+
+   在内部用classname.类属性名调用
+
+   外部既可以用classname.类属性名又可以用instancename.类属性名来调用
+
+3：私有属性：
+
+   1）：单下划线_开头：只是告诉别人这是私有属性，外部依然可以访问更改
+
+   2）：双下划线__开头：外部不可通过instancename.propertyname来访问或者更改，实际将其转化为了_classname__propertyname
+
+    
+
+**实例方法、类方法、静态方法 的区别： **
+
+-  类方法和静态方法都可以被类和类实例调用，类实例方法仅可以被类实例调用
+
+   -  因此，类方法可以实现类级别的多态，就是因为他有个cls参数可以区分当前不同的类，从而实现类级别的多态。
+
+   -  静态方法没有cls参数，无法做到类级别的多态。
+
+-  类方法的隐含调用参数是类，而类实例方法的隐含调用参数是类的实例，静态方法没有隐含调用参数。
+
+-  类方法和静态方法在低版本的python中都是用外部函数来实现的，引入了这2个函数修饰器后让所有与类相关的代码都集中到了类的内部，形式上更漂亮了而已。
+
+ 
+
+初始化
+
+2017年8月7日
+
+23:24
+
+ 
+
+super() & MRO
+
+2017年8月7日
+
+23:20
+
+ 
+
+\__MRO_\_ 定义了多重继承，菱形继承时类之间的顺序，通过 super()
+来调用可以确保每个祖先类只被调用一次。
+
+ 
+
+python 2.2 开始，就已经提供了 super()
+函数，只是在python3中可以不带参数的调用 super()了。
+
+   super(MyClass, self).__init__() # python 2.2+
+
+   super().__init__() # python 3+，默认参数是 super(__class__,
+   self).__init__()
+
+    
+
+ 
+
+ 
+
+ 
+
+property
+
+2017年8月7日
+
+23:24
+
+ 
+
+通过 @prperty 修饰符实现。
+
+ 
+
+class MyClass(object):
+
+   def \__init__(self):
+
+   self.v = 0
+
+    
+
+   @property
+
+   def value(self):
+
+   return self.v
+
+    
+
+   @value.setter
+
+   def value(self, v):
+
+   if 0 <= v <= 100:
+
+   self.v = v
+
+    
+
+m = MyClass()
+
+m.value = 99
+
+print(m.value)
+
+ 
+
+Mixin
+
+2017年8月7日
+
+23:17
+
+ 
+
+Mixin 是不是可以视为C++中的抽象类？
+
+Mixin与interface最大的区别在于它是包括实现的，而interface仅仅包含声明。
+
+Mixin强调的是 I Can，而interface强调的是 I Am。
+
+ 
+
+ 
+
+使用Mixin类实现多重继承要非常小心
+
+-  首先它必须表示某一种功能，而不是某个物品，如同Java中的Runnable，Callable等
+
+-  其次它必须责任单一，如果有多个功能，那就写多个Mixin类
+
+-  然后，\ **它不依赖于子类的实现**
+
+-  最后，子类即便没有继承这个Mixin类，也照样可以工作，就是缺少了某个功能。（比如飞机照样可以载客，就是不能飞了^_^）
+
+ 
+
+ 
+
+描述符
+
+2017年8月7日
+
+23:17
+
+ 
+
+class Grade(object):
+
+   def \__get__(*args, \**kwargs):
+
+   pass
+
+    
+
+   def \__set__(*args, \**kwargs):
+
+   pass
+
+    
+
+class Exam(object):
+
+   math_grade = Grade()
+
+   writing_grade = Grade()
+
+    
+
+    
+
+原理：
+
+   在为访问属性时，python会对代码进行转译：
+
+   exam = Exam()
+
+   exam.math_grade = 40
+
+   print(exam.math_grade)
+
+   会转译成：
+
+   Exam.__dict__['math_grade'].__set__(exam, 40)
+
+   print(Exam.__dict__['math_grade'].__get__(exam, Exam)
+
+    
+
+   背后的逻辑是：
+
+   如果 Exam 的实例 exam
+   没有定义math_grade属性，那么就会在Exam类中查找同名的类属性。这个类属性，如果是实现了__get__,
+   \__set__的对象，那么python解析器就会认定此对象尊从描述符协议。
+
+ 
+
+ 
+
+元编程
+
+2017年9月24日 星期日
+
+20:34
+
+ 
+
+元类 Metaclass
+
+2017年8月7日
+
+23:22
+
+ 
+
+https://lotabout.me/2018/Understanding-Python-MetaClass/
+这篇文章讲的非常清楚，一看就懂。
+
+ 
+
+ 
+
+知道了《类也是对象，3的类型是int，int的类型是type》 和
+《Python类的创建过程》之后，就彻底明白了元类，再也不神秘了。
+
+ 
+
+ 
+
+ 
+
+首先明白几个基本概念：
+
+   |Python type@bj) type(IO) #> int #> list type({'a': #> dict class
+   DoNothing: pass x = DoNothing() type(x) —main_. DoNothing type(int),
+   type(list), type(dict) #> (type, type, type) type(DoNothing) #> type
+   type(type) type type type Python|
+
+    
+
+   对象的类型叫作类(class)，\ **类的类型就称作元类 meta-class**\ 。也就是说，继承自type的类就叫元类。
+
+ 
+
+再清楚类的创建过程：
+
+   所有的类都是通过 type(name, bases, dict) 函数来创建的！
+
+   class Base:
+
+   counter = 10
+
+    
+
+   class Derived(Base):
+
+   def get_counter(self):
+
+   return self.counter
+
+    
+
+   x = Derived()
+
+   x.get_counter()
+
+   #> 10
+
+   我们可以调用 type(...) 来动态创建这两个类，完全等价：
+
+   Base = type('Base', (), {'counter': 10})
+
+   Derived = type('Derived', (Base,), dict(get_counter=lambda self:
+   self.counter))
+
+    
+
+   x = Derived()
+
+   x.get_counter()
+
+   #> 10
+
+    
+
+   原理就是：Python 在遇到 class
+   ... 关键字时会一步步解析类的内容，最终调用 type(...) （准确说是指定的元类）的构造函数来创建类。
+
+ 
+
+   |image1|
+
+    
+
+ 
+
+元类的常见的三个应用：
+
+-  验证子类。比如强制子类实现某个方法，在创建时就报错，而不是运行进报错。
+
+-  注册子类。可以知道哪些类继承了当前类。
+
+-  注解类的属性。
+
+ 
+
+ 
+
+库
+
+Friday, 18 November 2016
+
+10:30
+
+ 
+
+urlencode与urldecode
+
+2014年5月19日
+
+17:12
+
+ 
+
+ 
+
+python中的urlencode与urldecode
+
+撰写于 2012-07-11 分类: \ `python <http://luchanghong.com/category.html#python>`__ 标签: `python <http://luchanghong.com/tags.html#python>`__ `urlencode <http://luchanghong.com/tags.html#urlencode>`__ `urldecode <http://luchanghong.com/tags.html#urldecode>`__  
+             
+
+**概要：python 通过 HTTP 交互处理数据的时候，url
+里面的中文以及特殊字符要做处理的，来学习一下 urlencode 与 urldecode
+之间相互转换的方法。**
+
+                  
+
+当url地址含有中文，或者参数有中文的时候，这个算是很正常了，但是把这样的url作为参数传递的时候（最常见的callback），需要把一些中文甚至'/'做一下编码转换。
+
+一、urlencode
+
+urllib库里面有个urlencode函数，可以把key-value这样的键值对转换成我们想要的格式，返回的是a=1&b=2这样的字符串，比如：
+
+| >>> from urllib import urlencode
+| >>> data = {... 'a': 'test',... 'name': '魔兽'... }
+| >>> print urlencode(data)
+| a=test&amp;name=%C4%A7%CA%DE
+
+如果只想对一个字符串进行urlencode转换，怎么办？urllib提供另外一个函数：quote()
+
+| >>> from urllib import quote
+| >>> quote('魔兽')'
+| %C4%A7%CA%DE'
+
+二、urldecode
+
+当urlencode之后的字符串传递过来之后，接受完毕就要解码了——urldecode。urllib提供了unquote()这个函数，可没有urldecode()！
+
+| >>> from urllib import unquote
+| >>> unquote('%C4%A7%CA%DE')'\xc4\xa7\xca\xde'
+| >>> print unquote('%C4%A7%CA%DE')
+| 魔兽
+
+三、讨论
+
+在做urldecode的时候，看unquote()这个函数的输出，是对应中文在gbk下的编码，在对比一下quote()的结果不难发现，所谓的urlencode就是把字符串转车gbk编码，然后把\x替换成%。如果你的终端是utf8编码的，那么要把结果再转成utf8输出，否则就乱码。
+
+可以根据实际情况，自定义或者重写urlencode()、urldecode()等函数。
+
+ 
+
+*来自
+<*\ http://luchanghong.com/python/2012/07/11/python-urlencode-and-urldecode.html\ *>*
+
+ 
+
+ 
+
+正则表达式
+
+2017年8月10日
+
+9:41
+
+ 
+
+**时间日期处理小结**
+
+2016年4月8日 星期五
+
+17:44
+
+ 
+
+-  `Python-基础-时间日期处理小结 <http://www.wklken.me/posts/2015/03/03/python-base-datetime.html>`__
+
+-  `涉及对象 <http://www.wklken.me/posts/2015/03/03/python-base-datetime.html#_1>`__
+
+-  `1.
+      datetime <http://www.wklken.me/posts/2015/03/03/python-base-datetime.html#1-datetime>`__
+
+-  `2.
+      timestamp <http://www.wklken.me/posts/2015/03/03/python-base-datetime.html#2-timestamp>`__
+
+-  `3. time
+      tuple <http://www.wklken.me/posts/2015/03/03/python-base-datetime.html#3-time-tuple>`__
+
+-  `4.
+      string <http://www.wklken.me/posts/2015/03/03/python-base-datetime.html#4-string>`__
+
+-  `5.
+      date <http://www.wklken.me/posts/2015/03/03/python-base-datetime.html#5-date>`__
+
+-  `datetime基本操作 <http://www.wklken.me/posts/2015/03/03/python-base-datetime.html#datetime_1>`__
+
+-  `1.
+      获取当前datetime <http://www.wklken.me/posts/2015/03/03/python-base-datetime.html#1-datetime_1>`__
+
+-  `2.
+      获取当天date <http://www.wklken.me/posts/2015/03/03/python-base-datetime.html#2-date>`__
+
+-  `3.
+      获取明天/前N天 <http://www.wklken.me/posts/2015/03/03/python-base-datetime.html#3-n>`__
+
+-  `4. 获取当天开始和结束时间(00:00:00
+      23:59:59) <http://www.wklken.me/posts/2015/03/03/python-base-datetime.html#4-000000-235959>`__
+
+-  `5.
+      获取两个datetime的时间差 <http://www.wklken.me/posts/2015/03/03/python-base-datetime.html#5-datetime>`__
+
+-  `6.
+      获取本周/本月/上月最后一天 <http://www.wklken.me/posts/2015/03/03/python-base-datetime.html#6>`__
+
+-  `关系转换 <http://www.wklken.me/posts/2015/03/03/python-base-datetime.html#_3>`__
+
+-  `关系转换例子 <http://www.wklken.me/posts/2015/03/03/python-base-datetime.html#_4>`__
+
+-  `datetime <=>
+      string <http://www.wklken.me/posts/2015/03/03/python-base-datetime.html#datetime-string>`__
+
+-  `datetime <=>
+      timetuple <http://www.wklken.me/posts/2015/03/03/python-base-datetime.html#datetime-timetuple>`__
+
+-  `datetime <=>
+      date <http://www.wklken.me/posts/2015/03/03/python-base-datetime.html#datetime-date>`__
+
+-  `datetime <=>
+      timestamp <http://www.wklken.me/posts/2015/03/03/python-base-datetime.html#datetime-timestamp>`__
+
+..
+
+   好久没写文了, 继续清理笔记, 都是一些小结之类的,
+   源码分析以及在做系统中一些细节难点等, 后续逐步发
+
+   另外打个广告, \ `甜品礼物 <http://www.itianpin.com/join>`__,
+   坐标深圳, 有兴趣的同学可以给我发邮件, 非python职位会转到对应同事:)
+
+   | \_ \_ \_ \_
+   | \| \| \| \| \| \| (_)
+   | \__\| \| \_\_ \_\| \|\_ \___\| \|\_ \_ \_ \_\_ \__\_ \__\_
+   | / \_\` \|/ \_\` \| \__/ \_ \\ \__\| \| '\_ \` \_ \\ / \_ \\
+   | \| (_\| \| (_\| \| \|\| \__/ \|_\| \| \| \| \| \| \| \__/
+   | \\__,_|\__,_|\__\___|\__|_|_\| \|_\| \|_|\___\|
+
+    
+
+   原则, 以datetime为中心, 起点或中转, 转化为目标对象,
+   涵盖了大多数业务场景中需要的日期转换处理
+
+   步骤:
+
+   | 1. 掌握几种对象及其关系
+   | 2. 了解每类对象的基本操作方法
+   | 3. 通过转化关系转化
+
+   **涉及对象**
+
+   **1. datetime**
+
+   | >>> **import** datetime
+   | >>> now = datetime.datetime.now()
+   | >>> now
+   | datetime.datetime(2015, 1, 12, 23, 9, 12, 946118)
+   | >>> type(now)
+   | <type 'datetime.datetime'>
+
+   **2. timestamp**
+
+   | >>> **import** time
+   | >>> time.time()
+   | 1421075455.568243
+
+   **3. time tuple**
+
+   | >>> **import** time
+   | >>> time.localtime()
+   | time.struct_time(tm_year=2015, tm_mon=1, tm_mday=12, tm_hour=23,
+     tm_min=10, tm_sec=30, tm_wday=0, tm_yday=12, tm_isdst=0)
+
+   **4. string**
+
+   | >>> **import** datetime
+   | >>> datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+   | '2015-01-12 23:13:08'
+
+   **5. date**
+
+   | >>> **import** datetime
+   | >>> datetime.datetime.now().date()
+   | datetime.date(2015, 1, 12)
+
+   **datetime基本操作**
+
+   **1. 获取当前datetime**
+
+   | >>> **import** datetime
+   | >>> datetime.datetime.now()
+   | datetime.datetime(2015, 1, 12, 23, 26, 24, 475680)
+
+   **2. 获取当天date**
+
+   | >>> datetime.date.today()
+   | datetime.date(2015, 1, 12)
+
+   **3. 获取明天/前N天**
+
+   明天
+
+   | >>> datetime.date.today() + datetime.timedelta(days=1)
+   | datetime.date(2015, 1, 13)
+
+   三天前
+
+   | >>> datetime.datetime.now()
+   | datetime.datetime(2015, 1, 12, 23, 38, 55, 492226)
+   | >>> datetime.datetime.now() - datetime.timedelta(days=3)
+   | datetime.datetime(2015, 1, 9, 23, 38, 57, 59363)
+
+   **4. 获取当天开始和结束时间(00:00:00 23:59:59)**
+
+   | >>> datetime.datetime.combine(datetime.date.today(),
+     datetime.time.min)
+   | datetime.datetime(2015, 1, 12, 0, 0)
+   | >>> datetime.datetime.combine(datetime.date.today(),
+     datetime.time.max)
+   | datetime.datetime(2015, 1, 12, 23, 59, 59, 999999)
+
+   **5. 获取两个datetime的时间差**
+
+   | >>> (datetime.datetime(2015,1,13,12,0,0) -
+     datetime.datetime.now()).total_seconds()
+   | 44747.768075
+
+   **6. 获取本周/本月/上月最后一天**
+
+   本周
+
+   | >>> today = datetime.date.today()
+   | >>> today
+   | datetime.date(2015, 1, 12)
+   | >>> sunday = today + datetime.timedelta(6 - today.weekday())
+   | >>> sunday
+   | datetime.date(2015, 1, 18)
+
+   本月
+
+   | >>> **import** calendar
+   | >>> today = datetime.date.today()
+   | >>> \_, last_day_num = calendar.monthrange(today.year, today.month)
+   | >>> last_day = datetime.date(today.year, today.month, last_day_num)
+   | >>> last_day
+   | datetime.date(2015, 1, 31)
+
+   获取上个月的最后一天(可能跨年)
+
+   | >>> **import** datetime
+   | >>> today = datetime.date.today()
+   | >>> first = datetime.date(day=1, month=today.month,
+     year=today.year)
+   | >>> lastMonth = first - datetime.timedelta(days=1)
+
+   **关系转换**
+
+   几个关系之间的转化
+
+   Datetime Object / String / timestamp / time tuple
+
+   **关系转换例子**
+
+   **datetime <=> string**
+
+   datetime -> string
+
+   | >>> **import** datetime
+   | >>> datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+   | '2015-01-12 23:13:08'
+
+   string -> datetime
+
+   | >>> **import** datetime
+   | >>> datetime.datetime.strptime("2014-12-31 18:20:10", "%Y-%m-%d
+     %H:%M:%S")
+   | datetime.datetime(2014, 12, 31, 18, 20, 10)
+
+    
+
+   **datetime <=> timetuple**
+
+   datetime -> timetuple
+
+   | >>> **import** datetime
+   | >>> datetime.datetime.now().timetuple()
+   | time.struct_time(tm_year=2015, tm_mon=1, tm_mday=12, tm_hour=23,
+     tm_min=17, tm_sec=59, tm_wday=0, tm_yday=12, tm_isdst=-1)
+
+   timetuple -> datetime
+
+   timetuple => timestamp => datetime [看后面datetime<=>timestamp]
+
+    
+
+   **datetime <=> date**
+
+   datetime -> date
+
+   | >>> **import** datetime
+   | >>> datetime.datetime.now().date()
+   | datetime.date(2015, 1, 12)
+
+   date -> datetime
+
+   | >>> datetime.date.today()
+   | datetime.date(2015, 1, 12)
+   | >>> today = datetime.date.today()
+   | >>> datetime.datetime.combine(today, datetime.time())
+   | datetime.datetime(2015, 1, 12, 0, 0)
+   | >>> datetime.datetime.combine(today, datetime.time.min)
+   | datetime.datetime(2015, 1, 12, 0, 0)
+
+    
+
+   **datetime <=> timestamp**
+
+   datetime -> timestamp
+
+   | >>> now = datetime.datetime.now()
+   | >>> timestamp = time.mktime(now.timetuple())
+   | >>> timestamp
+   | 1421077403.0
+
+   timestamp -> datetime
+
+   | >>> datetime.datetime.fromtimestamp(1421077403.0)
+   | datetime.datetime(2015, 1, 12, 23, 43, 23)
+
+ 
+
+logging
+
+2017年8月17日 星期四
+
+13:31
+
+ 
+
+logging
+=======
+
+ 
+
+logging是线程安全的
+-------------------
+
+ 
+
+**日志级别**
+
+========
+==================================================================================
+**级别** **何时使用**
+========
+==================================================================================
+DEBUG    详细信息，典型地调试问题时会感兴趣。
+INFO     证明事情按预期工作。
+WARNING  表明发生了一些意外，或者不久的将来会发生问题（如‘磁盘满了’）。软件还是在正常工作。
+ERROR    由于更严重的问题，软件已不能执行一些功能了。
+CRITICAL 严重错误，表明软件已不能继续运行了。
+========
+==================================================================================
+
+ 
+
+ 
+
+ 
+
+简单的将日志打印到屏幕
+----------------------
+
+==========================================
+import logging
+
+ 
+
+logging.debug('This is debug message')
+
+logging.info('This is info message')
+
+logging.warning('This is warning message')
+
+ 
+
+**屏幕上打印:**
+
+WARNING:root:This is warning message
+==========================================
+
+默认情况下，logging将日志打印到屏幕，日志级别为WARNING；
+
+logging的几个静态方法 logging.info("") 自动转发到 root 记录器，即
+logging.info => logging.getLogger().info("")
+
+ 
+
+ 
+
+通过logging.basicConfig函数对日志的输出格式及方式做相关配置
+-----------------------------------------------------------
+
+=============================================================================================
+import logging
+
+ 
+
+logging.basicConfig(level=logging.DEBUG,
+
+                format='%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s',
+
+                datefmt='%a, %d %b %Y %H:%M:%S',
+
+                filename='myapp.log',
+
+                filemode='w')
+
+    
+
+logging.debug('This is debug message')
+
+logging.info('This is info message')
+
+logging.warning('This is warning message')
+
+ 
+
+**./myapp.log文件中内容为:**
+
+Sun, 24 May 2009 21:48:54 demo2.py[line:11] DEBUG This is debug message
+
+Sun, 24 May 2009 21:48:54 demo2.py[line:12] INFO This is info message
+
+Sun, 24 May 2009 21:48:54 demo2.py[line:13] WARNING This is warning message
+=============================================================================================
+
+**basicConfig关键字参数**
+
+==========
+===========================================================================================
+**关键字** **描述**
+==========
+===========================================================================================
+filename   创建一个FileHandler，使用指定的文件名，而不是使用StreamHandler。
+filemode   如果指明了文件名，指明打开文件的模式（如果没有指明filemode，默认为'a'）。
+format     handler使用指明的格式化字符串。
+datefmt    使用指明的日期／时间格式。
+level      指明根logger的级别。
+stream     使用指明的流来初始化StreamHandler。该参数与'filename'不兼容，如果两个都有，'stream'被忽略。
+==========
+===========================================================================================
+
+ 
+
+ 
+
+将日志同时输出到文件和屏幕
+--------------------------
+
+=================================================================================================
+import logging
+
+ 
+
+logging.basicConfig(level=logging.DEBUG,
+
+                format='%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s',
+
+                datefmt='%a, %d %b %Y %H:%M:%S',
+
+                filename='myapp.log',
+
+                filemode='w')
+
+ 
+
+#################################################################################################
+
+#定义一个StreamHandler，将INFO级别或更高的日志信息打印到标准错误，并将其添加到当前的日志处理对象#
+
+console = logging.StreamHandler()
+
+console.setLevel(logging.INFO)
+
+formatter = logging.Formatter('%(name)-12s: %(levelname)-8s %(message)s')
+
+console.setFormatter(formatter)
+
+logging.getLogger('').addHandler(console)
+
+#################################################################################################
+=================================================================================================
+
+ 
+
+ 
+
+logging之日志回滚
+-----------------
+
+=================================================================================================
+import logging
+
+from logging.handlers import RotatingFileHandler
+
+ 
+
+#################################################################################################
+
+#定义一个RotatingFileHandler，最多备份5个日志文件，每个日志文件最大10M
+
+Rthandler = RotatingFileHandler('myapp.log', maxBytes=10*1024*1024,backupCount=5)
+
+Rthandler.setLevel(logging.INFO)
+
+formatter = logging.Formatter('%(name)-12s: %(levelname)-8s %(message)s')
+
+Rthandler.setFormatter(formatter)
+
+logging.getLogger('').addHandler(Rthandler)
+
+################################################################################################
+=================================================================================================
+
+ 
+
+ 
+
+Handler
+-------
+
+logging有一个日志处理的主对象，其它处理方式都是通过addHandler添加进去的。
+
+logging的几种handle方式如下： 
+
+   logging.StreamHandler:
+   日志输出到流，可以是sys.stderr、sys.stdout或者文件
+
+   logging.FileHandler: 日志输出到文件
+
+   日志回滚方式，实际使用时用RotatingFileHandler和TimedRotatingFileHandler
+
+   logging.handlers.BaseRotatingHandler
+
+   logging.handlers.RotatingFileHandler
+
+   logging.handlers.TimedRotatingFileHandler
+
+   logging.handlers.SocketHandler: 远程输出日志到TCP/IP sockets
+
+   logging.handlers.DatagramHandler:  远程输出日志到UDP sockets
+
+   logging.handlers.SMTPHandler:  远程输出日志到邮件地址
+
+   logging.handlers.SysLogHandler: 日志输出到syslog
+
+   logging.handlers.NTEventLogHandler: 远程输出日志到Windows
+   NT/2000/XP的事件日志
+
+   logging.handlers.MemoryHandler: 日志输出到内存中的制定buffer
+
+   logging.handlers.HTTPHandler: 通过"GET"或"POST"远程输出到HTTP服务器
+
+由于StreamHandler和FileHandler是常用的日志处理方式，所以直接包含在logging模块中，而其他方式则包含在logging.handlers模块中，
+
+ 
+
+ 
+
+配置日志
+--------
+
+配置日志至少有以下三种方式：
+
+-  使用INI格式文件：
+
+   -  **优点**:
+         使用 \ `logging.config.listen() <http://docs.python.org/library/logging.config.html#logging.config.listen>`__ 函数监听socket，可在运行过程中更新配置
+
+   -  **缺点**:
+         通过源码控制日志配置较少（ \ *例如* 子类化定制的过滤器或记录器）。
+
+-  使用字典或JSON格式文件：
+
+   -  **优点**: 除了可在运行时动态更新，在Python
+         2.6之后，还可通过 \ `json <http://docs.python.org/library/json.html#module-json>`__ 模块从其它文件中导入配置。
+
+   -  **缺点**: 很难通过源码控制日志配置。
+
+-  使用源码：
+
+   -  **优点**: 对配置绝对的控制。
+
+   -  **缺点**: 对配置的更改需要对源码进行修改。
+
+..
+
+   通过INI文件进行配置的例子
+
+   我们假设文件名为 logging_config.ini 。关于文件格式的更多细节，请参见 \ `日志指南 <http://docs.python.org/howto/logging.html>`__\ 中的 \ `日志配置 <https://docs.python.org/howto/logging.html#configuring-logging>`__ 部分。
+
+   | **[loggers]**
+   | keys=root
+
+   | **[handlers]**
+   | keys=stream_handler
+
+   | **[formatters]**
+   | keys=formatter
+
+   | **[logger_root]**
+   | level=DEBUG
+   | handlers=stream_handler
+
+   | **[handler_stream_handler]**
+   | class=StreamHandler
+   | level=DEBUG
+   | formatter=formatter
+   | args=(sys.stderr,)
+
+   | **[formatter_formatter]**
+   | format=%(asctime)s %(name)-12s %(levelname)-8s %(message)s
+
+   然后在源码中调用 \ **logging.config.fileConfig()** 方法：
+
+   | **import** logging
+   | **from** logging.config **import** fileConfig
+
+   | fileConfig\ **(**'logging_config.ini'**)**
+   | logger = logging.getLogger\ **()**
+   | logger.debug\ **(**'often makes a very good meal of %s'\ **,**
+     'visiting tourists'\ **)**
+
+   通过字典进行配置的例子
+
+   Python 2.7中，你可以使用字典实现详细配置。\ `PEP
+   391 <https://www.python.org/dev/peps/pep-0391>`__ 包含了一系列字典配置的强制和
+   非强制的元素。
+
+   | **import** logging
+   | **from** logging.config **import** dictConfig
+
+   | logging_config = dict\ **(**
+   | version = 1\ **,**
+   | formatters = **{**
+   | 'f'**: {**'format'**:**
+   | '%(asctime)s %(name)-12s %(levelname)-8s %(message)s'\ **}**
+   | **},**
+   | handlers = **{**
+   | 'h'**: {**'class'**:** 'logging.StreamHandler'**,**
+   | 'formatter'**:** 'f'**,**
+   | 'level'**:** logging.DEBUG\ **}**
+   | **},**
+   | root = **{**
+   | 'handlers'**: [**'h'**],**
+   | 'level'**:** logging.DEBUG\ **,**
+   | **},**
+   | **)**
+
+   dictConfig\ **(**\ logging_config\ **)**
+
+   | logger = logging.getLogger\ **()**
+   | logger.debug\ **(**'often makes a very good meal of %s'\ **,**
+     'visiting tourists'\ **)**
+
+   通过源码直接配置的例子
+
+   **import** logging
+
+   | logger = logging.getLogger\ **()**
+   | handler = logging.StreamHandler\ **()**
+   | formatter = logging.Formatter\ **(**
+   | '%(asctime)s %(name)-12s %(levelname)-8s %(message)s'\ **)**
+   | handler.setFormatter\ **(**\ formatter\ **)**
+   | logger.addHandler\ **(**\ handler\ **)**
+   | logger.setLevel\ **(**\ logging.DEBUG\ **)**
+
+   logger.debug\ **(**'often makes a very good meal of %s'\ **,**
+   'visiting tourists'\ **)**
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+argparse & gflags & [STRIKEOUT:getopt] & ConfigParser
+
+2017年8月22日 星期二
+
+20:19
+
+ 
+
+总之：命令行参数优先使用 argparse，如果需要分布式就使用
+gflags。读取ini配置文件就用 ConfigParser。
+
+ 
+=
+
+.. _section-1:
+
+ 
+=
+
+argparse 模块
+=============
+
+argparse是标准库，在一般的情况下应该最优先使用，不过它不是分布式的，所以还无法取代gflags。在不需要分布式的情况下，argparse实现的确实非常优秀，值得进入标准库。
+
+帮助文档：
+http://python.usyiyi.cn/translate/python_278/library/argparse.html
+
+ 
+
+基础用法：
+
+   | parser = argparse.ArgumentParser(description='Process some
+     integers.')
+   | parser.add_argument('integers', metavar='N', type=int, nargs='+',
+   | help='an integer for the accumulator')
+   | parser.add_argument('--sum', dest='accumulate',
+     action='store_const',
+   | const=sum, default=max,
+   | help='sum the integers (default: find the max)')
+
+   args = parser.parse_args()
+
+ 
+
+ 
+
+最重要的 add_argument() 方法：
+
+   定义应该如何解析一个命令行参数。下面每个参数有它们自己详细的描述，简单地讲它们是：
+
+-  `name or
+      flags <http://python.usyiyi.cn/documents/python_278/library/argparse.html#name-or-flags>`__ - 选项字符串的名字或者列表，例如foo 或者-f, --foo。
+
+-  `action <http://python.usyiyi.cn/documents/python_278/library/argparse.html#action>`__ - 在命令行遇到该参数时采取的基本动作类型。
+
+-  `nargs <http://python.usyiyi.cn/documents/python_278/library/argparse.html#nargs>`__ - 应该读取的命令行参数数目。
+
+-  `const <http://python.usyiyi.cn/documents/python_278/library/argparse.html#const>`__ - 某些`action <http://python.usyiyi.cn/documents/python_278/library/argparse.html#action>`__\ 和\ `nargs <http://python.usyiyi.cn/documents/python_278/library/argparse.html#nargs>`__\ 选项要求的常数值。
+
+-  `default <http://python.usyiyi.cn/documents/python_278/library/argparse.html#default>`__ - 如果命令行中没有出现该参数时的默认值。
+
+-  `type <http://python.usyiyi.cn/documents/python_278/library/argparse.html#type>`__ - 命令行参数应该被转换成的类型。
+
+-  `choices <http://python.usyiyi.cn/documents/python_278/library/argparse.html#choices>`__ - 参数可允许的值的一个容器。
+
+-  `required <http://python.usyiyi.cn/documents/python_278/library/argparse.html#required>`__ - 该命令行选项是否可以省略（只针对可选参数）。
+
+-  `help <http://python.usyiyi.cn/documents/python_278/library/argparse.html#help>`__ - 参数的简短描述。
+
+-  `metavar <http://python.usyiyi.cn/documents/python_278/library/argparse.html#metavar>`__ - 参数在帮助信息中的名字。
+
+-  `dest <http://python.usyiyi.cn/documents/python_278/library/argparse.html#dest>`__ - 给`parse_args() <http://python.usyiyi.cn/documents/python_278/library/argparse.html#argparse.ArgumentParser.parse_args>`__\ 返回的对象要添加的属性名称。
+
+..
+
+   三种参数：
+
+-  可选参数 ：parser.add_argument('--foo',type=int,help="foohelp")
+
+-  必选参数：
+      parser.add_argument('--foo',type=int,help="foohelp"\ **,required=True**)
+
+-  位置参数： parser.add_argument('bar',help="barhelp")
+
+..
+
+   理解 action 类型就理解了 add_argument
+   （action类型还可以自定义，通过继承Api基类）：
+
+-  | 'store' - 只是保存参数的值。这是默认的动作。例如：
+      | **>>>** parser = argparse.ArgumentParser()
+      | **>>>** parser.add_argument('--foo')
+      | **>>>** parser.parse_args('--foo 1'.split())
+      | Namespace(foo='1')
+
+-  | 'store_const' -
+        保存由\ `const <http://python.usyiyi.cn/documents/python_278/library/argparse.html#const>`__\ 关键字参数指出的值。（注意\ `const <http://python.usyiyi.cn/documents/python_278/library/argparse.html#const>`__\ 关键字参数默认是几乎没有帮助的\ **None**\ 。）'store_const'动作最常用于指定某种标记的可选参数。例如：
+      | **>>>** parser = argparse.ArgumentParser()
+      | **>>>** parser.add_argument('--foo', action='store_const',
+        const=42)
+      | **>>>** parser.parse_args('--foo'.split())
+      | Namespace(foo=42)
+
+-  | 'store_true'和'store_false' -
+        它们是'store_const' 的特殊情形，分别用于保存值\ **True**\ 和\ **False**\ 。另外，它们分别会创建默认值\ **False** 和**True**\ 。例如：
+      | **>>>** parser = argparse.ArgumentParser()
+      | **>>>** parser.add_argument('--foo', action='store_true')
+      | **>>>** parser.add_argument('--bar', action='store_false')
+      | **>>>** parser.add_argument('--baz', action='store_false')
+      | **>>>** parser.parse_args('--foo --bar'.split())
+      | Namespace(bar=False, baz=True, foo=True)
+
+-  | 'append' -
+        保存一个列表，并将每个参数值附加在列表的后面。这对于允许指定多次的选项很有帮助。示例用法：
+      | **>>>** parser = argparse.ArgumentParser()
+      | **>>>** parser.add_argument('--foo', action='append')
+      | **>>>** parser.parse_args('--foo 1 --foo 2'.split())
+      | Namespace(foo=['1', '2'])
+
+-  | 'append_const' -
+        保存一个列表，并将\ `const <http://python.usyiyi.cn/documents/python_278/library/argparse.html#const>`__\ 关键字参数指出的值附加在列表的后面。（注意\ `const <http://python.usyiyi.cn/documents/python_278/library/argparse.html#const>`__\ 关键字参数默认是\ **None**\ 。）'append_const' 动作在多个参数需要保存常量到相同的列表时特别有用。例如：
+      | **>>>** parser = argparse.ArgumentParser()
+      | **>>>** parser.add_argument('--str', dest='types',
+        action='append_const', const=str)
+      | **>>>** parser.add_argument('--int', dest='types',
+        action='append_const', const=int)
+      | **>>>** parser.parse_args('--str --int'.split())
+      | Namespace(types=[<type 'str'>, <type 'int'>])
+
+-  | 'count' - 计算关键字参数出现的次数。例如，这可用于增加详细的级别：
+      | **>>>** parser = argparse.ArgumentParser()
+      | **>>>** parser.add_argument('--verbose', '-v', action='count')
+      | **>>>** parser.parse_args('-vvv'.split())
+      | Namespace(verbose=3)
+
+-  'help' -
+      打印当前解析器中所有选项的完整的帮助信息然后退出。默认情况下，help动作会自动添加到解析器中。参见\ `ArgumentParser <http://python.usyiyi.cn/documents/python_278/library/argparse.html#argparse.ArgumentParser>`__\ 以得到如何生成输出信息。
+
+-  'version' -
+      它期待version=参数出现在\ `add_argument() <http://python.usyiyi.cn/documents/python_278/library/argparse.html#argparse.ArgumentParser.add_argument>`__\ 调用中，在调用时打印出版本信息并退出：
+
+..
+
+   | **>>> import argparse**
+   | **>>>** parser = argparse.ArgumentParser(prog='PROG')
+   | **>>>** parser.add_argument('--version', action='version',
+     version='\ *%(prog)s* 2.0')
+   | **>>>** parser.parse_args(['--version'])
+   | PROG 2.0
+
+ 
+
+其它值得留意的部分：
+
+-  部分解析
+      ArgumentParser.\ **parse_known_args**\ (**args=None**, \ **namespace=None**)
+
+..
+
+   有些时候，脚本可能只会解析命令行参数一部分并将剩余的参数传递给另外一个脚本或程序。除了在出现多余的参数时不会产生错误信息以外，它工作的方式与\ `parse_args() <http://python.usyiyi.cn/documents/python_278/library/argparse.html#argparse.ArgumentParser.parse_args>`__\ 非常类似。相反，它返回一个两个元素的元组，包含构造的namespace和剩余的参数字符串的列表。
+
+   | **>>>** parser = argparse.ArgumentParser()
+   | **>>>** parser.add_argument('--foo', action='store_true')
+   | **>>>** parser.add_argument('bar')
+   | **>>>** parser.parse_known_args(['--foo', '--badger', 'BAR',
+     'spam'])
+   | (Namespace(bar='BAR', foo=True), ['--badger', 'spam'])
+
+-  Namespace 对象 **class **\ argparse.\ **Namespace**
+
+..
+
+   `parse_args() <http://python.usyiyi.cn/documents/python_278/library/argparse.html#argparse.ArgumentParser.parse_args>`__ 默认使用的简单的类，用于创建一个保存属性的对象并返回该对象。
+
+   有时可能需要让\ `ArgumentParser <http://python.usyiyi.cn/documents/python_278/library/argparse.html#argparse.ArgumentParser>`__\ 分配属性给一个已经存在的对象而不是一个新的\ `Namespace <http://python.usyiyi.cn/documents/python_278/library/argparse.html#argparse.Namespace>`__\ 对象。这可以通过指定namespace=关键字参数达到：
+
+   | **>>> class C**\ (object):
+   | **...** **pass**
+   | **...**
+   | **>>>** c = C()
+   | **>>>** parser = argparse.ArgumentParser()
+   | **>>>** parser.add_argument('--foo')
+   | **>>>** parser.parse_args(args=['--foo', 'BAR'], **namespace=c**)
+   | **>>>** c.foo
+   | 'BAR'
+
+-  还有很多高级的特性，如：
+
+   -  子命令：大型程序生成像 git status, git commit 之类
+
+   -  参数组：在 help 时分组显示
+
+   -  互斥分组
+
+   -  支持短参数的连写实现 tar -zxf 及缩写 --abcd => -ab
+
+-  总之，argparse 几乎可以实现非分布式参数的所有情况，非常强大的！
+
+..
+
+    
+
+ 
+
+ 
+
+    
+
+gflags 模块
+===========
+
+GFlags defines a \*distributed\* command line system, replacing systems
+like getopt(), optparse and manual argument processing. Rather than an
+application having to define all flags in or near main(), each python
+module defines flags that are useful to it. When one python module
+imports another, it gains access to the other's flags.
+
+从官方介绍中也可以看出来， gflags
+跟其它命令行参数最大的不同在于，它是分布式的，不需要把所有的参数定义都放在
+main 函数附近。分布式非常有用！
+
+ 
+
+这是Google C++ 版 gflags 的python版本，使用pip安装 pip install
+python-gflags
+
+基本跟 C++版的gflags一样，可以视为C++的简化版，一些不同如下：
+
+-  gflags::ParseCommandLineFlags(&argc, &argv, true); 变成了
+      gflags.FLAGS(sys.argv)
+
+-  一些类似于 gflags::SetVersionString的辅助函数没有了
+
+-  取消了诸如 --help, --version 之类的预定义参数
+
+ 
+
+基础用法：
+
+   **import** gflags
+
+    
+
+   FLAGS=gflags.FLAGS
+
+   gflags.DEFINE_bool('debug',\ **False**, 'show debug info')
+
+   gflags.DEFINE_string('name','tanchuanqi', 'your name')
+
+   gflags.DEFINE_integer('age',17, 'your age')
+
+    
+
+   **try**:
+
+   FLAGS(sys.argv) # FLAGS(sys.argv, True)
+   True指示对未知参数原封不动返回，而不是报错
+
+   **except** gflags.FlagsError\ **as**\ e:
+
+   print(e)
+
+   sys.exit(1)
+
+ 
+
+ 
+
+ 
+
+getopt 模块
+===========
+
+**官方 Note 说明 getopt 应该被 argparse 所替代 ，getopt 应该被弃用！**
+
+The \ `getopt <https://docs.python.org/2/library/getopt.html#module-getopt>`__ module
+is a parser for command line options whose API is designed to be
+familiar to users of the C \ **getopt()** function. Users who are
+unfamiliar with the C \ **getopt()** function or who would like to write
+less code and get better help and error messages should consider using
+the \ `argparse <https://docs.python.org/2/library/argparse.html#module-argparse>`__ module
+instead.
+
+ 
+
+**函数原型：**
+
+   getopt.getopt(args, shortopts, longopts=[])
+
+**参数解释：**
+
+-  args：args为需要解析的参数列表。一般使用sys.argv[1:],这样可以过滤掉第一个参数（ps：第一个参数是脚本的名称，它不应该作为参数进行解析）
+
+-  shortopts：简写参数列表
+
+   -  使用短格式分析串"ho:"
+         。当一个选项只是表示开关状态时，即后面不带附加参数时，在分析串中写入选项字符。当选项后面是带一个附加参数时，在分析串中写入选项字符同时后面加一个":"
+         号 。所以"ho:" 就表示"h" 是一个开关选项；"o:"
+         则表示后面应该带一个参数。 
+
+-  longopts：长参数列表
+
+..
+
+   使用长格式分析串列表：["help", "output="]
+   。长格式串也可以有开关状态，即后面不跟"="
+   号。如果跟一个等号则表示后面还应有一个参数 。这个长格式表示"help"
+   是一个开关选项；"output=" 则表示后面应该带一个参数。 
+
+**返回值：**
+
+-  opts：分析出的(option, value)列表对。
+
+-  args：不属于格式信息的剩余命令行参数列表。
+
+**使用例子：**
+
+1. **try**:    
+
+1.     opts, args = getopt.getopt(sys.argv[1:], "ho:", ["help", "output="])    
+
+1. **except** getopt.GetoptError:    
+
+1.     # print help information and exit:   
+
+..
+
+    
+
+   '-h -o file --help --output=out file1 file2'
+
+   在分析完成后，opts 应该是： 
+
+   [('-h', ''), ('-o', 'file'), ('--help', ''), ('--output', 'out')]
+
+   而args 则为： 
+
+   ['file1', 'file2']
+
+ 
+
+ 
+
+科学计算生态
+
+2017年4月24日 星期一
+
+14:56
+
+ 
+
+发行版：Python(x,y), WinPython, Anaconda
+
+ 
+
+包管理：conda, pip
+
+ 
+
+交互工具：Spyder, ipython, Jupyter(ipython notebook)
+
+ 
+
+基础库：numpy, SciPy, Matplotlib, Pandas
+
+ 
+
+深度学习库：TensorFlow, Keras, Theano
+
+ 
+
+其它科学库：Sympy, Scikit-image, Traits, TraitsUI, Chaco, TVTK, Mayavi,
+Scikit-learn,
+
+ 
+
+OpenCV
+
+   conda install -c https://conda.binstar.org/menpo opencv
+
+ 
+
+优质教程和书：
+
+-  用Python做科学计算： http://bigsec.net/b52/scipydoc/index.html
+
+ 
+
+Anaconda
+
+2018年5月24日 星期四
+
+11:03
+
+ 
+
+Anaconda主要是有三个功能：自带了许多科学计算的库、支持隔离环境、更好的库管理功能
+
+ 
+
+Anaconda支持类似于virtualenv的隔离环境功能（默认环境名为root）
+
+============================================
+============================================================================
+conda create -n test python=3.5 numpy pandas 创建名为 test 的隔离环境，使用3.5版本的python，同时添加 numpy, pandas 两个包
+============================================
+============================================================================
+conda create -n dst --clone srt              从srt克隆一个新的名为dst的隔离环境
+source activate test                         激活隔离环境
+source deactivate                            退出隔离环境
+conda env list                               列出所有隔离环境
+conda env remove --name test --all           删除隔离环境
+============================================
+============================================================================
+
+..
+
+    
+
+    
+
+Anaconda还支持类似于PIP的包管理功能
+
+===================================== =========================
+conda search                          搜索包
+===================================== =========================
+conda list                            列出安装的包
+conda install --name env package_name 安装包
+conda remove --name env package_name  卸载包 alias -> uninstall
+conda update package_name             更新包 alias -> upgrade
+===================================== =========================
+
+conda 安装包与PIP的区别和联系
+
+1. pip只是包管理器，无法对环境进行管理。因此如果想在指定环境中使用pip进行安装包，则需要先切换到指定环境中，再使用pip命令安装包。
+
+2. pip无法更新python，因为pip并不将python视为包。
+
+3. pip可以安装一些conda无法安装的包；conda也可以安装一些pip无法安装的包。因此当使用一种命令无法安装包时，可以尝试用另一种命令。
+
+据我观察，在conda中使用PIP安装的包应该是在
+
+~/anaconda3/lib/python3.5/site-packages/pip/_vendor 目录下
+
+    
+
+    
+
+也支持类似于PIP的freeze功能
+
+   conda env export > environment.yaml
+
+   conda env update -f=/path/to/environment.yaml
+
+    
+
+    
+
+conda将conda、python等都视为package，因此，完全可以使用conda来管理conda和python的版本，例如
+
+   # 更新conda，保持conda最新
+
+   conda update conda
+
+   # 更新anaconda
+
+   conda update anaconda
+
+   # 更新python conda
+
+   update python
+
+   # 假设当前环境是python 3.4,
+   conda会将python升级为3.4.x系列的当前最新版本
+
+ 
+
+ 
+
+区分conda和anaconda的概念
+
+   conda是包管理工具。
+
+   anaconda是用来做科学计算的这些包的集合，也就是所谓的发行版。
+
+    
+
+   软件发行版是在系统上提前编译和配置好的软件包集合，
+   装好了后就可以直接用。
+
+   包管理器是自动化软件安装，更新，卸载的一种工具。
+
+    
+
+    
+
+设置国内源
+
+   | # 添加Anaconda的TUNA镜像
+   | conda config --add channels
+     https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
+   | # TUNA的help中镜像地址加有引号，需要去掉
+
+ 
+
+NumPy
+
+2017年4月13日
+
+13:10
+
+ 
+
+Numpy主要的功能有：数组运算、线性代数运算
+
+ 
+
+基本名词：随着\ **数组**\ 维度的增加，依次被称为：\ **标量、向量、矩阵、张量**
+
+ 
+
+ 
+
+NumPy 通常与 SciPy（Scientific Python） 和 Matplotlib（绘图库）
+一起使用。 这种组合广泛用于替代 MatLab，是一个流行的技术计算平台。
+
+-  Python 作为MatLab
+      的替代方案，现在被视为一种更加现代和完整的编程语言。
+
+-  NumPy 是开源的，这是它的一个额外的优势。
+
+ 
+
+ 
+
+NumPy 中定义的\ **最重要的对象是称为 ndarray 的 N 维数组类型**\ 。
+它描述\ **相同类型的元素集合**\ 。
+可以使用基于零的索引访问集合中的项目。
+
+ 
+
+内存结构如下图所示：
+
+|- ty scalar|
+
+ 
+
+ 
+
+ 
+
+数据类型
+--------
+
+NumPy 数字类型是 dtype （数据类型）
+对象的实例，数据类型对象描述了对应于数组的固定内存块的解释。
+
+numpy内置定义了很多数据类型，如np.int8, np,float32 等
+
+   构造方法：numpy.dtype(object, align, copy)
+
+   使用示例：np.dtype(np.int8)、 np.dtype('i4')
+
+    
+
+下面的用法相当于python里快捷创建一个命名tuple：
+
+   student = np.dtype([('name','S20'), ('age', 'i1'), ('marks', 'f4')])
+
+   a = np.array([('abc', 21, 50),('xyz', 18, 75)], dtype = student)
+
+   print a
+
+    
+
+   OUTPUT:
+
+   [('abc', 21, 50.0), ('xyz', 18, 75.0)]
+
+    
+
+ 
+
+ndarray对象常用属性和方法
+-------------------------
+
+属性：
+
+-  shape
+
+-  ndim
+
+-  itemsize
+
+-  flags：标识一些对齐、行优先或列优先之类的元信息；
+
+方法：
+
+-  reshape()
+
+ 
+
+ 
+
+创建：
+------
+
+构造方法：numpy.ndarray([1,2,3])
+
+-  直接创建一个shape=(1,2,3)的ndarray，这里传入的只是ndarray的shape，跟上面传入数组的内容要区分开。
+
+ 
+
+常用的创建数组的工厂方法：
+
+-  empty()：创建指定形状和 dtype 的未初始化数组
+
+-  zeros()：返回特定大小，以 0 填充的新数组
+
+-  ones()：返回特定大小，以 1 填充的新数组
+
+-  eye()：创建单位数组
+
+ 
+
+从现在数据构建：
+
+-  numpy.array(object, dtype = None, copy = True, order = None, subook =
+      False, ndmin = 0)
+
+   -  一般通过这个方法直接创建，这里传入的object是一个python的list，表明了将来创建的ndarray的实际内容。
+
+-  numpy.asarray(a, dtype = None, order = None)
+
+   -  此函数类似于 numpy.array ，除了它有较少的参数。
+
+-  numpy.frombuffer()
+
+-  numpy.fromiter()
+
+ 
+
+从数值范围创建：
+
+-  numpy.arange(start, stop, step, dtype)
+
+-  numpy.linspace(start, stop, num, endpoint, retstep, dtype)
+      类似于arange()，从一个范围里创建指定数量的均匀分布的元素
+
+-  numpy.logscale(start, stop, num, endpoint, base, dtype)
+      上面类似，对数刻度上的均匀分布
+
+ 
+
+ 
+
+访问
+----
+
+ndarray对象中的元素遵循基于零的索引。 有三种可用的索引方法类型： 
+
+-  **字段访问**\ ：使用从0开始的下标访问
+
+-  **基本切片**\ ：Python 中基本切片概念到 n 维的扩展，将 start ， stop
+      和 step 参数提供给内置的 slice 函数来构造一个 Python slice 对象。
+
+-  **高级索引**\ ：
+
+   -  整数索引：x[[0,1,2], [0,1,0]] 的结果是数组中 (0,0) ， (1,1) 和
+         (2,0) 位置处的元素。
+
+   -  布尔索引：非常神奇，print x[x > 5] 会打印出“大于5的元素”。
+
+ 
+
+ 
+
+广播
+----
+
+术语广播是指 NumPy 在算术运算期间处理不同形状的数组的能力。
+
+因为一些操作对两个数组的维数有要求，广播功能会将较小的数组广播到较大数组的大小，以便使它们的形状可兼容。
+
+基本上，就是会对一些\ **长度为1的纬度进行复制扩展**\ ，使得这些长度为1的维度符合运算的要求。
+
+ 
+
+ 
+
+迭代
+----
+
+NumPy 包包含一个迭代器对象 numpy.nditer 。
+它是一个有效的多维迭代器对象，可以用于在数组上进行迭代。
+迭代的顺序匹配数组的内容布局，而不考虑特定的排序。
+
+nditer 对象有另一个可选参数 op_flags 。
+其默认值为只读，但可以设置为读写或只写模式。
+这将允许使用此迭代器修改数组元素。
+
+ 
+
+如果两个数组是可广播的， nditer 组合对象能够同时迭代它们。
+
+np.nditer([a,b])
+
+ 
+
+ 
+
+数组操作
+
+-  reshape
+
+-  flat：返回数组上的一维迭代器
+
+-  flatten：返回折叠为一维的数组副本
+
+-  ravel：返回展开的一维数组，并且按需生成副本
+
+-  transpose：翻转给定数组的维度。如果可能的话它会返回一个视图
+
+-  T：数组的转置，transpose的特殊情况
+
+-  rollaxis：向后滚动特定的轴，直到一个特定位置
+
+-  swapaxes：交换数组的两个轴
+
+-  broadcast：返回将一个数组广播到另一个数组的结果
+
+-  boardcast：广播到特定的形状，返回只读视图
+
+-  expand_dims：在指定位置插入新的轴来扩展数组形状
+
+-  squeeze：从给定数组的形状中删除一维条目
+
+-  数组的连接：
+
+   -  concatenate：沿现存的轴连接
+
+   -  stack：沿新轴进行连接
+
+   -  hstack：水平堆叠，stack的特殊调用
+
+   -  vstack：垂直堆叠，stack的特殊调用
+
+-  数组分割：
+
+   -  split
+
+   -  hsplit
+
+   -  vsplit
+
+-  添加删除元素：
+
+   -  resize
+         返回指定形状的新数组，如果新大小大于原始大小，则包含原始数组中的元素的重复副本。
+
+   -  append 将值添加到数组末尾， 附加操作不是原地的，而是分配新的数组。
+
+   -  insert
+         沿指定轴将值插入到指定下标之前，插入没有原地的，函数会返回一个新数组。
+
+   -  delete 返回删掉某个轴的子数组的新数组
+
+   -  unique 寻找数组内的唯一元素
+
+-  位操作：
+
+   -  |bitwise bitwise invert and or left shift right \_ shift|
+
+-  字符串函数（对 dtype 为 numpy.string\_ 或 numpy.unicode\_
+      的数组执行向量
+
+..
+
+   化字符串操作）：
+
+-  |add() 返 回 两 个 str 或 uniC0de 数 组 的 逐 个 字 符 串 连 接
+      mult1P1y() 返 回 按 元 素 多 重 连 接 后 的 字 符 串 center() 返
+      回 给 定 字 符 串 的 副 本 ， 其 中 元 素 位 于 特 定 字 符 串 的
+      中 央 capltallze() 返 回 给 定 字 符 串 的 副 本 ， 其 中 只 有 第
+      一 个 字 符 串 大 写 title() 返 回 字 符 串 或 Unicode 的 按 元 素
+      标 转 换 版 本 10 er() 返 回 一 个 数 组 ， 其 元 素 转 换 为 小
+      写 upper() 返 回 一 个 数 组 ， 其 元 素 转 换 为 大 写 SP11t() 返
+      回 字 符 串 中 的 单 词 列 表 ， 并 使 用 分 隔 符 来 分 割
+      SP11t1ines() 返 回 元 素 中 的 行 列 表 ， 以 换 行 符 分 割
+      str1P() 返 回 数 组 副 本 ， 其 中 元 素 移 除 了 开 头 或 者 结
+      尾 处 的 特 定 字 符 j01'1() 返 回 一 个 字 符 串 ， 它 是 序 列
+      中 字 符 串 的 连 接 replace() 返 回 字 符 串 的 副 本 ， 其 中 所
+      有 子 字 符 串 的 出 现 位 置 都 被 新 字 符 串 取 代 decode() 按
+      元 素 调 用 str.decode encode() 按 元 素 调 用 str.encode|
+
+-  数值运算：
+
+   -  三角函数：sin, cos, tan 等等
+
+   -  四舍五入：around(), floor(), ceil()
+
+   -  加减乘除：add() ， subtract() ， multiply() 和 divide()
+
+   -  倒数：reciprocal()、幂 pow()、 取余 mod()
+
+-  统计：
+
+   -  amin() 极小, amax() 极大, median()中间值, ptp() 取值范围
+
+   -  mean()算术平均值、average()加权平均值
+
+   -  std()标准差、var()方差
+
+-  排序、搜索、计数
+
+   -  排序：sort(), argsort(), lexsort()
+
+   -  搜索：argmax(), argmin(), nonzero(),
+
+   -  高级搜索：
+
+      -  where()： where(x>5)，类似于高级索引
+
+      -  extract()：用任何条件进行过滤
+
+ 
+
+ 
+
+副本和视图
+----------
+
+很明显，副本是深度复制，而视图只是复制了元信息。
+
+-  NumPy 拥有 ndarray.view()
+      方法，它是一个新的数组对象，并可查看原始数组的相同数据。
+
+-  ndarray.copy() 函数创建一个深层副本。
+
+ 
+
+    
+
+ 
+
+numpy.matlib 库
+---------------
+
+numpy里还有一个矩阵库，这里的类型是 matrix 类型。
+
+里面提供了很多与ndarray类似的操作，不明白为什么要存在这个 matrix 类型？
+
+ 
+
+ 
+
+numpy.linalg 线性代数
+---------------------
+
+   |dot 两 个 数 组 的 点 vd0t 两 个 向 量 的 点 inner 两 个 数 组 的 内
+   积 matmul 两 个 数 组 的 矩 阵 頽 determinant 数 组 的 行 列 式 solve
+   求 解 线 性 矩 阵 方 程 inv 寻 找 矩 阵 的 乘 法 逆 矩 阵|
+
+ 
+
+ 
+
+Numpy IO
+--------
+
+NumPy 为 ndarray 对象引入了一个简单的文件格式。 这个 npy
+文件在磁盘文件中，存储重建 ndarray 所需的数据、图形、 dtype
+和其他信息，以便正确获取数组，即使该文件在具有\ **不同架构**\ 的另一台机器上。
+
+ 
+
+ndarray 对象可以保存到磁盘文件并从磁盘文件加载。 可用的 IO 功能有：
+
+-  np.tofile() & np.fromfile()：二进制 raw 格式
+
+-  np.save() & np.load() & np.savez()
+      ：这是最常用的IO方法。load()和save()用Numpy专用的二进制格式保存数据，它们会自动处理元素类型和形状等信息。savez()提供了将多个数组存储至一个文件的能力，调用load()方法返回的对象，可以使用数组名对各个数组进行读取。
+
+-  savetxt() & loadtxt()：文本格式
+
+ 
+
+ 
+
+ 
+
+ 
+
+|DATAQUEST 911 win all INSPECTING PROPERTIES IMPORTS ELEMENTS TING an
+LEARN DATA SCIENCE ONLINE Data Science Cheat Sheet VECTOR MATH each with
+than s LEARN DArA ONLINE|
+
+ 
+
+SciPy
+
+2017年8月11日
+
+21:34
+
+ 
+
+Matplotlib
+
+2017年8月11日
+
+21:32
+
+ 
+
+https://liam0205.me/2014/09/11/matplotlib-tutorial-zh-cn/
+
+ 
+
+http://matplotlib.org/gallery.html
+
+ 
+
+ 
+
+ 
+
+Panda
+
+2018年5月24日 星期四
+
+15:34
+
+ 
+
+主要的就是 pd.DataFrame
+这种数据结构，组织了异构的多维数组，与numpy的同构多维数组作为对比。
+
+ 
+
+然后在DataFrame的基础上，提供了许多方便的数据分析工具和统计学工具。
+
+ 
+
+ 
+
+ 
+
+scikit-learn
+
+2018年5月24日 星期四
+
+18:25
+
+ 
+
+ 
+
+其它
+
+Friday, 25 November 2016
+
+16:25
+
+ 
+
+一些看着很爽的技巧：
+
+   列表赋值： b = a[:]
+
+    
+
+   屏幕输出到文件：sys.stdout = open('log.txt','w')
+
+    
+
+   三元符号表示法： [STRIKEOUT:("no", "yes")[x == y]]\ ，不要用，用
+   "yes" if True else "No"
+
+    
+
+   链式比较：x < 10 < x*10 < 100
+
+    
+
+   enumerate： for index, item in enumerate(a, 1)
+
+    
+
+   iter()可接收callable参数:
+
+   iter()内建函数接收的参数分为两种，第一种是：
+
+   iter(collection)---> iterator
+
+   参数collection必须是可迭代对象或者是序列 ，第二种是：
+
+   iter（callable， sentinel) --> iterator
+
+   callable函数会一直被调用，直到它的返回结果等于sentinel
+
+    
+
+   列表步长： [::2]步长为2，[::-1] 列表反转
+
+    
+
+   For..else: 不break的话就执行else
+
+   Try..else: 没有异常执行else里的语句
+
+    
+
+   合并列表： sum([[1, 2, 3], [4, 5, 6], [7, 8, 9]], [])
+
+    
+
+   内建模块： python -m http.server, python -m json.tool
+
+    
+
+   内建装饰器：
+
+-  偏函数： from functools import partial
+
+-  classmethod装饰器, 类方法(给人感觉非常类似于OC中的类方法),
+      其中第一个隐式参数为类
+
+-  staticmethod装饰器,
+      没有任何隐式参数. python中的静态方法类似与C++中的静态方法
+
+-  property装饰器
+
+..
+
+    
+
+   函数式编程：map, reduce, filter
+
+    
+
+   内置函数：
+
+   zip() 组合等长的可迭代对象
+
+    
+
+   定义枚举量：
+
+   from **enum import** Enum
+
+   Month = Enum('Month', ('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+   'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'))
+
+    
+
+   使用slots减少内存开支
+
+    
+
+   漂亮的打印json: jons.dumps(j, indent=4)
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+坑：
+
+   默认值陷阱：
+
+    
+
+    
+
+常用的标准库：
+
+   pdb: 一般调试
+
+   functools
+
+   collections
+
+   itertools
+
+   ConfigParser
+
+ 
+
+    
+
+好用的第三方基础库：
+
+   PySnooper: 调试神器
+
+   Tqdm：画进度条
+
+   PrettyPrinter：美观的打印表格
+
+   requests：简单网络请求
+
+    
+
+工具：
+
+   Yapf：Google出的格式化代码的工具
+
+    
+
+ 
+
+让 Python 代码更易维护的七种武器
+
+2019年11月21日 星期四
+
+下午7:36
+
+ 
+
+检查你的代码的质量，通过这些外部库使其更易维护。
+
+可读性很重要。
+
+— `Python
+之禅 <https://link.zhihu.com/?target=https%3A//www.python.org/dev/peps/pep-0020/>`__\ *\ (The
+Zen of Python)*\ ，Tim Peters
+
+随着软件项目进入“维护模式”，对可读性和编码标准的要求很容易落空（甚至从一开始就没有建立过那些标准）。然而，在代码库中保持一致的代码风格和测试标准能够显著减轻维护的压力，也能确保新的开发者能够快速了解项目的情况，同时能更好地全程保持应用程序的质量。
+
+使用外部库来检查代码的质量不失为保护项目未来可维护性的一个好方法。以下会推荐一些我们最喜爱的\ `检查代码 <https://link.zhihu.com/?target=https%3A//en.wikipedia.org/wiki/Lint_%28software%29>`__\ （包括检查
+PEP 8
+和其它代码风格错误）的库，用它们来强制保持代码风格一致，并确保在项目成熟时有一个可接受的测试覆盖率。
+
+检查你的代码风格
+
+`PEP
+8 <https://link.zhihu.com/?target=https%3A//www.python.org/dev/peps/pep-0008/>`__ 是
+Python
+代码风格规范，它规定了类似行长度、缩进、多行表达式、变量命名约定等内容。尽管你的团队自身可能也会有稍微不同于
+PEP 8
+的代码风格规范，但任何代码风格规范的目标都是在代码库中强制实施一致的标准，使代码的可读性更强、更易于维护。下面三个库就可以用来帮助你美化代码。
+
+ 
+
+1、 Pylint
+
+`Pylint <https://link.zhihu.com/?target=https%3A//www.pylint.org/>`__ 是一个检查违反
+PEP 8 规范和常见错误的库。它在一些流行的\ `编辑器和
+IDE <https://link.zhihu.com/?target=https%3A//pylint.readthedocs.io/en/latest/user_guide/ide-integration.html>`__ 中都有集成，也可以单独从命令行运行。
+
+执行 pip install pylint 安装 Pylint 。然后运行 pylint [options]
+path/to/dir 或者 pylint [options] path/to/module.py 就可以在命令行中使用
+Pylint，它会向控制台输出代码中违反规范和出现错误的地方。
+
+你还可以使用 pylintrc \ `配置文件 <https://link.zhihu.com/?target=https%3A//pylint.readthedocs.io/en/latest/user_guide/run.html%23command-line-options>`__\ 来自定义
+Pylint 对哪些代码错误进行检查。
+
+ 
+
+2、 Flake8
+
+`Flake8 <https://link.zhihu.com/?target=http%3A//flake8.pycqa.org/en/latest/>`__ 是“将
+PEP 8、Pyflakes（类似
+Pylint）、McCabe（代码复杂性检查器）和第三方插件整合到一起，以检查
+Python 代码风格和质量的一个 Python 工具”。
+
+执行 pip install flake8 安装 flake8 ，然后执行 flake8 [options]
+path/to/dir 或者 flake8 [options]
+path/to/module.py 可以查看报出的错误和警告。
+
+和 Pylint 类似，Flake8
+允许通过\ `配置文件 <https://link.zhihu.com/?target=http%3A//flake8.pycqa.org/en/latest/user/configuration.html%23configuration-locations>`__\ 来自定义检查的内容。它有非常清晰的文档，包括一些有用的\ `提交钩子 <https://link.zhihu.com/?target=http%3A//flake8.pycqa.org/en/latest/user/using-hooks.html>`__\ ，可以将自动检查代码纳入到开发工作流程之中。
+
+Flake8 也可以集成到一些流行的编辑器和 IDE
+当中，但在文档中并没有详细说明。要将 Flake8 集成到喜欢的编辑器或 IDE
+中，可以搜索插件（例如 \ `Sublime Text 的 Flake8
+插件 <https://link.zhihu.com/?target=https%3A//github.com/SublimeLinter/SublimeLinter-flake8>`__\ ）。
+
+ 
+
+3、 Isort
+
+`Isort <https://link.zhihu.com/?target=https%3A//github.com/timothycrosley/isort>`__ 这个库能将你在项目中导入的库按字母顺序排序，并将其`正确划分为不同部分 <https://link.zhihu.com/?target=https%3A//github.com/timothycrosley/isort%23how-does-isort-work>`__\ （例如标准库、第三方库、自建的库等）。这样提高了代码的可读性，并且可以在导入的库较多的时候轻松找到各个库。
+
+执行 pip install isort 安装 isort，然后执行 isort
+path/to/module.py 就可以运行了。\ `文档 <https://link.zhihu.com/?target=https%3A//github.com/timothycrosley/isort%23using-isort>`__\ 中还提供了更多的配置项，例如通过\ `配置 <https://link.zhihu.com/?target=https%3A//github.com/timothycrosley/isort%23configuring-isort>`__ .isort.cfg 文件来决定
+isort 如何处理一个库的多行导入。
+
+和 Flake8、Pylint 一样，isort 也提供了将其与流行的\ `编辑器和
+IDE <https://link.zhihu.com/?target=https%3A//github.com/timothycrosley/isort/wiki/isort-Plugins>`__ 集成的插件。
+
+分享你的代码风格
+
+每次文件发生变动之后都用命令行手动检查代码是一件痛苦的事，你可能也不太喜欢通过运行
+IDE
+中某个插件来实现这个功能。同样地，你的同事可能会用不同的代码检查方式，也许他们的编辑器中也没有那种插件，甚至你自己可能也不会严格检查代码和按照警告来更正代码。总之，你分享出来的代码库将会逐渐地变得混乱且难以阅读。
+
+一个很好的解决方案是使用一个库，自动将代码按照 PEP 8
+规范进行格式化。我们推荐的三个库都有不同的自定义级别来控制如何格式化代码。其中有一些设置较为特殊，例如
+Pylint 和 Flake8
+，你需要先行测试，看看是否有你无法忍受但又不能修改的默认配置。
+
+ 
+
+4、 Autopep8
+
+`Autopep8 <https://link.zhihu.com/?target=https%3A//github.com/hhatto/autopep8>`__ 可以自动格式化指定的模块中的代码，包括重新缩进行、修复缩进、删除多余的空格，并重构常见的比较错误（例如布尔值和 None 值）。你可以查看文档中完整的`更正列表 <https://link.zhihu.com/?target=https%3A//github.com/hhatto/autopep8%23id4>`__\ 。
+
+运行 pip install --upgrade autopep8 安装 Autopep8。然后执行 autopep8
+--in-place --aggressive --aggressive
+<filename> 就可以重新格式化你的代码。aggressive 选项的数量表示 Auotopep8
+在代码风格控制上有多少控制权。在这里可以详细了解 \ `aggressive <https://link.zhihu.com/?target=https%3A//github.com/hhatto/autopep8%23id5>`__ 选项。
+
+ 
+
+5、 Yapf
+
+`Yapf <https://link.zhihu.com/?target=https%3A//github.com/google/yapf>`__ 是另一种有自己的`配置项 <https://link.zhihu.com/?target=https%3A//github.com/google/yapf%23usage>`__\ 列表的重新格式化代码的工具。它与
+Autopep8 的不同之处在于它不仅会指出代码中违反 PEP 8
+规范的地方，还会对没有违反 PEP 8
+但代码风格不一致的地方重新格式化，旨在令代码的可读性更强。
+
+执行 pip install yapf 安装 Yapf，然后执行 yapf [options]
+path/to/dir 或 yapf [options]
+path/to/module.py 可以对代码重新格式化。\ `定制选项 <https://link.zhihu.com/?target=https%3A//github.com/google/yapf%23usage>`__\ 的完整列表在这里。
+
+ 
+
+6、 Black
+
+`Black <https://link.zhihu.com/?target=https%3A//github.com/ambv/black>`__ 在代码检查工具当中算是比较新的一个。它与
+Autopep8 和 Yapf
+类似，但限制较多，没有太多的自定义选项。这样的好处是你不需要去决定使用怎么样的代码风格，让
+Black 来给你做决定就好。你可以在这里查阅
+Black \ `有限的自定义选项 <https://link.zhihu.com/?target=https%3A//github.com/ambv/black%23command-line-options>`__\ 以及\ `如何在配置文件中对其进行设置 <https://link.zhihu.com/?target=https%3A//github.com/ambv/black%23pyprojecttoml>`__\ 。
+
+Black 依赖于 Python 3.6+，但它可以格式化用 Python 2 编写的代码。执行 pip
+install black 安装 Black，然后执行 black path/to/dir 或 black
+path/to/module.py 就可以使用 Black 优化你的代码。
+
+检查你的测试覆盖率
+
+如果你正在进行编写测试，你需要确保提交到代码库的新代码都已经测试通过，并且不会降低测试覆盖率。虽然测试覆盖率不是衡量测试有效性和充分性的唯一指标，但它是确保项目遵循基本测试标准的一种方法。对于计算测试覆盖率，我们推荐使用
+Coverage 这个库。
+
+ 
+
+7、 Coverage
+
+`Coverage <https://link.zhihu.com/?target=https%3A//coverage.readthedocs.io/en/latest/>`__ 有数种显示测试覆盖率的方式，包括将结果输出到控制台或
+HTML
+页面，并指出哪些具体哪些地方没有被覆盖到。你可以通过\ `配置文件 <https://link.zhihu.com/?target=https%3A//coverage.readthedocs.io/en/latest/config.html>`__\ 自定义
+Coverage 检查的内容，让你更方便使用。
+
+执行 pip install coverage 安装 Converage 。然后执行 coverage
+[path/to/module.py]
+[args] 可以运行程序并查看输出结果。如果要查看哪些代码行没有被覆盖，执行 coverage
+report -m 即可。
+
+持续集成工具
+
+*持续集成(Continuous
+integration)*\ （CI）是在合并和部署代码之前自动检查代码风格错误和测试覆盖率最小值的过程。很多免费或付费的工具都可以用于执行这项工作，具体的过程不在本文中赘述，但
+CI
+过程是令代码更易读和更易维护的重要步骤，关于这一部分可以参考 \ `Travis
+CI <https://link.zhihu.com/?target=https%3A//travis-ci.org/>`__ 和 `Jenkins <https://link.zhihu.com/?target=https%3A//jenkins.io/>`__\ 。
+
+以上这些只是用于检查 Python
+代码的各种工具中的其中几个。如果你有其它喜爱的工具，欢迎在评论中分享。
+
+ 
+
+编译成so
+
+2019年9月12日 星期四
+
+下午7:21
+
+ 
+
+**把python源文件编译成so文件**
+
+**亲测可用**
+
+ 
+
+**前言**
+
+实际上属于一种代码混淆/加密的技术，大家知道python的源文件放在那里，大家是都可以看的，不像C语言编译出来可以拿编译后的东西去运行，所以就出现了这种需求。原理相当于将python编译成c，然后再转成.so文件
+
+.so文件为动态连结库，可以在程序运行时动态链接，类似于windows的dll文件。
+
+在网上搜了一下，常用的有2种方法：
+
+-  通过gcc（make）来操作
+
+-  使用python来操作 我用python来直接生成就够了，没有特殊需要别去折腾GCC
+
+**准备工作**
+
+-  在目录下创建__init__.py和hello.py
+
+-  hello.py 内容为：
+
+..
+
+   | def hello():
+   | print "hello"
+
+**使用python来操作**
+
+-  安装所需库CPython，命令如下：
+
+..
+
+   pip install cython
+
+-  创建文件setup.py，内容如下：
+
+..
+
+   | from distutils.core import setup
+   | from Cython.Build import cythonize
+   | setup(
+   | ext_modules = cythonize("hello.py")
+   | )
+
+-  执行setup.py文件 python setup.py build_ext --inplace
+
+-  在当前目录下就生成了和当前目录同名的一个目录，进入目录即可看见so文件，打开so文件可见一些乱码，达到了加密的目的
+
+ 
+
+Pip
+
+2016年7月7日
+
+18:36
+
+ 
+
+名称来源于递归缩写：Pip installs Packages（PIP）
+
+ 
+
+ 
+
+查看pip的安装目录：
+
+   [chuanqi@iZu1v8f9z8gZ nginx]$ pip -V
+
+   pip 8.1.2 from /usr/lib/python2.7/site-packages (python 2.7)
+
+    
+
+    
+
+在虚拟环境中使用一下命令可以生成一个虚拟环境的安装包版本文件
+
+   pip freeze > requirements.txt
+
+   pip install -r requirements.txt
+
+ 
+
+ 
+
+|# pip --help Usage : pip <comand> [options] Comands : install uninstall
+freeze list show search wheel zip unzip bundle help General Options: -h,
+--help -v, --verbose arg, "yum*fisearch. Build wheels from your
+requirements. Zip individual packages. Unzip individual packages. Create
+pybundles. Rise.|
+
+ 
+
+ 
+
+virtualenv
+
+2018年5月24日 星期四
+
+09:17
+
+ 
+
+virtualenv的使用极其简单，2分钟就足够完全掌握了，基本上明白这些概念就足够了：
+
+   virtualenv是提供完全隔离环境的库
+
+    
+
+   virtualenv 命令用来创建一个新的隔离环境
+
+   virtualenv research # 创建名为research的隔离环境
+
+   --no-site-packages 不包括site-packages里的包
+
+   --system-packages 包括system-packages里的包
+
+   --python 选择python版本
+
+   cd research && source ./bin/active 激活隔离环境
+
+   deactivate 退出隔离环境
+
+    
+
+    
+
+    
+
+virtualwrapper
+
+   有一个virtualenvwrapper 是一个 virtualenv
+   虚拟环境的管理库，这个库可以更加方便的管理所有的虚拟环境。它的原理是把所有的虚拟环境都装在
+   WORKON_HOME
+   这个环境变量指定的目录下，这样就不用到处去找虚拟环境目录了，有一个统一的地方可以管理、查看。就这么简单的原理。
+
+    
+
+   用virtualenv，新建目录 ~/.virtualenv
+   然后把所有的隔离环境都放在这个目录下其实是一个道理。
+
+ 
+
+   pip install virtualenvwrapper
+
+   export WORKON_HOME=$HOME/.virtualenvs && source
+   /usr/local/bin/virtualenvwrapper.sh
+
+    
+
+   lsvirtualenv -b # 列出虚拟环境
+
+   workon [虚拟环境名称] # 切换虚拟环境
+
+   lssitepackages # 查看环境里安装了哪些包
+
+   cdvirtualenv [子目录名] # 进入当前环境的目录
+
+   cpvirtualenv [source] [dest] # 复制虚拟环境
+
+   deactivate # 退出虚拟环境
+
+   rmvirtualenv [虚拟环境名称] # 删除虚拟环境
+
+    
+
+ 
+
+virtualenv 与 Anaconda 的冲突
+
+   Anaconda
+   有自己的包管理方式，直接用pip安装virtualenv会出错，需要用conda安装virtualenv
+
+    
+
+   pip uninstall virtualenv
+
+   conda install virtualenv
+
+ 
+
+py2 vs py3
+
+2019年9月9日
+
+23:07
+
+ 
+
+   **Python2.x与3​​.x版本区别**
+
+   Python的3​​.0版本，常被称为Python
+   3000，或简称Py3k。相对于Python的早期版本，这是一个较大的升级。
+
+   为了不带入过多的累赘，Python 3.0在设计的时候没有考虑向下相容。
+
+   许多针对早期Python版本设计的程式都无法在Python 3.0上正常执行。
+
+   为了照顾现有程式，Python 2.6作为一个过渡版本，基本使用了Python
+   2.x的语法和库，同时考虑了向Python 3.0的迁移，允许使用部分Python
+   3.0的语法与函数。
+
+   新的Python程式建议使用Python 3.0版本的语法。
+
+   除非执行环境无法安装Python 3.0或者程式本身使用了不支援Python
+   3.0的第三方库。目前不支援Python 3.0的第三方库有Twisted, py2exe,
+   PIL等。
+
+   大多数第三方库都正在努力地相容Python 3.0版本。即使无法立即使用Python
+   3.0，也建议编写相容Python 3.0版本的程式，然后使用Python 2.6, Python
+   2.7来执行。
+
+   Python 3.0的变化主要在以下几个方面:
+
+    
+
+   **print 函数**
+
+   print语句没有了，取而代之的是print()函数。 Python 2.6与Python
+   2.7部分地支持这种形式的print语法。在Python 2.6与Python
+   2.7里面，以下三种形式是等价的：
+
+   | print "fish"
+   | print ("fish") #注意print后面有个空格
+   | print("fish") #print()不能带有任何其它参数
+
+   然而，Python 2.6实际已经支持新的print()语法：
+
+   | from \__future_\_ import print_function
+   | print("fish", "panda", sep=', ')
+
+    
+
+   **Unicode**
+
+   Python 2 有 ASCII str() 类型，unicode() 是单独的，不是 byte 类型。
+
+   现在， 在 Python 3，我们最终有了 Unicode (utf-8)
+   字符串，以及一个字节类：byte 和 bytearrays。
+
+   由于 Python3.X 源码文件默认使用utf-8编码，这就使得以下代码是合法的：
+
+   | >>> 中国 = 'china'
+   | >>>print(中国)
+   | china
+
+   Python 2.x
+
+   | >>> str = "我爱北京天安门"
+   | >>> str
+   | '\xe6\x88\x91\xe7\x88\xb1\xe5\x8c\x97\xe4\xba\xac\xe5\xa4\xa9\xe5\xae\x89\xe9\x97\xa8'
+   | >>> str = u"我爱北京天安门"
+   | >>> str
+   | u'\u6211\u7231\u5317\u4eac\u5929\u5b89\u95e8'
+
+   Python 3.x
+
+   | >>> str = "我爱北京天安门"
+   | >>> str
+   | '我爱北京天安门'
+
+    
+
+   **除法运算**
+
+   Python中的除法较其它语言显得非常高端，有套很复杂的规则。Python中的除法有两个运算符，/和//
+
+   首先来说/除法:
+
+   在python
+   2.x中/除法就跟我们熟悉的大多数语言，比如Java啊C啊差不多，整数相除的结果是一个整数，把小数部分完全忽略掉，浮点数除法会保留小数点的部分得到一个浮点数的结果。
+
+   在python
+   3.x中/除法不再这么做了，对于整数之间的相除，结果也会是浮点数。
+
+   Python 2.x:
+
+   | >>> 1 / 2
+   | 0
+   | >>> 1.0 / 2.0
+   | 0.5
+
+   Python 3.x:
+
+   | >>> 1/2
+   | 0.5
+
+   而对于//除法，这种除法叫做floor除法，会对除法的结果自动进行一个floor操作，在python
+   2.x和python 3.x中是一致的。
+
+   python 2.x:
+
+   | >>> -1 // 2
+   | -1
+
+   python 3.x:
+
+   | >>> -1 // 2
+   | -1
+
+   注意的是并不是舍弃小数部分，而是执行 floor
+   操作，如果要截取整数部分，那么需要使用 math 模块的 trunc 函数
+
+   python 3.x:
+
+   | >>> import math
+   | >>> math.trunc(1 / 2)
+   | 0
+   | >>> math.trunc(-1 / 2)
+   | 0
+
+    
+
+   **异常**
+
+   在 Python 3 中处理异常也轻微的改变了，在 Python 3 中我们现在使用 as
+   作为关键词。
+
+   捕获异常的语法由 \ **except exc, var** 改为 **except exc as var**\ 。
+
+   使用语法except (exc1, exc2) as var可以同时捕获多种类别的异常。 Python
+   2.6已经支持这两种语法。
+
+-  1.
+      在2.x时代，所有类型的对象都是可以被直接抛出的，在3.x时代，只有继承自BaseException的对象才可以被抛出。
+
+-  2. 2.x
+      raise语句使用逗号将抛出对象类型和参数分开，3.x取消了这种奇葩的写法，直接调用构造函数抛出对象即可。
+
+..
+
+   在2.x时代，异常在代码中除了表示程序错误，还经常做一些普通控制结构应该做的事情，在3.x中可以看出，设计者让异常变的更加专一，只有在错误发生的情况才能去用异常捕获语句来处理。
+
+    
+
+   **xrange**
+
+   在 Python 2 中 xrange() 创建迭代对象的用法是非常流行的。比如： for
+   循环或者是列表/集合/字典推导式。
+
+   这个表现十分像生成器（比如。"惰性求值"）。但是这个 xrange-iterable
+   是无穷的，意味着你可以无限遍历。
+
+   由于它的惰性求值，如果你不得仅仅不遍历它一次，xrange() 函数 比
+   range() 更快（比如 for
+   循环）。尽管如此，对比迭代一次，不建议你重复迭代多次，因为生成器每次都从头开始。
+
+   在 Python 3 中，range() 是像 xrange() 那样实现以至于一个专门的
+   xrange() 函数都不再存在（在 Python 3 中 xrange() 会抛出命名异常）。
+
+   import timeit
+
+   | n = 10000
+   | def test_range(n):
+   | return for i in range(n):
+   | pass
+
+   | def test_xrange(n):
+   | for i in xrange(n):
+   | pass
+
+   Python 2
+
+   print 'Python', python_version()
+
+   | print '\ntiming range()'
+   | %timeit test_range(n)
+
+   | print '\n\ntiming xrange()'
+   | %timeit test_xrange(n)
+
+   Python 2.7.6
+
+   | timing range()
+   | 1000 loops, best of 3: 433 µs per loop
+
+   | timing xrange()
+   | 1000 loops, best of 3: 350 µs per loop
+
+   Python 3
+
+   print('Python', python_version())
+
+   | print('\ntiming range()')
+   | %timeit test_range(n)
+
+   Python 3.4.1
+
+   | timing range()
+   | 1000 loops, best of 3: 520 µs per loop
+
+   | print(xrange(10))
+   | ---------------------------------------------------------------------------
+   | NameError Traceback (most recent call last)
+   | <ipython-input-5-5d8f9b79ea70> in <module>()
+   | ----> 1 print(xrange(10))
+
+   NameError: name 'xrange' is not defined
+
+    
+
+   **八进制字面量表示**
+
+   八进制数必须写成0o777，原来的形式0777不能用了；二进制必须写成0b111。
+
+   新增了一个bin()函数用于将一个整数转换成二进制字串。 Python
+   2.6已经支持这两种语法。
+
+   在Python 3.x中，表示八进制字面量的方式只有一种，就是0o1000。
+
+   python 2.x
+
+   | >>> 0o1000
+   | 512
+   | >>> 01000
+   | 512
+
+   python 3.x
+
+   | >>> 01000
+   | File "<stdin>", line 1
+   | 01000
+   | ^
+   | SyntaxError: invalid token
+   | >>> 0o1000
+   | 512
+
+    
+
+   **不等运算符**
+
+   Python 2.x中不等于有两种写法 != 和 <>
+
+   Python 3.x中去掉了<>, 只有!=一种写法，还好，我从来没有使用<>的习惯
+
+    
+
+   **去掉了repr表达式`\`**
+
+   Python 2.x 中反引号``相当于repr函数的作用
+
+   Python 3.x
+   中去掉了``这种写法，只允许使用repr函数，这样做的目的是为了使代码看上去更清晰么？不过我感觉用repr的机会很少，一般只在debug的时候才用，多数时候还是用str函数来用字符串描述对象。
+
+   | def sendMail(from_: str, to: str, title: str, body: str) -> bool:
+   | pass
+
+    
+
+   **多个模块被改名（根据PEP8）**
+
+============ ============
+**旧的名字** **新的名字**
+============ ============
+\_winreg     winreg
+ConfigParser configparser
+copy_reg     copyreg
+Queue        queue
+SocketServer socketserver
+repr         reprlib
+============ ============
+
+..
+
+   StringIO模块现在被合并到新的io模组内。 new, md5,
+   gopherlib等模块被删除。 Python 2.6已经支援新的io模组。
+
+   httplib, BaseHTTPServer, CGIHTTPServer, SimpleHTTPServer, Cookie,
+   cookielib被合并到http包内。
+
+   取消了exec语句，只剩下exec()函数。 Python 2.6已经支援exec()函数。
+
+    
+
+   **5.数据类型**
+
+   1）Py3.X去除了long类型，现在只有一种整型——int，但它的行为就像2.X版本的long
+
+   2）新增了bytes类型，对应于2.X版本的八位串，定义一个bytes字面量的方法如下：
+
+   | >>> b = b'china'
+   | >>> type(b)
+   | <type 'bytes'>
+
+   str 对象和 bytes 对象可以使用 .encode() (**str -> bytes**) 或
+   .decode() (**bytes -> str**)方法相互转化。
+
+   | >>> s = b.decode()
+   | >>> s
+   | 'china'
+   | >>> b1 = s.encode()
+   | >>> b1
+   | b'china'
+
+   3）dict的.keys()、.items
+   和.values()方法返回迭代器，而之前的iterkeys()等函数都被废弃。同时去掉的还有
+   dict.has_key()，用 in替代它吧 。
+
+    
+
+    
+
+    
+
+    
+
+   | **打开文件
+     **\ 原：
+   | file( ..... )
+   | 或
+   | open(.....)
+   | 改为只能用
+   | open(.....)
+   | 从键盘录入一个字符串
+   | 原:
+   | raw_input( "提示信息" )
+   | 改为:
+   | input( "提示信息" )
+   | 在python2.x中raw_input()和input( )，两个函数都存在，其中区别为：
+
+-   raw_input()---将所有输入作为字符串看待，返回字符串类型
+
+-  |  input()-----只能接收"数字"的输入，在对待纯数字输入时具有自己的特性，它返回所输入的数字的类型（int,
+        float ）
+      | 在python3.x中raw_input()和input(
+        )进行了整合，去除了raw_input()，仅保留了input()函数，其接收任意任性输入，将所有输入默认为字符串处理，并返回字符串类型。
+
+..
+
+    
+
+    
+
+   | **map、filter 和 reduce
+     **\ 这三个函数号称是函数式编程的代表。在 Python3.x 和 Python2.x
+     中也有了很大的差异。
+   | 首先我们先简单的在 Python2.x 的交互下输入 map 和
+     filter,看到它们两者的类型是 built-in function(内置函数):
+   | >>> map
+   | <built-in function map>
+   | >>> filter
+   | <built-in function filter>
+   | >>>
+   | 它们输出的结果类型都是列表:
+   | >>> map(lambda x:x \*2, [1,2,3])
+   | [2, 4, 6]
+   | >>> filter(lambda x:x %2 ==0,range(10))
+   | [0, 2, 4, 6, 8]
+   | >>>
+   | 但是在Python 3.x中它们却不是这个样子了：
+   | >>> map
+   | <class 'map'>
+   | >>> map(print,[1,2,3])
+   | <map object at 0x10d8bd400>
+   | >>> filter
+   | <class 'filter'>
+   | >>> filter(lambda x:x % 2 == 0, range(10))
+   | <filter object at 0x10d8bd3c8>
+   | >>>
+   | 首先它们从函数变成了类，其次，它们的返回结果也从当初的列表成了一个可迭代的对象,
+     我们尝试用 next 函数来进行手工迭代:
+   | >>> f =filter(lambda x:x %2 ==0, range(10))
+   | >>> next(f)
+   | 0
+   | >>> next(f)
+   | 2
+   | >>> next(f)
+   | 4
+   | >>> next(f)
+   | 6
+   | >>>
+   | 对于比较高端的 reduce 函数，它在 Python 3.x 中已经不属于 built-in
+     了，被挪到 functools 模块当中。
+
+    
+
+   *来自 <*\ https://www.runoob.com/python/python-2x-3x.html\ *>*
+
+ 
+
+**Python2.x中的编码问题**
+
+2016年3月5日 星期六
+
+01:37
+
+ 
+
+   | **字符串在Python内部的表示是unicode编码**\ ，因此，在做编码转换时，通常需要以unicode作为中间编码，即先\ **将其他编码的字符串解码（decode）成unicode，再从unicode编码（encode）成另一种编码**\ 。
+   | 但是，\ **Python
+     2.x的默认编码格式是ASCII（因为python诞生比unicode要早）**\ ，就是说，在没有指定Python源码编码格式的情况下，源码中的所有字符都会被默认为ASCII码。也因为这个根本原因，在Python
+     2.x中经常会遇到UnicodeDecodeError或者UnicodeEncodeError的异常。
+
+   | 为了能够处理Unicode数据，同时兼容Python某些内部模块，\ **Python
+     2.x中提供了Unicode这种数据类型**\ ，通过decode和encode方法可以将其它编码和Unicode编码相互转化，但同时也引入了UnicodeDecodeError和UnicodeEncodeError异常。
+   | **如果在文件头部没有指定文件编码类型，那么文件里的字符串字面值就是
+     ascii，否则就是指定的 coding 类型**\ 。
+
+    
+
+   切记，unicode是python内部表示字符串的数据类型，py内部只理解unicode，所以：
+
+-  对于非unicode编码（py内部不能原生理解的编码），就需要进行解码，所以decode是从str
+      到 unicode，解码的结果就是py能理解的unicode。
+
+-  encode是从 unicode 到 str，编码就是从内部表示法到其它表示方法。
+
+..
+
+    
+
+   **str和unicode**
+
+   **str和unicode都是basestring的子类**\ 。严格意义上说，\ **str其实是字节串**\ ，它是unicode经过编码后的字节组成的序列。对UTF-8编码的str'汉'使用len()函数时，结果是3，因为实际上，UTF-8编码的'汉'
+   == '\xE6\xB1\x89'。
+
+   unicode才是真正意义上的字符串，对字节串str使用正确的字符编码进行解码后获得，并且len(u'汉')
+   == 1。
+
+   再来看看\ **encode()和decode()两个basestring的实例方法**\ ，理解了str和unicode的区别后，这两个方法就不会再混淆了：
+
+== ===============================
+1  # coding: UTF-8
+  
+2   
+  
+3  u = u'汉'
+  
+4  print repr(u) # u'\u6c49'
+  
+5  s = u.encode('UTF-8')
+  
+6  print repr(s) # '\xe6\xb1\x89'
+  
+7  u2 = s.decode('UTF-8')
+  
+8  print repr(u2) # u'\u6c49'
+  
+9   
+  
+10 # 对unicode进行解码是错误的
+  
+11 # s2 = u.decode('UTF-8')
+  
+12 # 同样，对str进行编码也是错误的
+  
+13 # u2 = s.encode('UTF-8')
+== ===============================
+
+..
+
+   需要注意的是，虽然对str调用encode()方法是错误的，但实际上Python不会抛出异常，而是返回另外一个相同内容但不同id的str；对unicode调用decode()方法也是这样。很不理解为什么不把encode()和decode()分别放在unicode和str中而是都放在basestring中，但既然已经这样了，我们就小心避免犯错吧。
+
+    
+
+    
+
+PYTHON-进阶-编码处理小结
+========================
+
+-  `Python-进阶-编码处理小结 <http://wklken.me/posts/2013/08/31/python-extra-coding-intro.html>`__
+
+-  `开始 <http://wklken.me/posts/2013/08/31/python-extra-coding-intro.html#_1>`__
+
+-  `首先 <http://wklken.me/posts/2013/08/31/python-extra-coding-intro.html#_2>`__
+
+-  `str 和
+      unicode <http://wklken.me/posts/2013/08/31/python-extra-coding-intro.html#str-unicode>`__
+
+-  `文件处理,IDE和控制台 <http://wklken.me/posts/2013/08/31/python-extra-coding-intro.html#ide>`__
+
+-  `建议 <http://wklken.me/posts/2013/08/31/python-extra-coding-intro.html#_3>`__
+
+-  `相关模块及一些方法 <http://wklken.me/posts/2013/08/31/python-extra-coding-intro.html#_4>`__
+
+..
+
+   整理下python编码相关的内容
+
+   注意: 以下讨论为Python2.x版本, Py3k的待尝试
+
+    
+
+   **开始**
+
+   用python处理中文时，读取文件或消息，http参数等等
+
+   一运行，发现乱码(字符串处理，读写文件，print)
+
+   然后，大多数人的做法是，调用encode/decode进行调试，并没有明确思考为何出现乱码
+
+   所以调试时最常出现的错误
+
+   错误1
+
+   | Traceback (most recent call last):
+   | File "<stdin>", line 1, in <module>
+   | UnicodeDecodeError: 'ascii' codec can't decode byte 0xe6 in
+     position 0: ordinal not in range(128)
+
+   错误2
+
+   | Traceback (most recent call last):
+   | File "<stdin>", line 1, in <module>
+   | File
+     "/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/encodings/utf_8.py",
+     line 16, in decode
+   | return codecs.utf_8_decode(input, errors, True)
+   | UnicodeEncodeError: 'ascii' codec can't encode characters in
+     position 0-1: ordinal not in range(128)
+
+    
+
+   **首先**
+
+   必须有大体概念，了解下字符集，\ `字符编码 <http://zh.wikipedia.org/wiki/%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81>`__
+
+   `ASCII <http://zh.wikipedia.org/zh/ASCII>`__ | `Unicode <http://zh.wikipedia.org/zh/Unicode>`__ | `UTF-8 <http://zh.wikipedia.org/zh/UTF-8>`__ \|
+   等等
+
+   `字符编码笔记：ASCII，Unicode和UTF-8 <http://www.ruanyifeng.com/blog/2007/10/ascii_unicode_and_utf-8.html>`__
+
+   `淘宝搜索技术博客-中文编码杂谈 <http://www.searchtb.com/2012/04/chinese_encode.html>`__
+
+    
+
+   **str 和 unicode**
+
+   str和unicode都是basestring的子类
+
+   所以有判断是否是字符串的方法
+
+   | **def** is_str(s):
+   | **return** isinstance(s, basestring)
+
+   str和unicode 转换
+
+   decode \ `文档 <http://www.tutorialspoint.com/python/string_decode.htm>`__
+
+   encode \ `文档 <http://www.tutorialspoint.com/python/string_encode.htm>`__
+
+   | str -> decode('the_coding_of_str') -> unicode
+   | unicode -> encode('the_coding_you_want') -> str
+
+   区别
+
+   str是字节串，由unicode经过编码(encode)后的字节组成的
+
+   声明方式
+
+   | s = '中文'
+   | s = u'中文'.encode('utf-8')
+
+   | >>> type('中文')
+   | <type 'str'>
+
+   求长度(返回字节数)
+
+   | >>> u'中文'.encode('utf-8')
+   | '\xe4\xb8\xad\xe6\x96\x87'
+   | >>> len(u'中文'.encode('utf-8'))
+   | 6
+
+   unicode才是真正意义上的字符串，由字符组成
+
+   声明方式
+
+   | s = u'中文'
+   | s = '中文'.decode('utf-8')
+   | s = unicode('中文', 'utf-8')
+
+   | >>> type(u'中文')
+   | <type 'unicode'>
+
+   求长度(返回字符数),在逻辑中真正想要用的
+
+   | >>> u'中文'
+   | u'\u4e2d\u6587'
+   | >>> len(u'中文')
+   | 2
+
+   结论
+
+   搞明白要处理的是str还是unicode,
+   使用对的处理方法(str.decode/unicode.encode)
+
+   下面是判断是否为unicode/str的方法
+
+   | >>> isinstance(u'中文', unicode)
+   | True
+   | >>> isinstance('中文', unicode)
+   | False
+
+   | >>> isinstance('中文', str)
+   | True
+   | >>> isinstance(u'中文', str)
+   | False
+
+   简单原则：不要对str使用encode，不要对unicode使用decode
+   (事实上可以对str进行encode的，具体见最后，为了保证简单，不建议)
+
+   | >>> '中文'.encode('utf-8')
+   | Traceback (most recent call last):
+   | File "<stdin>", line 1, in <module>
+   | UnicodeDecodeError: 'ascii' codec can't decode byte 0xe4 in
+     position 0: ordinal not in range(128)
+
+   | >>> u'中文'.decode('utf-8')
+   | Traceback (most recent call last):
+   | File "<stdin>", line 1, in <module>
+   | File
+     "/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/encodings/utf_8.py",
+     line 16, in decode
+   | return codecs.utf_8_decode(input, errors, True)
+   | UnicodeEncodeError: 'ascii' codec can't encode characters in
+     position 0-1: ordinal not in range(128)
+
+   不同编码转换,使用unicode作为中间编码
+
+   | *#s是code_A的str*
+   | s.decode('code_A').encode('code_B')
+
+    
+
+   **文件处理,IDE和控制台**
+
+   处理流程，可以这么使用，把python看做一个水池，一个入口，一个出口
+
+   入口处，全部转成unicode,
+   池里全部使用unicode处理，出口处，再转成目标编码(当然，有例外，处理逻辑中要用到具体编码的情况)
+
+   读文件
+
+   外部输入编码，decode转成unicode
+
+   处理(内部编码，统一unicode)
+
+   encode转成需要的目标编码
+
+   写到目标输出(文件或控制台)
+
+   IDE和控制台报错，原因是print时，编码和IDE自身编码不一致导致
+
+   输出时将编码转换成一致的就可以正常输出
+
+   | >>> print u'中文'.encode('gbk')
+   | >>> print u'中文'.encode('utf-8')
+   | 中文
+
+    
+
+   **建议**
+
+   规范编码
+
+   统一编码，防止由于某个环节产生的乱码
+
+   环境编码，IDE/文本编辑器, 文件编码，数据库数据表编码
+
+   保证代码源文件编码
+
+   这个很重要
+
+   py文件默认编码是ASCII,
+   在源代码文件中，如果用到非ASCII字符，需要在文件头部进行编码声明 \ `文档 <http://www.python.org/dev/peps/pep-0263/>`__
+
+   不声明的话，输入非ASCII会遇到的错误,必须放在文件第一行或第二行
+
+   | **File** "XXX.py", **line 3**
+   | **SyntaxError**: **Non-ASCII character** '\xd6' **in file c**\ .py
+     **on line 3**, **but no encoding declared**; **see**
+     `http://www.python.org/\ peps/pep-0263.html <http://www.python.org/peps/pep-0263.html>`__
+     **for details**
+
+   声明方法
+
+   | # -*- coding: utf-8 -*-
+   | 或者
+   | #coding=utf-8
+
+   若头部声明coding=utf-8, a = '中文' 其编码为utf-8
+
+   若头部声明coding=gb2312, a = '中文' 其编码为gbk
+
+   so,
+   同一项目中所有源文件头部统一一个编码,并且声明的编码要和源文件保存的编码一致(编辑器相关)
+
+   在源代码用作处理的硬编码字符串，统一用unicode
+
+   将其类型和源文件本身的编码隔离开, 独立无依赖方便流程中各个位置处理
+
+   | **if** s == u'中文': *#而不是 s == '中文'*
+   | **pass**
+   | *#注意这里 s到这里时，确保转为unicode*
+
+   以上几步搞定后，你只需要关注两个 unicode和
+   你设定的编码(一般使用utf-8)
+
+   处理顺序
+
+   | 1. Decode early
+   | 2. Unicode everywhere
+   | 3. Encode later
+
+   **相关模块及一些方法**
+
+   获得和设置系统默认编码
+
+   | >>> **import** sys
+   | >>> sys.getdefaultencoding()
+   | 'ascii'
+
+   | >>> reload(sys)
+   | <module 'sys' (built-**in**)>
+   | >>> sys.setdefaultencoding('utf-8')
+   | >>> sys.getdefaultencoding()
+   | 'utf-8'
+
+   str.encode('other_coding')
+
+   在python中，直接将某种编码的str进行encode成另一种编码str
+
+   | *#str_A为utf-8*
+   | str_A.encode('gbk')
+
+   | 执行的操作是
+   | str_A.decode('sys_codec').encode('gbk')
+   | 这里sys_codec即为上一步 sys.getdefaultencoding() 的编码
+
+   '获得和设置系统默认编码'和这里的str.encode是相关的，但我一般很少这么用，主要是觉得复杂不可控,还是输入明确decode，输出明确encode来得简单些(个人观点)
+
+   chardet
+
+   文件编码检测，\ `下载 <https://pypi.python.org/pypi/chardet>`__
+
+   | >>> **import** chardet
+   | >>> f = open('test.txt','r')
+   | >>> result = chardet.detect(f.read())
+   | >>> result
+   | {'confidence': 0.99, 'encoding': 'utf-8'}
+
+   \\u字符串转对应unicode字符串
+
+   | >>> u'中'
+   | u'\u4e2d'
+
+   | >>> s = '\u4e2d'
+   | >>> print s.decode('unicode_escape')
+   | 中
+
+   | >>> a =
+     '`\\\u4fee\\u6539\\u8282\\u70b9\\u72b6\\u6001\\u6210\\u529f <file://u4fee/u6539/u8282/u70b9/u72b6/u6001/u6210/u529f>`__'
+   | >>> a.decode('unicode_escape')
+   | u'\u4fee\u6539\u8282\u70b9\u72b6\u6001\u6210\u529f'
+
+   python unicode文档
+
+   `入口 <http://docs.python.org/2/tutorial/introduction.html#unicode-strings>`__
+
+    
+
+   好了，暂时就这么多，希望讲清楚了
+
+   thx
+
+   wklken
+
+   2013-08-31 于深圳
+
+    
+
+    
+
+    
+
+    
+
+   `Python的中文编码问题 <https://segmentfault.com/a/1190000002412924>`__
+
+   字符串是Python中最常用的数据类型，而且很多时候你会用到一些不属于标准ASCII字符集的字符，这时候代码就很可能抛出UnicodeDecodeError:
+   'ascii' codec can't decode byte 0xc4 in position 10: ordinal not in
+   range(128)异常。这种异常在Python中很容易遇到，尤其是在Python2.x中，是一个很让初学者费解头疼的问题。不过，如果你理解了Python的Unicode，并在编码中遵循一定的原则，这种编码问题还是比较容易理解和解决的。
+
+   字符串在Python内部的表示是unicode编码，因此，在做编码转换时，通常需要以unicode作为中间编码，即先将其他编码的字符串解码（decode）成unicode，再从unicode编码（encode）成另一种编码。但是，Python
+   2.x的默认编码格式是ASCII，就是说，在没有指定Python源码编码格式的情况下，源码中的所有字符都会被默认为ASCII码。也因为这个根本原因，在Python
+   2.x中经常会遇到UnicodeDecodeError或者UnicodeEncodeError的异常。
+
+   关于Unicode
+
+   Unicode是一种字符集，它为每一种现代或古代使用的文字系统中出现的每一个字符都提供了统一的序列号，规定了符号的二进制代码，但没有规定这个二进制代码应该如何存储。也就是说：Unicode的编码方式是固定的，但是实现方式根据不同的需要有跟多种，常见的有UTF-8、UTF-16和UTF-32等。
+
+   为了能够处理Unicode数据，同时兼容Python某些内部模块，Python
+   2.x中提供了Unicode这种数据类型，通过decode和encode方法可以将其它编码和Unicode编码相互转化，但同时也引入了UnicodeDecodeError和UnicodeEncodeError异常。。
+
+   常见的几种编码异常
+
+   **Python中常见的几种编码异常有SyntaxError: Non-ASCII
+   character、UnicodeDecodeError和UnicodeEncodeError等**\ 。下面依次举例说明一下：
+
+   1、SyntaxError: Non-ASCII character
+
+   这种异常最不容易出现，也最容易处理，主要原因是Python源码文件中有非ASCII字符，而且同时没有声明源码编码格式，例如：
+
+   | s = '中文'
+   | print s # 抛出异常
+
+   2、UnicodeDecodeError
+
+   这个异常有时候会在调用decode方法时出现，原因是Python打算将其他编码的字符转化为Unicode编码，但是字符本身的编码格式和decode方法传入的编码格式不一致，例如：
+
+   | #!/usr/bin/python
+   | # -*- coding: utf-8 -*-
+   | s = '中文'
+   | s.decode('gb2312') # UnicodeDecodeError: 'gb2312' codec can't
+     decode bytes in position 2-3: illegal multibyte sequence
+   | print s
+
+   上面这段代码中字符串s的编码格式是utf-8，但是在使用decode方法转化为Unicode编码时传入的参数是‘gb2312’，因此在转化的时候抛出UnicodeDecodeError异常。还有一种情况是在encode的时候：
+
+   | #!/usr/bin/python
+   | # -*- coding: utf-8 -*-
+   | s = '中文'
+   | s.encode('gb2312') # UnicodeDecodeError: 'ascii' codec can't decode
+     byte 0xe4 in position 0: ordinal not in range(128)
+   | print s
+
+   3、UnicodeEncodeError
+
+   错误的使用decode和encode方法会出现这种异常，比如：使用decode方法将Unicode字符串转化的时候：
+
+   | #!/usr/bin/python
+   | # -*- coding: utf-8 -*-
+   | s = u'中文'
+   | s.decode('utf-8') # UnicodeEncodeError: 'ascii' codec can't encode
+     characters in position 0-1: ordinal not in range(128)
+   | print s
+
+   当然，除了上面列出的几种出现异常的情况之外还有很多可能出现异常的例子，这里就不在一一说明了。
+
+   解决方法
+
+   对于以上的几个异常，有以下几个处理的方法和原则。
+
+   1、遵循PEP0263原则，声明编码格式
+
+   在PEP 0263 -- Defining Python Source Code
+   Encodings中提出了对Python编码问题的最基本的解决方法：在Python源码文件中声明编码格式，最常见的声明方式如下：
+
+   | #!/usr/bin/python
+   | # -*- coding: <encoding name> -*-
+
+   其中是代码所需要的编码格式，它可以是任意一种Python支持的格式，一般都会使用utf-8的编码格式。
+
+   2、使用 u'中文' 替代 '中文'
+
+   | str1 = '中文编码'
+   | str2 = u'中文编码'
+
+   Python中有以上两种声明字符串变量的方式，它们的主要区别是编码格式的不同，其中，str1的编码格式和Python文件声明的编码格式一致，而str2的编码格式则是Unicode。如果你要声明的字符串变量中存在非ASCII的字符，那么最好使用str2的声明格式，这样你就可以不需要执行decode，直接对字符串进行操作，可以避免一些出现异常的情况。
+
+   3、Reset默认编码
+
+   Python中出现这么多编码问题的根本原因是Python
+   2.x的默认编码格式是ASCII，所以你也可以通过以下的方式修改默认的编码格式：
+
+   | import sys
+   | sys.setdefaultencoding('utf-8')
+
+   这种方法是可以解决部分编码问题，但是同时也会引入很多其他问题，得不偿失，不建议使用这种方式。
+
+   4、终极原则：decode early, unicode everywhere, encode late
+
+   最后分享一个终极原则：decode early, unicode everywhere, encode
+   late，即：在输入或者声明字符串的时候，尽早地使用decode方法将字符串转化成unicode编码格式；然后在程序内使用字符串的时候统一使用unicode格式进行处理，比如字符串拼接、字符串替换、获取字符串的长度等操作；最后，在输出字符串的时候（控制台/网页/文件），通过encode方法将字符串转化为你所想要的编码格式，比如utf-8等。
+
+   按照这个原则处理Python的字符串，基本上可以解决所有的编码问题（只要你的代码和Python环境没有问题）。。。
+
+   5、升级Python 2.x到3.x
+
+   额，最后一个方法，升级Python 2.x，使用Python
+   3.x版本。。这样说主要是为了吐槽Python
+   2.x的编码设计问题。当然，升级到Python
+   3.x肯定可以解决大部分因为编码产生的异常问题。毕竟Python
+   3.x版本对字符串这部分还是做了相当大的改进的，具体的下面会说。。。。
+
+   Python 3.x中的Unicode
+
+   在Python
+   3.0之后的版本中，所有的字符串都是使用Unicode编码的字符串序列，同时还有以下几个改进：
+
+-  默认编码格式改为unicode
+
+-  所有的Python内置模块都支持unicode
+
+-  不再支持u'中文'的语法格式
+
+..
+
+   所以，对于Python
+   3.x来说，编码问题已经不再是个大的问题，基本上很少遇到上述的几个异常。关于Python
+   2.x str&unicode和Python 3.x
+   str&bytes的更多说明和对比，大家可以看一下：Python中字符编码的总结和对比
+
+   PS:
+   该文章转自我的博客：\ `Python的中文编码问题 <http://xianglong.me/article/learn-python-1-chinese-encoding/>`__
+
+   Over!
+
+ 
+
+PyCharm 快捷键
+
+2017年8月13日 星期日
+
+16:38
+
+ 
+
+============ =========
+Command:     |image8|
+============ =========
+Ctrl         |image9|
+Option (alt) |image10|
+Shift        |image11|
+============ =========
+
+ 
+
+Mac OS X 10.5+ 的 Keymap 方案：
+===============================
+
+ 
+
+======== =======================
+==================================================
+===========================================================
+**类别** **快捷键**              **操作**                                           **备注**
+======== =======================
+==================================================
+===========================================================
+导航     Cmd + B, Cmd + Alt + B  跳转到声明/定义                                     
+         Cmd + [, Cmd + ]        上/下一个位置                                       
+         Ctrl + Tab              NB的Tab导航窗口                                     
+         Cmd + F12               显示文件Outline                                     
+         Cmd+ L                  跳到某行                                           Line
+         Cmd + Shift + Backspace 跳到上一次编辑的位置                                
+         Cmd + E                 最近文件列表                                        
+         Cmd + Shift + E         最近编辑文件列表                                    
+                                                                                     
+查找     Cmd+ Shift + O          查找文件                                           常用的三种查找都是O
+         Cmd+ O                  查找类                                              
+         Cmd+ Alt+ O             查找符号                                            
+         双击 Shift              Search Everywhere                                  大杀器
+         Cmd + F/R               当前文件搜索/替换                                   
+         Cmd + Shift+ F/R        全局搜索/替换                                       
+         Cmd+G, Cmd+Shift+G      下一个/上一个                                       
+         Alt + F7                find usage                                          
+                                                                                     
+编辑     Cmd + /                 注释/取消注释一行                                   
+         Cmd + Alt + L           代码块对齐                                          
+         Cmd + Backspace         删除当前行                                         Cmd + X 也一样
+         Cmd+D                   在下一行复制本行的内容                             Duplicate
+         Ctrl + Shift + J        合并两行                                           Joint
+         Cmd +C                  复制光标当前行,剪切同理                             
+         Cmd + Shift + 上/下     移动一条语句                                        
+         Alt + Shift + 上/下     移动一行代码                                        
+         Cmd+Z, Cmd+Shift+Z      撤销/重做                                           
+         Ctrl + O                重写方法                                           Overwrite
+                                                                                     
+智能补全 Cmd + J                 代码块智能补全                                      
+         Alt + Cmd + T           指定代码被注释语句或者逻辑结构、函数包围            
+         Alt + /, Alt + ?        正反向的字符串匹配补全                              
+         Alt + Space             快速定义                                           PyCharm有三种方式可以访问文档：快速定义，快速文档，外部文档
+         Ctrl + J                快速文档 （直接F1好像也一样）                       
+         Shift + F1              打开外部文档，非常牛啊，直接在浏览器中打开库的文档  
+         Cmd + P                 显示参数信息                                       Patameter
+                                                                                     
+重构     Ctrl + T                弹出重构选择                                       好像跟 IdeaVim 冲突了
+         Shift + F6              重命名                                              
+         Cmd+ F6                 重构签名                                            
+                                                                                     
+折叠     Cmd +                   展开当前                                            
+         Cmd -                   折叠当前                                            
+         Shift Cmd +             展开所有                                            
+         Shift Cmd -             折叠所有                                            
+                                                                                     
+运行调试 Ctrl + R                运行当前对象                                       Run
+         Ctrl + Alt + R          选择一个对象并运行                                  
+                                                                                     
+其它     Alt + F12               打开 Terminal                                       
+         Alt + F1                选择一个子窗口为当前焦点                            
+         Cmd+ W                  关闭当前标签                                        
+         Cmd+ Shift + A          查找并执行一个动作                                 Action 很多动作没有直接的快捷键，按名字查找很快捷
+         Ctrl + Shift + 8        列选择模式                                         Alt + 鼠标选择更方便
+======== =======================
+==================================================
+===========================================================
+
+ 
+
+ 
+
+熟练这些快捷键，再加上 IdeaVim 插件，我几乎就可以非常行云流水了！
+
+ 
+
+ 
+
+|PyCharm 彳 or Mac 麻 瓜 编 程 跳 过 查 找 当 前 运 彳 亏 环 鳬 ^ 仓 ^
+弋 仓 ^ 會 會 重 命 名 高 亮 用 法 退 出 文 件 esc 折 叠 全 部 展 开 全
+部 F5 F6 换 环 境 运 行 折 叠 代 码 展 开 代 码 弋 仓 查 找 符 号 文 件
+内 替 换 2 3 8 1 6 7 delete 运 行 查 扌 戈 文 亻 牛 名 弋 詫 仓 Z 詫 仓
+提 交 到 选 代 码 选 代 码 切 换 窗 囗 关 闭 标 签 替 换 查 找 类 名 参
+数 提 示 注 释 开 始 处 结 束 处 VCS R T Y P ^ 仓 ^ 弋 tab 调 试 环 境
+当 前 行 模 板 格 式 化 代 码 快 速 修 正 0 配 置 调 甲 更 新 到 查 找
+动 作 换 环 境 调 试 插 入 模 板 查 彳 亍 号 智 能 换 行 层 次 结 构 VCS
+S G A D F H K L return capslock 调 试 文 件 内 找 补 全 代 码 7 复 制 当
+前 行 查 找 B Z N M 选 申 新 增 代 码 shift shift 剪 贴 精 贴 缓 存 看
+声 明 · 显 示 导 西 兰 ctrl cmd cmd option option 回 到 之 前 状 态 查
+看 资 源|
+
+ 
+
+**CentOs 6.x 升级 Python 版本**
+
+2016年7月7日
+
+18:39
+
+ 
+
+   **文章目录**
+
+1.  `1. 在CentOS 6.X 上面安装 Python
+       2.7.X <https://ruiaylin.github.io/2014/12/12/python%20update/#在CentOS_6-X_上面安装_Python_2-7-X>`__
+
+2.  `2. 升级步骤 <https://ruiaylin.github.io/2014/12/12/python%20update/#升级步骤>`__
+
+3.  `2.1. 更新系统和开发工具集 <https://ruiaylin.github.io/2014/12/12/python%20update/#更新系统和开发工具集>`__
+
+4.  `2.2. 源码安装Python
+       2.7.x <https://ruiaylin.github.io/2014/12/12/python%20update/#源码安装Python_2-7-x>`__
+
+5.  `2.2.1. 安装详情： <https://ruiaylin.github.io/2014/12/12/python%20update/#安装详情：>`__
+
+6.  `2.2.2. 设置
+       PATH <https://ruiaylin.github.io/2014/12/12/python%20update/#设置_PATH>`__
+
+7.  `2.2.3. 安装
+       setuptools <https://ruiaylin.github.io/2014/12/12/python%20update/#安装_setuptools>`__
+
+8.  `2.3. 安装
+       PIP <https://ruiaylin.github.io/2014/12/12/python%20update/#安装_PIP>`__
+
+9.  `2.4. 修复 yum
+       工具 <https://ruiaylin.github.io/2014/12/12/python%20update/#修复_yum_工具>`__
+
+10. `3. 总结 <https://ruiaylin.github.io/2014/12/12/python%20update/#总结>`__
+
+..
+
+   **在CentOS 6.X 上面安装 Python 2.7.X**
+
+   CentOS 6.X 自带的python版本是 2.6 ,
+   由于工作需要，很多时候需要2.7版本。所以需要进行版本升级。由于一些系统工具和服务是对
+   Python 有依赖的，所以升级 Python 版本需要注意。
+
+   **升级步骤**
+
+   如何欢乐的，没有痛苦的升级python版本 ，往下看 …
+
+   **更新系统和开发工具集**
+
+   更新指令
+
+   | yum -y update
+   | yum groupinstall -y 'development tools'
+
+   另外还需要安装 python 工具需要的额外软件包 SSL, bz2, zlib
+
+   yum install -y zlib-devel bzip2-devel openssl-devel xz-libs wget
+
+   **源码安装Python 2.7.x**
+
+   | wget http://www.python.org/ftp/python/2.7.8/Python-2.7.8.tar.xz
+   | xz -d Python-2.7.8.tar.xz
+   | tar -xvf Python-2.7.8.tar
+
+   **安装详情：**
+
+   | # 进入目录:
+   | cd Python-2.7.8
+   | # 运行配置 configure:
+   | ./configure --prefix=/usr/local
+   | # 编译安装:
+   | make
+   | make altinstall
+   | # 检查 Python 版本:
+   | [root@dbmasterxxx ~]# python2.7 -V
+   | Python 2.7.8
+
+   **设置 PATH**
+
+   为了我们能够方便的使用Python，我们需要设置系统变量或者建立
+   软连接将新版本的 Python
+
+   加入到 path 对应的目录 ：
+
+   | export PATH="/usr/local/bin:$PATH"
+   | or
+   | ln -s /usr/local/bin/python2.7 /usr/bin/python
+   | # 检查
+   | [root@dbmasterxxx ~]# python -V
+   | Python 2.7.8
+   | [root@dbmasterxxx ~]# which python
+   | /usr/bin/python
+
+   **安装 setuptools**
+
+   | #获取软件包
+   | wget --no-check-certificate
+     https://pypi.python.org/packages/source/s/setuptools/setuptools-1.4.2.tar.gz
+   | # 解压:
+   | tar -xvf setuptools-1.4.2.tar.gz
+   | cd setuptools-1.4.2
+   | # 使用 Python 2.7.8 安装 setuptools
+   | python2.7 setup.py install
+
+   **安装 PIP**
+
+   curl https://bootstrap.pypa.io/get-pip.py \| python2.7 -
+
+   这样出来的pip就默认会装到 2.7 的目录下了
+
+    
+
+   **修复 yum 工具**
+
+   此时yum应该是失效的，因为此时默认python版本已经是2.7了。而yum需要的是2.6
+   所以：
+
+   | [root@dbmasterxxx ~]# which yum
+   | /usr/bin/yum
+   | #修改 yum中的python
+   | 将第一行 #!/usr/bin/python 改为 #!/usr/bin/python2.6
+   | 此时yum就ok啦
+
+   **总结**
+
+   Python
+   版本升级过很多遍，每次都有问题，此方法来自互联网，经过使用，没有问题，特此总结一下
+
+    
+
+   *来自 <*\ https://ruiaylin.github.io/2014/12/12/python%20update/\ *>*
+
+.. |Python type@bj) type(IO) #> int #> list type({'a': #> dict class DoNothing: pass x = DoNothing() type(x) —main_. DoNothing type(int), type(list), type(dict) #> (type, type, type) type(DoNothing) #> type type(type) type type type Python| image:: media/image1.png
+   :width: 7.34375in
+   :height: 6.10417in
+.. |image1| image:: media/image2.png
+   :width: 7.39583in
+   :height: 5.02083in
+.. |- ty scalar| image:: media/image3.png
+   :width: 4.58333in
+   :height: 1.80208in
+.. |bitwise bitwise invert and or left shift right \_ shift| image:: media/image4.png
+   :width: 3.32292in
+   :height: 1.66667in
+.. |add() 返 回 两 个 str 或 uniC0de 数 组 的 逐 个 字 符 串 连 接 mult1P1y() 返 回 按 元 素 多 重 连 接 后 的 字 符 串 center() 返 回 给 定 字 符 串 的 副 本 ， 其 中 元 素 位 于 特 定 字 符 串 的 中 央 capltallze() 返 回 给 定 字 符 串 的 副 本 ， 其 中 只 有 第 一 个 字 符 串 大 写 title() 返 回 字 符 串 或 Unicode 的 按 元 素 标 转 换 版 本 10 er() 返 回 一 个 数 组 ， 其 元 素 转 换 为 小 写 upper() 返 回 一 个 数 组 ， 其 元 素 转 换 为 大 写 SP11t() 返 回 字 符 串 中 的 单 词 列 表 ， 并 使 用 分 隔 符 来 分 割 SP11t1ines() 返 回 元 素 中 的 行 列 表 ， 以 换 行 符 分 割 str1P() 返 回 数 组 副 本 ， 其 中 元 素 移 除 了 开 头 或 者 结 尾 处 的 特 定 字 符 j01'1() 返 回 一 个 字 符 串 ， 它 是 序 列 中 字 符 串 的 连 接 replace() 返 回 字 符 串 的 副 本 ， 其 中 所 有 子 字 符 串 的 出 现 位 置 都 被 新 字 符 串 取 代 decode() 按 元 素 调 用 str.decode encode() 按 元 素 调 用 str.encode| image:: media/image5.png
+   :width: 5in
+   :height: 4.38542in
+.. |dot 两 个 数 组 的 点 vd0t 两 个 向 量 的 点 inner 两 个 数 组 的 内 积 matmul 两 个 数 组 的 矩 阵 頽 determinant 数 组 的 行 列 式 solve 求 解 线 性 矩 阵 方 程 inv 寻 找 矩 阵 的 乘 法 逆 矩 阵| image:: media/image6.png
+   :width: 2.45833in
+   :height: 2.38542in
+.. |DATAQUEST 911 win all INSPECTING PROPERTIES IMPORTS ELEMENTS TING an LEARN DATA SCIENCE ONLINE Data Science Cheat Sheet VECTOR MATH each with than s LEARN DArA ONLINE| image:: media/image7.png
+   :width: 11.32292in
+   :height: 14.65625in
+.. |# pip --help Usage : pip <comand> [options] Comands : install uninstall freeze list show search wheel zip unzip bundle help General Options: -h, --help -v, --verbose arg, "yum*fisearch. Build wheels from your requirements. Zip individual packages. Unzip individual packages. Create pybundles. Rise.| image:: media/image8.png
+   :width: 8.66667in
+   :height: 5.19792in
+.. |image8| image:: media/image9.png
+   :width: 0.1875in
+   :height: 0.20833in
+.. |image9| image:: media/image10.png
+   :width: 0.17708in
+   :height: 0.19792in
+.. |image10| image:: media/image11.png
+   :width: 0.1875in
+   :height: 0.22917in
+.. |image11| image:: media/image12.png
+   :width: 0.1875in
+   :height: 0.19792in
+.. |PyCharm 彳 or Mac 麻 瓜 编 程 跳 过 查 找 当 前 运 彳 亏 环 鳬 ^ 仓 ^ 弋 仓 ^ 會 會 重 命 名 高 亮 用 法 退 出 文 件 esc 折 叠 全 部 展 开 全 部 F5 F6 换 环 境 运 行 折 叠 代 码 展 开 代 码 弋 仓 查 找 符 号 文 件 内 替 换 2 3 8 1 6 7 delete 运 行 查 扌 戈 文 亻 牛 名 弋 詫 仓 Z 詫 仓 提 交 到 选 代 码 选 代 码 切 换 窗 囗 关 闭 标 签 替 换 查 找 类 名 参 数 提 示 注 释 开 始 处 结 束 处 VCS R T Y P ^ 仓 ^ 弋 tab 调 试 环 境 当 前 行 模 板 格 式 化 代 码 快 速 修 正 0 配 置 调 甲 更 新 到 查 找 动 作 换 环 境 调 试 插 入 模 板 查 彳 亍 号 智 能 换 行 层 次 结 构 VCS S G A D F H K L return capslock 调 试 文 件 内 找 补 全 代 码 7 复 制 当 前 行 查 找 B Z N M 选 申 新 增 代 码 shift shift 剪 贴 精 贴 缓 存 看 声 明 · 显 示 导 西 兰 ctrl cmd cmd option option 回 到 之 前 状 态 查 看 资 源| image:: media/image13.png
+   :width: 13.32292in
+   :height: 7.27083in

@@ -1,9 +1,11 @@
 
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml" lang="zh_CN">
   <head>
-    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>C++ 代码风格 &#8212; Chuanqi 的技术文档</title>
     <link rel="stylesheet" href="../../_static/sphinx13.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -11,9 +13,8 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <script type="text/javascript" src="../../_static/language_data.js"></script>
     <script type="text/javascript" src="../../_static/translations.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
     <link rel="index" title="索引" href="../../genindex.html" />
     <link rel="search" title="搜索" href="../../search.html" />
@@ -92,7 +93,7 @@
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="../../index.html">目录</a></h3>
+  <h3><a href="../../index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">C++ 代码风格</a><ul>
 <li><a class="reference internal" href="#google-c-style">Google C++ Style 笔记</a></li>
@@ -108,11 +109,13 @@
   <p class="topless"><a href="../python/dive_into_python.html"
                         title="下一章">Dive Into Python 学习笔记</a></p>
 <div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">快速搜索</h3>
+  <h3>快速搜索</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" />
       <input type="submit" value="转向" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
@@ -128,114 +131,143 @@
   <div class="section" id="c">
 <h1>C++ 代码风格<a class="headerlink" href="#c" title="永久链接至标题">¶</a></h1>
 <div class="sidebar">
-<p class="sidebar-title">C++ 代码风格</p>
-<div class="line-block">
+<p class="first sidebar-title">C++ 代码风格</p>
+<div class="last line-block">
 <div class="line">坚持而统一的使用一种代码风格是一个成熟的程序员的表现。</div>
 <div class="line">随心所欲的代码风格只会迷惑自己和其他人。</div>
 </div>
 </div>
 <div class="admonition note">
-<p class="admonition-title">注解</p>
-<p>我的C++编码风格确定为：严格遵守Google C++ Style、注释遵循Doxygen Comment规范</p>
+<p class="first admonition-title">注解</p>
+<p class="last">我的C++编码风格确定为：严格遵守Google C++ Style、注释遵循Doxygen Comment规范</p>
 </div>
 <div class="section" id="google-c-style">
 <h2>Google C++ Style 笔记<a class="headerlink" href="#google-c-style" title="永久链接至标题">¶</a></h2>
 <ul>
-<li><p>头文件</p>
+<li><p class="first">头文件</p>
 <ul class="simple">
-<li><p>所有的头文件都必须且只使用#define进行头文件保护，命名格式当是: &lt;PROJECT&gt;_&lt;PATH&gt;_&lt;FILE&gt;_H_</p></li>
-<li><p>能用前置声明的时候就不要包含头文件（包含头文件意味着引入依赖），不允许访问类的定义的前提下, 我们在一个头文件中能对类 Foo 做哪些操作?</p>
-<ul>
-<li><p>可以将数据成员类型声明为 Foo * 或 Foo &amp;.</p></li>
-<li><p>可以将函数参数 / 返回值的类型声明为 Foo (但不能定义实现).</p></li>
-<li><p>可以将静态数据成员的类型声明为 Foo, 因为静态数据成员的定义在类定义之外.</p></li>
+<li>所有的头文件都必须且只使用#define进行头文件保护，命名格式当是: &lt;PROJECT&gt;_&lt;PATH&gt;_&lt;FILE&gt;_H_</li>
+<li>能用前置声明的时候就不要包含头文件（包含头文件意味着引入依赖），不允许访问类的定义的前提下, 我们在一个头文件中能对类 Foo 做哪些操作?<ul>
+<li>可以将数据成员类型声明为 Foo * 或 Foo &amp;.</li>
+<li>可以将函数参数 / 返回值的类型声明为 Foo (但不能定义实现).</li>
+<li>可以将静态数据成员的类型声明为 Foo, 因为静态数据成员的定义在类定义之外.</li>
 </ul>
 </li>
-<li><p>只有当函数只有 10 行甚至更少时才将其定义为内联函数.复杂的内联函数的定义, 应放在后缀名为 -inl.h 的头文件中.</p></li>
-<li><p>定义函数时, 参数顺序依次为: 输入参数, 然后是输出参数.</p></li>
-<li><p>使用标准的头文件包含顺序可增强可读性, 避免隐藏依赖: C 库, C++ 库, 其他库的 .h, 本项目内的 .h.</p></li>
+<li>只有当函数只有 10 行甚至更少时才将其定义为内联函数.复杂的内联函数的定义, 应放在后缀名为 -inl.h 的头文件中.</li>
+<li>定义函数时, 参数顺序依次为: 输入参数, 然后是输出参数.</li>
+<li>使用标准的头文件包含顺序可增强可读性, 避免隐藏依赖: C 库, C++ 库, 其他库的 .h, 本项目内的 .h.</li>
 </ul>
 </li>
-<li><p>命令空间 &amp; 作用域</p>
+<li><p class="first">命令空间 &amp; 作用域</p>
 <ul class="simple">
-<li><p>鼓励在源文件中使用匿名的命令空间，除std外不要有任何的using namespace，但是可以在源文件和头文件的函数、方法或类的内部using其它的实体，如using std::vector;等等；</p></li>
-<li><p>嵌套类受到所在的访问标签的作用，一般不要将嵌套类定义成公有, 除非它们是接口的一部分。比如, 嵌套类含有某些方法的一组选项.
-但即使作为接口的一部分时，也要慎重告诉嵌套类定义成公有的，因为嵌套类的缺点决定了：只能在外围类的内部做前置声明. 因此, 任何使用了 Foo::Bar* 指针的头文件不得不包含类 Foo 的整个声明.</p></li>
-<li><p>尽量不要使用裸的全局函数</p></li>
-<li><p>函数变量尽可能置于小的作用域（即在不得不使用的时候再定义），同时在确保在定义的同时初始化，绝不能出现未初始化的变量。</p></li>
-<li><p>禁止使用 class 类型的静态或全局变量: 它们会导致很难发现的 bug 和不确定的构造和析构函数调用顺序.
-永远不要使用函数返回值初始化静态变量; 不要在多线程代码中使用非 const 的静态变量.</p></li>
+<li>鼓励在源文件中使用匿名的命令空间，除std外不要有任何的using namespace，但是可以在源文件和头文件的函数、方法或类的内部using其它的实体，如using std::vector;等等；</li>
+<li>嵌套类受到所在的访问标签的作用，一般不要将嵌套类定义成公有, 除非它们是接口的一部分。比如, 嵌套类含有某些方法的一组选项.
+但即使作为接口的一部分时，也要慎重告诉嵌套类定义成公有的，因为嵌套类的缺点决定了：只能在外围类的内部做前置声明. 因此, 任何使用了 Foo::Bar* 指针的头文件不得不包含类 Foo 的整个声明.</li>
+<li>尽量不要使用裸的全局函数</li>
+<li>函数变量尽可能置于小的作用域（即在不得不使用的时候再定义），同时在确保在定义的同时初始化，绝不能出现未初始化的变量。</li>
+<li>禁止使用 class 类型的静态或全局变量: 它们会导致很难发现的 bug 和不确定的构造和析构函数调用顺序.
+永远不要使用函数返回值初始化静态变量; 不要在多线程代码中使用非 const 的静态变量.</li>
 </ul>
 </li>
-<li><p>类</p>
+<li><p class="first">类</p>
 <ul>
-<li><p>如果对象需要进行有意义的 (non-trivial) 初始化, 考虑使用明确的 Init() 方法并 (或) 增加一个成员标记用于指示对象是否已经初始化成功.</p></li>
-<li><p>如果一个类定义了若干成员变量又没有其它构造函数, 必须定义一个默认构造函数. 否则编译器将自动生产一个很糟糕的默认构造函数.</p></li>
-<li><p>对单个参数的构造函数使用 C++ 关键字 explicit.除非明显的想拥有隐匿转换的能力（透明包装）。</p></li>
-<li><p>仅在代码中需要拷贝一个类对象的时候使用拷贝构造函数; 大部分情况下的类都不需要具有拷贝功能的, 此时应使用 DISALLOW_COPY_AND_ASSIGN.明确的予以拒绝拷贝功能（放在类的未尾部分）。</p>
+<li><p class="first">如果对象需要进行有意义的 (non-trivial) 初始化, 考虑使用明确的 Init() 方法并 (或) 增加一个成员标记用于指示对象是否已经初始化成功.</p>
+</li>
+<li><p class="first">如果一个类定义了若干成员变量又没有其它构造函数, 必须定义一个默认构造函数. 否则编译器将自动生产一个很糟糕的默认构造函数.</p>
+</li>
+<li><p class="first">对单个参数的构造函数使用 C++ 关键字 explicit.除非明显的想拥有隐匿转换的能力（透明包装）。</p>
+</li>
+<li><p class="first">仅在代码中需要拷贝一个类对象的时候使用拷贝构造函数; 大部分情况下的类都不需要具有拷贝功能的, 此时应使用 DISALLOW_COPY_AND_ASSIGN.明确的予以拒绝拷贝功能（放在类的未尾部分）。</p>
 <p>为了能作为 STL 容器的值, 你可能有使类可拷贝的冲动. 在大多数类似的情况下, 真正该做的是把对象的 指针 放到 STL 容器中. 可以考虑使用 std::tr1::shared_ptr.</p>
 </li>
-<li><p>仅当只有数据时使用 struct, 其它一概使用 class.</p></li>
-<li><p>使用组合常常比使用继承更合理. 如果使用继承的话, 定义为 public 继承.</p></li>
-<li><p>数据成员在任何情况下都必须是私有的，并根据需要提供相应的存取函数（内联）。</p></li>
-<li><p>当重载一个虚函数, 在衍生类中把它明确的声明为 virtual. 理论依据: 如果省略 virtual 关键字, 代码阅读者不得不检查所有父类, 以判断该函数是否是虚函数.</p></li>
-<li><p>真正需要用到多重实现继承的情况少之又少. 只在以下情况我们才允许多重继承: 最多只有一个基类是非抽象类; 其它基类都是以 Interface 为后缀的 纯接口类.</p></li>
-<li><p>接口类最好都以Interface为后缀。</p></li>
-<li><p>除少数特定环境外，不要重载运算符.</p></li>
-<li><p>类的访问控制区段的声明顺序依次为: public:, protected:, private:. 如果某区段没内容, 可以不声明.</p></li>
-<li><p>每个区段内的声明通常按以下顺序:</p>
+<li><p class="first">仅当只有数据时使用 struct, 其它一概使用 class.</p>
+</li>
+<li><p class="first">使用组合常常比使用继承更合理. 如果使用继承的话, 定义为 public 继承.</p>
+</li>
+<li><p class="first">数据成员在任何情况下都必须是私有的，并根据需要提供相应的存取函数（内联）。</p>
+</li>
+<li><p class="first">当重载一个虚函数, 在衍生类中把它明确的声明为 virtual. 理论依据: 如果省略 virtual 关键字, 代码阅读者不得不检查所有父类, 以判断该函数是否是虚函数.</p>
+</li>
+<li><p class="first">真正需要用到多重实现继承的情况少之又少. 只在以下情况我们才允许多重继承: 最多只有一个基类是非抽象类; 其它基类都是以 Interface 为后缀的 纯接口类.</p>
+</li>
+<li><p class="first">接口类最好都以Interface为后缀。</p>
+</li>
+<li><p class="first">除少数特定环境外，不要重载运算符.</p>
+</li>
+<li><p class="first">类的访问控制区段的声明顺序依次为: public:, protected:, private:. 如果某区段没内容, 可以不声明.</p>
+</li>
+<li><p class="first">每个区段内的声明通常按以下顺序:</p>
 <ul class="simple">
-<li><p>typedefs 和枚举</p></li>
-<li><p>常量</p></li>
-<li><p>构造函数</p></li>
-<li><p>析构函数</p></li>
-<li><p>成员函数, 含静态成员函数</p></li>
-<li><p>数据成员, 含静态数据成员</p></li>
+<li>typedefs 和枚举</li>
+<li>常量</li>
+<li>构造函数</li>
+<li>析构函数</li>
+<li>成员函数, 含静态成员函数</li>
+<li>数据成员, 含静态数据成员</li>
 </ul>
 </li>
-<li><p>一般来说，一个函数不要太长，以40行以内为宜，但这只是建议。</p></li>
-<li><p>如果确实需要使用智能指针的话, scoped_ptr 完全可以胜任. 你应该只在非常特定的情况下使用 std::tr1::shared_ptr, 例如 STL 容器中的对象. 任何情况下都不要使用 auto_ptr.</p></li>
+<li><p class="first">一般来说，一个函数不要太长，以40行以内为宜，但这只是建议。</p>
+</li>
+<li><p class="first">如果确实需要使用智能指针的话, scoped_ptr 完全可以胜任. 你应该只在非常特定的情况下使用 std::tr1::shared_ptr, 例如 STL 容器中的对象. 任何情况下都不要使用 auto_ptr.</p>
+</li>
 </ul>
 </li>
-<li><p>其它C++特性</p>
+<li><p class="first">其它C++特性</p>
 <ul>
-<li><p>所以按引用传递的参数必须加上 const：输入参数是值参或 const 引用, 输出参数为指针. 输入参数可以是 const 指针, 但决不能是 非 const 的引用参数.</p></li>
-<li><p>仅在输入参数类型不同, 功能相同时使用重载函数 (含构造函数). 不要用函数重载模拟 缺省函数参数，而且禁止使用默认参数（这样强迫API的使用者去理解所有的参数）</p></li>
-<li><p>不允许使用变长数组和 alloca().</p></li>
-<li><p>允许合理的使用友元类及友元函数.</p></li>
-<li><dl>
-<dt><em>不使用 C++ 异常</em> .</dt><dd><p><strong>不同意这个观点，也许在继续开发原有代码时可以禁止异常，但是一个新的项目使用异常是一个好的选择</strong> ，很多时候异常是C++错误处理中的最佳选择（如构造函数中出错只有异常可以处理）。</p>
-<p>而且C++大牛们也在众多的经典书籍中大力推荐多使用异常。</p>
+<li><p class="first">所以按引用传递的参数必须加上 const：输入参数是值参或 const 引用, 输出参数为指针. 输入参数可以是 const 指针, 但决不能是 非 const 的引用参数.</p>
+</li>
+<li><p class="first">仅在输入参数类型不同, 功能相同时使用重载函数 (含构造函数). 不要用函数重载模拟 缺省函数参数，而且禁止使用默认参数（这样强迫API的使用者去理解所有的参数）</p>
+</li>
+<li><p class="first">不允许使用变长数组和 alloca().</p>
+</li>
+<li><p class="first">允许合理的使用友元类及友元函数.</p>
+</li>
+<li><dl class="first docutils">
+<dt><em>不使用 C++ 异常</em> .</dt>
+<dd><p class="first"><strong>不同意这个观点，也许在继续开发原有代码时可以禁止异常，但是一个新的项目使用异常是一个好的选择</strong> ，很多时候异常是C++错误处理中的最佳选择（如构造函数中出错只有异常可以处理）。</p>
+<p class="last">而且C++大牛们也在众多的经典书籍中大力推荐多使用异常。</p>
 </dd>
 </dl>
 </li>
-<li><p>除单元测试外, 不要使用 RTTI。
-虚函数和双重分派（访问者模式）可以替换RTTI并完成相同的工作；</p></li>
-<li><p>使用C++风格的类型转换，拒绝使用C风格的类型转换</p></li>
-<li><p>只在记录日志时使用流（流的好处在于类型的透明性），输入输出使用printf/scanf；</p></li>
-<li><p>在任何可能的情况下，尽量使用const</p></li>
-<li><p>使用断言而不是无符号类型来保证非负数
+<li><p class="first">除单元测试外, 不要使用 RTTI。
+虚函数和双重分派（访问者模式）可以替换RTTI并完成相同的工作；</p>
+</li>
+<li><p class="first">使用C++风格的类型转换，拒绝使用C风格的类型转换</p>
+</li>
+<li><p class="first">只在记录日志时使用流（流的好处在于类型的透明性），输入输出使用printf/scanf；</p>
+</li>
+<li><p class="first">在任何可能的情况下，尽量使用const</p>
+</li>
+<li><p class="first">使用断言而不是无符号类型来保证非负数
 | <code class="docutils literal notranslate"><span class="pre">for</span> <span class="pre">(unsigned</span> <span class="pre">int</span> <span class="pre">i</span> <span class="pre">=</span> <span class="pre">foo.Length()-1;</span> <span class="pre">i</span> <span class="pre">&gt;=</span> <span class="pre">0;</span> <span class="pre">--i)</span> <span class="pre">…</span>&#160;&#160;&#160;&#160; <span class="pre">//普通的int就不会有这个BUG</span></code>
 | 使用无符号数导致的BUG我已经碰到过好多次了，类型提升导致这成了一个死循环；
-| 所以在 <code class="docutils literal notranslate"><span class="pre">for</span></code> 循环中还是使用普通的 <code class="docutils literal notranslate"><span class="pre">int</span></code> 类型比较好</p></li>
-<li><p>使用宏时要非常谨慎, 尽量以内联函数, 枚举和常量代替之.</p></li>
-<li><p>整数用 0, 实数用 0.0, 指针用 NULL（C++1x中有了nullptr）, 字符 (串) 用 ‘0’.</p></li>
-<li><p>尽可能用 sizeof(varname) 代替 sizeof(type).</p></li>
+| 所以在 <code class="docutils literal notranslate"><span class="pre">for</span></code> 循环中还是使用普通的 <code class="docutils literal notranslate"><span class="pre">int</span></code> 类型比较好</p>
+</li>
+<li><p class="first">使用宏时要非常谨慎, 尽量以内联函数, 枚举和常量代替之.</p>
+</li>
+<li><p class="first">整数用 0, 实数用 0.0, 指针用 NULL（C++1x中有了nullptr）, 字符 (串) 用 ‘0’.</p>
+</li>
+<li><p class="first">尽可能用 sizeof(varname) 代替 sizeof(type).</p>
+</li>
 </ul>
 </li>
-<li><p>命令约定</p>
+<li><p class="first">命令约定</p>
 <ul>
-<li><p>函数命名, 变量命名, 文件命名应具备描述性; 不要过度缩写. 类型和变量应该是名词, 函数名可以用 “命令性” 动词.</p></li>
-<li><p>文件名要全部小写, 可以包含下划线 (_) 或连字符 (-). 按项目约定来.</p></li>
-<li><p>其中C++ 文件要以 .cc 结尾, 头文件以 .h 结尾.</p></li>
-<li><p>类型名称（类, 结构体, 类型定义 (typedef), 枚举）的每个单词首字母均大写, 不包含下划线: MyExcitingClass, MyExcitingEnum.</p></li>
-<li><p>变量名一律小写, 单词之间用下划线连接. 类的成员变量以下划线结尾:</p>
+<li><p class="first">函数命名, 变量命名, 文件命名应具备描述性; 不要过度缩写. 类型和变量应该是名词, 函数名可以用 “命令性” 动词.</p>
+</li>
+<li><p class="first">文件名要全部小写, 可以包含下划线 (_) 或连字符 (-). 按项目约定来.</p>
+</li>
+<li><p class="first">其中C++ 文件要以 .cc 结尾, 头文件以 .h 结尾.</p>
+</li>
+<li><p class="first">类型名称（类, 结构体, 类型定义 (typedef), 枚举）的每个单词首字母均大写, 不包含下划线: MyExcitingClass, MyExcitingEnum.</p>
+</li>
+<li><p class="first">变量名一律小写, 单词之间用下划线连接. 类的成员变量以下划线结尾:</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">my_exciting_local_variable</span>
 <span class="n">my_exciting_member_variable_</span>        <span class="c1">//成员变量</span>
 </pre></div>
 </div>
 </li>
-<li><p>结构体的数据成员可以和普通变量一样, 不用像类那样接下划线:</p>
+<li><p class="first">结构体的数据成员可以和普通变量一样, 不用像类那样接下划线:</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">UrlTableProperties</span> <span class="p">{</span>
   <span class="n">string</span> <span class="n">name</span><span class="p">;</span>
   <span class="kt">int</span> <span class="n">num_entries</span><span class="p">;</span>
@@ -243,101 +275,114 @@
 </pre></div>
 </div>
 </li>
-<li><p>对全局变量没有特别要求, 少用就好, 但如果你要用, 可以用 <code class="docutils literal notranslate"><span class="pre">g_</span></code> 或其它标志作为前缀, 以便更好的区分局部变量.（静态成员/变量也可以考虑加上s_的前缀）</p></li>
-<li><p>常量在名称前加 k: kDaysInAWeek（变量用全小写、常量不用全小写）.</p></li>
-<li><p>常规函数使用大小写混合, 取值和设值函数则要求与变量名匹配:</p>
+<li><p class="first">对全局变量没有特别要求, 少用就好, 但如果你要用, 可以用 <code class="docutils literal notranslate"><span class="pre">g_</span></code> 或其它标志作为前缀, 以便更好的区分局部变量.（静态成员/变量也可以考虑加上s_的前缀）</p>
+</li>
+<li><p class="first">常量在名称前加 k: kDaysInAWeek（变量用全小写、常量不用全小写）.</p>
+</li>
+<li><p class="first">常规函数使用大小写混合, 取值和设值函数则要求与变量名匹配:</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">MyExcitingFunction</span><span class="p">(),</span> <span class="n">MyExcitingMethod</span><span class="p">(),</span>
 <span class="n">my_exciting_member_variable</span><span class="p">(),</span> <span class="n">set_my_exciting_member_variable</span><span class="p">().</span>
 </pre></div>
 </div>
 </li>
-<li><p>名字空间用小写字母命名, 并 <strong>基于项目名称和目录结构</strong> : google_awesome_project.</p></li>
-<li><p>枚举的命名应当和 常量一致:  <code class="docutils literal notranslate"><span class="pre">kEnumName</span></code></p></li>
-<li><p>尽量不使用宏，要用的时候显然应该用全大写加下划线的命令方式： <code class="docutils literal notranslate"><span class="pre">THIS_IS_MACRO</span></code></p></li>
+<li><p class="first">名字空间用小写字母命名, 并 <strong>基于项目名称和目录结构</strong> : google_awesome_project.</p>
+</li>
+<li><p class="first">枚举的命名应当和 常量一致:  <code class="docutils literal notranslate"><span class="pre">kEnumName</span></code></p>
+</li>
+<li><p class="first">尽量不使用宏，要用的时候显然应该用全大写加下划线的命令方式： <code class="docutils literal notranslate"><span class="pre">THIS_IS_MACRO</span></code></p>
+</li>
 </ul>
 </li>
-<li><p>注释</p>
+<li><p class="first">注释</p>
 <ul>
-<li><p>// 或 /* */ 都可以; 但 // 更 常用. 要在如何注释及注释风格上确保统一.</p></li>
-<li><p>====== <a class="reference internal" href="#doxygencomment"><span class="std std-ref">在它的基础上额外使用一个！号从而符合了Doxygen注释规范</span></a> ======</p></li>
-<li><p>在每一个文件开头加入文件注释,依次是:</p>
+<li><p class="first">// 或 /* */ 都可以; 但 // 更 常用. 要在如何注释及注释风格上确保统一.</p>
+</li>
+<li><p class="first">====== <a class="reference internal" href="#doxygencomment"><span class="std std-ref">在它的基础上额外使用一个！号从而符合了Doxygen注释规范</span></a> ======</p>
+</li>
+<li><p class="first">在每一个文件开头加入文件注释,依次是:</p>
 <ul class="simple">
-<li><p>版权声明 (比如, Copyright 2008 Google Inc.)</p></li>
-<li><p>许可证（如果有）. 为项目选择合适的许可证版本 (比如, Apache 2.0, BSD, LGPL, GPL)</p></li>
-<li><p>作者：标识文件的原始作者.</p></li>
-<li><p>作者：修改的作者信息</p></li>
-<li><p>(文件注释可以炫耀你的成就, 也是为了捅了篓子别人可以找你)</p></li>
+<li>版权声明 (比如, Copyright 2008 Google Inc.)</li>
+<li>许可证（如果有）. 为项目选择合适的许可证版本 (比如, Apache 2.0, BSD, LGPL, GPL)</li>
+<li>作者：标识文件的原始作者.</li>
+<li>作者：修改的作者信息</li>
+<li>(文件注释可以炫耀你的成就, 也是为了捅了篓子别人可以找你)</li>
 </ul>
 </li>
-<li><div class="line-block">
+<li><div class="first line-block">
 <div class="line">紧接着版权许可和作者信息之后, 每个文件都要用注释描述文件内容.</div>
 <div class="line">通常, .h 文件要对所声明的类的功能和用法作简单说明. .cc 文件通常包含了更多的实现细节或算法技巧讨论, 如果你感觉这些实现细节或算法技巧讨论对于理解 .h 文件有帮助, 可以该注释挪到 .h, 并在 .cc 中指出文档在 .h.</div>
 <div class="line"><strong>不要简单的在 .h 和 .cc 间复制注释. 这种偏离了注释的实际意义</strong></div>
 </div>
 </li>
-<li><p>每个类的定义都要附带一份注释, 描述类的功能和用法.</p></li>
-<li><p>函数声明处注释描述函数功能; 定义处描述函数实现.</p></li>
-<li><p>通常变量名本身足以很好说明变量用途. 某些情况下, 也需要额外的注释说明.</p></li>
-<li><dl class="simple">
-<dt>对于代码中巧妙的, 晦涩的, 有趣的, 重要的地方加以注释.(注意 永远不要 用自然语言翻译代码作为注释.  <strong>要假设读代码的人 C++ 水平比你高</strong>)</dt><dd><p>注释要言简意赅, 不要拖沓冗余, 复杂的东西简单化和简单的东西复杂化都是要被鄙视的;</p>
+<li><p class="first">每个类的定义都要附带一份注释, 描述类的功能和用法.</p>
+</li>
+<li><p class="first">函数声明处注释描述函数功能; 定义处描述函数实现.</p>
+</li>
+<li><p class="first">通常变量名本身足以很好说明变量用途. 某些情况下, 也需要额外的注释说明.</p>
+</li>
+<li><dl class="first docutils">
+<dt>对于代码中巧妙的, 晦涩的, 有趣的, 重要的地方加以注释.(注意 永远不要 用自然语言翻译代码作为注释.  <strong>要假设读代码的人 C++ 水平比你高</strong>)</dt>
+<dd><p class="first last">注释要言简意赅, 不要拖沓冗余, 复杂的东西简单化和简单的东西复杂化都是要被鄙视的;</p>
 </dd>
 </dl>
 </li>
-<li><p>向函数传入 NULL, 布尔值或整数时, 要注释说明含义, 或使用常量让代码望文知意（不说明的话单独传一个NULL和数字谁也不知道是什么意思）.</p></li>
-<li><p>对那些临时的, 短期的解决方案, 或已经够好但仍不完美的代码使用 TODO 注释.</p></li>
+<li><p class="first">向函数传入 NULL, 布尔值或整数时, 要注释说明含义, 或使用常量让代码望文知意（不说明的话单独传一个NULL和数字谁也不知道是什么意思）.</p>
+</li>
+<li><p class="first">对那些临时的, 短期的解决方案, 或已经够好但仍不完美的代码使用 TODO 注释.</p>
+</li>
 </ul>
 </li>
-<li><p>格式</p>
+<li><p class="first">格式</p>
 <ul class="simple">
-<li><p>原则上每一行代码字符数不超过 80.</p></li>
-<li><p>尽量不使用非 ASCII 字符, 使用时必须使用 UTF-8 编码.</p></li>
-<li><p>只使用空格, 每次缩进 2 个空格（WINDOWS下常用的一个TAB）.</p></li>
-<li><p>返回类型和函数名在同一行, 参数也尽量放在同一行.
+<li>原则上每一行代码字符数不超过 80.</li>
+<li>尽量不使用非 ASCII 字符, 使用时必须使用 UTF-8 编码.</li>
+<li>只使用空格, 每次缩进 2 个空格（WINDOWS下常用的一个TAB）.</li>
+<li>返回类型和函数名在同一行, 参数也尽量放在同一行.
 | 如果要换行的参数则保持 4 个空格的缩进;
 | 如果函数声明成 const, 关键字 const 应与最后一个参数位于同一行
-| 如果有些参数没有用到, 在函数定义处将参数名注释起来（不能省略）</p></li>
-<li><p>倾向于不在圆括号内使用空格. 关键字 else 与 then 分支的 } 在同一行
-| 如果能增强可读性, 简短的条件语句允许写在同一行. 只有当语句简单并且没有使用 else 子句时使用:</p></li>
-<li><p>switch 语句可以使用大括号分段. 空循环体应使用 {} 或 continue.</p></li>
-<li><p>句点或箭头前后不要有空格. 指针/地址操作符 (*, &amp;) 之后不能有空格.</p></li>
-<li><p>return 表达式中不要用圆括号包围.</p></li>
-<li><p>变量及数组初始化时用 = 或 () 均可.</p></li>
-<li><p>预处理指令不要缩进, 从行首开始.（VS中会自动处理）</p></li>
-<li><p>访问控制块的声明依次序是 public:, protected:, private:, 每次缩进 1 个空格（其它的默认2个空格，上面说过）.</p></li>
-<li><p>构造函数初始化列表放在同一行或按四格缩进并排几行.</p></li>
-<li><p>名字空间内容不缩进.</p></li>
-<li><p>水平留白的使用因地制宜. 永远不要在行尾添加没意义的留白.</p></li>
-<li><p>垂直留白越少越好，不在万不得已, 不要使用空行.（因为在一屏能显示的行数越多，思路就会越清晰）
-同理：这就明白了为什么左大括号也不要去占用一行了，放在上一行的行尾就好了。</p></li>
+| 如果有些参数没有用到, 在函数定义处将参数名注释起来（不能省略）</li>
+<li>倾向于不在圆括号内使用空格. 关键字 else 与 then 分支的 } 在同一行
+| 如果能增强可读性, 简短的条件语句允许写在同一行. 只有当语句简单并且没有使用 else 子句时使用:</li>
+<li>switch 语句可以使用大括号分段. 空循环体应使用 {} 或 continue.</li>
+<li>句点或箭头前后不要有空格. 指针/地址操作符 (*, &amp;) 之后不能有空格.</li>
+<li>return 表达式中不要用圆括号包围.</li>
+<li>变量及数组初始化时用 = 或 () 均可.</li>
+<li>预处理指令不要缩进, 从行首开始.（VS中会自动处理）</li>
+<li>访问控制块的声明依次序是 public:, protected:, private:, 每次缩进 1 个空格（其它的默认2个空格，上面说过）.</li>
+<li>构造函数初始化列表放在同一行或按四格缩进并排几行.</li>
+<li>名字空间内容不缩进.</li>
+<li>水平留白的使用因地制宜. 永远不要在行尾添加没意义的留白.</li>
+<li>垂直留白越少越好，不在万不得已, 不要使用空行.（因为在一屏能显示的行数越多，思路就会越清晰）
+同理：这就明白了为什么左大括号也不要去占用一行了，放在上一行的行尾就好了。</li>
 </ul>
 </li>
-<li><p>规则特例</p>
+<li><p class="first">规则特例</p>
 <ul class="simple">
-<li><p>对于现有不符合既定编程风格的代码可以网开一面.</p></li>
-<li><p>Windows中C++编程需要注意的问题：</p>
-<ul>
-<li><p>尽量使用原有的 C++ 类型, 例如, 使用 const TCHAR * 而不是 LPCTSTR.</p></li>
-<li><p>使用 Microsoft Visual C++ 进行编译时, 将警告级别设置为 3 或更高, 并将所有 warnings 当作 errors 处理.</p></li>
-<li><p>不要使用 #pragma once;</p></li>
-<li><p>除非万不得已, 不要使用任何非标准的扩展, 如 #pragma 和 __declspec. 允许使用 __declspec(dllimport) 和 __declspec(dllexport); 但你必须通过宏来使用, 比如 DLLIMPORT 和 DLLEXPORT</p></li>
-<li><p>MSVC中的预编译头文件stdafx.h，应该避免显式包含此文件 (precompile.cc), 使用 /FI 编译器选项以自动包含.</p></li>
+<li>对于现有不符合既定编程风格的代码可以网开一面.</li>
+<li>Windows中C++编程需要注意的问题：<ul>
+<li>尽量使用原有的 C++ 类型, 例如, 使用 const TCHAR * 而不是 LPCTSTR.</li>
+<li>使用 Microsoft Visual C++ 进行编译时, 将警告级别设置为 3 或更高, 并将所有 warnings 当作 errors 处理.</li>
+<li>不要使用 #pragma once;</li>
+<li>除非万不得已, 不要使用任何非标准的扩展, 如 #pragma 和 __declspec. 允许使用 __declspec(dllimport) 和 __declspec(dllexport); 但你必须通过宏来使用, 比如 DLLIMPORT 和 DLLEXPORT</li>
+<li>MSVC中的预编译头文件stdafx.h，应该避免显式包含此文件 (precompile.cc), 使用 /FI 编译器选项以自动包含.</li>
 </ul>
 </li>
 </ul>
 </li>
-<li><p>运用常识和判断力, 并保持一致.</p></li>
+<li><p class="first">运用常识和判断力, 并保持一致.</p>
+</li>
 </ul>
 </div>
 <div class="section" id="c-doxygen">
 <span id="doxygencomment"></span><h2>总结出自己的C++注释风格，遵循Doxygen<a class="headerlink" href="#c-doxygen" title="永久链接至标题">¶</a></h2>
 <ul>
-<li><p>让自己的注释符合Doxygen的风格，将注释分为两种：</p>
+<li><p class="first">让自己的注释符合Doxygen的风格，将注释分为两种：</p>
 <ul class="simple">
-<li><p>需要文档化的注释（如文件、类、函数、枚举等的注释）</p></li>
-<li><p>不需要文档化的简单注释（如在代码块内部的简短解释）</p></li>
+<li>需要文档化的注释（如文件、类、函数、枚举等的注释）</li>
+<li>不需要文档化的简单注释（如在代码块内部的简短解释）</li>
 </ul>
 </li>
-<li><div class="line-block">
+<li><div class="first line-block">
 <div class="line"><strong>需要文档化的注释统一使用Doxygen的注释风格，即/*! … */和//!和//!&lt; 三种方法</strong></div>
 <div class="line"><strong>不需要文档化的注释统一使用普通的注释风格，即2斜杠//</strong></div>
 </div>
@@ -345,7 +390,7 @@
 <div><p>这样又同时符合了Google C++风格（Google推荐/*…*/和//2种，上面的三种方式是从这2种演变而来）</p>
 </div></blockquote>
 </li>
-<li><p>常用的描述格式:</p>
+<li><p class="first">常用的描述格式:</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cm">/*!</span>
 <span class="cm">  @brief 这个函数用于打开文件</span>
 <span class="cm">  （除了只有Brief注释的情况外，其它的情况都要使用@breif将 简述 与 详述 分开！！）</span>
@@ -380,7 +425,7 @@
 </pre></div>
 </div>
 </li>
-<li><div class="line-block">
+<li><div class="first line-block">
 <div class="line">列表的形式使用以下的形式</div>
 <div class="line">- 一级目录1</div>
 <div class="line">-# 二级目录11</div>
@@ -389,16 +434,19 @@
 <div class="line">-# 二级目录21</div>
 </div>
 </li>
-<li><p>对变量、成员、宏什么的（貌似除了类、函数外的所有情况）使用以下两种形式:</p>
+<li><p class="first">对变量、成员、宏什么的（貌似除了类、函数外的所有情况）使用以下两种形式:</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">//! comment  更适合注释可能有多行的情况</span>
 <span class="kt">int</span> <span class="n">a</span><span class="p">;</span>            <span class="c1">//!&lt; comment 更适合简短的一行注释</span>
 </pre></div>
 </div>
 </li>
-<li><p>所有的文件（#include之前）、类、函数、枚举等都必须有注释</p></li>
-<li><p>所有的在同一语义下的 <strong>分行都要明确的使用\n，因为doxygen默认忽略换行</strong> ，但一般没必要换行</p></li>
-<li><p>一个简短的类或者函数的说明：</p></li>
-<li><p>使用空行或者小数点加空格的方式分开简述与详述，这里我统一使用空行来进行分隔:</p>
+<li><p class="first">所有的文件（#include之前）、类、函数、枚举等都必须有注释</p>
+</li>
+<li><p class="first">所有的在同一语义下的 <strong>分行都要明确的使用\n，因为doxygen默认忽略换行</strong> ，但一般没必要换行</p>
+</li>
+<li><p class="first">一个简短的类或者函数的说明：</p>
+</li>
+<li><p class="first">使用空行或者小数点加空格的方式分开简述与详述，这里我统一使用空行来进行分隔:</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cm">/*!</span>
 <span class="cm">  本类的功能：打印错误信息</span>
 
@@ -457,7 +505,7 @@
     </div>
     <div class="footer" role="contentinfo">
         &#169; 版权所有 CC BY 2.5.
-      由 <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2 创建。
+      由 <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.1 创建。
     </div>
   </body>
 </html>

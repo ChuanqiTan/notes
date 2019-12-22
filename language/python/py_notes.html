@@ -1,0 +1,254 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh_CN">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Python 学习笔记 &#8212; Chuanqi 的技术文档</title>
+    <link rel="stylesheet" href="../../_static/sphinx13.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/translations.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="语言本身" href="python_notes/core.html" />
+    <link rel="prev" title="Python高级编程" href="expert_python.html" />
+    <link rel="canonical" href="http://www.sphinx-doc.org/en/master/language/python/py_notes.html" />
+
+    <!--<link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700'-->
+          <!--rel='stylesheet' type='text/css' />-->
+ 
+    <style type="text/css">
+      table.right { float: right; margin-left: 20px; }
+      table.right td { border: 1px solid #ccc; }
+      
+      .injected { display:none; }
+    </style>
+    <script type="text/javascript">
+      // intelligent scrolling of the sidebar content
+      $(window).scroll(function() {
+        var sb = $('.sphinxsidebarwrapper');
+        var win = $(window);
+        var sbh = sb.height();
+        var offset = $('.sphinxsidebar').position()['top'];
+        var wintop = win.scrollTop();
+        var winbot = wintop + win.innerHeight();
+        var curtop = sb.position()['top'];
+        var curbot = curtop + sbh;
+        // does sidebar fit in window?
+        if (sbh < win.innerHeight()) {
+          // yes: easy case -- always keep at the top
+          sb.css('top', $u.min([$u.max([0, wintop - offset - 10]),
+                                $(document).height() - sbh - 200]));
+        } else {
+          // no: only scroll if top/bottom edge of sidebar is at
+          // top/bottom edge of window
+          if (curtop > wintop && curbot > winbot) {
+            sb.css('top', $u.max([wintop - offset - 10, 0]));
+          } else if (curtop < wintop && curbot < winbot) {
+            sb.css('top', $u.min([winbot - sbh - offset - 20,
+                                  $(document).height() - sbh - 200]));
+          }
+        }
+      });
+    </script>
+
+  </head><body>
+<div class="pageheader">
+  <ul>
+    <li><a href="../../index.html">笔记首页</a></li>
+    <li><a href="http://blog.tanchuanqi.com">博客首页</a></li>
+    <li><a href="https://tanchuanqi.com">个人主页</a></li>
+  </ul>
+  <div>
+    <a href="../../index.html">
+      <img src="../../_static/sphinxheader.png" alt="SPHINX" />
+    </a>
+  </div>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="python_notes/core.html" title="语言本身"
+             accesskey="N">下一页</a> |</li>
+        <li class="right" >
+          <a href="expert_python.html" title="Python高级编程"
+             accesskey="P">上一页</a> |</li>
+        <!--<li><a href="../../index.html">首页</a>&#160;|</li>-->
+        <!--<li><a href="../../contents.html">Documentation</a> &#187;</li>-->
+ 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>上一个主题</h4>
+  <p class="topless"><a href="expert_python.html"
+                        title="上一章">Python高级编程</a></p>
+  <h4>下一个主题</h4>
+  <p class="topless"><a href="python_notes/core.html"
+                        title="下一章">语言本身</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>快速搜索</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="转向" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+    <div class="documentwrapper">
+      <div class="bodywrapper">
+        <div class="body" role="main">
+          
+  <div class="section" id="python">
+<h1>Python 学习笔记<a class="headerlink" href="#python" title="永久链接至标题">¶</a></h1>
+<p>一个编程语言的学习分为三部分：语言本身、标准库、工具链</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="python_notes/core.html">语言本身</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_notes/library.html">库</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_notes/tools.html">工具</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_notes/others.html">其它</a></li>
+</ul>
+</div>
+<p>Python 语言</p>
+<ul class="simple">
+<li>基础语法<ul>
+<li>常用数据结构<ul>
+<li>string</li>
+<li>tuple, list, dict, set</li>
+</ul>
+</li>
+<li>函数<ul>
+<li>常用内置函数</li>
+<li>闭包</li>
+<li>函数式编程</li>
+</ul>
+</li>
+<li>迭代器与生成器</li>
+<li>异常</li>
+</ul>
+</li>
+<li>类与对象<ul>
+<li>属性与描述符</li>
+<li>多重继承</li>
+<li>操作符重载</li>
+<li>上下文管理器</li>
+</ul>
+</li>
+<li>元编程<ul>
+<li>修饰器</li>
+<li>元类</li>
+</ul>
+</li>
+<li>并发<ul>
+<li>协程</li>
+<li>async 异步编程</li>
+</ul>
+</li>
+<li>库<ul>
+<li>包与模块</li>
+<li>PIP</li>
+<li>C语言扩展</li>
+</ul>
+</li>
+<li>工具<ul>
+<li>ipython</li>
+<li>ipython notebook</li>
+<li>VirtualEnv</li>
+<li>pdb</li>
+</ul>
+</li>
+<li>其它<ul>
+<li>编码风格</li>
+<li>PEP</li>
+<li>exec &amp; eval</li>
+</ul>
+</li>
+</ul>
+<p>Python的官方文档有以下几个:</p>
+<ul class="simple">
+<li>Tutorial 快速入门</li>
+<li>Library Reference 标准库手册</li>
+<li>Language Reference 语言参考</li>
+</ul>
+<p>好书：</p>
+<ul class="simple">
+<li>Python 核心编程</li>
+<li>Effective Python</li>
+<li>流畅的Python</li>
+<li>Python Cookbook</li>
+<li>Python源码剖析</li>
+<li>Python机器学习</li>
+</ul>
+</div>
+
+
+        </div>
+
+
+
+        <!-- 来必力City版安装代码 -->
+        <div id="lv-container" data-id="city" data-uid="MTAyMC80MDU4Ni8xNzExMw==">
+        <script type="text/javascript">
+           (function(d, s) {
+               var j, e = d.getElementsByTagName(s)[0];
+
+               if (typeof LivereTower === 'function') { return; }
+
+               j = d.createElement(s);
+               j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+               j.async = true;
+
+               e.parentNode.insertBefore(j, e);
+           })(document, 'script');
+        </script>
+        <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+        </div>
+        <!-- City版安装代码已完成 -->
+      </div>
+    </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="总目录"
+             >索引</a></li>
+        <li class="right" >
+          <a href="python_notes/core.html" title="语言本身"
+             >下一页</a> |</li>
+        <li class="right" >
+          <a href="expert_python.html" title="Python高级编程"
+             >上一页</a> |</li>
+        <!--<li><a href="../../index.html">首页</a>&#160;|</li>-->
+        <!--<li><a href="../../contents.html">Documentation</a> &#187;</li>-->
+ 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; 版权所有 CC BY 2.5.
+      由 <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.1 创建。
+    </div>
+  </body>
+</html>
