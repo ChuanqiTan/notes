@@ -63,9 +63,8 @@
   </head><body>
 <div class="pageheader">
   <ul>
-    <li><a href="../../../index.html">笔记首页</a></li>
-    <li><a href="http://blog.tanchuanqi.com">博客首页</a></li>
-    <li><a href="https://tanchuanqi.com">个人主页</a></li>
+    <li><a href="../../../index.html">博客首页</a></li>
+    <li><a href="https://tanchuanqi.com" target="_blank">个人主页</a></li>
   </ul>
   <div>
     <a href="../../../index.html">
@@ -101,33 +100,34 @@
 <li><a class="reference internal" href="#id3">字符串</a></li>
 <li><a class="reference internal" href="#tuple-list-dict">tuple &amp; list &amp; dict</a></li>
 <li><a class="reference internal" href="#id4">函数</a></li>
-<li><a class="reference internal" href="#id7">迭代器</a></li>
-<li><a class="reference internal" href="#id8">生成器</a></li>
-<li><a class="reference internal" href="#id9">异常</a></li>
-<li><a class="reference internal" href="#id10">库目录查找</a></li>
-<li><a class="reference internal" href="#id11">包和模块</a></li>
-<li><a class="reference internal" href="#id12">修饰器</a></li>
-<li><a class="reference internal" href="#id13">函数式编程</a><ul>
-<li><a class="reference internal" href="#id14">列表解析与函数式编程</a></li>
+<li><a class="reference internal" href="#id5">迭代器</a></li>
+<li><a class="reference internal" href="#id6">生成器</a></li>
+<li><a class="reference internal" href="#id7">异常</a></li>
+<li><a class="reference internal" href="#id8">库目录查找</a></li>
+<li><a class="reference internal" href="#id9">包和模块</a></li>
+<li><a class="reference internal" href="#id10">修饰器</a></li>
+<li><a class="reference internal" href="#id11">函数式编程</a><ul>
+<li><a class="reference internal" href="#id12">列表解析与函数式编程</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id15">调试与测试</a></li>
+<li><a class="reference internal" href="#id13">调试与测试</a></li>
+<li><a class="reference internal" href="#id14">独特的语法</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id16">类与面向对象</a><ul>
-<li><a class="reference internal" href="#id17">新式类与旧式类</a></li>
-<li><a class="reference internal" href="#id18">类的各种属性和方法的使用与区别</a></li>
+<li><a class="reference internal" href="#id15">类与面向对象</a><ul>
+<li><a class="reference internal" href="#id16">新式类与旧式类</a></li>
+<li><a class="reference internal" href="#id17">类的各种属性和方法的使用与区别</a></li>
 <li><a class="reference internal" href="#super-mro">super() &amp; MRO</a></li>
 <li><a class="reference internal" href="#property">property</a></li>
 <li><a class="reference internal" href="#mixin">Mixin</a></li>
-<li><a class="reference internal" href="#id19">描述符</a></li>
-<li><a class="reference internal" href="#id20">元编程</a><ul>
+<li><a class="reference internal" href="#id18">描述符</a></li>
+<li><a class="reference internal" href="#id19">元编程</a><ul>
 <li><a class="reference internal" href="#metaclass">元类 Metaclass</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id21">其它</a><ul>
+<li><a class="reference internal" href="#id20">其它</a><ul>
 <li><a class="reference internal" href="#python2-vs-python3">python2 vs python3</a><ul>
 <li><a class="reference internal" href="#python2py3nolocal">python2中的闭包缺陷与py3中的nolocal关键字</a></li>
 </ul>
@@ -180,47 +180,6 @@
 <li><cite>python -i file.py</cite> 运行脚本然后进入交互模式，交互中会保留file.py中的符号。</li>
 <li>为了减少一个编译模块的大小，你可以在 Python 命令行中使用 -O 或者 -OO。-O 参数删除了断言语句，-OO 参数删除了断言语句和 __doc__ 字符串。</li>
 </ul>
-<p>广泛应用的else:</p>
-<blockquote>
-<div><p>基础控制语句中 else 不仅仅可以跟 if 一起使用，还可以跟 for, while, try 一同使用：:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">while</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
-<span class="k">else</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;else&quot;</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
-
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-<span class="k">else</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;else&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
-
-<span class="k">try</span><span class="p">:</span>
-    <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;ERROR&quot;</span><span class="p">)</span>
-<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-    <span class="k">pass</span>
-<span class="k">else</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Else&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div></blockquote>
-<p>比较操作可以传递</p>
-<blockquote>
-<div>例如 a &lt; b == c 审核是否 a 小于 b 并且 b 等于 c。</div></blockquote>
-<p>输出：</p>
-<blockquote>
-<div><ul class="simple">
-<li>rpr() ： 适合于解释器的字符串表示，一般可以从这个字符串重构对象，即 eval(rpr(a)) == a</li>
-<li>str()： 合适于人阅读的字符串表示。某对象没有适于人阅读的解释形式的话，str() 会返回与 repr() 等同的值。</li>
-<li>str.format()： <cite>‘We are the {} who say “{}!”’.format(‘knights’, ‘Ni’)</cite></li>
-</ul>
-</div></blockquote>
-<p>switch语句</p>
-<blockquote>
-<div><p>python中没有switch语句，取代的方案是使用字典。:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">:</span> <span class="n">call_a</span><span class="p">(),</span> <span class="mi">2</span><span class="p">:</span> <span class="n">call_b</span><span class="p">()}</span>
-<span class="n">s</span><span class="p">[</span><span class="n">case</span><span class="p">]()</span>
-</pre></div>
-</div>
-</div></blockquote>
 <div class="section" id="id3">
 <h3>字符串<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h3>
 <p>字符串类型：</p>
@@ -235,16 +194,21 @@
 <li>相邻的两个字符串文本自动连接在一起： ‘Py’ ‘thon’ =&gt; ‘Python’；</li>
 <li>字符串切片： s[a:b] 在数学符号上的意义等同于 s[a, b)；</li>
 </ul>
+<p>输出：</p>
+<ul class="simple">
+<li>rpr() ： 适合于解释器的字符串表示，一般可以从这个字符串重构对象，即 <cite>eval(rpr(a)) == a</cite></li>
+<li>str()： 合适于人阅读的字符串表示。某对象没有适于人阅读的解释形式的话，str() 会返回与 repr() 等同的值。</li>
+</ul>
 <p>format操作</p>
-<blockquote>
-<div>“{:.2f}”.format(3.1415926) –&gt; 3.14</div></blockquote>
+<ul class="simple">
+<li><cite>“{:.2f}”.format(3.1415926)</cite> –&gt; 3.14</li>
+<li><cite>‘We are the {} who say “{}!”’.format(‘knights’, ‘Ni’)</cite></li>
+</ul>
 </div>
 <div class="section" id="tuple-list-dict">
 <h3>tuple &amp; list &amp; dict<a class="headerlink" href="#tuple-list-dict" title="永久链接至标题">¶</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">tuple</span><span class="p">:</span> <span class="p">()</span>
-
 <span class="nb">list</span><span class="p">:</span> <span class="p">[]</span>
-
 <span class="nb">dict</span><span class="p">:</span> <span class="p">{}</span>
 </pre></div>
 </div>
@@ -262,7 +226,7 @@
 <h3>函数<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
 <p>理解Python中的参数:</p>
 <blockquote>
-<div><p>参数的顺序是: <strong>位置参数、任意位置参数、关键字参数、任意关键字参数</strong>。</p>
+<div><p>参数的顺序是: <strong>位置参数、任意位置参数、关键字参数、任意关键字参数</strong> 。</p>
 <p>所以： <strong>non-keyword arg after keyword arg 是错误语法，会引发 SyntaxError</strong></p>
 <p>且：如果有默认参数，一定出现在相应位置的最后。</p>
 </div></blockquote>
@@ -270,52 +234,52 @@
 <blockquote>
 <div><p>*和**用在<strong>形参</strong>时，是<strong>可变参数</strong>：</p>
 <p>问题：</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Python的函数定义中有两种特殊的情况，即出现*，<a href="#id5"><span class="problematic" id="id6">**</span></a>的形式。</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如：def myfun1(username, *keys)或def myfun2(username,
-**keys)等。</p>
+<p>&nbsp;&nbsp;&nbsp;Python的函数定义中有两种特殊的情况，即出现*，**的形式。</p>
+<p>&nbsp;&nbsp;&nbsp;如：def myfun1(username, *keys)或def myfun2(username, **keys)等。</p>
 <p>解释：</p>
-<p>&nbsp;&nbsp;*
-用来传递<strong>任意个无名字参数</strong>，这些参数会一个Tuple的形式访问。</p>
-<p>&nbsp;&nbsp;<strong>用来处理传递**任意个有名字的参数</strong>，这些参数用dict来访问。</p>
+<blockquote>
+<div><p>* 用来传递 <em>任意个无名字参数</em>，这些参数会一个Tuple的形式访问。</p>
+<p>**用来处理传递 <em>任意个有名字的参数</em> ，这些参数用dict来访问。</p>
+</div></blockquote>
 <p>应用：</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>#########################
-# “*” 的应用
-#########################
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#########################</span>
+<span class="c1"># “*” 的应用</span>
+<span class="c1">#########################</span>
 
-&gt;&gt;&gt; def fun1(*keys):
-...     print &quot;keys type=%s&quot; % type(keys)
-...     print &quot;keys=%s&quot; % str(keys)
-...     for i in range(0, len(keys)):
-...             print &quot;keys[&quot; + str(i) + &quot;]=%s&quot; % str(keys[i])
-...
-&gt;&gt;&gt; fun1(2,3,4,5)
-输出以下结果：
-keys type=
-keys=(2, 3, 4, 5)
-keys[0]=2
-keys[1]=3
-keys[2]=4
-keys[3]=5
+<span class="o">&gt;&gt;&gt;</span> <span class="k">def</span> <span class="nf">fun1</span><span class="p">(</span><span class="o">*</span><span class="n">keys</span><span class="p">):</span>
+<span class="o">...</span>     <span class="nb">print</span> <span class="s2">&quot;keys type=</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">type</span><span class="p">(</span><span class="n">keys</span><span class="p">)</span>
+<span class="o">...</span>     <span class="nb">print</span> <span class="s2">&quot;keys=</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">keys</span><span class="p">)</span>
+<span class="o">...</span>     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">keys</span><span class="p">)):</span>
+<span class="o">...</span>             <span class="nb">print</span> <span class="s2">&quot;keys[&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;]=</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">keys</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+<span class="o">...</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">fun1</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
+<span class="c1"># 输出以下结果：</span>
+<span class="n">keys</span> <span class="nb">type</span><span class="o">=</span>
+<span class="n">keys</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">keys</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="mi">2</span>
+<span class="n">keys</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="mi">3</span>
+<span class="n">keys</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">=</span><span class="mi">4</span>
+<span class="n">keys</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">=</span><span class="mi">5</span>
 
-#########################
-# “**” 的应用
-#########################
+<span class="c1">#########################</span>
+<span class="c1"># “**” 的应用</span>
+<span class="c1">#########################</span>
 
-&gt;&gt;&gt; def fun2(**keys):
-...     print &quot;keys type=%s&quot; % type(keys)
-...     print &quot;keys=%s&quot; % str(keys)
-...     print &quot;name=%s&quot; % str(keys[&#39;name&#39;])
-...
-&gt;&gt;&gt;
-&gt;&gt;&gt; fun2(name=&quot;vp&quot;, age=19)
-输出以下结果：
-keys type=
-keys={&#39;age&#39;: 19, &#39;name&#39;: &#39;vp&#39;}
-name=vp
+<span class="o">&gt;&gt;&gt;</span> <span class="k">def</span> <span class="nf">fun2</span><span class="p">(</span><span class="o">**</span><span class="n">keys</span><span class="p">):</span>
+<span class="o">...</span>     <span class="nb">print</span> <span class="s2">&quot;keys type=</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">type</span><span class="p">(</span><span class="n">keys</span><span class="p">)</span>
+<span class="o">...</span>     <span class="nb">print</span> <span class="s2">&quot;keys=</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">keys</span><span class="p">)</span>
+<span class="o">...</span>     <span class="nb">print</span> <span class="s2">&quot;name=</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">keys</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">])</span>
+<span class="o">...</span>
+<span class="o">&gt;&gt;&gt;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">fun2</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;vp&quot;</span><span class="p">,</span> <span class="n">age</span><span class="o">=</span><span class="mi">19</span><span class="p">)</span>
+<span class="c1"># 输出以下结果：</span>
+<span class="n">keys</span> <span class="nb">type</span><span class="o">=</span>
+<span class="n">keys</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;age&#39;</span><span class="p">:</span> <span class="mi">19</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;vp&#39;</span><span class="p">}</span>
+<span class="n">name</span><span class="o">=</span><span class="n">vp</span>
 
-\*和**用在\ **实参**\ 中时，是\ **解包符号**\ ：
-a={&#39;a&#39;:1, &#39;b&#39;:3}
-&quot;{a}, {b}&quot;.format(**a)
+<span class="c1"># \*和**用在\ **实参**\ 中时，是\ **解包符号**\ ：</span>
+<span class="n">a</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span><span class="mi">3</span><span class="p">}</span>
+<span class="s2">&quot;</span><span class="si">{a}</span><span class="s2">, </span><span class="si">{b}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">a</span><span class="p">)</span>
 </pre></div>
 </div>
 </div></blockquote>
@@ -331,26 +295,26 @@ a={&#39;a&#39;:1, &#39;b&#39;:3}
 <blockquote>
 <div><p>注意这里的关键词：在定义时绑定、且只绑定一次。</p>
 <p>函数<strong>默认参数值只被赋值一次</strong>。这使得当默认值是可变对象时会有所不同，比如列表、字典或者大多数类的实例。这是一个坑！</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>def f(a, L=[]):
-    L.append(a)
-    return L
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">L</span><span class="o">=</span><span class="p">[]):</span>
+    <span class="n">L</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">L</span>
 
-print(f(1))
-print(f(2))
-print(f(3))
+<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
 
-这将输出:
-[1]
-[1, 2]
-[1, 2, 3]
+<span class="c1">#这将输出:</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
 
-如果你不想让默认值在后续调用中累积，你可以像下面一样定义函数:
+<span class="c1">#如果你不想让默认值在后续调用中累积，你可以像下面一样定义函数:</span>
 
-def f(a, L=None):
-    if L is None:
-    L = []
-    L.append(a)
-    return L
+<span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">L</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">L</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">L</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">L</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">L</span>
 </pre></div>
 </div>
 </div></blockquote>
@@ -363,8 +327,8 @@ def f(a, L=None):
 <blockquote>
 <div><cite>functools.partial()</cite> 是一个非常好用的偏函数工具，可以固定一些参数从而形成一个新的函数。</div></blockquote>
 </div>
-<div class="section" id="id7">
-<h3>迭代器<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h3>
+<div class="section" id="id5">
+<h3>迭代器<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
 <p>迭代器协议：</p>
 <blockquote>
 <div>首先用iter()调用 __iter__() 。该函数返回一个定义了 __next__()
@@ -378,10 +342,11 @@ StopIteration 异常。</div></blockquote>
 __reversed()__ 特殊方法时，才能奏效。</div></blockquote>
 <p>以索引-值对的形式迭代：</p>
 <blockquote>
-<div><p>这是非常常见的需求，尤其是从C系转过来的程序员，内建的 enumerate()
-可以漂亮的解决</p>
-<p>for idx, val in enumerate(my_list):</p>
-<p>print(idx, val)</p>
+<div><p>这是非常常见的需求，尤其是从C系转过来的程序员，内建的 enumerate() 可以漂亮的解决:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">my_list</span><span class="p">):</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
+</pre></div>
+</div>
 </div></blockquote>
 <p>切片操作：</p>
 <blockquote>
@@ -410,14 +375,16 @@ itertools.islice() 来曲线实现。</p>
 <p>哨兵迭代：</p>
 <blockquote>
 <div><p>内建函数 iter()
-可以接受一个无参的可调用对象和一个哨兵，它会创建迭代器，重复调用可调用对象直接它返回哨兵为止。这也是一个常见的语法糖。</p>
-<p>for v in iter(lambda: s.receive(), “END”)</p>
-<p>print(v)</p>
+可以接受一个无参的可调用对象和一个哨兵，它会创建迭代器，重复调用可调用对象直接它返回哨兵为止。这也是一个常见的语法糖:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">iter</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="n">s</span><span class="o">.</span><span class="n">receive</span><span class="p">(),</span> <span class="s2">&quot;END&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+</pre></div>
+</div>
 <p>一直调用 s.receive() 并输出，直到它返回 END 为止。</p>
 </div></blockquote>
 </div>
-<div class="section" id="id8">
-<h3>生成器<a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h3>
+<div class="section" id="id6">
+<h3>生成器<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h3>
 <p>生成器：</p>
 <blockquote>
 <div><p>生成器最核心的就是理解：它不用预先产生完整的迭代对象，从而节省内存。</p>
@@ -426,17 +393,16 @@ itertools.islice() 来曲线实现。</p>
 __iter__() 方法中即可。</p>
 </div></blockquote>
 <p>yield from 语法糖:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>yield from x 可以视为下面的展开
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">yield from</span> <span class="n">x</span> <span class="c1"># 可以视为下面的展开</span>
 
-for v in x:
-    yield v
-
-用 yield from 明显更紧凑更清晰。
+<span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">x</span><span class="p">:</span>
+   <span class="k">yield</span> <span class="n">v</span>
 </pre></div>
 </div>
+<p>用 yield from 明显更紧凑更清晰。</p>
 </div>
-<div class="section" id="id9">
-<h3>异常<a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h3>
+<div class="section" id="id7">
+<h3>异常<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h3>
 <p>基础异常语法:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
     <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;abc.csv&#39;</span><span class="p">)</span>
@@ -463,8 +429,8 @@ for v in x:
 </dl>
 </div></blockquote>
 </div>
-<div class="section" id="id10">
-<h3>库目录查找<a class="headerlink" href="#id10" title="永久链接至标题">¶</a></h3>
+<div class="section" id="id8">
+<h3>库目录查找<a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h3>
 <p>python模块导入时按优先级高低的搜索路径如下：</p>
 <ol class="arabic simple">
 <li>程序主目录，执行程序则包含执行代码文件的目录，如：python sub/a.py，交互模式(如输入python)下为当前工作目录</li>
@@ -492,8 +458,8 @@ for v in x:
 </ul>
 <p>其实最关键的是知道：模块的安装路径一定要在 sys.path 这个List中，才能在脚本中可以正常地 import 进来。</p>
 </div>
-<div class="section" id="id11">
-<h3>包和模块<a class="headerlink" href="#id11" title="永久链接至标题">¶</a></h3>
+<div class="section" id="id9">
+<h3>包和模块<a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h3>
 <p>from mypackage import *</p>
 <blockquote>
 <div>导入的是 __init__.py 中的 __ALL__ 变量里指出的所有符号。如果没有 __ALL__ 变量，则默认导入所有<strong>不以下划线开头的符号</strong></div></blockquote>
@@ -562,35 +528,51 @@ surround 模块为例，你可以这样用:</p>
 <p>site-packages目录下四种包的形式:</p>
 <ul>
 <li><div class="first line-block">
-<div class="line">1.
-| site-packages/pylab.py
-| 这种是最好理解的, 因为单个.py文件就可以作为module被引用.</div>
+<div class="line">1.</div>
 </div>
+<blockquote>
+<div><div class="line-block">
+<div class="line">site-packages/pylab.py</div>
+<div class="line">这种是最好理解的, 因为单个.py文件就可以作为module被引用.</div>
+</div>
+</div></blockquote>
 </li>
 <li><div class="first line-block">
-<div class="line">2.
-| site-packages/toolz
-| site-packages/toolz-0.8.0-py2.7.egg-info
-| 这种包有两个目录, 一个目录以包名命名, 因为含有__init__.py的目录,
-  可以作为module被引用.
-| 另一个egg-info目录是一些metadata, 没什么大用,
-  有些包也没有这个目录.</div>
+<div class="line">2.</div>
 </div>
+<blockquote>
+<div><div class="line-block">
+<div class="line">site-packages/toolz</div>
+<div class="line">site-packages/toolz-0.8.0-py2.7.egg-info</div>
+<div class="line">这种包有两个目录, 一个目录以包名命名, 因为含有__init__.py的目录,
+可以作为module被引用.</div>
+<div class="line">另一个egg-info目录是一些metadata, 没什么大用,
+有些包也没有这个目录.</div>
+</div>
+</div></blockquote>
 </li>
 <li><div class="first line-block">
-<div class="line">3.
-| site-packages/fasttext-0.7.6-py2.7-Linux-x86_64.egg
-| 单独一个.egg文件. 这种包是把模块都打进了一个egg压缩包里.
-  这个压缩包可以视为一个目录,
-  模块文件在这里:&nbsp;site-packages/fasttext-0.7.6-py2.7-linux-x86_64.egg/fasttext</div>
+<div class="line">3.</div>
 </div>
+<blockquote>
+<div><div class="line-block">
+<div class="line">site-packages/fasttext-0.7.6-py2.7-Linux-x86_64.egg</div>
+<div class="line">单独一个.egg文件. 这种包是把模块都打进了一个egg压缩包里.
+这个压缩包可以视为一个目录,
+模块文件在这里:&nbsp;site-packages/fasttext-0.7.6-py2.7-linux-x86_64.egg/fasttext</div>
+</div>
+</div></blockquote>
 </li>
 <li><div class="first line-block">
-<div class="line">4.
-| site-packages/titlectr-0.1-py2.7.egg
-| 虽然文件名跟3相同, 但是这是一个目录, 可以视为是3解压后的样子.
-  模块文件在这个目录里:&nbsp;site-packages/titlectr</div>
+<div class="line">4.</div>
 </div>
+<blockquote>
+<div><div class="line-block">
+<div class="line">site-packages/titlectr-0.1-py2.7.egg</div>
+<div class="line">虽然文件名跟3相同, 但是这是一个目录, 可以视为是3解压后的样子.
+模块文件在这个目录里:&nbsp;site-packages/titlectr</div>
+</div>
+</div></blockquote>
 </li>
 </ul>
 <p>我们知道, site-packages是在模块搜索的path(sys.path)里的,
@@ -604,25 +586,18 @@ surround 模块为例，你可以这样用:</p>
 另一个是distutil(from distutil import setup).</p>
 <ul class="simple">
 <li><dl class="first docutils">
-<dt>setuptools安装的包, 会形如3和4的样子. 这个工具有完善的打egg包的功能,</dt>
-<dd>也倾向于把模块的功能部分和metadata打成一个整体(egg), 方便管理.
-使用python setup.py bdist_egg命令, 可以将module打成egg包,
-方便部署.</dd>
+<dt>setuptools安装的包, 会形如3和4的样子.</dt>
+<dd>这个工具有完善的打egg包的功能, 也倾向于把模块的功能部分和metadata打成一个整体(egg), 方便管理.
+使用python setup.py bdist_egg命令, 可以将module打成egg包, 方便部署.</dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt>distutil会直接把源码包复制到site-pacakages下，</dt>
-<dd>并创建一个和模块并列的metadata.
-如果package中有个大文件比如字典(当然很不推荐将大字典封装作为package的一部分,
-一般外挂), 使用setuptools, 会耗费极大的时间在打包egg上,
-而distutil可以直接拷贝安装.</dd>
+<dt>distutil会直接把源码包复制到site-pacakages下， 并创建一个和模块并列的metadata.</dt>
+<dd>如果package中有个大文件比如字典(当然很不推荐将大字典封装作为package的一部分,
+一般外挂), 使用setuptools, 会耗费极大的时间在打包egg上, 而distutil可以直接拷贝安装.</dd>
 </dl>
 </li>
-<li><dl class="first docutils">
-<dt>除此之外, wheel是一种新的格式. 更类似于java的jar包.&nbsp;python setup.py</dt>
-<dd>bdist_wheel可以打包成wheel包.</dd>
-</dl>
-</li>
+<li>除此之外, wheel是一种新的格式. 更类似于java的jar包.&nbsp;python setup.py bdist_wheel可以打包成wheel包.</li>
 </ul>
 <p>源码、Eggs、Wheel 三种常见的 python 包格式</p>
 <blockquote>
@@ -634,8 +609,8 @@ are to Pythons as Jars are to Java”，跟Java中的Jar包一样。</p>
 本质是一个zip包，只是使用了whl扩展名。是一种比egg更新更好的打包格式，它的出现就是为了替代Eggs的。可以理解为一种更好的Jar包。</p>
 </div></blockquote>
 </div>
-<div class="section" id="id12">
-<h3>修饰器<a class="headerlink" href="#id12" title="永久链接至标题">¶</a></h3>
+<div class="section" id="id10">
+<h3>修饰器<a class="headerlink" href="#id10" title="永久链接至标题">¶</a></h3>
 <p>我觉得，关于python的函数修饰器，最关键的在于理解以下两点：</p>
 <p>1：</p>
 <blockquote>
@@ -681,8 +656,8 @@ f这个标识符被替换为了inner，视为 f(a,b,c)===inner(a,b,c)。</p>
 with_arg_decorator(caller=<strong>”TCQ”</strong>)返回了real_decorator,real_decorator就已经是一个无参数的普通修饰器了。再使用 &#64;real_decorator应用到f2上。知道内部机制就彻底明白了！</p>
 </div></blockquote>
 </div>
-<div class="section" id="id13">
-<h3>函数式编程<a class="headerlink" href="#id13" title="永久链接至标题">¶</a></h3>
+<div class="section" id="id11">
+<h3>函数式编程<a class="headerlink" href="#id11" title="永久链接至标题">¶</a></h3>
 <p>函数式的风格通常被认为有如下优点：</p>
 <ul class="simple">
 <li>逻辑可证</li>
@@ -709,8 +684,8 @@ with_arg_decorator(caller=<strong>”TCQ”</strong>)返回了real_decorator,rea
 <li>zip(iterable1, iterable2, …)：打包。返回一个列表，每个元素都是一个元组</li>
 <li>sorted(iterable, function)：排序</li>
 </ul>
-<div class="section" id="id14">
-<h4>列表解析与函数式编程<a class="headerlink" href="#id14" title="永久链接至标题">¶</a></h4>
+<div class="section" id="id12">
+<h4>列表解析与函数式编程<a class="headerlink" href="#id12" title="永久链接至标题">¶</a></h4>
 <p>列表解析可以替代绝大多数需要用到map和filter的场合，可能正因为此，著名的静态检查工具pylint将map和filter的使用列为了警告。</p>
 <p>[ x+1 for x in lst if x &gt; 0] 这基本能全部替代map和filter的。</p>
 <p>而且，“生成器表达式”还能更好的迭代巨大的数组，更好的利用内存：</p>
@@ -737,24 +712,13 @@ with_arg_decorator(caller=<strong>”TCQ”</strong>)返回了real_decorator,rea
 </ul>
 </div>
 </div>
-<div class="section" id="id15">
-<h3>调试与测试<a class="headerlink" href="#id15" title="永久链接至标题">¶</a></h3>
+<div class="section" id="id13">
+<h3>调试与测试<a class="headerlink" href="#id13" title="永久链接至标题">¶</a></h3>
 <p>快速的调试有几种方法：</p>
-<ol class="arabic">
-<li><p class="first">print 大法当然是最基本的。</p>
-</li>
-<li><dl class="first docutils">
-<dt>使用 -i 参数进行交互式调试， python -i a.py</dt>
-<dd><p class="first last">时，如果发生异常，那么就会在异常处中断并进入交互模式，这时可以查看一下当前的各种变量。</p>
-</dd>
-</dl>
-</li>
-<li><dl class="first docutils">
-<dt>使用 pdb 进行交互式调试，在需要断点的行写下 import pdb;</dt>
-<dd><p class="first last">pdb.set_trace()。这便会在这点停下，并可以使用一些高级命令查看当前变量。</p>
-</dd>
-</dl>
-<ol class="loweralpha simple">
+<ol class="arabic simple">
+<li>print 大法当然是最基本的。</li>
+<li>使用 -i 参数进行交互式调试， <cite>python -i a.py</cite> 时，如果发生异常，那么就会在异常处中断并进入交互模式，这时可以查看一下当前的各种变量。</li>
+<li>使用 pdb 进行交互式调试，在需要断点的行写下 <cite>import pdb; pdb.set_trace()</cite> 。这便会在这点停下，并可以使用一些高级命令查看当前变量。<ol class="loweralpha">
 <li>bt 打印堆栈</li>
 <li>up 向上移一层，查看更高级次的函数的变量值</li>
 <li>down 向下移一层</li>
@@ -766,9 +730,45 @@ with_arg_decorator(caller=<strong>”TCQ”</strong>)返回了real_decorator,rea
 </li>
 </ol>
 </div>
+<div class="section" id="id14">
+<h3>独特的语法<a class="headerlink" href="#id14" title="永久链接至标题">¶</a></h3>
+<p>switch语句</p>
+<blockquote>
+<div><p>python中没有switch语句，取代的方案是使用字典。:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">:</span> <span class="n">call_a</span><span class="p">(),</span> <span class="mi">2</span><span class="p">:</span> <span class="n">call_b</span><span class="p">()}</span>
+<span class="n">s</span><span class="p">[</span><span class="n">case</span><span class="p">]()</span>
+</pre></div>
 </div>
-<div class="section" id="id16">
-<h2>类与面向对象<a class="headerlink" href="#id16" title="永久链接至标题">¶</a></h2>
+</div></blockquote>
+<p>广泛应用的else:</p>
+<blockquote>
+<div><p>基础控制语句中 else 不仅仅可以跟 if 一起使用，还可以跟 for, while, try 一同使用：:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">while</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;else&quot;</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;else&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;ERROR&quot;</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="k">pass</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Else&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>比较操作可以传递</p>
+<blockquote>
+<div>例如 a &lt; b == c 审核是否 a 小于 b 并且 b 等于 c。</div></blockquote>
+</div>
+</div>
+<div class="section" id="id15">
+<h2>类与面向对象<a class="headerlink" href="#id15" title="永久链接至标题">¶</a></h2>
 <p>Python 的类机制通过最小的新语法和语义在语言中实现了类。它是 C++ 或者
 Modula-3 语言中类机制的混合。</p>
 <p>用 C++ 术语来讲，所有的类成员（包括数据成员）都是公有（ public
@@ -810,17 +810,8 @@ nonlocal，这些变量将是<strong>只读的</strong>（对这样的变量赋�
 </div></blockquote>
 <p>Python 有两个用于继承的函数：</p>
 <ul class="simple">
-<li><dl class="first docutils">
-<dt>函数 isinstance() 用于检查实例类型： isinstance(obj, int) 只有在</dt>
-<dd>obj.__class__ 是 int 或其它从 int 继承的类型</dd>
-</dl>
-</li>
-<li><dl class="first docutils">
-<dt>函数 issubclass() 用于检查类继承： issubclass(bool, int) 为</dt>
-<dd>True，因为 bool 是 int 的子类。然而， issubclass(float, int) 为
-False，因为 float 不是 int 的子类。</dd>
-</dl>
-</li>
+<li>函数 isinstance() 用于检查实例类型： isinstance(obj, int) 只有在 obj.__class__ 是 int 或其它从 int 继承的类型</li>
+<li>函数 issubclass() 用于检查类继承： issubclass(bool, int) 为 True，因为 bool 是 int 的子类。然而， issubclass(float, int) 为 False，因为 float 不是 int 的子类。</li>
 </ul>
 <p>私有变量</p>
 <blockquote>
@@ -833,8 +824,8 @@ False，因为 float 不是 int 的子类。</dd>
 <p>二个下划线的 name mangling
 也不能绝对私有变量，实际上他是为了避免子类无意中覆盖掉父类中的符号。</p>
 </div></blockquote>
-<div class="section" id="id17">
-<h3>新式类与旧式类<a class="headerlink" href="#id17" title="永久链接至标题">¶</a></h3>
+<div class="section" id="id16">
+<h3>新式类与旧式类<a class="headerlink" href="#id16" title="永久链接至标题">¶</a></h3>
 <p>在2.x中才有新式类与旧式类，在3.x中只有新式类。</p>
 <p><strong>Python 2.x中默认都是经典类，只有显式继承了object才是新式类</strong></p>
 <p><strong>Python 3.x中默认都是新式类，不必显式的继承object</strong></p>
@@ -878,8 +869,8 @@ False，因为 float 不是 int 的子类。</dd>
 <li>新式类增加了__getattribute__方法，每次通过实例访问属性，都会经过__getattribute__函数。</li>
 </ol>
 </div>
-<div class="section" id="id18">
-<h3>类的各种属性和方法的使用与区别<a class="headerlink" href="#id18" title="永久链接至标题">¶</a></h3>
+<div class="section" id="id17">
+<h3>类的各种属性和方法的使用与区别<a class="headerlink" href="#id17" title="永久链接至标题">¶</a></h3>
 <p>代码示例：</p>
 <p><strong>class</strong>A(object):</p>
 <blockquote>
@@ -996,8 +987,8 @@ self).__init__()</p>
 <li>最后，子类即便没有继承这个Mixin类，也照样可以工作，就是缺少了某个功能。（比如飞机照样可以载客，就是不能飞了^_^）</li>
 </ul>
 </div>
-<div class="section" id="id19">
-<h3>描述符<a class="headerlink" href="#id19" title="永久链接至标题">¶</a></h3>
+<div class="section" id="id18">
+<h3>描述符<a class="headerlink" href="#id18" title="永久链接至标题">¶</a></h3>
 <p>class Grade(object):</p>
 <blockquote>
 <div><p>def __get__(*args, **kwargs):</p>
@@ -1025,8 +1016,8 @@ self).__init__()</p>
 __set__的对象，那么python解析器就会认定此对象尊从描述符协议。</p>
 </div></blockquote>
 </div>
-<div class="section" id="id20">
-<h3>元编程<a class="headerlink" href="#id20" title="永久链接至标题">¶</a></h3>
+<div class="section" id="id19">
+<h3>元编程<a class="headerlink" href="#id19" title="永久链接至标题">¶</a></h3>
 <div class="section" id="metaclass">
 <h4>元类 Metaclass<a class="headerlink" href="#metaclass" title="永久链接至标题">¶</a></h4>
 <p><a class="reference external" href="https://lotabout.me/2018/Understanding-Python-MetaClass/">https://lotabout.me/2018/Understanding-Python-MetaClass/</a>
@@ -1069,8 +1060,8 @@ self.counter))</p>
 </div>
 </div>
 </div>
-<div class="section" id="id21">
-<h2>其它<a class="headerlink" href="#id21" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id20">
+<h2>其它<a class="headerlink" href="#id20" title="永久链接至标题">¶</a></h2>
 <div class="section" id="python2-vs-python3">
 <h3>python2 vs python3<a class="headerlink" href="#python2-vs-python3" title="永久链接至标题">¶</a></h3>
 <div class="section" id="python2py3nolocal">
@@ -1356,7 +1347,7 @@ referenced before assignment.</p>
 <p>Python 2.x 中反引号``相当于repr函数的作用</p>
 <p>Python 3.x 中去掉了``这种写法，只允许使用repr函数，这样做的目的是为了使代码看上去更清晰么？不过我感觉用repr的机会很少，一般只在debug的时候才用，多数时候还是用str函数来用字符串描述对象。</p>
 <div class="line-block">
-<div class="line">def sendMail(<a href="#id22"><span class="problematic" id="id23">from_</span></a>: str, to: str, title: str, body: str) -&gt; bool:</div>
+<div class="line">def sendMail(<a href="#id21"><span class="problematic" id="id22">from_</span></a>: str, to: str, title: str, body: str) -&gt; bool:</div>
 <div class="line">pass</div>
 </div>
 <p>多个模块被改名（根据PEP8）</p>
