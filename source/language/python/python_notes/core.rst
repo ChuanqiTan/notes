@@ -11,44 +11,6 @@
 -  `python -i file.py` 运行脚本然后进入交互模式，交互中会保留file.py中的符号。
 -  为了减少一个编译模块的大小，你可以在 Python 命令行中使用 -O 或者 -OO。-O 参数删除了断言语句，-OO 参数删除了断言语句和 \__doc_\_ 字符串。
 
-广泛应用的else:
-
-   基础控制语句中 else 不仅仅可以跟 if 一起使用，还可以跟 for, while, try 一同使用：::
-
-       while n < 10:
-           print(n)
-       else:
-           print("else", n)
-
-       for i in range(5):
-           print(i)
-       else:
-           print("else", i)
-
-       try:
-           raise Exception("ERROR")
-       except Exception as e:
-           pass
-       else:
-           print("Else")
-
-比较操作可以传递
-
-   例如 a < b == c 审核是否 a 小于 b 并且 b 等于 c。
-
-输出：
-
-   * rpr() ： 适合于解释器的字符串表示，一般可以从这个字符串重构对象，即 eval(rpr(a)) == a
-   * str()： 合适于人阅读的字符串表示。某对象没有适于人阅读的解释形式的话，str() 会返回与 repr() 等同的值。
-   * str.format()： `'We are the {} who say "{}!"'.format('knights', 'Ni')`
-
-switch语句
-
-   python中没有switch语句，取代的方案是使用字典。::
-
-       s = {1: call_a(), 2: call_b()}
-       s[case]()
-
 字符串
 ==========
 
@@ -64,9 +26,15 @@ switch语句
 -  相邻的两个字符串文本自动连接在一起： 'Py' 'thon' => 'Python'；
 -  字符串切片： s[a:b] 在数学符号上的意义等同于 s[a, b)；
 
+输出：
+
+* rpr() ： 适合于解释器的字符串表示，一般可以从这个字符串重构对象，即 `eval(rpr(a)) == a`
+* str()： 合适于人阅读的字符串表示。某对象没有适于人阅读的解释形式的话，str() 会返回与 repr() 等同的值。
+
 format操作
 
-   "{:.2f}".format(3.1415926) --> 3.14
+- `"{:.2f}".format(3.1415926)` --> 3.14
+- `'We are the {} who say "{}!"'.format('knights', 'Ni')`
 
 tuple & list & dict
 ==================
@@ -74,9 +42,7 @@ tuple & list & dict
 ::
 
     tuple: ()
-
     list: []
-
     dict: {}
 
 分别对应小括号、中括号、大括号。
@@ -97,29 +63,27 @@ tuple & list & dict
 
 理解Python中的参数:
 
-   参数的顺序是: **位置参数、任意位置参数、关键字参数、任意关键字参数**\ 。
+   参数的顺序是: **位置参数、任意位置参数、关键字参数、任意关键字参数** 。
 
    所以： **non-keyword arg after keyword arg 是错误语法，会引发 SyntaxError**
 
    且：如果有默认参数，一定出现在相应位置的最后。
 
-\*和**在参数中的应用:
+\*和\*\*在参数中的应用:
 
-   \*和**用在\ **形参**\ 时，是\ **可变参数**\ ：
+   \*和\*\*用在\ **形参**\ 时，是\ **可变参数**\ ：
 
    问题：
 
-        Python的函数定义中有两种特殊的情况，即出现*，**的形式。
+      Python的函数定义中有两种特殊的情况，即出现\*，\*\*的形式。
 
-        如：def myfun1(username, \*keys)或def myfun2(username,
-   \**keys)等。
+      如：def myfun1(username, \*keys)或def myfun2(username, \**keys)等。
 
    解释：
 
-     \*
-   用来传递\ **任意个无名字参数**\ ，这些参数会一个Tuple的形式访问。
+      \* 用来传递 *任意个无名字参数*，这些参数会一个Tuple的形式访问。
 
-     **用来处理传递**任意个有名字的参数**\ ，这些参数用dict来访问。
+      \*\*用来处理传递 *任意个有名字的参数* ，这些参数用dict来访问。
 
    应用：
 
@@ -136,7 +100,7 @@ tuple & list & dict
        ...             print "keys[" + str(i) + "]=%s" % str(keys[i])
        ...
        >>> fun1(2,3,4,5)
-       输出以下结果：
+       # 输出以下结果：
        keys type=
        keys=(2, 3, 4, 5)
        keys[0]=2
@@ -155,12 +119,12 @@ tuple & list & dict
        ...
        >>>
        >>> fun2(name="vp", age=19)
-       输出以下结果：
+       # 输出以下结果：
        keys type=
        keys={'age': 19, 'name': 'vp'}
        name=vp
 
-       \*和**用在\ **实参**\ 中时，是\ **解包符号**\ ：
+       # \*和**用在\ **实参**\ 中时，是\ **解包符号**\ ：
        a={'a':1, 'b':3}
        "{a}, {b}".format(**a)
 
@@ -187,12 +151,12 @@ tuple & list & dict
        print(f(2))
        print(f(3))
 
-       这将输出:
+       #这将输出:
        [1]
        [1, 2]
        [1, 2, 3]
 
-       如果你不想让默认值在后续调用中累积，你可以像下面一样定义函数:
+       #如果你不想让默认值在后续调用中累积，你可以像下面一样定义函数:
 
        def f(a, L=None):
            if L is None:
@@ -228,12 +192,10 @@ tuple & list & dict
 
 以索引-值对的形式迭代：
 
-   这是非常常见的需求，尤其是从C系转过来的程序员，内建的 enumerate()
-   可以漂亮的解决
+   这是非常常见的需求，尤其是从C系转过来的程序员，内建的 enumerate() 可以漂亮的解决::
 
-   for idx, val in enumerate(my_list):
-
-   print(idx, val)
+       for idx, val in enumerate(my_list):
+       print(idx, val)
 
 切片操作：
 
@@ -267,11 +229,10 @@ itertools 模块：
 哨兵迭代：
 
    内建函数 iter()
-   可以接受一个无参的可调用对象和一个哨兵，它会创建迭代器，重复调用可调用对象直接它返回哨兵为止。这也是一个常见的语法糖。
+   可以接受一个无参的可调用对象和一个哨兵，它会创建迭代器，重复调用可调用对象直接它返回哨兵为止。这也是一个常见的语法糖::
 
-   for v in iter(lambda: s.receive(), "END")
-
-   print(v)
+      for v in iter(lambda: s.receive(), "END")
+      print(v)
 
    一直调用 s.receive() 并输出，直到它返回 END 为止。
 
@@ -289,12 +250,12 @@ itertools 模块：
 
 yield from 语法糖::
 
-   yield from x 可以视为下面的展开
+   yield from x # 可以视为下面的展开
 
    for v in x:
-       yield v
+      yield v
 
-   用 yield from 明显更紧凑更清晰。
+用 yield from 明显更紧凑更清晰。
 
 异常
 =========
@@ -442,10 +403,12 @@ import 钩子机制
 site-packages目录下四种包的形式:
 
 -  | 1.
+
       | site-packages/pylab.py
       | 这种是最好理解的, 因为单个.py文件就可以作为module被引用.
 
 -  | 2.
+
       | site-packages/toolz
       | site-packages/toolz-0.8.0-py2.7.egg-info
       | 这种包有两个目录, 一个目录以包名命名, 因为含有__init__.py的目录,
@@ -454,12 +417,14 @@ site-packages目录下四种包的形式:
         有些包也没有这个目录.
 
 -  | 3.
+
       | site-packages/fasttext-0.7.6-py2.7-Linux-x86_64.egg
       | 单独一个.egg文件. 这种包是把模块都打进了一个egg压缩包里.
         这个压缩包可以视为一个目录,
         模块文件在这里: site-packages/fasttext-0.7.6-py2.7-linux-x86_64.egg/fasttext
 
 -  | 4.
+
       | site-packages/titlectr-0.1-py2.7.egg
       | 虽然文件名跟3相同, 但是这是一个目录, 可以视为是3解压后的样子.
         模块文件在这个目录里: site-packages/titlectr
@@ -475,19 +440,15 @@ site-packages目录下四种包的形式:
 Python有两个setup工具, 一个是setuptools(from setuptools import setup),
 另一个是distutil(from distutil import setup).
 
--  setuptools安装的包, 会形如3和4的样子. 这个工具有完善的打egg包的功能,
-      也倾向于把模块的功能部分和metadata打成一个整体(egg), 方便管理.
-      使用python setup.py bdist_egg命令, 可以将module打成egg包,
-      方便部署.
+-  setuptools安装的包, 会形如3和4的样子. 
+      这个工具有完善的打egg包的功能, 也倾向于把模块的功能部分和metadata打成一个整体(egg), 方便管理. 
+      使用python setup.py bdist_egg命令, 可以将module打成egg包, 方便部署.
 
--  distutil会直接把源码包复制到site-pacakages下，
-      并创建一个和模块并列的metadata.
+-  distutil会直接把源码包复制到site-pacakages下， 并创建一个和模块并列的metadata.
       如果package中有个大文件比如字典(当然很不推荐将大字典封装作为package的一部分,
-      一般外挂), 使用setuptools, 会耗费极大的时间在打包egg上,
-      而distutil可以直接拷贝安装.
+      一般外挂), 使用setuptools, 会耗费极大的时间在打包egg上, 而distutil可以直接拷贝安装.
 
--  除此之外, wheel是一种新的格式. 更类似于java的jar包. python setup.py
-      bdist_wheel可以打包成wheel包.
+-  除此之外, wheel是一种新的格式. 更类似于java的jar包. python setup.py bdist_wheel可以打包成wheel包.
 
 源码、Eggs、Wheel 三种常见的 python 包格式
 
@@ -626,11 +587,9 @@ Python有两个setup工具, 一个是setuptools(from setuptools import setup),
 
 1. print 大法当然是最基本的。
 
-2. 使用 -i 参数进行交互式调试， python -i a.py
-      时，如果发生异常，那么就会在异常处中断并进入交互模式，这时可以查看一下当前的各种变量。
+2. 使用 -i 参数进行交互式调试， `python -i a.py` 时，如果发生异常，那么就会在异常处中断并进入交互模式，这时可以查看一下当前的各种变量。
 
-3. 使用 pdb 进行交互式调试，在需要断点的行写下 import pdb;
-      pdb.set_trace()。这便会在这点停下，并可以使用一些高级命令查看当前变量。
+3. 使用 pdb 进行交互式调试，在需要断点的行写下 `import pdb; pdb.set_trace()` 。这便会在这点停下，并可以使用一些高级命令查看当前变量。
 
    a. bt 打印堆栈
 
@@ -645,6 +604,42 @@ Python有两个setup工具, 一个是setuptools(from setuptools import setup),
    f. return 继续运行到return语句
 
    g. continue 继续运行到下一个断点
+
+独特的语法
+=====================
+
+switch语句
+
+   python中没有switch语句，取代的方案是使用字典。::
+
+       s = {1: call_a(), 2: call_b()}
+       s[case]()
+
+广泛应用的else:
+
+   基础控制语句中 else 不仅仅可以跟 if 一起使用，还可以跟 for, while, try 一同使用：::
+
+       while n < 10:
+           print(n)
+       else:
+           print("else", n)
+
+       for i in range(5):
+           print(i)
+       else:
+           print("else", i)
+
+       try:
+           raise Exception("ERROR")
+       except Exception as e:
+           pass
+       else:
+           print("Else")
+
+比较操作可以传递
+
+   例如 a < b == c 审核是否 a 小于 b 并且 b 等于 c。
+
 
 类与面向对象
 +++++++++++++++++++++++++
@@ -702,12 +697,9 @@ nolocal & global
 
 Python 有两个用于继承的函数：
 
--  函数 isinstance() 用于检查实例类型： isinstance(obj, int) 只有在
-      obj.__class_\_ 是 int 或其它从 int 继承的类型
+-  函数 isinstance() 用于检查实例类型： isinstance(obj, int) 只有在 obj.__class_\_ 是 int 或其它从 int 继承的类型
 
--  函数 issubclass() 用于检查类继承： issubclass(bool, int) 为
-      True，因为 bool 是 int 的子类。然而， issubclass(float, int) 为
-      False，因为 float 不是 int 的子类。
+-  函数 issubclass() 用于检查类继承： issubclass(bool, int) 为 True，因为 bool 是 int 的子类。然而， issubclass(float, int) 为 False，因为 float 不是 int 的子类。
 
 私有变量
 
